@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "hermit";
+  src: url(assets/fonts/hermit-medium.otf) format("opentype");
+}
+
+.frame {
+  position:relative;
+  width: 100%;
+  height: 100%;
+}
+
+.toolbar {
+  width: 100%;
+  height: 22px;
+  top: 0;
+  background-color: lightgrey;
+}
+
+.toolbar > * {
+  float: right;
+  margin-right: 8px;
+}
+
+#output > iframe {
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  position: fixed;
+}
+
+div#container {
+  padding-top: 44px;
+}
