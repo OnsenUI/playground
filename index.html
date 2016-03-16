@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="split.css">
 
   <script defer src="lib/Split.js/split.min.js"></script>
+  <script defer src="lib/markdown-js/markdown.min.js"></script>
   <script defer src="lib/ace/emmet.min.js"></script>
   <script defer src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
   <script defer src="lib/ace/mode-html.js" type="text/javascript" charset="utf-8"></script>
@@ -16,12 +17,22 @@
   <script defer src="lib/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 
   <script src="js/app.js"></script>
+  <script src="js/modules.js"></script>
 
 </head>
 
 <body>
 
-<header>Onsen UI Tutorial</header>
+<header>
+  <div id="title">
+    Onsen UI Tutorial
+  </div>
+  <div id="module-list">
+    <select>
+      <option value="" disabled selected>Select a module</option>
+    </select>
+  </div>
+</header>
 
 <div id="container">
   <div id="leftPane" class="split split-horizontal">
@@ -36,9 +47,10 @@
             <input type="submit" value="Export to Codepen">
           </form>
           <button id="run">Run</button>
+          <span id="styling">Viewing as: <button><span><img class="button-icon"/></span><span class="button-label"></span></button></span>
         </div>
 
-        <iframe frameborder="0"></iframe>
+        <iframe frameborder="0" scrolling="no"></iframe>
       </div>
     </div>
   </div>

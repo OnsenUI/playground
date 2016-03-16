@@ -1,10 +1,39 @@
+body {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
 @font-face {
   font-family: "hermit";
   src: url(assets/fonts/Hermit-medium.otf) format("opentype");
 }
 
+div#container {
+  padding-top: 44px;
+}
+
+header {
+  width: 100%;
+  padding: 10px;
+  position: fixed;
+}
+
+#title {
+  float: left;
+  width: 200px;
+  font-size: 20px;
+}
+
+#module-list {
+  margin: 0 auto;
+  width: 200px;
+}
+
+#module-list > select {
+  width: 100%;
+}
+
 .frame {
-  position:relative;
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -21,15 +50,27 @@
   margin-right: 8px;
 }
 
+.toolbar #styling {
+  float: left;
+  margin-left: 8px;
+}
+
+.toolbar #styling button {
+  width: 80px;
+}
+
+.toolbar .button-icon {
+    width: 12px;
+    height: 12px;
+    padding-top: 2px;
+    float: left;
+}
+
+.toolbar .button-label {
+    margin-left: 6px;
+}
+
 #output > iframe {
   width: 100%;
-  height: 100%;
-}
-
-header {
-  position: fixed;
-}
-
-div#container {
-  padding-top: 44px;
+  height: calc(100% - 26px);
 }
