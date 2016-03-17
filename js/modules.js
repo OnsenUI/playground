@@ -14,6 +14,22 @@ app.modulesSetup = function() {
 	});
 
 	app.selectList.onchange = app.changeModule;
+
+	document.getElementById('pages-previous').onclick = function() {
+		if (app.tutorial && app.tutorial.pageIndex > 0) {
+			app.tutorial.pageIndex--;
+			document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
+			document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+		}
+	};
+
+	document.getElementById('pages-next').onclick = function() {
+		if (app.tutorial && app.tutorial.pageIndex < app.tutorial.pages.length - 1) {
+			app.tutorial.pageIndex++;
+			document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
+			document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+		}
+	};
 };
 
 app.changeModule = function(event) {
@@ -41,11 +57,21 @@ app.changeModule = function(event) {
 
 		var html = format(extract(this.responseText, /<body>([\s\S]*)<\/body>/));
 		var js = format(extract(this.responseText, /<head>[\s\S]*<script>([\s\S]*)<\/script>[\s\S]*<\/head>/));
-		var docs = markdown.toHTML(extract(this.responseText, /<\/html>\s*<!--.*\n([\s\S]*)-->/).trim());
+		var docs = extract(this.responseText, /<\/html>\s*<!--.*\n([\s\S]*)-->/).trim();
 
-		app.editors.html.setValue(html, -1);
-		app.editors.js.setValue(js, -1);
-		document.getElementById('tutorial').innerHTML = docs;
+		app.tutorial = {
+			pageIndex: 0,
+			pages: docs.split(/\n(?=[ \t]*#{2}(?!#))/).map(function(e) {
+				return markdown.toHTML(e);
+			})
+		};
+
+		app.editors.html.setValue('\n' + html, -1);
+		app.editors.js.setValue('\n' + js, -1);
+
+		document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
+		document.getElementById('pages-total').innerHTML = app.tutorial.pages.length;
+		document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[0];
 
     app.runProject();
 	};

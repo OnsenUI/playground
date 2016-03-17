@@ -59,24 +59,47 @@ app.outputTemplate = function() {
   `;
 };
 
+app.welcomeMessage = `
+## Welcome
+
+This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
+
+  * In the preview section you can switch between iOS and Android view for Automatic Styling.
+
+  * If you want to save any of these examples you export the code to Codepen.
+
+  * Press 'ctrl + s' to quickly refresh the preview.
+
+
+This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
+
+![onsen](assets/icons/onsen.png)
+
+`;
+
 app.splitPanes = function() {
   Split(['#leftPane', '#rightPane'], {
     gutterSize: 8,
+    sizes: [30, 70],
     cursor: 'col-resize'
   });
 
   Split(['#leftTopPane', '#leftBottomPane'], {
     direction: 'vertical',
-    sizes: [25, 75],
+    sizes: [40, 60],
     gutterSize: 8,
     cursor: 'row-resize'
   });
 
   Split(['#rightTopPane', '#rightBottomPane'], {
     direction: 'vertical',
-    sizes: [25, 75],
+    sizes: [50, 50],
     gutterSize: 8,
-    cursor: 'row-resize'
+    cursor: 'row-resize',
+    onDrag: function() {
+      app.editors.js.resize();
+      app.editors.html.resize();
+    }
   });
 }
 
@@ -152,6 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
   app.editors.js = app.createEditor('js-input', 'javascript');
   app.editors.js.setValue(window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\')', -1);
 
+  document.body.querySelector('#tutorial-content').innerHTML = markdown.toHTML(app.welcomeMessage);
   document.body.querySelector('#codepen-form').onsubmit = app.codepenSubmit;
   document.body.querySelector('#run').onclick = app.runProject;
   document.body.querySelector('#styling button').onclick = function() {

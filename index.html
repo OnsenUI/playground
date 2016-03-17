@@ -25,9 +25,10 @@
 
 <header>
   <div id="title">
-    Onsen UI Tutorial
+    <span class="logo">Onsen UI</span> Interactive Tutorial
   </div>
   <div id="module-list">
+    <span class="fancyArrow"></span>
     <select>
       <option value="" disabled selected>Select a module</option>
     </select>
@@ -37,7 +38,15 @@
 <div id="container">
   <div id="leftPane" class="split split-horizontal">
     <div id="leftTopPane" class="split content">
-      <div id="tutorial" class="frame"></div>
+      <div id="tutorial-content" class="frame"></div>
+      <div id="tutorial-pages">
+        <span id="pages-previous">◀</span>
+        <span id="pages-current">1</span>
+        /
+        <span id="pages-total">1</span>
+        <span id="pages-next">▶</span>
+
+      </div>
     </div>
     <div id="leftBottomPane" class="split content">
       <div id="output" class="frame">
@@ -46,7 +55,7 @@
             <input type="hidden" name="data" id="codepen-data">
             <input type="submit" value="Export to Codepen">
           </form>
-          <button id="run">Run</button>
+          <button id="run"><span>▶</span> Run</button>
           <span id="styling">Viewing as: <button><span><img class="button-icon"/></span><span class="button-label"></span></button></span>
         </div>
 
