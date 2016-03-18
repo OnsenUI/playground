@@ -19,7 +19,7 @@ header {
 
 #title {
   float: left;
-  width: 300px;
+  width: 280px;
   font-size: 20px;
 }
 
@@ -60,27 +60,12 @@ header {
 .toolbar > * {
   float: right;
   margin-right: 8px;
+  height: 22px;
 }
 
 .toolbar #styling {
   float: left;
   margin-left: 8px;
-  font-size: 14px;
-}
-
-.toolbar #styling button {
-  width: 80px;
-}
-
-.toolbar .button-icon {
-    width: 12px;
-    height: 12px;
-    padding-top: 2px;
-    float: left;
-}
-
-.toolbar .button-label {
-    margin-left: 6px;
 }
 
 #run span {
@@ -101,7 +86,7 @@ header {
 
 #tutorial-pages {
   position: absolute;
-  right: 12px;
+  right: 22px;
   bottom: 8px;
 }
 
@@ -114,15 +99,20 @@ header {
   cursor: pointer;
   color: rgba(24,103,194,0.81);
 }
-
 #tutorial-pages {
   cursor: default;
-  background-color: rgba(211, 211, 211, 0.24);
+  background-color: rgb(245, 245, 245);
+  opacity: 0.5;
+  transition: opacity .1s;
   border-radius: 4px;
   padding: 4px;
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
+}
+
+#tutorial-pages:hover {
+  opacity: 1;
 }
 
 body .ace_scrollbar {
@@ -175,7 +165,7 @@ select {
   display: inline-block;
   top: 3px;
   right: 4px;
-  background: url('assets/icons/onsen.png') right / 90%  no-repeat #fff;
+  background: url('assets/icons/onsenui.svg') right / 90%  no-repeat #fff;
   pointer-events: none;
 }
 
@@ -183,4 +173,67 @@ button,
 input[type=submit] {
   cursor: pointer;
   color: #222;
+}
+
+#placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 10;
+}
+
+#placeholder svg {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+}
+
+#codepen-submit {
+   padding-left: 8px;
+}
+#codepen-submit span {
+  background: url('assets/icons/codepen.svg') left / 15px no-repeat transparent;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  left: -4px;
+}
+
+#styling button {
+  width: 84px;
+}
+
+#styling-icon {
+  width: 18px;
+  height: 16px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#styling-label {
+  vertical-align: middle;
+}
+
+.icon-ios {
+  background: url('assets/icons/apple.svg') left / 60px no-repeat transparent;
+  left: -15px;
+}
+
+.icon-android {
+  background: url('assets/icons/android.svg') left / 60px no-repeat transparent;
+  left: -3px;
+}
+
+@media (max-width: 762px) {
+  #module-list {
+    float: left;
+  }
 }

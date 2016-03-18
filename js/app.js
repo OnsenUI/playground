@@ -73,28 +73,29 @@ This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
 
 This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
 
-![onsen](assets/icons/onsen.png)
+![onsen](assets/icons/onsenui.svg)
 
 `;
 
 app.splitPanes = function() {
   Split(['#leftPane', '#rightPane'], {
-    gutterSize: 8,
+    gutterSize: 10,
     sizes: [30, 70],
+    minSize: 250,
     cursor: 'col-resize'
   });
 
   Split(['#leftTopPane', '#leftBottomPane'], {
     direction: 'vertical',
     sizes: [40, 60],
-    gutterSize: 8,
+    gutterSize: 10,
     cursor: 'row-resize'
   });
 
   Split(['#rightTopPane', '#rightBottomPane'], {
     direction: 'vertical',
     sizes: [50, 50],
-    gutterSize: 8,
+    gutterSize: 10,
     cursor: 'row-resize',
     onDrag: function() {
       app.editors.js.resize();
@@ -124,17 +125,19 @@ app.codepenSubmit = function() {
 };
 
 app.switchStyle = function() {
-  var buttonIcon = document.querySelector('#styling .button-icon');
-  var buttonLabel = document.querySelector('#styling .button-label');
+  var buttonIcon = document.querySelector('#styling-icon');
+  var buttonLabel = document.querySelector('#styling-label');
   if (app.config.platform === 'android') {
     app.config.platform = 'ios';
     buttonLabel.innerHTML = 'ios';
-    buttonIcon.setAttribute('src', './assets/icons/ios.png');
+    buttonIcon.classList.remove('icon-android');
+    buttonIcon.classList.add('icon-ios');
 
   } else {
     app.config.platform = 'android';
     buttonLabel.innerHTML = 'android';
-    buttonIcon.setAttribute('src', './assets/icons/android.png');
+    buttonIcon.classList.remove('icon-ios');
+    buttonIcon.classList.add('icon-android');
   }
 };
 
@@ -185,3 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   app.requestPromise.then(app.runProject);
 });
+
+window.onload = function() {
+  document.body.querySelector('#placeholder').style.display = 'none';
+};
