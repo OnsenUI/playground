@@ -1,0 +1,61 @@
+.tabs {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 18px);
+  clear: both;
+  margin: 11px 0;
+  padding: 0;
+}
+
+.tab {
+  float: left;
+}
+
+.tab label {
+  background: #ccc;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-left: -1px;
+  position: relative;
+  left: 1px;
+  cursor: pointer;
+}
+
+.tab [type=radio] {
+  display: none;
+}
+
+.content {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  background: white;
+  right: 0;
+  bottom: 0;
+  height: calc(100% - 20px);
+}
+
+[type=radio]:checked ~ label {
+  background: #999;
+  color: white;
+  z-index: 2;
+  border-bottom: 2px inset white;
+  box-shadow: inset 0px -4px 0px -2px white;
+}
+
+[type=radio]:checked ~ label ~ .content {
+  z-index: 5;
+}
+
+#output > iframe {
+  width: 100%;
+  height: calc(100% - 35px);
+}
+
+body {
+  background: #ccc;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+}

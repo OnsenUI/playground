@@ -4,42 +4,7 @@ body {
 
 @font-face {
   font-family: "hermit";
-  src: url(assets/fonts/Hermit-medium.otf) format("opentype");
-}
-
-div#container {
-  padding-top: 44px;
-}
-
-header {
-  width: 100%;
-  padding: 10px;
-  position: fixed;
-}
-
-#title {
-  float: left;
-  width: 280px;
-  font-size: 20px;
-}
-
-#title .logo {
-  color: #FC3429;
-  font-style: italic;
-  margin-right: 8px;
-}
-
-#module-list {
-  margin: 0 auto;
-  width: 200px;
-}
-
-#module-list > select {
-  width: 100%;
-}
-
-.split.content {
-  overflow: hidden;
+  src: url(../assets/fonts/Hermit-medium.otf) format("opentype");
 }
 
 .frame {
@@ -73,11 +38,6 @@ header {
   line-height: 0;
 }
 
-#output > iframe {
-  width: 100%;
-  height: calc(100% - 40px);
-}
-
 #tutorial-content {
   padding-left: 12px;
   overflow-y: auto;
@@ -88,10 +48,6 @@ header {
   position: absolute;
   right: 22px;
   bottom: 8px;
-}
-
-#leftTopPane {
-  position: relative;
 }
 
 #pages-previous,
@@ -123,7 +79,6 @@ body .ace_editor:hover .ace_scrollbar {
     display: block;
 }
 
-
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -137,67 +92,18 @@ body .ace_editor:hover .ace_scrollbar {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
-
-select {
-  margin-top: -4px;
-  cursor: pointer;
-  display: inline-block;
-  height:30px;
-  width: 150px;
-  padding: 2px 10px 2px 2px;
-  outline: none;
-  color: #74646e;
-  border: 1px solid #C8BFC4;
-  border-radius: 4px;
-  box-shadow: inset 1px 1px 2px #ddd8dc;
-  background: #fff;
-}
-
-#module-list {
-  position: relative;
-}
-
-.fancyArrow {
-  margin-top: -4px;
-  width: 23px;
-  height: 24px;
-  position: absolute;
-  display: inline-block;
-  top: 3px;
-  right: 4px;
-  background: url('assets/icons/onsenui.svg') right / 90%  no-repeat #fff;
-  pointer-events: none;
-}
-
 button,
 input[type=submit] {
   cursor: pointer;
   color: #222;
 }
 
-#placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: white;
-  z-index: 10;
-}
-
-#placeholder svg {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  top: calc(50% - 100px);
-  left: calc(50% - 100px);
-}
-
 #codepen-submit {
    padding-left: 8px;
 }
+
 #codepen-submit span {
-  background: url('assets/icons/codepen.svg') left / 15px no-repeat transparent;
+  background: url('../assets/icons/codepen.svg') left / 15px no-repeat transparent;
   width: 15px;
   height: 15px;
   position: relative;
@@ -223,17 +129,16 @@ input[type=submit] {
 }
 
 .icon-ios {
-  background: url('assets/icons/apple.svg') left / 60px no-repeat transparent;
+  background: url('../assets/icons/apple.svg') left / 60px no-repeat transparent;
   left: -15px;
 }
 
 .icon-android {
-  background: url('assets/icons/android.svg') left / 60px no-repeat transparent;
+  background: url('../assets/icons/android.svg') left / 60px no-repeat transparent;
   left: -3px;
 }
 
-@media (max-width: 762px) {
-  #module-list {
-    float: left;
-  }
+.ace_content {
+  padding-top: 6px;
+  padding-left: 4px;
 }

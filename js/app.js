@@ -4,8 +4,15 @@ var app = {
 		css: {}
 	},
 	config: {},
-  editors: {}
-}
+  editors: {},
+  util: {}
+};
+
+app.util.getParam = function(param) {
+  var regex = new RegExp(param + '=([\\w- ]+)');
+  var query = window.location.search.replace(/\+|%20/, ' ');
+  return ((query.match(regex) || [])[1] || '');
+};
 
 app.config.onsenRepo = 'OnsenUI/OnsenUI-dist';
 app.config.onsenCdn = 'https://cdn.rawgit.com';
@@ -14,7 +21,15 @@ app.config.platform = 'android';
 app.request = new XMLHttpRequest();
 app.requestPromise = new Promise(function(resolve) {
   app.request.onload = function() {
-    app.config.onsenVersion = JSON.parse(this.responseText)[0].name;
+    var response = JSON.parse(this.responseText)[0];
+    if (response) {
+      app.config.onsenVersion = response.name;
+    }else {
+      console.warn('Could not fetch Onsen UI versions. Github\'s API rate limit exceeded.');
+      app.config.onsenVersion = '2.0.0-beta.7';
+    }
+
+    console.info('Using OnsenUI', app.config.onsenVersion);
     resolve();
   };
 });
@@ -107,7 +122,7 @@ app.splitPanes = function() {
 app.runProject = function() {
   window.sessionStorage.setItem('editorHtmlContent', app.editors.html.getValue());
   window.sessionStorage.setItem('editorJsContent', app.editors.js.getValue());
-  app.output.srcdoc = app.outputTemplate()
+  document.querySelector('#output iframe').srcdoc = app.outputTemplate()
     .replace('{{html}}', app.editors.html.getValue())
     .replace('{{javascript}}', app.editors.js.getValue());
 };
@@ -143,8 +158,11 @@ app.switchStyle = function() {
 
 app.createEditor = function(id, language) {
     var editor = ace.edit(id);
-    editor.setTheme("ace/theme/chrome");
+    editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/" + language);
+    editor.session.setTabSize(2);
+    editor.session.setUseSoftTabs(true);
+    editor.renderer.setShowGutter(window.Split);
     editor.$blockScrolling = Infinity;
     editor.setOptions({
       fontSize: "10pt",
@@ -158,6 +176,42 @@ app.createEditor = function(id, language) {
     return editor;
 };
 
+app.pagesCounterSetup  = function() {
+  document.getElementById('pages-previous').onclick = function() {
+    if (app.tutorial && app.tutorial.pageIndex > 0) {
+      app.tutorial.pageIndex--;
+      document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
+      document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+    }
+  };
+
+  document.getElementById('pages-next').onclick = function() {
+    if (app.tutorial && app.tutorial.pageIndex < app.tutorial.pages.length - 1) {
+      app.tutorial.pageIndex++;
+      document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
+      document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+    }
+  };
+};
+
+app.tabViewSetup = function() {
+  var activeTabIndex = app.util.getParam('tab-active');
+  var visibleTabs = app.util.getParam('tab-visibility');
+
+  if (activeTabIndex) {
+    var activeTab = document.querySelector('#tab-' + activeTabIndex);
+    if (activeTab) {
+      activeTab.checked = true;
+    }
+  }
+
+  if (visibleTabs) {
+    for (var i = 1; i <= 4; i++) {
+      document.querySelector('#tab-' + i).parentElement.children[1].style.display = (+ visibleTabs[i - 1]) ? '' : 'none';
+    }
+  }
+};
+
 window.onkeydown = function(e){
   if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
     e.preventDefault();
@@ -165,20 +219,38 @@ window.onkeydown = function(e){
   }
 };
 
+window.onload = function() {
+  var placeholder = document.body.querySelector('#placeholder');
+  if (placeholder) {
+    placeholder.style.display = 'none';
+  }
+};
+
 document.addEventListener("DOMContentLoaded", function() {
-  app.splitPanes();
-  app.switchStyle();
-  app.modulesSetup();
 
-  app.output = document.body.querySelector('#output iframe');
+  // General setup
+  if (window.Split) {
+    app.splitPanes();
+    app.modules.setup();
+  } else {
+    app.tabViewSetup();
+  }
+  var module = app.util.getParam('module');
+  var part = app.util.getParam('part');
+  if (module && part) {
+    app.modules.change(module, part);
+  }
 
+  // Editors setup
   ace.require("ace/ext/language_tools");
   app.editors.html = app.createEditor('html-input', 'html');
   app.editors.html.setValue(window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>', -1);
   app.editors.js = app.createEditor('js-input', 'javascript');
   app.editors.js.setValue(window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\')', -1);
 
-  document.body.querySelector('#tutorial-content').innerHTML = markdown.toHTML(app.welcomeMessage);
+  // Preview setup
+  app.switchStyle();
+  app.requestPromise.then(app.runProject);
   document.body.querySelector('#codepen-form').onsubmit = app.codepenSubmit;
   document.body.querySelector('#run').onclick = app.runProject;
   document.body.querySelector('#styling button').onclick = function() {
@@ -186,9 +258,10 @@ document.addEventListener("DOMContentLoaded", function() {
     app.runProject();
   };
 
-  app.requestPromise.then(app.runProject);
-});
+  // Tutorial setup
+  app.pagesCounterSetup();
+  if (!module || !part) {
+    document.body.querySelector('#tutorial-content').innerHTML = markdown.toHTML(app.welcomeMessage);
+  }
 
-window.onload = function() {
-  document.body.querySelector('#placeholder').style.display = 'none';
-};
+});
