@@ -131,6 +131,9 @@ app.splitPanes = function() {
     cursor: 'row-resize',
     onDrag: app.util.resize.handler
   });
+
+  document.querySelector('#leftPane').style.width = 'calc(30% - 7.5px)';
+  document.querySelector('#rightPane').style.width = 'calc(70% - 7.5px)';
 }
 
 app.runProject = function() {
