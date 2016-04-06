@@ -16,7 +16,7 @@ body {
 .toolbar {
   width: 100%;
   height: 28px;
-  padding-top: 6px;
+  padding-top: 4px;
   top: 0;
   background-color: rgba(211, 211, 211, 0.24);
   border-bottom: 1px solid #bbb;
@@ -25,7 +25,10 @@ body {
 .toolbar > * {
   float: right;
   margin-right: 8px;
-  height: 22px;
+}
+
+button {
+    height: 24px;
 }
 
 .toolbar #styling {
@@ -96,6 +99,9 @@ button,
 input[type=submit] {
   cursor: pointer;
   color: #222;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
 }
 
 #codepen-submit {
@@ -136,9 +142,4 @@ input[type=submit] {
 .icon-android {
   background: url('../assets/icons/android.svg') left / 60px no-repeat transparent;
   left: -3px;
-}
-
-.ace_content {
-  padding-top: 6px;
-  padding-left: 4px;
 }

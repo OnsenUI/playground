@@ -67,7 +67,7 @@ select {
 
 #output > iframe {
   width: 100%;
-  height: calc(100% - 40px);
+  height: calc(100% - 38px);
 }
 
 #placeholder {
@@ -78,6 +78,7 @@ select {
   height: 100%;
   background: white;
   z-index: 10;
+  animation: pulse 0.5s ease-in-out infinite alternate;
 }
 
 #placeholder svg {
@@ -91,5 +92,27 @@ select {
 @media (max-width: 762px) {
   #module-list {
     float: left;
+  }
+}
+
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }

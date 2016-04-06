@@ -14,6 +14,22 @@ app.util.getParam = function(param) {
   return ((query.match(regex) || [])[1] || '');
 };
 
+app.util.resize = {
+  lock: null,
+  throttler: function() {
+    if (!app.util.resize.lock) {
+      app.util.resize.lock = setTimeout(function() {
+        app.util.resize.lock = null;
+        app.util.resize.handler();
+       }, 50);
+    }
+  },
+  handler: function() {
+    app.editors.js.resize();
+    app.editors.html.resize();
+  }
+};
+
 app.config.onsenRepo = 'OnsenUI/OnsenUI-dist';
 app.config.onsenCdn = 'https://cdn.rawgit.com';
 app.config.platform = 'android';
@@ -94,7 +110,7 @@ This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
 
 app.splitPanes = function() {
   Split(['#leftPane', '#rightPane'], {
-    gutterSize: 10,
+    gutterSize: 15,
     sizes: [30, 70],
     minSize: 250,
     cursor: 'col-resize'
@@ -103,19 +119,17 @@ app.splitPanes = function() {
   Split(['#leftTopPane', '#leftBottomPane'], {
     direction: 'vertical',
     sizes: [40, 60],
-    gutterSize: 10,
+    gutterSize: 15,
     cursor: 'row-resize'
   });
 
   Split(['#rightTopPane', '#rightBottomPane'], {
     direction: 'vertical',
     sizes: [50, 50],
-    gutterSize: 10,
+    minSize: 140,
+    gutterSize: 15,
     cursor: 'row-resize',
-    onDrag: function() {
-      app.editors.js.resize();
-      app.editors.html.resize();
-    }
+    onDrag: app.util.resize.handler
   });
 }
 
@@ -169,7 +183,8 @@ app.createEditor = function(id, language) {
       fontFamily: "hermit",
       enableBasicAutocompletion: true,
       enableSnippets: true,
-      enableLiveAutocompletion: false
+      enableLiveAutocompletion: false,
+      showPrintMargin: false
 
     });
 
@@ -222,9 +237,11 @@ window.onkeydown = function(e){
 window.onload = function() {
   var placeholder = document.body.querySelector('#placeholder');
   if (placeholder) {
-    placeholder.style.display = 'none';
+    placeholder.remove();
   }
 };
+
+window.onresize = app.util.resize.throttler;
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -240,6 +257,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (module && part) {
     app.modules.change(module, part);
   }
+  document.body.classList.add('dark-skin');
 
   // Editors setup
   ace.require("ace/ext/language_tools");

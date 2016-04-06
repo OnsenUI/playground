@@ -20,6 +20,9 @@
   position: relative;
   left: 1px;
   cursor: pointer;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
 }
 
 .tab [type=radio] {
@@ -33,7 +36,7 @@
   background: white;
   right: 0;
   bottom: 0;
-  height: calc(100% - 20px);
+  height: calc(100% - 18px);
 }
 
 [type=radio]:checked ~ label {
@@ -50,7 +53,7 @@
 
 #output > iframe {
   width: 100%;
-  height: calc(100% - 35px);
+  height: calc(100% - 33px);
 }
 
 body {
