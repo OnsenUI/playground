@@ -39,7 +39,10 @@ app.modules.change = function(module, part) {
 	if (!part) {
 		part = app.selectList.options[app.selectList.selectedIndex].label;
 		module = app.selectList.options[app.selectList.selectedIndex].parentElement.label;
-		window.history.replaceState('', '', '?module=' + module.replace(' ', '+') + '&part=' + part.replace(' ', '+'))
+		window.history.pushState({
+			module: module,
+			part: part
+		}, '', '?module=' + module.replace(' ', '+') + '&part=' + part.replace(' ', '+'))
 	}
 
 	return new Promise(function(resolve) {

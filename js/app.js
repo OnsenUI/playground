@@ -243,6 +243,10 @@ window.onload = function() {
 
 window.onresize = app.util.resize.throttler;
 
+window.onpopstate = function(event) {
+  app.modules.change(event.state.module, event.state.part).then(app.runProject);;
+};
+
 document.addEventListener("DOMContentLoaded", function() {
 
   // General setup
