@@ -20,14 +20,6 @@ header {
   margin-right: 8px;
 }
 
-.split.content {
-  overflow: hidden;
-}
-
-#leftTopPane {
-  position: relative;
-}
-
 select {
   margin-top: -4px;
   cursor: pointer;
@@ -44,7 +36,7 @@ select {
 }
 
 #module-list {
-  margin: 0 auto;
+  margin:0 auto;
   width: 200px;
   position: relative;
 }
@@ -63,6 +55,32 @@ select {
   right: 4px;
   background: url('../assets/icons/onsenui.svg') right / 90%  no-repeat #fff;
   pointer-events: none;
+}
+
+#toolbar {
+  float: right;
+  width: 50px;
+  margin-right: 10px;
+}
+
+#skin {
+  float: right;
+  margin-right: 10px;
+  font-size: 28px;
+  line-height: 24px;
+  color: #666;
+  cursor: pointer;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+}
+
+.split.content {
+  overflow: hidden;
+}
+
+#leftTopPane {
+  position: relative;
 }
 
 #output > iframe {
@@ -87,6 +105,20 @@ select {
   position: absolute;
   top: calc(50% - 100px);
   left: calc(50% - 100px);
+}
+
+.editor-title {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  z-index: 1;
+  color: #DDD;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.content {
+  position: relative;
 }
 
 @media (max-width: 762px) {

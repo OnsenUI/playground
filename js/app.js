@@ -172,15 +172,15 @@ app.switchStyle = function() {
 
 app.createEditor = function(id, language) {
     var editor = ace.edit(id);
-    editor.setTheme("ace/theme/monokai");
+    editor.setTheme('ace/theme/monokai');
     editor.session.setMode("ace/mode/" + language);
     editor.session.setTabSize(2);
     editor.session.setUseSoftTabs(true);
     editor.renderer.setShowGutter(window.Split);
     editor.$blockScrolling = Infinity;
     editor.setOptions({
-      fontSize: "10pt",
-      fontFamily: "hermit",
+      fontSize: '10pt',
+      fontFamily: 'hermit',
       enableBasicAutocompletion: true,
       enableSnippets: true,
       enableLiveAutocompletion: false,
@@ -189,6 +189,13 @@ app.createEditor = function(id, language) {
     });
 
     return editor;
+};
+
+app.toggleTheme = function() {
+  document.body.classList.toggle('dark-skin');
+  Object.keys(app.editors).forEach(function(editor) {
+    app.editors[editor].setTheme('ace/theme/' + (document.body.classList.contains('dark-skin') ? 'monokai' : 'chrome'));
+  });
 };
 
 app.pagesCounterSetup  = function() {
@@ -227,6 +234,10 @@ app.tabViewSetup = function() {
   }
 };
 
+app.toolbarSetup = function() {
+  document.querySelector('#skin').onclick = app.toggleTheme;
+};
+
 window.onkeydown = function(e){
   if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
     e.preventDefault();
@@ -250,9 +261,11 @@ window.onpopstate = function(event) {
 document.addEventListener("DOMContentLoaded", function() {
 
   // General setup
+  document.body.classList.add('dark-skin');
   if (window.Split) {
     app.splitPanes();
     app.modules.setup();
+    app.toolbarSetup();
   } else {
     app.tabViewSetup();
   }
@@ -261,7 +274,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (module && part) {
     app.modules.change(module, part);
   }
-  document.body.classList.add('dark-skin');
 
   // Editors setup
   ace.require("ace/ext/language_tools");

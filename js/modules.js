@@ -42,7 +42,7 @@ app.modules.change = function(module, part) {
 		window.history.pushState({
 			module: module,
 			part: part
-		}, '', '?module=' + module.replace(' ', '+') + '&part=' + part.replace(' ', '+'))
+		}, '', '?module=' + module.replace(' ', '+') + '&part=' + part.replace(' ', '+'));
 	}
 
 	return new Promise(function(resolve) {

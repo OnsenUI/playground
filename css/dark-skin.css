@@ -32,3 +32,11 @@
 .dark-skin ::-webkit-scrollbar-thumb {
     background-color: #ddd;
 }
+
+.dark-skin .editor-title {
+  color: #666;
+}
+
+.dark-skin #skin {
+  color: #EEE;
+}
