@@ -43,6 +43,13 @@ app.modules.change = function(module, part) {
 			module: module,
 			part: part
 		}, '', '?module=' + module.replace(' ', '+') + '&part=' + part.replace(' ', '+'));
+	} else {
+	  var group = app.selectList.querySelector('optgroup[label="' + module + '"]');
+	  app.util.arrayFrom(group.children).forEach(function(option) {
+	    if (option.value === part) {
+	      option.selected = true;
+	    }
+	  });
 	}
 
 	return new Promise(function(resolve) {

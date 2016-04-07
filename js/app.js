@@ -8,25 +8,29 @@ var app = {
   util: {}
 };
 
-app.util.getParam = function(param) {
-  var regex = new RegExp(param + '=([\\w- ]+)');
-  var query = window.location.search.replace(/\+|%20/, ' ');
-  return ((query.match(regex) || [])[1] || '');
-};
-
-app.util.resize = {
-  lock: null,
-  throttler: function() {
-    if (!app.util.resize.lock) {
-      app.util.resize.lock = setTimeout(function() {
-        app.util.resize.lock = null;
-        app.util.resize.handler();
-       }, 50);
-    }
+app.util = {
+  getParam: function(param) {
+    var regex = new RegExp(param + '=([\\w- ]+)');
+    var query = window.location.search.replace(/\+|%20/, ' ');
+    return ((query.match(regex) || [])[1] || '');
   },
-  handler: function() {
-    app.editors.js.resize();
-    app.editors.html.resize();
+  arrayFrom: function(arrayLike) {
+    return Array.prototype.slice.call(arrayLike);
+  },
+  resize: {
+    lock: null,
+    throttler: function() {
+      if (!app.util.resize.lock) {
+        app.util.resize.lock = setTimeout(function() {
+          app.util.resize.lock = null;
+          app.util.resize.handler();
+         }, 50);
+      }
+    },
+    handler: function() {
+      app.editors.js.resize();
+      app.editors.html.resize();
+    }
   }
 };
 
@@ -90,7 +94,8 @@ app.outputTemplate = function() {
   `;
 };
 
-app.welcomeMessage = `
+app.showWelcomeMessage = function() {
+  var message = `
 ## Welcome
 
 This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
@@ -106,7 +111,11 @@ This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
 
 ![onsen](assets/icons/onsenui.svg)
 
-`;
+` ;
+
+  document.body.querySelector('#tutorial-content').innerHTML = markdown.toHTML(message);
+  app.selectList.children[0].selected = true;
+};
 
 app.splitPanes = function() {
   Split(['#leftPane', '#rightPane'], {
@@ -258,7 +267,11 @@ window.onload = function() {
 window.onresize = app.util.resize.throttler;
 
 window.onpopstate = function(event) {
-  app.modules.change(event.state.module, event.state.part).then(app.runProject);;
+  if (event.state) {
+    app.modules.change(event.state.module, event.state.part).then(app.runProject);
+  } else {
+    app.showWelcomeMessage();
+  }
 };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -298,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Tutorial setup
   app.pagesCounterSetup();
   if (!module || !part) {
-    document.body.querySelector('#tutorial-content').innerHTML = markdown.toHTML(app.welcomeMessage);
+    app.showWelcomeMessage();
   }
 
 });
