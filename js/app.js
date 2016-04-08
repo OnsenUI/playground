@@ -3,7 +3,6 @@ window.app = {};
 document.addEventListener("DOMContentLoaded", function() {
 
   // General setup
-  document.body.classList.add('dark-skin');
   if (window.Split) {
     app.setup.splitPanes();
     app.setup.modules();
@@ -15,6 +14,11 @@ document.addEventListener("DOMContentLoaded", function() {
   var part = app.util.getParam('part');
   if (module && part) {
     app.services.changeModule(module, part);
+  }
+
+  // Theme setup
+  if (!window.Split || window.localStorage.getItem('onsDarkSkin')) {
+    document.body.classList.add('dark-skin');
   }
 
   // Editors setup

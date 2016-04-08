@@ -30,7 +30,7 @@ app.setup.splitPanes = function() {
 
 app.setup.editor = function(id, language) {
     var editor = ace.edit(id);
-    editor.setTheme('ace/theme/monokai');
+    editor.setTheme('ace/theme/' + (document.body.classList.contains('dark-skin') ? 'monokai' : 'chrome'));
     editor.session.setMode("ace/mode/" + language);
     editor.session.setTabSize(2);
     editor.session.setUseSoftTabs(true);

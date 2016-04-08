@@ -83,6 +83,7 @@ app.services.switchStyle = function() {
 
 app.services.toggleTheme = function() {
   document.body.classList.toggle('dark-skin');
+  window.localStorage[window.localStorage.getItem('onsDarkSkin') ? 'removeItem' : 'setItem']('onsDarkSkin', 'true');
   Object.keys(app.editors).forEach(function(editor) {
     app.editors[editor].setTheme('ace/theme/' + (document.body.classList.contains('dark-skin') ? 'monokai' : 'chrome'));
   });
