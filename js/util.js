@@ -25,3 +25,18 @@ app.util.resize = {
     app.editors.html.resize();
   }
 };
+
+app.util.format = function(code) {
+  var indentation = extract(code, /([\t ]*)\S/);
+  code = code.trim();
+
+  if (indentation) {
+    code = code.replace(new RegExp('^' + indentation, 'gm'), '');
+  }
+
+  return code;
+};
+
+app.util.extract = function(string, regex) {
+  return ((string.match(regex) || [])[1] || '');
+};

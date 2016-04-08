@@ -90,21 +90,6 @@ app.services.toggleTheme = function() {
 };
 
 app.services.changeModule = function(module, part) {
-  var extract = function(string, regex) {
-    return ((string.match(regex) || [])[1] || '');
-  };
-
-  var format = function(code) {
-    var indentation = extract(code, /([\t ]*)\S/);
-    code = code.trim();
-
-    if (indentation) {
-      code = code.replace(new RegExp('^' + indentation, 'gm'), '');
-    }
-
-    return code;
-  };
-
   if (!part) {
     part = app.selectList.options[app.selectList.selectedIndex].label;
     module = app.selectList.options[app.selectList.selectedIndex].parentElement.label;
@@ -124,6 +109,9 @@ app.services.changeModule = function(module, part) {
   return new Promise(function(resolve) {
     var request = new XMLHttpRequest();
     request.onload = function() {
+
+      var format = app.util.format,
+        extract = app.util.extract;
 
       var html = format(extract(this.responseText, /<body>([\s\S]*)<\/body>/));
       var js = format(extract(this.responseText, /<head>[\s\S]*<script>([\s\S]*)<\/script>[\s\S]*<\/head>/));
