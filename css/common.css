@@ -42,6 +42,7 @@ button {
 }
 
 #tutorial-content {
+  font-size: 14px;
   padding-left: 12px;
   overflow-y: auto;
   box-sizing: border-box;

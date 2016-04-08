@@ -20,6 +20,11 @@ header {
   margin-right: 8px;
 }
 
+#title > a {
+  text-decoration: none;
+  color: inherit;
+}
+
 select {
   margin-top: -4px;
   cursor: pointer;
@@ -85,7 +90,7 @@ select {
 
 #output > iframe {
   width: 100%;
-  height: calc(100% - 38px);
+  height: calc(100% - 32px);
 }
 
 #placeholder {
@@ -115,6 +120,10 @@ select {
   color: #DDD;
   font-size: 28px;
   font-weight: bold;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  pointer-events: none;
 }
 
 .content {
