@@ -1,6 +1,14 @@
 app.modules = {};
 
-app.modules.hash = {'Navigation Components': ['navigator', 'tabbar']};
+app.modules.hash = {
+  'Getting started': [
+    'Creating a page',
+    'The Navigator'
+  ],
+  'React': [
+    'Using the components'
+  ]
+};
 
 app.modules.setup = function() {
 	app.selectList = document.body.querySelector('#module-list select');
@@ -42,7 +50,7 @@ app.modules.change = function(module, part) {
 		window.history.pushState({
 			module: module,
 			part: part
-		}, '', '?module=' + module.replace(' ', '+') + '&part=' + part.replace(' ', '+'));
+		}, '', '?module=' + module.replace(/\s/g, '%20') + '&part=' + part.replace(/\s/g, '%20'));
 	} else {
 	  var group = app.selectList.querySelector('optgroup[label="' + module + '"]');
 	  app.util.arrayFrom(group.children).forEach(function(option) {
@@ -77,7 +85,7 @@ app.modules.change = function(module, part) {
 			resolve();
 		};
 
-		request.open('get', `./tutorial/${module}/${part}.html`);
+		request.open('get', `./tutorial/${module.replace(/\s/g, '_')}/${part.replace(/\s/g, '_')}.html`);
 		request.send();
 	});
 };

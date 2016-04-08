@@ -11,7 +11,7 @@ var app = {
 app.util = {
   getParam: function(param) {
     var regex = new RegExp(param + '=([\\w- ]+)');
-    var query = window.location.search.replace(/\+|%20/, ' ');
+    var query = window.location.search.replace(/\+|%20/g, ' ');
     return ((query.match(regex) || [])[1] || '');
   },
   arrayFrom: function(arrayLike) {
