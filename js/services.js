@@ -178,7 +178,7 @@ app.services.transpile = function(code) {
 };
 
 app.services.updateEditorTitle = function() {
-  var editorTitle = document.querySelector('#rightBottomPane .editor-title');
+  var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
   switch (app.config.transpiler) {
     case 'babel':
       editorTitle.innerHTML = 'JSX';
