@@ -10,11 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
   } else {
     app.setup.tabView();
   }
-  var module = app.util.getParam('module');
-  var part = app.util.getParam('part');
-  if (module && part) {
-    app.services.changeModule(module, part);
-  }
 
   // Theme setup
   if (!window.Split || window.localStorage.getItem('onsDarkSkin')) {
@@ -29,10 +24,17 @@ document.addEventListener("DOMContentLoaded", function() {
   };
   app.editors.html.setValue(window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>', -1);
   app.editors.js.setValue(window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\')', -1);
+  app.services.updateEditorTitle();
 
   // Preview setup
   app.services.switchStyle();
-  app.config.ready.then(app.services.runProject);
+  var module = app.util.getParam('module'), part = app.util.getParam('part');
+  app.config.ready
+    .then(function() {
+      return (module && part) ? app.services.changeModule(module, part) : Promise.resolve();
+    })
+    .then(app.services.runProject);
+
   document.body.querySelector('#codepen-form').onsubmit = app.services.codepenSubmit;
   document.body.querySelector('#run').onclick = app.services.runProject;
   document.body.querySelector('#styling button').onclick = function() {

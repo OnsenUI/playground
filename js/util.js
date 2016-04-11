@@ -27,7 +27,7 @@ app.util.resize = {
 };
 
 app.util.format = function(code) {
-  var indentation = extract(code, /([\t ]*)\S/);
+  var indentation = app.util.extract(code, /([\t ]*)\S/);
   code = code.trim();
 
   if (indentation) {
@@ -39,4 +39,8 @@ app.util.format = function(code) {
 
 app.util.extract = function(string, regex) {
   return ((string.match(regex) || [])[1] || '');
+};
+
+app.util.toDash = function(string){
+  return string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
 };
