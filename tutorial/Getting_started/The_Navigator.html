@@ -5,12 +5,40 @@
 	<title>Onsen UI App</title>
 
   <script>
+    ons.ready(function() {
+      var button = document.getElementById('push-button');
+      var navigator = document.getElementById('navigator');
+
+      button.onclick = function() {
+        navigator.pushPage('page2.html');
+      };
+    });
   </script>
 </head>
 <body>
-  <ons-navigator></ons-navigator>
+  <ons-navigator id="navigator" page="page1.html"></ons-navigator>
 
   <ons-template id="page1.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Page 1</div>
+      </ons-toolbar>
+
+      <p>This is the first page.</p>
+
+      <ons-button id="push-button">Push page</ons-button>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="page2.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Page 2</div>
+      </ons-toolbar>
+
+      <p>This is the second page.</p>
+    </ons-page>
   </ons-template>
 </body>
 </html>
@@ -24,5 +52,57 @@ The `<ons-navigator>` is used for stack based navigation in Onsen UI apps.
 This is a very common type of navigation in mobile apps where one page is pushed on top of another using a transition animation.
 
 In this section we will also take a look at the `<ons-template>` element which is used to create the pages for the navigator.
+
+## The `<ons-navigator>` object.
+
+This element handles a stack of pages. When a new page is pushed it will be displayed using a transition animation and put on top of the stack.
+
+To change the animation you can use the `animation` attribute:
+
+```
+<ons-navigator animation="fade"></ons-navigator>
+```
+
+Available animations are:
+
+* `fade`
+* `lift`
+* `slide`
+* `none`
+
+## Defining pages
+
+The pages that you push to the Navigator are defined using the `<ons-template>` element.
+
+```
+<ons-template id="page2.html">
+  <ons-page>
+    ...
+  </ons-page>
+</ons-template>
+```
+
+The `id` attribute is used to reference the pages when pushing.
+
+## Pushing pages
+
+To push a new page to the top of the stack, the `pushPage(page, options)` method is used.
+
+In Onsen UI all such methods are attached to the element so you need to create a reference to it:
+
+```
+var navigator = document.getElementById('navigator');
+navigator.pushPage('page2.html');
+```
+
+The method returns a `Promise` object that is resolved when the transition is finished. You can try adding the following code:
+
+```
+navigator
+  .pushPage('page2.html')
+  .then(function() {
+    ons.notification.alert('Page pushed!');
+  });
+```
 
 -->
