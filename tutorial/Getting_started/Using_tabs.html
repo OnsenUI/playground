@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    ons.ready(function() {
+      var button = document.getElementById('push-button');
+      var navigator = document.getElementById('navigator');
+
+      button.onclick = function() {
+        navigator.pushPage('page2.html');
+      };
+    });
+  </script>
+</head>
+<body>
+  <ons-tabbar>
+    <ons-tab label="Tab 1" page="tab1.html" active>
+    </ons-tab>
+    <ons-tab label="Tab 2" page="tab2.html">
+    </ons-tab>
+  </ons-tabbar>
+
+  <ons-template id="tab1.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Tab 1</div>
+      </ons-toolbar>
+
+      <p style="text-align: center;">
+        This is the first page.
+      </p>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="tab2.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Tab 2</div>
+      </ons-toolbar>
+
+      <p style="text-align: center;">
+        This is the second page.
+      </p>
+    </ons-page>
+  </ons-template>
+</body>
+</html>
+
+<!-- info
+
+## The Tabbar
+
+In Onsen UI tab navigation is enabled using the `<ons-tabbar>` element.
+
+## Animations
+
+You can change the animation with the `animation` attribute.
+
+Available values are:
+
+* `fade`
+* `slide`
+* `none`
+
+You can try changing the animation by setting the attribute:
+
+```
+<ons-tabbar animation="slide">
+```
+
+-->
