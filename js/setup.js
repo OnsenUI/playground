@@ -87,7 +87,7 @@ app.setup.tabView = function() {
 };
 
 app.setup.toolbar = function() {
-  document.querySelector('#skin').onclick = app.services.toggleTheme;
+  document.querySelector('#skin-switch').onclick = app.services.toggleTheme;
 };
 
 app.setup.modules = function() {

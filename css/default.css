@@ -100,16 +100,19 @@ select {
   margin-right: 10px;
 }
 
-#skin {
+#skin-switch {
+  mask-image: url('../assets/icons/eye.svg');
+  -webkit-mask-image: url('../assets/icons/eye.svg');
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  display: inline-block;
+  background-color: #666;
+  width: 28px;
+  height: 26px;
   float: right;
   margin-right: 10px;
   font-size: 28px;
-  line-height: 24px;
-  color: #666;
   cursor: pointer;
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
 }
 
 .split.content {
