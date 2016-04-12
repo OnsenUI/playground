@@ -41,6 +41,12 @@ app.services.generateTemplate.react = function() {
       <script src="${app.config.lib.js.reactOnsenui}"></script>`;
 };
 
+app.services.generateTemplate.angular = function() {
+  return `
+      <script src="${app.config.lib.js.angular}"></script>
+      <script src="${app.config.lib.js.angularOnsenui}"></script>`;
+};
+
 app.services.showWelcomeMessage = function() {
   var message = `
 ## Welcome
@@ -67,7 +73,7 @@ This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
 app.services.runProject = function() {
   window.sessionStorage.setItem('editorHtmlContent', app.editors.html.getValue());
   window.sessionStorage.setItem('editorJsContent', app.editors.js.getValue());
-  window.sessionStorage.setItem('jsTranspiler', app.config.transpiler);
+  window.sessionStorage.setItem('ons-framework', app.config.framework);
   document.querySelector('#output iframe').srcdoc = app.services.generateTemplate.output()
     .replace('{{framework}}', app.services.loadFrameworkLib())
     .replace('{{html}}', app.editors.html.getValue())
@@ -83,7 +89,7 @@ app.services.codepenSubmit = function() {
     editors: '101',
     js_external: app.config.lib.js.onsenui + app.services.externalLibraries(),
     css_external: app.config.lib.css.onsenui + ';' + app.config.lib.css.onsenuiCssComponents,
-    js_pre_processor: app.config.transpiler
+    js_pre_processor: app.services.detectTranspiler()
   });
 };
 
@@ -137,18 +143,9 @@ app.services.changeModule = function(module, part) {
       app.editors.js.setValue(code, -1);
 
       var rawTranspiler = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
+      app.services.detectFramework(rawTranspiler, code);
 
-      switch (rawTranspiler) {
-        case 'jsx':
-        case 'babel':
-        case 'react':
-          app.config.transpiler = 'babel';
-          break;
-        default:
-          app.config.transpiler = 'none';
-      }
-
-      app.services.updateEditorTitle();
+      app.services.updateTitles(module);
 
       app.tutorial = {
         pageIndex: 0,
@@ -156,6 +153,11 @@ app.services.changeModule = function(module, part) {
           return marked(e);
         })
       };
+
+      if (app.selectList && app.selectList.selectedIndex !== 0 && app.selectList.selectedIndex < app.selectList.length - 1) {
+        var nextTutorialTitle = app.selectList.querySelectorAll('option')[app.selectList.selectedIndex + 1].label;
+        app.tutorial.pages[app.tutorial.pages.length - 1] += '<button class="next-tutorial" onclick="app.services.nextTutorial()">Next: ' + nextTutorialTitle + '</button>';
+      }
 
       document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
       document.getElementById('pages-total').innerHTML = app.tutorial.pages.length;
@@ -170,37 +172,78 @@ app.services.changeModule = function(module, part) {
 };
 
 app.services.transpile = function(code) {
-  if (app.config.transpiler === 'none') {
-    return code;
+  switch (app.services.detectTranspiler()) {
+    case 'babel':
+      return Babel.transform(code, { presets: ['react'] }).code;
+    case 'none':
+    default:
+      return code;
   }
-
-  return Babel.transform(code, { presets: ['react'] }).code;
 };
 
-app.services.updateEditorTitle = function() {
+app.services.updateTitles = function(module) {
   var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
-  switch (app.config.transpiler) {
+  switch (app.services.detectTranspiler()) {
     case 'babel':
       editorTitle.innerHTML = 'JSX';
       break;
     default:
       editorTitle.innerHTML = 'JS';
   }
+
+  if (window.Split) {
+    document.querySelector('#module-title-text').innerHTML = (module || 'Welcome!');
+  }
 }
 
 app.services.loadFrameworkLib = function() {
-  if (app.config.transpiler === 'none') {
-    return '';
+  switch (app.config.framework) {
+    case 'react':
+      return app.services.generateTemplate.react();
+    case 'angular':
+      return app.services.generateTemplate.angular();
+    case 'vanilla':
+    default:
+      return '';
   }
-
-  return app.services.generateTemplate.react();
-
 };
 
 app.services.externalLibraries = function() {
-  if (app.config.transpiler === 'none') {
-    return '';
+  switch (app.config.framework) {
+    case 'react':
+      return `;${app.config.lib.js.react};${app.config.lib.js.reactDom};${app.config.lib.js.reactDomServer};${app.config.lib.js.reactOnsenui}`;
+    case 'angular':
+      return `;${app.config.lib.js.angular};${app.config.lib.js.angularOnsenui}`;
+    case 'vanilla':
+    default:
+      return '';
   }
-
-  return `;${app.config.lib.js.react};${app.config.lib.js.reactDom};${app.config.lib.js.reactDomServer};${app.config.lib.js.reactOnsenui}`;
 };
+
+app.services.nextTutorial = function() {
+  if (app.selectList.selectedIndex < app.selectList.length - 1) {
+    app.selectList.selectedIndex += 1;
+    app.services.changeModule().then(app.services.runProject);
+  }
+};
+
+app.services.detectFramework = function(rawTranspiler, code) {
+  switch (rawTranspiler) {
+    case 'jsx':
+    case 'babel':
+    case 'react':
+      app.config.framework = 'react';
+      break;
+    default:
+      app.config.framework = (code.match(/ons\.bootstrap/) || code.match(/angular\.module/)) ? 'angular' : 'vanilla';
+  }
+}
+
+app.services.detectTranspiler = function() {
+  switch (app.config.framework) {
+    case 'react':
+      return 'babel';
+    default:
+      return 'none';
+  }
+}

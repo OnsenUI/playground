@@ -17,7 +17,7 @@ header {
 #title .logo {
   color: #FC3429;
   font-style: italic;
-  margin-right: 8px;
+  margin-right: 12px;
 }
 
 #title > a {
@@ -40,10 +40,41 @@ select {
   background: #fff;
 }
 
-#module-list {
+#modules {
   float: left;
   /*margin: 0 auto;*/
+  position: relative;
+  min-width: 400px;
+  margin-left: 6px;
+}
+
+#modules > div {
+  display: inline-block;
+  text-align: center;
+}
+#module-title {
+  float: right;
+  margin-right: 20px;
+  line-height: 24px;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+  color: #333;
+}
+
+#module-title > div {
+  display: inline-block;
+}
+
+
+#module-title-text {
+  min-width: 150px;
+  margin: 0 5px;
+}
+
+#module-list {
   width: 200px;
+  float: right;
   position: relative;
 }
 
@@ -69,16 +100,13 @@ select {
   margin-right: 10px;
 }
 
-#skin {
+#skin-switch {
+  background: url('../assets/icons/eye.svg') center / 100% no-repeat transparent;
+  width: 26px;
+  height: 24px;
   float: right;
   margin-right: 10px;
-  font-size: 28px;
-  line-height: 24px;
-  color: #666;
   cursor: pointer;
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
 }
 
 .split.content {
@@ -110,4 +138,31 @@ select {
 
 .content {
   position: relative;
+}
+
+/* @media (max-width: 762px) {
+  #module-list {
+    float: left;
+  }
+} */
+
+@media (max-width: 772px) {
+  #module-title {
+    display: none !important;
+    min-width: 0;
+  }
+
+  #modules {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 545px) {
+  #title {
+    width: 100px;
+  }
+
+  #title > a > span:not(.logo) {
+    display: none !important;
+  }
 }

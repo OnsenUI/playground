@@ -36,6 +36,7 @@ app.setup.editor = function(id, language) {
     editor.session.setUseSoftTabs(true);
     editor.renderer.setShowGutter(window.Split);
     editor.$blockScrolling = Infinity;
+    editor.commands.removeCommand('find');
     editor.setOptions({
       fontSize: '10pt',
       fontFamily: 'hermit',
@@ -86,7 +87,7 @@ app.setup.tabView = function() {
 };
 
 app.setup.toolbar = function() {
-  document.querySelector('#skin').onclick = app.services.toggleTheme;
+  document.querySelector('#skin-switch').onclick = app.services.toggleTheme;
 };
 
 app.setup.modules = function() {

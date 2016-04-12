@@ -8,7 +8,7 @@
 }
 
 .dark-skin #title {
-  color: #eee;
+  color: #FFF;
 }
 
 .dark-skin .logo {
@@ -63,4 +63,12 @@
 
 .dark-skin #tutorial-content a {
   color: #6ABED8;
+}
+
+.dark-skin #module-title {
+  color: #FFF;
+}
+
+.dark-skin #skin-switch {
+  background-image: url('../assets/icons/eye2.svg');
 }
