@@ -60,7 +60,7 @@ This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
 
 ` ;
 
-  document.body.querySelector('#tutorial-content').innerHTML = markdown.toHTML(message);
+  document.body.querySelector('#tutorial-content').innerHTML = marked(message);
 };
 
 
@@ -153,7 +153,7 @@ app.services.changeModule = function(module, part) {
       app.tutorial = {
         pageIndex: 0,
         pages: docs.split(/\n(?=[ \t]*#{2}(?!#))/).map(function(e) {
-          return markdown.toHTML(e);
+          return marked(e);
         })
       };
 

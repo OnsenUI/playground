@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 @font-face {
@@ -42,10 +42,52 @@ button {
 }
 
 #tutorial-content {
-  font-size: 14px;
+  font-size: 15px;
   padding-left: 12px;
+  padding-right: 2px;
   overflow-y: auto;
   box-sizing: border-box;
+}
+
+#tutorial-content pre {
+  background-color: rgba(245, 245, 245, 0.36);
+  padding: 0.5em;
+  margin-right: 12px;
+  border: 1px solid #EEE;
+  overflow-x: auto;
+}
+
+#tutorial-content pre > code {
+  display: inline-block;
+  width: inherit;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  color: #333;
+}
+
+#tutorial-content code {
+  font-family: "hermit";
+  font-size: 13px;
+}
+
+#tutorial-content h2 code {
+  font-size: inherit;
+}
+
+#tutorial-content h2 {
+  color: #333;
+}
+
+#tutorial-content code {
+  background-color: rgba(245, 245, 245, 0.36);
+  padding: 2px 4px 0px;
+  border: 1px solid #EEE;
+  color: rgb(147, 15, 128);
+}
+
+#tutorial-content a {
+  text-decoration: none;
 }
 
 #tutorial-pages {
@@ -165,11 +207,11 @@ input[type=submit] {
 }
 
 
-@media (max-width: 762px) {
+/* @media (max-width: 762px) {
   #module-list {
     float: left;
   }
-}
+} */
 
 @-webkit-keyframes pulse {
   from {

@@ -40,3 +40,27 @@
 .dark-skin #skin {
   color: #EEE;
 }
+
+.dark-skin #tutorial-content pre {
+  background-color: transparent;
+  border: 1px solid #555;
+}
+
+.dark-skin #tutorial-content pre > code {
+  border: none;
+  color: #FFF;
+}
+
+.dark-skin #tutorial-content h2 {
+  color: #DDD;
+}
+
+.dark-skin #tutorial-content code {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #F92672;
+}
+
+.dark-skin #tutorial-content a {
+  color: #6ABED8;
+}

@@ -1,0 +1,89 @@
+/*
+
+Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
+
+*/
+
+.dark-skin .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #23241f;
+}
+
+.dark-skin .hljs,
+.dark-skin .hljs-tag,
+.dark-skin .hljs-subst {
+  color: #f8f8f2;
+}
+
+.dark-skin .hljs-strong,
+.dark-skin .hljs-emphasis {
+  color: #a8a8a2;
+}
+
+.dark-skin .hljs-bullet,
+.dark-skin .hljs-quote,
+.dark-skin .hljs-number,
+.dark-skin .hljs-regexp,
+.dark-skin .hljs-literal,
+.dark-skin .hljs-link {
+  color: #ae81ff;
+}
+
+.dark-skin .hljs-code,
+.dark-skin .hljs-title,
+.dark-skin .hljs-section,
+.dark-skin .hljs-selector-class {
+  color: #a6e22e;
+}
+
+.dark-skin .hljs-strong {
+  font-weight: bold;
+}
+
+.dark-skin .hljs-emphasis {
+  font-style: italic;
+}
+
+.dark-skin .hljs-keyword {
+  color: #66D9EF;
+}
+
+.dark-skin .hljs-selector-tag,
+.dark-skin .hljs-name {
+  color: #f92672;
+}
+
+.dark-skin .hljs-attr {
+  color: #A6E22E;
+}
+
+.dark-skin .hljs-symbol,
+.dark-skin .hljs-attribute {
+  color: #66d9ef;
+}
+
+.dark-skin .hljs-params,
+.dark-skin .hljs-class .dark-skin .hljs-title {
+  color: #f8f8f2;
+}
+
+.dark-skin .hljs-string,
+.dark-skin .hljs-type,
+.dark-skin .hljs-built_in,
+.dark-skin .hljs-builtin-name,
+.dark-skin .hljs-selector-id,
+.dark-skin .hljs-selector-attr,
+.dark-skin .hljs-selector-pseudo,
+.dark-skin .hljs-addition,
+.dark-skin .hljs-variable,
+.dark-skin .hljs-template-variable {
+  color: #e6db74;
+}
+
+.dark-skin .hljs-comment,
+.dark-skin .hljs-deletion,
+.dark-skin .hljs-meta {
+  color: #75715e;
+}

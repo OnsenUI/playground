@@ -43,6 +43,18 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   // Tutorial setup
+  marked.setOptions({
+    gfm: true,
+    tables: true,
+    breaks: true,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: true,
+    highlight: function (code, lang) {
+      return lang ? hljs.highlight(lang, code).value : hljs.highlightAuto(code, ['html', 'javascript']).value;
+    }
+  });
   app.setup.pagesCounter();
   if (!module || !part) {
     app.services.showWelcomeMessage();
