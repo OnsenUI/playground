@@ -55,6 +55,70 @@
 
 In Onsen UI tab navigation is enabled using the `<ons-tabbar>` element.
 
+Tabs are added using `<ons-tab>` which is a child of `<ons-tabbar>`:
+
+```
+<ons-tabbar>
+  <ons-tab label="Tab 1" active></ons-tab>
+  <ons-tab label="Tab 2"></ons-tab>
+</ons-tabbar>
+```
+
+The `active` attribute is used to define the tab which should be open by default. If not `active` attribute exists the page will be blank so make sure to add this.
+
+## The `<ons-tab>` element
+
+To add a label to the tab the `label` attribute is used. You can also define a label as a child of the `<ons-tab>`:
+
+```
+<ons-tab>
+  <div class="tab-bar__label">
+    Tab 1
+  </div>
+</ons-tab>
+```
+
+### Icons
+
+You can add an icon with the `icon` attribute. It accepts the same values as the `<ons-icon>` element.
+
+```
+<ons-tab icon="md-face"></ons-tab>
+```
+
+Just like the label, the icon can also be added as a child of the `<ons-tab>` element:
+
+```
+<ons-tab>
+  <div class="tab-bar__icon">
+    <ons-icon icon="md-face"></ons-icon>
+  </div>
+</ons-tab>
+```
+
+## Adding pages
+
+Binding pages to the tabs works very similar to the `<ons-navigator>`.
+
+The content of the pages is defined using the `<ons-template>` element:
+
+```
+<ons-template id="tab1.html">
+  <ons-page>
+    ...
+  </ons-page>
+</ons-template>
+```
+
+and in order to bind a template to a specific tab the `page` attribute is used on the `<ons-tab>` element:
+
+```
+<ons-tab
+  label="Tab 1"
+  page="tab1.html">
+</ons-tab>
+```
+
 ## Animations
 
 You can change the animation with the `animation` attribute.
