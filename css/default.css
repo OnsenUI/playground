@@ -101,17 +101,11 @@ select {
 }
 
 #skin-switch {
-  mask-image: url('../assets/icons/eye.svg');
-  -webkit-mask-image: url('../assets/icons/eye.svg');
-  mask-size: cover;
-  -webkit-mask-size: cover;
-  display: inline-block;
-  background-color: #666;
-  width: 28px;
-  height: 26px;
+  background: url('../assets/icons/eye.svg') center / 100% no-repeat transparent;
+  width: 26px;
+  height: 24px;
   float: right;
   margin-right: 10px;
-  font-size: 28px;
   cursor: pointer;
 }
 
