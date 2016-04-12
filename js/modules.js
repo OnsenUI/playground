@@ -3,7 +3,8 @@ app.modules = {
     'Creating a page',
     'Stack navigation',
     'Using tabs',
-    'Side menu'
+    'Side menu',
+    'Lists'
   ],
   'React': [
     'Using the components'
