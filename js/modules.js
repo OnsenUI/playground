@@ -1,7 +1,8 @@
 app.modules = {
   'Getting started': [
     'Creating a page',
-    'The Navigator'
+    'Stack navigation',
+    'Using tabs'
   ],
   'React': [
     'Using the components'
