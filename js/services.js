@@ -148,7 +148,7 @@ app.services.changeModule = function(module, part) {
           app.config.transpiler = 'none';
       }
 
-      app.services.updateEditorTitle();
+      app.services.updateTitles(module);
 
       app.tutorial = {
         pageIndex: 0,
@@ -156,6 +156,11 @@ app.services.changeModule = function(module, part) {
           return marked(e);
         })
       };
+
+      if (app.selectList && app.selectList.selectedIndex !== 0 && app.selectList.selectedIndex < app.selectList.length - 1) {
+        var nextTutorialTitle = app.selectList.querySelectorAll('option')[app.selectList.selectedIndex + 1].label;
+        app.tutorial.pages[app.tutorial.pages.length - 1] += '<button class="next-tutorial" onclick="app.services.nextTutorial()">Next: ' + nextTutorialTitle + '</button>';
+      }
 
       document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
       document.getElementById('pages-total').innerHTML = app.tutorial.pages.length;
@@ -177,7 +182,7 @@ app.services.transpile = function(code) {
   return Babel.transform(code, { presets: ['react'] }).code;
 };
 
-app.services.updateEditorTitle = function() {
+app.services.updateTitles = function(module) {
   var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
   switch (app.config.transpiler) {
     case 'babel':
@@ -185,6 +190,10 @@ app.services.updateEditorTitle = function() {
       break;
     default:
       editorTitle.innerHTML = 'JS';
+  }
+
+  if (window.Split) {
+    document.querySelector('#module-title-text').innerHTML = (module || 'Welcome!');
   }
 }
 
@@ -203,4 +212,11 @@ app.services.externalLibraries = function() {
   }
 
   return `;${app.config.lib.js.react};${app.config.lib.js.reactDom};${app.config.lib.js.reactDomServer};${app.config.lib.js.reactOnsenui}`;
+};
+
+app.services.nextTutorial = function() {
+  if (app.selectList.selectedIndex < app.selectList.length - 1) {
+    app.selectList.selectedIndex += 1;
+    app.services.changeModule().then(app.services.runProject);
+  }
 };

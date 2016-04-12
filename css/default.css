@@ -17,7 +17,7 @@ header {
 #title .logo {
   color: #FC3429;
   font-style: italic;
-  margin-right: 8px;
+  margin-right: 12px;
 }
 
 #title > a {
@@ -40,10 +40,41 @@ select {
   background: #fff;
 }
 
-#module-list {
+#modules {
   float: left;
   /*margin: 0 auto;*/
+  position: relative;
+  min-width: 400px;
+  margin-left: 6px;
+}
+
+#modules > div {
+  display: inline-block;
+  text-align: center;
+}
+#module-title {
+  float: right;
+  margin-right: 20px;
+  line-height: 24px;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+  color: #333;
+}
+
+#module-title > div {
+  display: inline-block;
+}
+
+
+#module-title-text {
+  min-width: 150px;
+  margin: 0 5px;
+}
+
+#module-list {
   width: 200px;
+  float: right;
   position: relative;
 }
 
@@ -110,4 +141,31 @@ select {
 
 .content {
   position: relative;
+}
+
+/* @media (max-width: 762px) {
+  #module-list {
+    float: left;
+  }
+} */
+
+@media (max-width: 772px) {
+  #module-title {
+    display: none !important;
+    min-width: 0;
+  }
+
+  #modules {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 545px) {
+  #title {
+    width: 100px;
+  }
+
+  #title > a > span:not(.logo) {
+    display: none !important;
+  }
 }

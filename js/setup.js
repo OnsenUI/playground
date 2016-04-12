@@ -36,6 +36,7 @@ app.setup.editor = function(id, language) {
     editor.session.setUseSoftTabs(true);
     editor.renderer.setShowGutter(window.Split);
     editor.$blockScrolling = Infinity;
+    editor.commands.removeCommand('find');
     editor.setOptions({
       fontSize: '10pt',
       fontFamily: 'hermit',

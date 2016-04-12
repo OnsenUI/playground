@@ -207,11 +207,13 @@ input[type=submit] {
 }
 
 
-/* @media (max-width: 762px) {
-  #module-list {
-    float: left;
-  }
-} */
+.next-tutorial {
+  display: table;
+  margin: 20px auto 30px;
+}
+
+.next-tutorial:hover {
+}
 
 @-webkit-keyframes pulse {
   from {

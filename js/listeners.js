@@ -20,5 +20,6 @@ window.onpopstate = function(event) {
   } else {
     app.services.showWelcomeMessage();
     app.selectList.children[0].selected = true;
+    app.services.updateTitles();
   }
 };
