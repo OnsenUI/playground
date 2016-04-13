@@ -4,7 +4,9 @@ app.modules = {
     'Stack navigation',
     'Using tabs',
     'Side menu',
-    'Lists'
+    'Lists',
+    'Dialogs',
+    'Popover'
   ],
   'React': [
     'Using the components'
