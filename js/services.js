@@ -17,6 +17,7 @@ app.services.generateTemplate.output = function() {
         ons.platform.select('${app.config.platform}');
       </script>
 
+      <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
       <link rel="stylesheet" href="${app.config.lib.css.onsenui}">
       <link rel="stylesheet" href="${app.config.lib.css.onsenuiCssComponents}">
 
