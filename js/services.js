@@ -127,6 +127,10 @@ app.services.changeModule = function(module, part) {
     });
   }
 
+  return app.services.loadModule(module, part);
+};
+
+app.services.loadModule = function(module, part) {
   return new Promise(function(resolve) {
     var request = new XMLHttpRequest();
     request.onload = function() {
@@ -145,7 +149,8 @@ app.services.changeModule = function(module, part) {
       var rawTranspiler = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
       app.services.detectFramework(rawTranspiler, code);
 
-      app.services.updateTitles(module);
+      app.services.updateEditors();
+      app.services.updateCategory(part ? module : null);
 
       app.tutorial = {
         pageIndex: 0,
@@ -166,7 +171,7 @@ app.services.changeModule = function(module, part) {
       resolve();
     };
 
-    request.open('get', `./tutorial/${module.replace(/\s/g, '_')}/${part.replace(/\s/g, '_')}.html`);
+    request.open('get', part ? `./tutorial/${module.replace(/\s/g, '_')}/${part.replace(/\s/g, '_')}.html` : module);
     request.send();
   });
 };
@@ -181,16 +186,20 @@ app.services.transpile = function(code) {
   }
 };
 
-app.services.updateTitles = function(module) {
+app.services.updateEditors = function() {
   var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
   switch (app.services.detectTranspiler()) {
     case 'babel':
       editorTitle.innerHTML = 'JSX';
+      app.editors.js.session.setMode('ace/mode/jsx');
       break;
     default:
       editorTitle.innerHTML = 'JS';
+      app.editors.js.session.setMode('ace/mode/javascript');
   }
+}
 
+app.services.updateCategory = function(module) {
   if (window.Split) {
     document.querySelector('#module-title-text').innerHTML = (module || 'Welcome!');
   }

@@ -18,8 +18,13 @@ window.onpopstate = function(event) {
   if (event.state) {
     app.services.changeModule(event.state.module, event.state.part).then(app.services.runProject);
   } else {
-    app.services.showWelcomeMessage();
+    var external = external = app.util.getParam('external');
     app.selectList.children[0].selected = true;
-    app.services.updateTitles();
+    if (external) {
+      app.services.loadModule(external);
+    } else {
+      app.services.updateCategory();
+      app.services.showWelcomeMessage();
+    }
   }
 };

@@ -1,7 +1,7 @@
 app.util = {};
 
 app.util.getParam = function(param) {
-  var regex = new RegExp(param + '=([\\w- ]+)');
+  var regex = new RegExp(param + '=([^&]+)');
   var query = window.location.search.replace(/\+|%20/g, ' ');
   return ((query.match(regex) || [])[1] || '');
 };

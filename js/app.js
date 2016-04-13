@@ -3,7 +3,9 @@ window.app = {};
 document.addEventListener("DOMContentLoaded", function() {
 
   // General setup
-  var module = app.util.getParam('module'), part = app.util.getParam('part');
+  var module = app.util.getParam('module'),
+    part = app.util.getParam('part'),
+    external = app.util.getParam('external');
   if (window.Split) {
     app.setup.splitPanes();
     app.setup.modules();
@@ -11,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
   } else {
     app.setup.tabView();
   }
-  app.services.updateTitles(module);
+
+  app.services.updateCategory(external ? null : module);
 
   // Theme setup
   if (!window.Split || window.localStorage.getItem('onsDarkSkin')) {
@@ -32,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
   app.setup.pagesCounter();
-  if (!module || !part) {
+  if ((!module || !part) && !external) {
     app.services.showWelcomeMessage();
   }
 
@@ -44,12 +47,18 @@ document.addEventListener("DOMContentLoaded", function() {
   };
   app.editors.html.setValue(window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>', -1);
   app.editors.js.setValue(window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\')', -1);
+  app.services.updateEditors();
 
   // Preview setup
   app.services.switchStyle();
   app.config.ready
     .then(function() {
-      return (module && part) ? app.services.changeModule(module, part) : Promise.resolve();
+      if (external) {
+        return app.services.loadModule(external);
+      } else if (module && part) {
+        return app.services.changeModule(module, part);
+      }
+      return Promise.resolve();
     })
     .then(app.services.runProject);
 
