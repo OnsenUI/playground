@@ -62,3 +62,16 @@ body {
   padding: 0;
   overflow-y: hidden;
 }
+
+.main-view-link {
+  cursor: pointer;
+  position: relative;
+}
+
+.main-view-link svg {
+  position: absolute;
+  top: 11px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+}

@@ -84,6 +84,9 @@ app.setup.tabView = function() {
       document.querySelector('#tab-' + i).parentElement.children[1].style.display = (+ visibleTabs[i - 1]) ? '' : 'none';
     }
   }
+
+  var mainViewLink = document.querySelector('.main-view-link a');
+  mainViewLink.setAttribute('href', window.location.href.replace('/embed.html', '/index.html'));
 };
 
 app.setup.toolbar = function() {
