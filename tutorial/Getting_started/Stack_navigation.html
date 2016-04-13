@@ -105,4 +105,20 @@ navigator
   });
 ```
 
+## Going back
+
+To go back to a previous page the `popPage(options)` is used.
+
+Another way is to used the `<ons-back-button>` element. It can be added to the left side of the toolbar and renders as an arrow:
+
+```
+<ons-toolbar>
+  <div class="left">
+    <ons-back-button>Back</ons-back-button>
+  </div>
+</ons-toolbar>
+```
+
+It will automatically find the Navigator element and trigger a `popPage()` call so there is no need to attach any click handlers to it.
+
 -->
