@@ -15,6 +15,9 @@
   <script defer src="lib/highlight/highlight.min.js"></script>
   <script defer src="lib/marked/marked.min.js"></script>
   <script defer src="lib/babel/babel.min.js" type="text/javascript" charset="utf-8"></script>
+  <script defer src="lib/jszip/jszip.min.js" type="text/javascript" charset="utf-8"></script>
+  <script defer src="lib/jszip/jszip-utils.min.js" type="text/javascript" charset="utf-8"></script>
+  <script defer src="lib/FileSaver/FileSaver.min.js" type="text/javascript" charset="utf-8"></script>
   <script defer src="lib/ace/emmet.min.js"></script>
   <script defer src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
   <script defer src="lib/ace/mode-html.js" type="text/javascript" charset="utf-8"></script>
@@ -42,7 +45,7 @@
   </div>
   <div id="toolbar">
     <div id="skin-switch" class="tooltip" tooltip="Change theme color"></div>
-    <div id="cordova-button" class="tooltip" tooltip="Generate Cordova project based from this sample"></div>
+    <div id="cordova-button" class="tooltip" tooltip="Generate Cordova project based on this sample"></div>
   </div>
   <div id="modules">
     <div id="module-list">
@@ -100,8 +103,21 @@
   </div>
 </div>
 
-<div class="icon-ios icon-android" style="display: none"></div>
+<div id="modal-container">
+  <div id="modal-mask"></div>
+  <div id="modal">
+    <div id="modal-title">Generate Cordova Project</div>
+    <div id="modal-confirm" class="modal-body">
+      <div id="modal-content">Are you sure you want to generate a Cordova Project based on this sample and download it?</div>
+      <div id="modal-footer"><button id="modal-generate-button" autofocus>Generate</button> <button id="modal-cancel-button">Cancel</button></div>
+    </div>
+    <div id="modal-generating" class="modal-body">
+      <div class="cssload-loader"></div>
+    </div>
+  </div>
+</div>
 
+<div class="icon-ios icon-android" style="display: none"></div>
 
 <div id="placeholder">
   <svg version="1.0" xmlns="http://www.w3.org/2000/svg"

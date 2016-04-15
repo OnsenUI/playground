@@ -1,8 +1,6 @@
 app.services = {};
 
-app.services.generateTemplate = {};
-
-app.services.generateTemplate.output = function() {
+app.services.generateTemplateOutput = function() {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -10,41 +8,43 @@ app.services.generateTemplate.output = function() {
       <meta charset="UTF-8">
       <title>OnsenUI Tutorial</title>
 
-      <script src="${app.config.lib.js.onsenui}"></script>
-      {{framework}}
+      ${app.services.generateTemplateFromLibs()}
 
       <script>
         ons.platform.select('${app.config.platform}');
       </script>
 
-      <link rel="stylesheet" href="${app.config.lib.css.onsenui}">
-      <link rel="stylesheet" href="${app.config.lib.css.onsenuiCssComponents}">
+      ${app.services.generateTemplateCSS()}
 
       <script>
-        {{javascript}}
+        ${app.services.transpile(app.editors.js.getValue())}
       </script>
 
     </head>
 
     <body>
-      {{html}}
+      ${app.editors.html.getValue()}
     </body>
     </html>
   `;
 };
 
-app.services.generateTemplate.react = function() {
-  return `
-      <script src="${app.config.lib.js.react}"></script>
-      <script src="${app.config.lib.js.reactDom}"></script>
-      <script src="${app.config.lib.js.reactDomServer}"></script>
-      <script src="${app.config.lib.js.reactOnsenui}"></script>`;
-};
+app.services.generateTemplateFromLibs = function(position) {
+  var libs = app.util.flattenJSLibs(app.services.detectLibraries(position));
+  var result = '';
 
-app.services.generateTemplate.angular = function() {
+  libs.forEach(function(lib) {
+    result += `\n  <script src="${lib}"></script>`
+  });
+
+  return result;
+}
+
+app.services.generateTemplateCSS = function(position) {
+  position = position || 'remote';
   return `
-      <script src="${app.config.lib.js.angular}"></script>
-      <script src="${app.config.lib.js.angularOnsenui}"></script>`;
+  <link rel="stylesheet" href="${app.config.lib[position].css.onsenui}">
+  <link rel="stylesheet" href="${app.config.lib[position].css.onsenuiCssComponents}">`;
 };
 
 app.services.showWelcomeMessage = function() {
@@ -74,10 +74,8 @@ app.services.runProject = function() {
   window.sessionStorage.setItem('editorHtmlContent', app.editors.html.getValue());
   window.sessionStorage.setItem('editorJsContent', app.editors.js.getValue());
   window.sessionStorage.setItem('ons-framework', app.config.framework);
-  document.querySelector('#output iframe').srcdoc = app.services.generateTemplate.output()
-    .replace('{{framework}}', app.services.loadFrameworkLib())
-    .replace('{{html}}', app.editors.html.getValue())
-    .replace('{{javascript}}', app.services.transpile(app.editors.js.getValue()));
+
+  document.querySelector('#output iframe').srcdoc = app.services.generateTemplateOutput();
 };
 
 app.services.codepenSubmit = function() {
@@ -87,8 +85,8 @@ app.services.codepenSubmit = function() {
     html:  app.editors.html.getValue(),
     js: app.editors.js.getValue(),
     editors: '101',
-    js_external: app.config.lib.js.onsenui + app.services.externalLibraries(),
-    css_external: app.config.lib.css.onsenui + ';' + app.config.lib.css.onsenuiCssComponents,
+    js_external: app.util.flattenJSLibs(app.services.detectLibraries()).join(';'),
+    css_external: app.config.lib.remote.css.onsenui + ';' + app.config.lib.remote.css.onsenuiCssComponents,
     js_pre_processor: app.services.detectTranspiler()
   });
 };
@@ -131,16 +129,14 @@ app.services.changeModule = function(module, part) {
 };
 
 app.services.loadModule = function(module, part) {
-  return new Promise(function(resolve) {
-    var request = new XMLHttpRequest();
-    request.onload = function() {
-
+  return app.util.requestFile(part ? `./tutorial/${module.replace(/\s/g, '_')}/${part.replace(/\s/g, '_')}.html` : module)
+    .then(function(responseText) {
       var format = app.util.format,
         extract = app.util.extract;
 
-      var html = format(extract(this.responseText, /<body>([\s\S]*)<\/body>/));
-      var docs = extract(this.responseText, /<\/html>\s*<!--.*\n([\s\S]*)-->/).trim();
-      var script = extract(this.responseText, /<head>[\s\S]*(<script[\s\S]*<\/script>)[\s\S]*<\/head>/);
+      var html = format(extract(responseText, /<body>([\s\S]*)<\/body>/));
+      var docs = extract(responseText, /<\/html>\s*<!--.*\n([\s\S]*)-->/).trim();
+      var script = extract(responseText, /<head>[\s\S]*(<script[\s\S]*<\/script>)[\s\S]*<\/head>/);
       var code = format(extract(script, /<script.*>([\s\S]*)<\/script>/));
 
       app.editors.html.setValue(html, -1);
@@ -167,13 +163,10 @@ app.services.loadModule = function(module, part) {
       document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
       document.getElementById('pages-total').innerHTML = app.tutorial.pages.length;
       document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[0];
-
-      resolve();
-    };
-
-    request.open('get', part ? `./tutorial/${module.replace(/\s/g, '_')}/${part.replace(/\s/g, '_')}.html` : module);
-    request.send();
-  });
+    })
+    .catch(function(err) {
+      console.error(err.message);
+    });
 };
 
 app.services.transpile = function(code) {
@@ -197,36 +190,51 @@ app.services.updateEditors = function() {
       editorTitle.innerHTML = 'JS';
       app.editors.js.session.setMode('ace/mode/javascript');
   }
-}
+};
 
 app.services.updateCategory = function(module) {
   if (window.Split) {
     document.querySelector('#module-title-text').innerHTML = (module || 'Welcome!');
   }
-}
+};
 
-app.services.loadFrameworkLib = function() {
+app.services.loadFrameworkLib = function(position) {
   switch (app.config.framework) {
     case 'react':
-      return app.services.generateTemplate.react();
+      return app.services.generateTemplate.react(position);
     case 'angular':
-      return app.services.generateTemplate.angular();
+      return app.services.generateTemplate.angular(position);
     case 'vanilla':
     default:
       return '';
   }
 };
 
-app.services.externalLibraries = function() {
+app.services.detectLibraries = function(position) {
+  position = position || 'remote';
+  var libs = {
+    'onsenui': {
+      'onsen/js': [app.config.lib[position].js.onsenui],
+      'onsen/css': [app.config.lib[position].css.onsenui, app.config.lib[position].css.onsenuiCssComponents]
+    }
+  };
+
   switch (app.config.framework) {
     case 'react':
-      return `;${app.config.lib.js.react};${app.config.lib.js.reactDom};${app.config.lib.js.reactDomServer};${app.config.lib.js.reactOnsenui}`;
+      libs.react = {
+        'react': [app.config.lib[position].js.react, app.config.lib[position].js.reactDom, app.config.lib[position].js.reactDomServer],
+        'react-onsenui': [app.config.lib[position].js.reactOnsenui]
+      }
+      break;
     case 'angular':
-      return `;${app.config.lib.js.angular};${app.config.lib.js.angularOnsenui}`;
-    case 'vanilla':
-    default:
-      return '';
+      libs.angular = {
+        'angular': [app.config.lib[position].js.angular],
+        'onsen/js': [app.config.lib[position].js.angularOnsenui]
+      }
+      break;
   }
+
+  return libs;
 };
 
 app.services.nextTutorial = function() {
@@ -246,7 +254,7 @@ app.services.detectFramework = function(rawTranspiler, code) {
     default:
       app.config.framework = (code.match(/ons\.bootstrap/) || code.match(/angular\.module/)) ? 'angular' : 'vanilla';
   }
-}
+};
 
 app.services.detectTranspiler = function() {
   switch (app.config.framework) {
@@ -255,4 +263,102 @@ app.services.detectTranspiler = function() {
     default:
       return 'none';
   }
-}
+};
+
+app.services.showGenerateModal = function() {
+  document.querySelector('#modal').classList.remove('generating');
+  document.querySelector('#modal-container').classList.add('visible');
+};
+
+
+app.services.hideGenerateModal = function() {
+  document.querySelector('#modal-container').classList.remove('visible');
+};
+
+app.services.generateCordovaProject = function() {
+  document.querySelector('#modal').classList.add('generating');
+
+  JSZipUtils.getBinaryContent('./project-template.zip', function(err, data) {
+    if (err) {
+      throw new Error(err);
+    }
+
+    var token = {
+      body: '<!-- App layout -->\n',
+      css: '<!-- CSS dependencies -->',
+      js: '<!-- JS dependencies -->'
+    };
+
+    // ZIP FILE
+    var zip = new JSZip(data);
+
+    // INDEX.HTML
+    var indexHTML = zip.file('www/index.html').asText();
+    indexHTML = indexHTML
+      .replace(token.body, token.body + app.editors.html.getValue().split('\n').map(function(line) {return line ? ('  ' + line) : line;}).join('\n'))
+      .replace(token.css, token.css + app.services.generateTemplateCSS('local'))
+      .replace(token.js, token.js + app.services.generateTemplateFromLibs('local'));
+    zip.file('www/index.html', indexHTML);
+
+    // APP.JS
+    if (app.config.framework === 'react') {
+      zip.file('www/js/app.js', app.services.transpile(app.editors.js.getValue()));
+      zip.file('www/js/app.jsx', app.editors.js.getValue());
+    } else {
+      zip.file('www/js/app.js', app.editors.js.getValue());
+    }
+
+    // PACKAGE.JSON
+    var packageJSON = zip.file('package.json').asText();
+    var addDependency = function (dep, first) {
+      return packageJSON.replace(/("dependencies": \{\n(?:.|[\r\n])*?)(\n\s+\})/, '$1' + (first ? '' : ',\n') + '    ' + dep + '$2')
+    };
+    packageJSON = addDependency(app.config.npm.onsenui, true);
+    if (app.config.npm.hasOwnProperty(app.config.framework)) {
+      app.config.npm[app.config.framework].forEach(function(dep) {
+        packageJSON = addDependency(dep);
+      });
+    }
+    zip.file('package.json', packageJSON);
+
+
+    // EXTERNAL LIBRARIES
+    var promises = [];
+    var externalLibraries = app.services.detectLibraries();
+    var addLib = function(lib) {
+      if (externalLibraries.hasOwnProperty(lib)) {
+        Object.keys(externalLibraries[lib]).forEach(function(dir) {
+          externalLibraries[lib][dir].forEach(function(file) {
+            promises.push(app.util.requestFile(file)
+              .then(function(res) {
+                zip.file(`www/lib/${dir}/${file.split('/').pop()}`, res);
+              })
+            );
+          });
+        });
+      }
+    };
+    addLib('onsenui');
+    addLib(app.config.framework);
+
+
+    // GENERATE AND DOWNLOAD
+    Promise.all(promises)
+      .then(function() {
+        console.info('Done!');
+        app.services.hideGenerateModal();
+        var title = 'OnsenUI-Project.zip';
+        if (app.selectList.selectedIndex) {
+          var part = app.selectList[app.selectList.selectedIndex].label.replace(/\s+/g, '_');
+          var module = app.selectList[app.selectList.selectedIndex].parentElement.label.replace(/\s+/g, '_');
+          title = `${module}-${part}.zip`;
+        }
+
+        window.saveAs(zip.generate({type: 'blob'}), `${module}-${part}.zip`);
+      })
+      .catch(function(err) {
+        alert('Could not generate Cordova project.')
+        console.error(err.message);
+      });
+  });
+};

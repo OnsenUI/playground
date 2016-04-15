@@ -18,10 +18,9 @@ app.config.versions = {
 
 app.config.ready = Promise.all(function() {
   var lastVersionOf = function(libName) {
-    return new Promise(function(resolve) {
-      var request = new XMLHttpRequest();
-      request.onload = function() {
-        var response = JSON.parse(this.responseText)[0];
+    return app.util.requestFile(`https://api.github.com/repos/${app.config.repos[libName]}/tags`)
+      .then(function(res) {
+        var response = JSON.parse(res)[0];
         if (response) {
           app.config.versions[libName] = response.name;
           window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.name);
@@ -29,12 +28,11 @@ app.config.ready = Promise.all(function() {
           console.warn('Could not fetch ' + app.util.toDash(libName) + '.js version. Github\'s API rate limit exceeded.');
           app.config.versions[libName] = app.config.versions.defaults[libName];
         }
-        resolve();
-      };
-
-      request.open('get', `https://api.github.com/repos/${app.config.repos[libName]}/tags`);
-      request.send();
-    });
+      })
+      .catch(function(err) {
+        console.error(err.message);
+        app.config.versions[libName] = app.config.versions.defaults[libName];
+      });
   };
 
   var promises = [];
@@ -53,18 +51,48 @@ app.config.ready = Promise.all(function() {
 
 app.config.ready.then(function() {
   app.config.lib = {
-    js: {
-      onsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/js/onsenui.min.js`,
-      angular: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js',
-      angularOnsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/js/angular-onsenui.min.js`,
-      react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js',
-      reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js',
-      reactDomServer: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom-server.js',
-      reactOnsenui: `${app.config.cdn}/${app.config.repos.reactOnsenui}/${app.config.versions.reactOnsenui}/dist/react-onsenui.js`
+    remote: {
+      js: {
+        onsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/js/onsenui.js`,
+        angular: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js',
+        angularOnsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/js/angular-onsenui.js`,
+        react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.min.js',
+        reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.min.js',
+        reactDomServer: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom-server.min.js',
+        reactOnsenui: `${app.config.cdn}/${app.config.repos.reactOnsenui}/${app.config.versions.reactOnsenui}/dist/react-onsenui.js`
+      },
+      css: {
+        onsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/css/onsenui.css`,
+        onsenuiCssComponents: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/css/onsen-css-components.css`
+      }
     },
-    css: {
-      onsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/css/onsenui.css`,
-      onsenuiCssComponents: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/css/onsen-css-components.css`
+
+    local: {
+      js: {
+        onsenui: 'onsen/js/onsenui.js',
+        angular: 'angular/angular.min.js',
+        angularOnsenui: 'onsen/js/angular-onsenui.js',
+        react: 'react/react.min.js',
+        reactDom: 'react/react-dom.min.js',
+        reactDomServer: 'react/react-dom-server.min.js',
+        reactOnsenui: `react-onsenui/react-onsenui.js`
+      },
+      css: {
+        onsenui: `onsen/css/onsenui.css`,
+        onsenuiCssComponents: `onsen/css/onsen-css-components.css`
+      }
     }
+  };
+
+  var pref = function(o, k) { o[k] = 'lib/' + o[k]; };
+  var js = app.config.lib.local.js, css = app.config.lib.local.css;
+  Object.keys(js).forEach(pref.bind(null, js));
+  Object.keys(css).forEach(pref.bind(null, css));
+
+
+  app.config.npm = {
+    onsenui: ['"onsenui": "' + app.config.versions.onsenui + '"'],
+    angular: ['"angular": ""'],
+    react: ['"react": ""', '"react-dom": ""', '"react-server": ""', '"react-onsenui": ""']
   };
 });
