@@ -266,6 +266,23 @@ app.services.detectTranspiler = function() {
   }
 };
 
+app.services.addTranspilerDependencies = function(packageJSON) {
+  switch (app.services.detectTranspiler()) {
+    case 'babel':
+      packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[0], true);
+      packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[1], false);
+
+      packageJSON = app.util.addEntry(packageJSON, 'scripts', '"build": "babel www/js/app.jsx -o www/js/app.js"', true);
+      packageJSON = app.util.addEntry(packageJSON, 'scripts', '"watch": "babel www/js/app.jsx --watch -o www/js/app.js"', false);
+
+      packageJSON = packageJSON.replace(/\}\s*\}[\s]*$/, '},\n  "babel": {\n\n  }\n}');
+      packageJSON = app.util.addEntry(packageJSON, 'babel', '"presets": ["react"]', true);
+      break;
+  }
+
+  return packageJSON;
+};
+
 app.services.showGenerateModal = function() {
   document.querySelector('#modal').classList.remove('generating');
   document.querySelector('#modal-container').classList.add('visible');
@@ -311,14 +328,14 @@ app.services.generateCordovaProject = function() {
 
     // PACKAGE.JSON
     var packageJSON = zip.file('package.json').asText();
-    var addDependency = function (dep, first) {
-      return packageJSON.replace(/("dependencies": \{\n(?:.|[\r\n])*?)(\n\s+\})/, '$1' + (first ? '' : ',\n') + '    ' + dep + '$2')
-    };
-    packageJSON = addDependency(app.config.npm.onsenui, true);
+
+    packageJSON = app.util.addEntry(packageJSON, 'dependencies', app.config.npm.onsenui, true);
     if (app.config.npm.hasOwnProperty(app.config.framework)) {
       app.config.npm[app.config.framework].forEach(function(dep) {
-        packageJSON = addDependency(dep);
+        packageJSON = app.util.addEntry(packageJSON, 'dependencies', dep);
       });
+
+      packageJSON = app.services.addTranspilerDependencies(packageJSON);
     }
     zip.file('package.json', packageJSON);
 
@@ -355,7 +372,7 @@ app.services.generateCordovaProject = function() {
           title = `${module}-${part}.zip`;
         }
 
-        window.saveAs(zip.generate({type: 'blob'}), `${module}-${part}.zip`);
+        window.saveAs(zip.generate({type: 'blob'}), `${title}.zip`);
       })
       .catch(function(err) {
         alert('Could not generate Cordova project.')
