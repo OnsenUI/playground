@@ -6,6 +6,7 @@ header {
   width: 100%;
   padding: 10px;
   position: fixed;
+  z-index: 10;
 }
 
 #title {
@@ -96,17 +97,25 @@ select {
 
 #toolbar {
   float: right;
-  width: 50px;
+  width: 150px;
   margin-right: 10px;
 }
 
-#skin-switch {
-  background: url('../assets/icons/eye.svg') center / 100% no-repeat transparent;
-  width: 26px;
-  height: 24px;
+#toolbar > div {
+  height: 26px;
   float: right;
   margin-right: 10px;
   cursor: pointer;
+}
+
+#skin-switch {
+  width: 26px;
+  background: url('../assets/icons/eye.svg') center / 100% no-repeat transparent;
+}
+
+#cordova-button {
+  width: 30px;
+  background: url('../assets/icons/cordova.svg') center / 100% no-repeat transparent;
 }
 
 .split.content {

@@ -215,6 +215,35 @@ input[type=submit] {
 .next-tutorial:hover {
 }
 
+.tooltip{
+    display: inline;
+    position: relative;
+    font-size: 13px;
+}
+
+.tooltip:hover:after{
+    background: rgba(0,0,0,.6);
+    border-radius: 5px;
+    top: 30px;
+    color: #fff;
+    content: attr(tooltip);
+    right: 20%;
+    padding: 8px 10px;
+    position: absolute;
+    min-width: 150px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: rgba(0,0,0,.6) transparent;
+    border-width: 0 6px 6px 6px;
+    top: 24px;
+    content: "";
+    right: 10px;
+    position: absolute;
+}
+
+
 @-webkit-keyframes pulse {
   from {
     -webkit-transform: scale(1.5);

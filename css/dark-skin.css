@@ -72,3 +72,12 @@
 .dark-skin #skin-switch {
   background-image: url('../assets/icons/eye2.svg');
 }
+
+.dark-skin .tooltip:hover:after{
+    color: #333;
+    background: rgba(240,240,240,.9);
+}
+
+.dark-skin .tooltip:hover:before{
+    border-color: rgba(240,240,240,.9) transparent;
+}

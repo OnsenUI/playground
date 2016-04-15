@@ -5,6 +5,7 @@ html, body {
 }
 
 #container {
+  position: relative;
   height: 100%;
   padding: 8px;
   background-color: #F6F6F6;
