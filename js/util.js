@@ -73,3 +73,8 @@ app.util.flattenJSLibs = function(object) {
 
   return result;
 }
+
+app.util.addEntry = function (packageJSON, key, dep, first) {
+  var regExp = new RegExp(`("${key}": \\{\\n(?:.|[\\r\\n])*?)(\\n\\s+\\})`);
+  return packageJSON.replace(regExp, '$1' + (first ? '' : ',\n') + '    ' + dep + '$2')
+};
