@@ -6,6 +6,7 @@ header {
   width: 100%;
   padding: 10px;
   position: fixed;
+  z-index: 2;
 }
 
 #title {
@@ -42,7 +43,6 @@ select {
 
 #modules {
   float: left;
-  /*margin: 0 auto;*/
   position: relative;
   min-width: 400px;
   margin-left: 6px;
@@ -96,17 +96,53 @@ select {
 
 #toolbar {
   float: right;
-  width: 50px;
+  width: 150px;
   margin-right: 10px;
 }
 
-#skin-switch {
-  background: url('../assets/icons/eye.svg') center / 100% no-repeat transparent;
-  width: 26px;
-  height: 24px;
+#toolbar > div {
+  height: 26px;
   float: right;
   margin-right: 10px;
   cursor: pointer;
+}
+
+#skin-switch {
+  width: 26px;
+  background: url('../assets/icons/eye.svg') center / 100% no-repeat transparent;
+}
+
+#cordova-button {
+  width: 30px;
+  background: url('../assets/icons/cordova.svg') center / 100% no-repeat transparent;
+}
+
+.tooltip{
+    display: inline;
+    position: relative;
+    font-size: 13px;
+}
+
+.tooltip:hover:after{
+    background: rgba(0,0,0,.6);
+    border-radius: 5px;
+    top: 30px;
+    color: #fff;
+    content: attr(tooltip);
+    right: 20%;
+    padding: 8px 10px;
+    position: absolute;
+    min-width: 150px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: rgba(0,0,0,.6) transparent;
+    border-width: 0 6px 6px 6px;
+    top: 24px;
+    content: "";
+    right: 10px;
+    position: absolute;
 }
 
 .split.content {
@@ -140,11 +176,93 @@ select {
   position: relative;
 }
 
-/* @media (max-width: 762px) {
-  #module-list {
-    float: left;
-  }
-} */
+#modal {
+  pointer-events: none;
+  opacity: 0;
+  top: 30px;
+  transition: all 0.3s ease-out;
+
+  width: 400px;
+  height: 200px;
+
+  color: #333;
+  background-color: #EEE;
+  border-radius: 5px;
+  border: 1px solid #999;
+  position: absolute;
+  left: calc(50% - 200px);
+  z-index: 5;
+}
+
+#modal-mask {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 4;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.modal-body {
+  position: relative;
+  height: calc(100% - 50px);
+  width: 100%;
+}
+
+#modal-footer {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+#modal-title {
+  padding: 20px 0 10px;
+  height: 50px;
+  box-sizing: border-box;
+  margin: 0 40px;
+  border-bottom: 1px solid #999;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#modal-content {
+  text-align: center;
+  text-align: center;
+  padding: 30px 20px 0;
+}
+
+#modal-confirm {
+  display: block;
+}
+
+#modal-generating {
+  display: none;
+}
+
+#modal-generating > div{
+  bottom: 10px;
+}
+
+.generating #modal-confirm {
+  display: none;
+}
+
+.generating #modal-generating {
+  display: block;
+}
+
+.visible #modal {
+  pointer-events: auto;
+  opacity: 1;
+  top: 110px;
+}
+
+.visible #modal-mask {
+  pointer-events: auto;
+  display: block;
+}
 
 @media (max-width: 772px) {
   #module-title {
@@ -164,5 +282,91 @@ select {
 
   #title > a > span:not(.logo) {
     display: none !important;
+  }
+}
+
+
+.cssload-loader * {
+  box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.cssload-loader {
+  width: 1em;
+  height: 1em;
+  font-size: 101px;
+  position: relative;
+  display:block;
+  margin: 34px auto;
+}
+
+.cssload-loader:before, .cssload-loader:after {
+  content: "";
+  top: 0;
+  display: block;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  border-width: 0.5em;
+  border-style: double;
+  border-color: transparent;
+  border-radius: 1em;
+  box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  animation: spin 0.95s infinite;
+    -o-animation: spin 0.95s infinite;
+    -ms-animation: spin 0.95s infinite;
+    -webkit-animation: spin 0.95s infinite;
+    -moz-animation: spin 0.95s infinite;
+}
+.cssload-loader:after {
+  left: 0;
+  border-left-color: rgb(56,56,56);
+}
+.cssload-loader:before {
+  right: 0;
+  border-right-color: rgb(56,56,56);
+  animation-delay: -0.2325s;
+    -o-animation-delay: -0.2325s;
+    -ms-animation-delay: -0.2325s;
+    -webkit-animation-delay: -0.2325s;
+    -moz-animation-delay: -0.2325s;
+}
+
+
+
+@keyframes spin {
+  from {
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes spin {
+  from {
+    -o-transform: rotate(360deg);
+  }
+}
+
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(360deg);
   }
 }

@@ -44,3 +44,32 @@ app.util.extract = function(string, regex) {
 app.util.toDash = function(string){
   return string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
 };
+
+app.util.requestFile = function(url) {
+  return new Promise(function(resolve, reject) {
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function () {
+      if(request.readyState === XMLHttpRequest.DONE) {
+        request.status === 200 ? resolve(request.responseText) : reject(new Error(request.statusText));
+      }
+    };
+
+    request.open('get', url);
+    request.send();
+  });
+};
+
+app.util.flattenJSLibs = function(object) {
+  var result = [];
+
+  Object.keys(object).forEach(function(key1) {
+    Object.keys(object[key1]).forEach(function(key2) {
+      if (key2.lastIndexOf('/css') === -1) {
+        result = result.concat(object[key1][key2]);
+      }
+    });
+  });
+
+  return result;
+}
