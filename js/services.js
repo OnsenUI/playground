@@ -15,6 +15,7 @@ app.services.generateTemplateOutput = function() {
       </script>
 
       ${app.services.generateTemplateCSS()}
+      <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
 
       <script>
         ${app.services.transpile(app.editors.js.getValue())}
