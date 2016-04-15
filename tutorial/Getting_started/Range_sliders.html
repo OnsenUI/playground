@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Range sliders</div>
+    </ons-toolbar>
+
+    <p>
+      <ons-row>
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-volume-down"></ons-icon>
+        </ons-col>
+        <ons-col>
+          <ons-range style="width: 100%;" value="25"></ons-range>
+        </ons-col>
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-volume-up"></ons-icon>
+        </ons-col>
+      </ons-row>
+      <ons-row style="margin-top: 20px;">
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-brightness-low"></ons-icon>
+        </ons-col>
+        <ons-col>
+          <ons-range style="width: 100%;" value="50"></ons-range>
+        </ons-col>
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-brightness-high"></ons-icon>
+        </ons-col>
+      </ons-row>
+      <ons-row style="margin-top: 20px;">
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-thumb-down"></ons-icon>
+        </ons-col>
+        <ons-col>
+          <ons-range disabled style="width: 100%;" value="75"></ons-range>
+        </ons-col>
+        <ons-col width="40px" style="text-align: center; line-height: 31px;">
+          <ons-icon icon="md-thumb-up"></ons-icon>
+        </ons-col>
+      </ons-row>
+    </p>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Range sliders
+
+The `<ons-range>` element is used to display a slider.
+
+There are several attributes that can be used to customize the behavior of the element. Most of these are the same attributes as those that can be used for `<input type="range">` elements.
+
+To set the maximum and minimum and maximum value the `min` and `max` attributes are used. The `step` attribute can be used to change how much the value changes every step.
+
+The element can be disabled using the `disabled` attribute.
+
+## Getting the value
+
+To get the current value of the slider you need to get a reference to the DOM element and read the `value` property.
+
+```
+var range = document.getElementById('range-1');
+ons.notification.alert('Value is ' + range.value);
+```
+
+-->

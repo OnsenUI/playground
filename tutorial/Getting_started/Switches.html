@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Switches</div>
+    </ons-toolbar>
+
+    <ons-list>
+      <ons-list-header>Settings</ons-list-header>
+      <ons-list-item>
+        <div class="list__item__center">
+          Enable cool feature
+        </div>
+        <div class="list__item__right">
+          <ons-switch checked></ons-switch>
+        </div>
+      </ons-list-item>
+      <ons-list-item>
+        <div class="list__item__center">
+          Enable even cooler feature
+        </div>
+        <div class="list__item__right">
+          <ons-switch></ons-switch>
+        </div>
+      </ons-list-item>
+      <ons-list-item>
+        <div class="list__item__center">
+          Enable amazing feature
+        </div>
+        <div class="list__item__right">
+          <ons-switch disabled></ons-switch>
+        </div>
+      </ons-list-item>
+    </ons-list>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Switches
+
+A switch is an UI element that can be used to toggle between two states.
+
+The state of a switch in Onsen UI can be changed both by dragging the knob and by tapping on the switch.
+
+To make the switch enabled by default you can use the `checked` attribute just like with radio buttons and checkboxes.
+
+```
+<ons-switch checked>
+</ons-switch>
+```
+
+To disable the switch the `disabled` attribute is used.
+
+```
+<ons-switch disabled>
+</ons-switch>
+```
+
+## Getting the value
+
+To get the value of an `<ons-switch>` element you need to get a reference to the DOM element and read the `checked` property.
+
+```
+var switch = document.getElementById('switch-1');
+ons.notification.alert('Value is ' + switch.checked);
+```
+-->
