@@ -45,7 +45,7 @@ app.util.toDash = function(string){
   return string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
 };
 
-app.util.requestFile = function(url) {
+app.util.request = function(url) {
   return new Promise(function(resolve, reject) {
     var request = new XMLHttpRequest();
 
