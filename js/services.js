@@ -130,7 +130,7 @@ app.services.changeModule = function(module, part) {
 };
 
 app.services.loadModule = function(module, part) {
-  return app.util.requestFile(part ? `./tutorial/${module.replace(/\s/g, '_')}/${part.replace(/\s/g, '_')}.html` : module)
+  return app.util.request(part ? `./tutorial/${module.replace(/\s/g, '_')}/${part.replace(/\s/g, '_')}.html` : module)
     .then(function(responseText) {
       var format = app.util.format,
         extract = app.util.extract;
@@ -347,7 +347,7 @@ app.services.generateCordovaProject = function() {
       if (externalLibraries.hasOwnProperty(lib)) {
         Object.keys(externalLibraries[lib]).forEach(function(dir) {
           externalLibraries[lib][dir].forEach(function(file) {
-            promises.push(app.util.requestFile(file)
+            promises.push(app.util.request(file)
               .then(function(res) {
                 zip.file(`www/lib/${dir}/${file.split('/').pop()}`, res);
               })

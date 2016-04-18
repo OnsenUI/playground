@@ -18,10 +18,10 @@ app.config.versions = {
 
 app.config.ready = Promise.all(function() {
   var lastVersionOf = function(libName) {
-    return app.util.requestFile(`https://api.github.com/repos/${app.config.repos[libName]}/tags`)
+    return app.util.request(`https://api.github.com/repos/${app.config.repos[libName]}/releases/latest`)
       .then(function(res) {
-        var response = JSON.parse(res)[0];
-        if (response) {
+        var response = JSON.parse(res);
+        if (response.name) {
           app.config.versions[libName] = response.name;
           window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.name);
         } else {

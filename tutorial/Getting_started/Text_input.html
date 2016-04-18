@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    var login = function() {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+
+      if (username === 'bob' && password === 'secret') {
+        ons.notification.alert('Congratulations!');
+      }
+      else {
+        ons.notification.alert('Incorrect username or password.');
+      }
+    };
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Text input</div>
+    </ons-toolbar>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <p>
+        <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
+      </p>
+      <p>
+        <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
+      </p>
+      <p style="margin-top: 30px;">
+        <ons-button onclick="login()">Sign in</ons-button>
+      </p>
+    </div>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Text input
+
+In Onsen UI text input is provided by the `<ons-input>` tag. It works exactly like the normal `<input>` tag but with some small differences.
+
+Just like the normal input tag you can use the `type` attribute to define what kind of input that should be displayed. To get an number input you can use the `number` type:
+
+```
+<ons-input
+  type="number"
+  placeholder="Age"
+  min="0"
+  max="200">
+</ons-input>
+```
+
+You can also use types like `number` or `date`. Also `checkbox` and `radio` are available but we will take a look at them in a later tutorial. 
+
+## Floating label
+
+For Android devices the input will displayed as a Material Design input element. One of the features of this input is that it can have a floating label which will animated when the user starts typing. Try changing the style to Android to see how it works.
+
+The label is defined with the `placeholder` attribute and to activate the animation the `float` attribute is required.
+
+```
+<ons-input
+  placeholder="Username"
+  float>
+</ons-input>
+```
+
+## Inner input element
+
+For normal input elements is possible to define a `<label>` tab with the `for` attribute to link it to an input element.
+
+Unfortunately this does not work with custom elements like `<ons-label>` so in order to do it we need to set the `id` attribute of the inner input element. This is done using the `input-id` attribute.
+
+```
+<label for="username">Username</label>
+<ons-input input-id="username"></ons-input>
+```
+
+-->
