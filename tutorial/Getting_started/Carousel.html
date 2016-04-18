@@ -14,6 +14,12 @@
       var carousel = document.getElementById('carousel');
       carousel.next();
     };
+
+    ons.ready(function() {
+      var carousel = document.addEventListener('postchange', function(event) {
+        console.log('Changed to ' + event.activeIndex)
+      });
+    });
   </script>
 </head>
 <body>
@@ -57,8 +63,64 @@
 
 ## Carousel
 
-Carousel rocks!
+A carousel is a UI component that is used to display several items in the same place. Switching between the content can either be automatic or controlled by the user.
 
+In Onsen UI a carousel is created using the `<ons-carousel>` element.
+
+```
+<ons-carousel>
+  <ons-carousel-item>
+    ...
+  </ons-carousel-item>
+  <ons-carousel-item>
+    ...
+  </ons-carousel-item>
+  ...
+</ons-carousel>
+```
+
+## Customization
+
+The `<ons-carousel>` element has a large number of attributes that control its behavior.
+
+By default the carousel can not be controlled by swiping. The `swipeable` attribute will enabled this.
+
+To make it automatically snap to item borders the `auto-scroll` attribute is used. The `overscrollable` attribute makes it possible to scroll past the first and last element of the carousel.
+
+To make it cover the whole screen you can use the `fullscreen` attribute.
+
+## Changing the direction
+
+The carousel goes from left to right by default. It is possible to make scroll vertically by using the `direction` attribute.
+
+```
+<ons-carousel direction="vertical">
+  ...
+</ons-carousel>
+```
+
+You can try adding the `direction="vertical"` attribute to this example to see how it works.
+
+## Methods
+
+The carousel can also be controlled programmatically. To switch to the previous or next item the `prev()` and `next()` are used.
+
+```
+var carousel = document.getElementById('carousel');
+carousel.next();
+```
+
+To switch to a specific item the `setActiveIndex(index)` method is used.
+
+## Events
+
+The carousel element emits DOM event. Every time the current item has changed it emits the `postchange` event which is useful to make sure which is the currently displayed item:
+
+```
+var carousel = document.getElementById('carousel');
+carousel.addEventListener('postchange', function(event) {
+  console.log('Current item is ' + event.activeIndex);
+});
 ```
 
 -->
