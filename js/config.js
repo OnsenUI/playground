@@ -93,6 +93,7 @@ app.config.ready.then(function() {
   app.config.npm = {
     onsenui: ['"onsenui": "' + app.config.versions.onsenui + '"'],
     angular: ['"angular": ""'],
-    react: ['"react": ""', '"react-dom": ""', '"react-server": ""', '"react-onsenui": ""']
+    react: ['"react": ""', '"react-dom": ""', '"react-server": ""', '"react-onsenui": ""'],
+    babel: ['"babel-cli": ""', '"babel-preset-react": ""']
   };
 });
