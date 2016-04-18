@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap()
+      .controller('AppController', function() {
+        this.pushes = 0;
+        this.pops = 0;
+      });
+  </script>
+</head>
+<body>
+  <ons-navigator
+    var="navi"
+    page="page.html"
+    ng-controller="AppController as app"
+    ons-postpush="app.pushes = app.pushes + 1"
+    ons-postpop="app.pops = app.pops + 1">
+  </ons-navigator>
+
+  <ons-template id="page.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Back</ons-back-button>
+        </div>
+        <div class="center">Event handling</div>
+      </ons-toolbar>
+
+      <section style="padding: 10px">
+        <ons-button ng-click="navi.pushPage('page.html')">
+          Push page!
+        </ons-button>
+
+        <p>
+          You have pushed {{ app.pushes }} times and popped {{ app.pops }} times.
+        </p>
+      </section>
+    </ons-page>
+  </ons-template>
+</body>
+</html>
+
+<!-- info
+
+## Event handling
+
+Several of the Onsen UI components will emit custom DOM events. These events can be caught in AngularJS using the `ons-{eventName}` directive.
+
+To catch the `postpush` event of the `<ons-navigator>` you can use the `ons-postpush` directive.
+
+```
+<ons-navigator
+  ons-postpush="handlePostpush()">
+</ons-navigator>
+```
+
+-->
