@@ -20,6 +20,11 @@ app.modules = {
     'Floating action button',
     'Speed dial'
   ],
+  'AngularJS': [
+    'Introduction',
+    'Data binding',
+    'Event handling'
+  ],
   'React': [
     'Using the components'
   ]

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap()
+      .controller('AppController', function() {
+        this.switch = false;
+        this.range = 20;
+        this.name = 'Andreas';
+      });
+  </script>
+</head>
+<body>
+  <ons-page ng-controller="AppController as data">
+    <ons-toolbar>
+      <div class="center">Data binding</div>
+    </ons-toolbar>
+
+    <ons-list>
+      <ons-list-header>Switch</ons-list-header>
+      <ons-list-item>
+        <div class="center">
+          Switch is {{ data.switch ? 'on' : 'off' }}
+        </div>
+        <div class="right">
+          <ons-switch ng-model="data.switch"></ons-switch>
+        </div>
+      </ons-list-item>
+      <ons-list-item>
+        <div class="center">
+          Switch is {{ data.switch ? 'disabled' :'enabled' }}
+        </div>
+        <div class="right">
+          <ons-switch ng-disabled="data.switch"></ons-switch>
+        </div>
+      </ons-list-item>
+
+      <ons-list-header>Slider</ons-list-header>
+      <ons-list-item>
+        <ons-range ng-model="data.range" style="width: 100%; padding-right: 10px"></ons-range>
+      </ons-list-item>
+      <ons-list-item>
+        Value is {{ data.range }}
+      </ons-list-item>
+
+      <ons-list-header>Text input</ons-list-header>
+      <ons-list-item>
+        <ons-if platform="ios" class="left">
+          Name
+        </ons-if>
+        <div class="center">
+          <ons-input placeholder="Input name" float ng-model="data.name"></ons-input>
+        </div>
+      </ons-list-item>
+      <ons-list-item>
+        Hello there, {{ data.name }}!
+      </ons-list-item>
+
+    </ons-list>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Data binding
+
+Binding data to components is an important concept in AngularJS. You can use the `ng-model` directive to bind the value of an input element to a variable.
+
+```
+<input
+  type="text"
+  ng-model="person.name">
+</input>
+Hello, {{ person.name }}!
+```
+
+Onsen UI extends the HTML language but all the Onsen UI input elements still support `ng-model` for data binding:
+
+```
+<ons-input
+  ng-model="person.name">
+</ons-input>
+Hello, {{ person.name }}!
+```
+
+## Available form elements
+
+The `ng-model` directive is available for `<ons-range>`, `<ons-input>` and `<ons-switch>`.
+
+There is also a directive called `ng-change` that can be used to listen to changes.
+
+```
+<ons-range
+  ng-model="person.age"></ons-range>
+  ng-change="person.ageChanged()">
+</ons-range>
+```
+-->
