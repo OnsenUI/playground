@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     app.setup.tabView();
   }
 
-  app.services.updateCategory(external ? null : module);
+  //app.services.updateCategory(external ? null : module);
 
   // Theme setup
   if (!window.Split || window.localStorage.getItem('onsDarkSkin')) {
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
   app.services.updateEditors();
 
   // Preview setup
-  app.services.switchStyle();
+  app.services.switchStyle(app.config.platform);
   app.config.ready
     .then(function() {
       if (external) {
@@ -64,8 +64,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
   document.body.querySelector('#codepen-form').onsubmit = app.services.codepenSubmit;
   document.body.querySelector('#run').onclick = app.services.runProject;
-  document.body.querySelector('#styling button').onclick = function() {
-    app.services.switchStyle();
-    app.services.runProject();
-  };
+  Array.prototype.slice.call(document.body.querySelectorAll('#styling > label > span')).forEach(function(button) {
+    button.onclick = function(event) {
+      if (app.config.platform !== event.target.getAttribute('platform')) {
+        app.services.switchStyle(event.target.getAttribute('platform'));
+        app.services.runProject();
+      }
+    };
+  });
 });

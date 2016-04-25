@@ -1,6 +1,6 @@
 app.config = {};
 
-app.config.platform = 'android';
+app.config.platform = 'ios';
 app.config.framework = window.sessionStorage.getItem('ons-framework') || 'vanilla';
 app.config.cdn = 'https://cdn.rawgit.com';
 app.config.repos = {

@@ -1,27 +1,61 @@
 div#container {
-  padding-top: 44px;
+  padding-top: 120px;
 }
 
 header {
   width: 100%;
-  padding: 10px;
   position: fixed;
   z-index: 2;
 }
 
-#title {
-  float: left;
-  width: 280px;
+#h1 {
+  height: 20px;
+  background: -webkit-linear-gradient(#E54738, #E04537);
+  background: linear-gradient(#E54738, #E04537);
+}
+
+#h2 {
+  height: 40px;
+  display: block;
+  width: 100%;
   font-size: 20px;
+  padding-top: 8px;
+  padding-left: 12px;
+  background-color: #FFF;
+  border-bottom: 2px solid #DDD;
 }
 
-#title .logo {
-  color: #FC3429;
-  font-style: italic;
-  margin-right: 12px;
+#h2 .logo {
+  width: 120px;
+  height: 30px;
+  float: left;
+  background: url('../assets/icons/logo_onsenui.svg') center / 100% no-repeat transparent;
+}
+#h2 .subtitle {
+  float: left;
+  padding-left: 20px;
+  line-height: 34px;
 }
 
-#title > a {
+#h2 .subtitle > span:first-of-type {
+  color: #AAA;
+}
+
+#h2 .subtitle > span:last-of-type {
+  color: #FF1A33;
+}
+
+#h2 > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#h3 {
+  padding-top: 14px;
+  padding-left: 2px;
+}
+
+#h3 > a {
   text-decoration: none;
   color: inherit;
 }
@@ -44,7 +78,7 @@ select {
 #modules {
   float: left;
   position: relative;
-  min-width: 400px;
+  min-width: 150px;
   margin-left: 6px;
 }
 
@@ -96,25 +130,49 @@ select {
 
 #toolbar {
   float: right;
-  width: 150px;
-  margin-right: 10px;
+  width: 250px;
 }
 
-#toolbar > div {
+#toolbar > * {
   height: 26px;
   float: right;
-  margin-right: 10px;
+  margin-right: 4px;
   cursor: pointer;
 }
 
-#skin-switch {
-  width: 26px;
-  background: url('../assets/icons/eye.svg') center / 100% no-repeat transparent;
+.toolbar-button {
+  padding-left: 8px;
+  border: none;
+  background-color: transparent;
 }
 
-#cordova-button {
-  width: 30px;
-  background: url('../assets/icons/cordova.svg') center / 100% no-repeat transparent;
+.toolbar-button span {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  left: -4px;
+}
+
+#download-button {
+  width: 90px;
+}
+
+#download-button span {
+  background: url('../assets/icons/download.svg') left / 18px no-repeat transparent;
+  width: 18px;
+  height: 18px;
+  top: -4px;
+}
+
+#codepen-button {
+  width: 146px;
+}
+
+#codepen-button span {
+  background: url('../assets/icons/codepen.svg') left / 20px no-repeat transparent;
+  width: 20px;
+  height: 20px;
+  top: -2px;
 }
 
 .tooltip{
@@ -129,7 +187,7 @@ select {
     top: 30px;
     color: #fff;
     content: attr(tooltip);
-    right: 20%;
+    right: 0;
     padding: 8px 10px;
     position: absolute;
     min-width: 150px;
@@ -141,7 +199,7 @@ select {
     border-width: 0 6px 6px 6px;
     top: 24px;
     content: "";
-    right: 10px;
+    left: 6px;
     position: absolute;
 }
 
@@ -276,11 +334,11 @@ select {
 }
 
 @media (max-width: 545px) {
-  #title {
+  #h2 {
     width: 100px;
   }
 
-  #title > a > span:not(.logo) {
+  #h2 > a > span:not(.logo) {
     display: none !important;
   }
 }

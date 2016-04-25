@@ -92,13 +92,8 @@ app.services.codepenSubmit = function() {
   });
 };
 
-app.services.switchStyle = function() {
-  var buttonIcon = document.querySelector('#styling-icon'),
-    buttonLabel = document.querySelector('#styling-label');
-
-  buttonIcon.classList.remove('icon-' + app.config.platform);
-  app.config.platform = buttonLabel.innerHTML = app.config.platform ==='ios' ? 'android' : 'ios';
-  buttonIcon.classList.add('icon-' + app.config.platform);
+app.services.switchStyle = function(platform) {
+  app.config.platform = platform;
 };
 
 app.services.toggleTheme = function() {
@@ -147,7 +142,7 @@ app.services.loadModule = function(module, part) {
       app.services.detectFramework(rawTranspiler, code);
 
       app.services.updateEditors();
-      app.services.updateCategory(part ? module : null);
+      //app.services.updateCategory(part ? module : null);
 
       app.tutorial = {
         pageIndex: 0,

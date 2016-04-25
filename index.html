@@ -40,24 +40,34 @@
 <base target="_blank">
 
 <header>
-  <div id="title">
-    <a href="." target="_self"><span class="logo">Onsen UI</span><span>Interactive Tutorial</span></a>
+  <div id="h1">
+
   </div>
-  <div id="toolbar">
-    <div id="skin-switch" class="tooltip" tooltip="Change theme color"></div>
-    <div id="cordova-button" class="tooltip" tooltip="Generate Cordova project based on this sample"></div>
+
+  <div id="h2">
+    <a href="." target="_self"><span class="logo"></span><span class="subtitle"><span>Interactive</span> <span>Tutorial</span></span></a>
   </div>
-  <div id="modules">
-    <div id="module-list">
-      <span class="fancyArrow"></span>
-      <select>
-        <option value="" disabled selected>Select a module</option>
-      </select>
+
+  <div id="h3">
+    <div id="toolbar">
+      <button id="download-button" class="toolbar-button tooltip" tooltip="Generate Cordova project based on this sample" arrow-right="30px"><span></span>Download</button>
+      <form id="codepen-form" action="https://codepen.io/pen/define" method="POST" target="_blank">
+        <input type="hidden" name="data" id="codepen-data">
+        <button id="codepen-button" class="toolbar-button tooltip" tooltip="Export this sample to Codepen" arrow-right="60px"><span></span>Export to Codepen</button>
+      </form>
     </div>
-    <div id="module-title">
-      <div>—</div>
-      <div id="module-title-text"></div>
-      <div>—</div>
+    <div id="modules">
+      <div id="module-list">
+        <span class="fancyArrow"></span>
+        <select>
+          <option value="" disabled selected>Select a module</option>
+        </select>
+      </div>
+<!--       <div id="module-title">
+  <div>—</div>
+  <div id="module-title-text"></div>
+  <div>—</div>
+</div> -->
     </div>
   </div>
 </header>
@@ -77,13 +87,18 @@
     </div>
     <div id="leftBottomPane" class="split content">
       <div id="output" class="frame">
-        <div class="toolbar">
-          <form id="codepen-form" action="https://codepen.io/pen/define" method="POST" target="_blank">
-            <input type="hidden" name="data" id="codepen-data">
-            <button id="codepen-submit"><span></span>Export</button>
-          </form>
-          <button id="run"><span>▶</span> Run</button>
-          <span id="styling"><button><span id="styling-icon" class="icon-ios"></span><span id="styling-label"></span></button></span>
+        <div class="preview-toolbar">
+          <div id="run" class="custom-button"><span><span>▶</span> Run</span></div>
+          <span id="styling">
+            <label class="custom-button">
+              <input type="radio" name="styling" checked>
+              <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label">iOS View</span></span>
+            </label>
+            <label class="custom-button">
+              <input type="radio" name="styling">
+              <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label">Android View</span></span>
+            </label>
+          </span>
         </div>
 
         <iframe frameborder="0" scrolling="no"></iframe>
@@ -116,8 +131,6 @@
     </div>
   </div>
 </div>
-
-<div class="icon-ios icon-android" style="display: none"></div>
 
 <div id="placeholder">
   <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
