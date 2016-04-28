@@ -11,7 +11,7 @@ app.modules = {
       'carousel': 'Carousel',
       'dialog': 'Dialogs',
       'popover': 'Popover',
-      'input': 'Text input',
+      'input': 'Form input',
       'Checkboxes': 'Checkboxes',
       'Radio buttons': 'Radio buttons',
       'switch': 'Switches',
