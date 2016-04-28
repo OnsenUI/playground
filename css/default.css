@@ -35,6 +35,9 @@ header {
   float: left;
   padding-left: 20px;
   line-height: 30px;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
 }
 
 #h2 .subtitle > span:first-of-type {
@@ -298,7 +301,7 @@ header {
 }
 
 #modules .category-item > input:not(:checked) ~ ul {
-  height: 0;
+  max-height: 0;
 }
 
 #modules .category-item > label {
@@ -457,7 +460,8 @@ header {
   pointer-events: none;
   opacity: 0;
   top: 30px;
-  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+          transition: all 0.3s ease-out;
 
   width: 400px;
   height: 200px;
@@ -603,33 +607,15 @@ header {
 }
 
 
-
 @keyframes spin {
   from {
-    transform: rotate(360deg);
-  }
-}
-
-@-o-keyframes spin {
-  from {
-    -o-transform: rotate(360deg);
-  }
-}
-
-@-ms-keyframes spin {
-  from {
-    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 
 @-webkit-keyframes spin {
   from {
     -webkit-transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes spin {
-  from {
-    -moz-transform: rotate(360deg);
   }
 }
