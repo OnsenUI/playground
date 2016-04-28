@@ -5,19 +5,16 @@
 	<title>Onsen UI App</title>
 
   <script>
-    ons.bootstrap().controller('MyController', function($scope) {
-      console.log('hey');
-    });
   </script>
 </head>
 <body>
-  <ons-page ng-controller="MyController">
+  <ons-page>
     <ons-toolbar>
       <div class="center">My app</div>
     </ons-toolbar>
 
-    <p>
-      <ons-button ng-click="ons.notification.alert({message: 'Hello world!'})">Click me!</ons-button>
+    <p style="text-align: center">
+      <ons-button onclick="ons.notification.alert('Hello world!')">Click me!</ons-button>
     </p>
   </ons-page>
 </body>

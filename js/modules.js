@@ -13,8 +13,10 @@ app.modules = {
       'popover': 'Popover',
       'input': 'Form input',
       'switch': 'Switches',
+      'button': 'Buttons',
       'range': 'Range sliders',
       'icon': 'Icons',
+      'if': 'Conditional element',
       'progress': 'Progress',
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial'
