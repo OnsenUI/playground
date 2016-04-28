@@ -70,7 +70,6 @@ header {
   background: #fff;
   border: 1px solid #ccc;
   font-size: 16px;
-  color: #AAA;
   height: 36px;
   box-sizing: border-box;
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -113,6 +112,7 @@ header {
   float: left;
   line-height: 34px;
   padding-left: 6px;
+  color: #333;
 }
 
 #modules .select-arrow {
