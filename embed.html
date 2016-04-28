@@ -58,13 +58,18 @@
     <div class="content">
 
       <div id="output" class="frame">
-        <div class="toolbar">
-          <form id="codepen-form" action="https://codepen.io/pen/define" method="POST" target="_blank">
-            <input type="hidden" name="data" id="codepen-data">
-            <button id="codepen-submit"><span></span>Export</button>
-          </form>
-          <button id="run"><span>▶</span> Run</button>
-          <span id="styling"><button><span id="styling-icon" class="icon-ios"></span><span id="styling-label"></span></button></span>
+        <div class="preview-toolbar">
+          <div id="run" class="custom-button"><span><span>▶</span><span class="button-text"> Run</span></span></div>
+          <span id="styling">
+            <label class="custom-button">
+              <input type="radio" name="styling" checked>
+              <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label button-text">iOS View</span></span>
+            </label>
+            <label class="custom-button">
+              <input type="radio" name="styling">
+              <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label button-text">Android View</span></span>
+            </label>
+          </span>
         </div>
 
         <iframe frameborder="0" scrolling="no"></iframe>

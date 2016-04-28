@@ -40,25 +40,67 @@
 <base target="_blank">
 
 <header>
-  <div id="title">
-    <a href="." target="_self"><span class="logo">Onsen UI</span><span>Interactive Tutorial</span></a>
+  <div id="h1">
+
   </div>
-  <div id="toolbar">
-    <div id="skin-switch" class="tooltip" tooltip="Change theme color"></div>
-    <div id="cordova-button" class="tooltip" tooltip="Generate Cordova project based on this sample"></div>
+
+  <div id="h2">
+    <a href="." target="_self"><span class="logo"></span><span class="subtitle"><span>Interactive</span> <span>Tutorial</span></span></a>
   </div>
-  <div id="modules">
-    <div id="module-list">
-      <span class="fancyArrow"></span>
-      <select>
-        <option value="" disabled selected>Select a module</option>
-      </select>
+
+  <div id="h3">
+    <div id="toolbar">
+      <button id="download-button" class="toolbar-button tooltip" tooltip="Generate Cordova project based on this sample"><span></span>Download</button>
+      <form id="codepen-form" action="https://codepen.io/pen/define" method="POST" target="_blank">
+        <input type="hidden" name="data" id="codepen-data">
+        <button id="codepen-button" class="toolbar-button tooltip" tooltip="Export this sample to Codepen"><span></span>Export to Codepen</button>
+      </form>
     </div>
-    <div id="module-title">
-      <div>—</div>
-      <div id="module-title-text"></div>
-      <div>—</div>
-    </div>
+    <label id="modules">
+      <div class="select">
+        <span class="select-thumbnail"></span>
+        <span class="select-item">Select Tutorial</span>
+        <span class="select-arrow"><span></span></span>
+      </div>
+
+      <input type="checkbox">
+
+      <div class="dropdown">
+        <div class="dropdown-mask"></div>
+
+        <ul>
+          <li class="framework-item">
+            <input type="radio" id="r-vanilla" name="framework" checked>
+            <label for="r-vanilla" framework="vanilla">
+              <div class="framework-logo"></div>
+            </label>
+            <ul class="module-list"></ul>
+          </li>
+          <li class="framework-item">
+            <input type="radio" id="r-angular1" name="framework">
+            <label for="r-angular1" framework="angular1">
+              <div class="framework-logo"></div>
+            </label>
+            <ul class="module-list"></ul>
+          </li>
+          <li class="framework-item">
+            <input type="radio" id="r-angular2" name="framework">
+            <label for="r-angular2" framework="angular2">
+              <div class="framework-logo"></div>
+            </label>
+            <ul class="module-list"></ul>
+          </li>
+          <li class="framework-item">
+            <input type="radio" id="r-react" name="framework">
+            <label for="r-react" framework="react">
+              <div class="framework-logo"></div>
+            </label>
+            <ul class="module-list"></ul>
+          </li>
+        </ul>
+
+      </div>
+    </label>
   </div>
 </header>
 
@@ -77,13 +119,18 @@
     </div>
     <div id="leftBottomPane" class="split content">
       <div id="output" class="frame">
-        <div class="toolbar">
-          <form id="codepen-form" action="https://codepen.io/pen/define" method="POST" target="_blank">
-            <input type="hidden" name="data" id="codepen-data">
-            <button id="codepen-submit"><span></span>Export</button>
-          </form>
-          <button id="run"><span>▶</span> Run</button>
-          <span id="styling"><button><span id="styling-icon" class="icon-ios"></span><span id="styling-label"></span></button></span>
+        <div class="preview-toolbar">
+          <div id="run" class="custom-button"><span><span>▶</span> Run</span></div>
+          <span id="styling">
+            <label class="custom-button">
+              <input type="radio" name="styling" checked>
+              <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label">iOS View</span></span>
+            </label>
+            <label class="custom-button">
+              <input type="radio" name="styling">
+              <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label">Android View</span></span>
+            </label>
+          </span>
         </div>
 
         <iframe frameborder="0" scrolling="no"></iframe>
@@ -116,8 +163,6 @@
     </div>
   </div>
 </div>
-
-<div class="icon-ios icon-android" style="display: none"></div>
 
 <div id="placeholder">
   <svg version="1.0" xmlns="http://www.w3.org/2000/svg"

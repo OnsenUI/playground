@@ -1,6 +1,6 @@
 app.config = {};
 
-app.config.platform = 'android';
+app.config.platform = 'ios';
 app.config.framework = window.sessionStorage.getItem('ons-framework') || 'vanilla';
 app.config.cdn = 'https://cdn.rawgit.com';
 app.config.repos = {
@@ -9,14 +9,19 @@ app.config.repos = {
 };
 app.config.versions = {
   defaults: {
-    onsenui: '2.0.0-beta.8',
-    reactOnsenui: '0.0.18'
+    onsenui: '2.0.0-beta.15',
+    reactOnsenui: '0.0.20'
   },
   onsenui: window.sessionStorage.getItem('onsenui-version'),
   reactOnsenui: window.sessionStorage.getItem('react-onsenui-version')
 };
 
 app.config.ready = Promise.all(function() {
+  var setDefault = function(libName) {
+    console.warn('Could not fetch ' + app.util.toDash(libName) + '.js version. Github\'s API rate limit exceeded.');
+    app.config.versions[libName] = app.config.versions.defaults[libName];
+  };
+
   var lastVersionOf = function(libName) {
     return app.util.request(`https://api.github.com/repos/${app.config.repos[libName]}/releases/latest`)
       .then(function(res) {
@@ -25,13 +30,12 @@ app.config.ready = Promise.all(function() {
           app.config.versions[libName] = response.name;
           window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.name);
         } else {
-          console.warn('Could not fetch ' + app.util.toDash(libName) + '.js version. Github\'s API rate limit exceeded.');
-          app.config.versions[libName] = app.config.versions.defaults[libName];
+          setDefault(libName);
         }
       })
       .catch(function(err) {
         console.error(err.message);
-        app.config.versions[libName] = app.config.versions.defaults[libName];
+        setDefault(libName);
       });
   };
 

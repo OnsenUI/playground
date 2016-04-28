@@ -13,7 +13,7 @@ body {
   height: 100%;
 }
 
-.toolbar {
+.preview-toolbar {
   width: 100%;
   height: 28px;
   padding-top: 4px;
@@ -22,21 +22,12 @@ body {
   border-bottom: 1px solid #bbb;
 }
 
-.toolbar > * {
+.preview-toolbar > * {
   float: right;
   margin-right: 8px;
 }
 
-button {
-    height: 24px;
-}
-
-.toolbar #styling {
-  float: left;
-  margin-left: 8px;
-}
-
-#run span {
+#run > span > span:not(.button-text) {
   color: green;
   line-height: 0;
 }
@@ -138,8 +129,7 @@ body .ace_editor:hover .ace_scrollbar {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
-button,
-input[type=submit] {
+button {
   cursor: pointer;
   color: #222;
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -147,44 +137,82 @@ input[type=submit] {
   -ms-user-select: none;      /* IE 10+ */
 }
 
-#codepen-submit {
-   padding-left: 8px;
+button:focus {
+  outline: 0;
 }
 
-#codepen-submit span {
-  background: url('../assets/icons/codepen.svg') left / 15px no-repeat transparent;
-  width: 15px;
-  height: 15px;
-  position: relative;
+#styling {
+  float: left;
+  margin-left: 8px;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+}
+
+#styling input {
+  display: none;
+}
+
+.custom-button > span {
+  font-size: 14px;
+  height: 24px;
   display: inline-block;
-  vertical-align: middle;
-  left: -4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 2px 6px 3px;
+  border: 1px solid #AAA;
+  background: -webkit-linear-gradient(#F7F7F7, #DDD);
+  background: linear-gradient(#F7F7F7, #DDD);
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
 }
 
-#styling button {
-  width: 84px;
+.custom-button > span:hover {
+  border: 1px solid #888;
 }
 
-#styling-icon {
+.custom-button > span:active {
+  background: -webkit-linear-gradient(#DDD, #F7F7F7);
+  background: linear-gradient(#DDD, #F7F7F7);
+}
+
+#styling input:checked ~ span {
+  color: #DDD;
+  background: -webkit-linear-gradient(#333, #656565);
+  background: linear-gradient(#333, #656565);
+}
+
+#styling [platform="ios"] {
+  width: 90px;
+}
+
+#styling [platform="android"] {
+  width: 116px;
+}
+
+.styling-icon {
+  pointer-events: none;
+  float: left;
   width: 18px;
   height: 16px;
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
+  margin-top: 1px;
 }
 
-#styling-label {
-  vertical-align: middle;
+.styling-label {
+  pointer-events: none;
+  float: right;
+  line-height: 20px;
 }
 
 .icon-ios {
   background: url('../assets/icons/apple.svg') left / 60px no-repeat transparent;
-  left: -15px;
+  margin-left: -3px;
 }
 
 .icon-android {
   background: url('../assets/icons/android.svg') left / 60px no-repeat transparent;
-  left: -3px;
+  margin-left: -1px;
 }
 
 #placeholder {
