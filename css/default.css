@@ -320,6 +320,10 @@ header {
   height: 34px;
 }
 
+#modules .module-item:last-of-type {
+  border-bottom: 1px solid #ccc;
+}
+
 #modules .module-item label {
   font-size: 12px;
   padding: 6px 18px;
