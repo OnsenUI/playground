@@ -3,21 +3,23 @@ window.app = {};
 document.addEventListener("DOMContentLoaded", function() {
 
   // General setup
-  var module = app.util.getParam('module'),
-    part = app.util.getParam('part'),
+  var framework = app.util.getParam('framework'),
+    category = app.util.getParam('category'),
+    module = app.util.getParam('module'),
     external = app.util.getParam('external');
   if (window.Split) {
     app.setup.splitPanes();
     app.setup.modules();
     app.setup.toolbar();
+    if (framework && category && module) {
+      app.services.updateDropdown(framework, category, module);
+    }
   } else {
     app.setup.tabView();
   }
 
-  //app.services.updateCategory(external ? null : module);
-
   // Theme setup
-  if (!window.Split || window.localStorage.getItem('onsDarkSkin')) {
+  if (window.localStorage.getItem('onsDarkSkin')) {
     document.body.classList.add('dark-skin');
   }
 
@@ -35,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
   app.setup.pagesCounter();
-  if ((!module || !part) && !external) {
+  if ((!framework || !category || !module) && !external) {
     app.services.showWelcomeMessage();
   }
 
@@ -55,16 +57,15 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(function() {
       if (external) {
         return app.services.loadModule(external);
-      } else if (module && part) {
-        return app.services.changeModule(module, part);
+      } else if (framework && category && module) {
+        return app.services.changeModule(framework, category, module);
       }
       return Promise.resolve();
     })
     .then(app.services.runProject);
 
-  document.body.querySelector('#codepen-form').onsubmit = app.services.codepenSubmit;
-  document.body.querySelector('#run').onclick = app.services.runProject;
-  Array.prototype.slice.call(document.body.querySelectorAll('#styling > label > span')).forEach(function(button) {
+  document.querySelector('#run').onclick = app.services.runProject;
+  Array.prototype.slice.call(document.querySelectorAll('#styling > label > span')).forEach(function(button) {
     button.onclick = function(event) {
       if (app.config.platform !== event.target.getAttribute('platform')) {
         app.services.switchStyle(event.target.getAttribute('platform'));

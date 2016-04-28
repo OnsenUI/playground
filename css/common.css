@@ -27,7 +27,7 @@ body {
   margin-right: 8px;
 }
 
-#run > span > span {
+#run > span > span:not(.button-text) {
   color: green;
   line-height: 0;
 }

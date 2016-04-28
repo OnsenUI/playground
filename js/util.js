@@ -78,3 +78,7 @@ app.util.addEntry = function (packageJSON, key, dep, first) {
   var regExp = new RegExp(`("${key}": \\{\\n(?:.|[\\r\\n])*?)(\\n\\s+\\})`);
   return packageJSON.replace(regExp, '$1' + (first ? '' : ',\n') + '    ' + dep + '$2')
 };
+
+app.util.parseId = function(string) {
+  return string.replace(/\s+/g, '_');
+};

@@ -67,7 +67,13 @@ This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
 
 ` ;
 
-  document.body.querySelector('#tutorial-content').innerHTML = marked(message);
+  document.getElementById('pages-current').innerHTML = 1;
+  document.getElementById('pages-total').innerHTML = 1;
+  document.getElementById('tutorial-content').innerHTML = marked(message);
+  app.tutorial = {
+    pageIndex: 0,
+    pages: 1
+  };
 };
 
 
@@ -80,7 +86,7 @@ app.services.runProject = function() {
 };
 
 app.services.codepenSubmit = function() {
-  document.body.querySelector('#codepen-data').value = JSON.stringify({
+  document.querySelector('#codepen-data').value = JSON.stringify({
     title: 'Onsen UI',
     description: 'Onsen UI Tutorial Export',
     html:  app.editors.html.getValue(),
@@ -100,32 +106,22 @@ app.services.toggleTheme = function() {
   document.body.classList.toggle('dark-skin');
   window.localStorage[window.localStorage.getItem('onsDarkSkin') ? 'removeItem' : 'setItem']('onsDarkSkin', 'true');
   Object.keys(app.editors).forEach(function(editor) {
-    app.editors[editor].setTheme('ace/theme/' + (document.body.classList.contains('dark-skin') ? 'monokai' : 'chrome'));
+    app.editors[editor].setTheme('ace/theme/' + ((document.body.classList.contains('dark-skin')) ? 'monokai' : 'chrome'));
   });
 };
 
-app.services.changeModule = function(module, part) {
-  if (!part) {
-    part = app.selectList.options[app.selectList.selectedIndex].label;
-    module = app.selectList.options[app.selectList.selectedIndex].parentElement.label;
-    window.history.pushState({
-      module: module,
-      part: part
-    }, '', '?module=' + module.replace(/\s/g, '%20') + '&part=' + part.replace(/\s/g, '%20'));
-  } else if (window.Split) {
-    var group = app.selectList.querySelector('optgroup[label="' + module + '"]');
-    app.util.arrayFrom(group.children).forEach(function(option) {
-      if (option.value === part) {
-        option.selected = true;
-      }
-    });
-  }
+app.services.changeModule = function(framework, category, module) {
+  window.history.pushState({
+    framework: framework,
+    category: category,
+    module: module
+  }, '', '?framework=' + framework + '&category=' + category.replace(/\s/g, '%20') + '&module=' + module.replace(/\s/g, '%20'));
 
-  return app.services.loadModule(module, part);
+  return app.services.loadModule(framework, category, module);
 };
 
-app.services.loadModule = function(module, part) {
-  return app.util.request(part ? `./tutorial/${module.replace(/\s/g, '_')}/${part.replace(/\s/g, '_')}.html` : module)
+app.services.loadModule = function(framework, category, module) {
+  return app.util.request(module ? `./tutorial/${framework}/${category.replace(/\s/g, '_')}/${module.replace(/\s/g, '_')}.html` : framework)
     .then(function(responseText) {
       var format = app.util.format,
         extract = app.util.extract;
@@ -142,7 +138,6 @@ app.services.loadModule = function(module, part) {
       app.services.detectFramework(rawTranspiler, code);
 
       app.services.updateEditors();
-      //app.services.updateCategory(part ? module : null);
 
       app.tutorial = {
         pageIndex: 0,
@@ -151,18 +146,30 @@ app.services.loadModule = function(module, part) {
         })
       };
 
-      if (app.selectList && app.selectList.selectedIndex !== 0 && app.selectList.selectedIndex < app.selectList.length - 1) {
-        var nextTutorialTitle = app.selectList.querySelectorAll('option')[app.selectList.selectedIndex + 1].label;
-        app.tutorial.pages[app.tutorial.pages.length - 1] += '<button class="next-tutorial" onclick="app.services.nextTutorial()">Next: ' + nextTutorialTitle + '</button>';
-      }
-
-      document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
-      document.getElementById('pages-total').innerHTML = app.tutorial.pages.length;
-      document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[0];
+      document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
+      document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
+      document.querySelector('#tutorial-content').innerHTML = app.tutorial.pages[0];
     })
     .catch(function(err) {
       console.error(err.message);
     });
+};
+
+app.services.updateDropdown = function(framework, category, module) {
+  app.services.updateSelectedItem(framework, module);
+  category = app.util.parseId(category);
+  module = app.util.parseId(module);
+  document.querySelector('#r-' + framework).checked = true;
+  document.querySelector('#c-' + framework + '-' + category).checked = true;
+  document.querySelector('#r-' + framework + '-' + category + '-' + module).checked = true;
+};
+
+app.services.updateSelectedItem = function(framework, module) {
+  if (window.Split) {
+    document.querySelector('#modules .select-item').innerHTML = module;
+    var thumbnail = document.querySelector('#modules .select-thumbnail');
+    thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
+  }
 };
 
 app.services.transpile = function(code) {
@@ -185,12 +192,6 @@ app.services.updateEditors = function() {
     default:
       editorTitle.innerHTML = 'JS';
       app.editors.js.session.setMode('ace/mode/javascript');
-  }
-};
-
-app.services.updateCategory = function(module) {
-  if (window.Split) {
-    document.querySelector('#module-title-text').innerHTML = (module || 'Welcome!');
   }
 };
 
@@ -231,13 +232,6 @@ app.services.detectLibraries = function(position) {
   }
 
   return libs;
-};
-
-app.services.nextTutorial = function() {
-  if (app.selectList.selectedIndex < app.selectList.length - 1) {
-    app.selectList.selectedIndex += 1;
-    app.services.changeModule().then(app.services.runProject);
-  }
 };
 
 app.services.detectFramework = function(rawTranspiler, code) {
@@ -360,11 +354,10 @@ app.services.generateCordovaProject = function() {
       .then(function() {
         console.info('Done!');
         app.services.hideGenerateModal();
-        var title = 'OnsenUI-Project.zip';
-        if (app.selectList.selectedIndex) {
-          var part = app.selectList[app.selectList.selectedIndex].label.replace(/\s+/g, '_');
-          var module = app.selectList[app.selectList.selectedIndex].parentElement.label.replace(/\s+/g, '_');
-          title = `${module}-${part}.zip`;
+
+        var title = document.querySelector('#modules .select-item').innerHTML.replace(/\s+/g, '_');
+        if (title === 'Select_Tutorial') {
+          title = 'OnsenUI-Project.zip';
         }
 
         window.saveAs(zip.generate({type: 'blob'}), `${title}.zip`);

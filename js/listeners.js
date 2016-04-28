@@ -16,14 +16,19 @@ window.onresize = app.util.resize.throttler;
 
 window.onpopstate = function(event) {
   if (event.state) {
-    app.services.changeModule(event.state.module, event.state.part).then(app.services.runProject);
+    app.services.updateDropdown(event.state.framework, event.state.category, event.state.module);
+    app.services.loadModule(event.state.framework, event.state.category, event.state.module).then(app.services.runProject);
   } else {
+    var selectedItem = document.body.querySelector('input[name="select-item"]:checked');
+    if (selectedItem) {
+      selectedItem.checked = false;
+    }
+
     var external = external = app.util.getParam('external');
-    app.selectList.children[0].selected = true;
     if (external) {
       app.services.loadModule(external);
     } else {
-      app.services.updateCategory();
+      app.services.updateSelectedItem('', 'Select Tutorial');
       app.services.showWelcomeMessage();
     }
   }
