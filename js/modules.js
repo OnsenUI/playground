@@ -23,7 +23,7 @@ app.modules = {
     ]
   },
   'angular1': {
-    'Getting Started': [
+    'Getting started': [
       'Introduction',
       'Data binding',
       'Event handling'
@@ -33,7 +33,7 @@ app.modules = {
 
   },
   'react': {
-    'Getting Started': [
+    'Getting started': [
       'Using the components'
     ]
   }

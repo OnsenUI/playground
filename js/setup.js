@@ -105,13 +105,13 @@ app.setup.modules = function() {
     var moduleList = frameworkItem.querySelector('.module-list');
 
     if(app.modules.hasOwnProperty(framework)) {
-      Object.keys(app.modules[framework]).forEach(function(category) {
+      Object.keys(app.modules[framework]).forEach(function(category, index) {
         var id = `c-${framework}-${app.util.parseId(category)}`;
         var categoryItem = document.createElement('li');
         categoryItem.classList.add('category-item');
 
         categoryItem.innerHTML = `
-          <input type="checkbox" id="${id}">
+          <input type="checkbox" id="${id}" ${index === 0 ? 'checked': ''}>
           <label for="${id}" category="${category}"></label>
         `;
 

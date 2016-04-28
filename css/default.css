@@ -88,22 +88,22 @@ header {
   margin-left: 8px;
 }
 
-
+.vanilla-thumbnail,
 #modules .vanilla-thumbnail {
   background: url('../assets/icons/select/icn_framework_icn_js.svg') center / 100% no-repeat transparent;
 }
 
-
+.angular1-thumbnail,
 #modules .angular1-thumbnail {
   background: url('../assets/icons/select/icn_framework_icn_angular1.svg') center / 100% no-repeat transparent;
 }
 
-
+.angular2-thumbnail,
 #modules .angular2-thumbnail {
   background: url('../assets/icons/select/icn_framework_icn_angular2.svg') center / 100% no-repeat transparent;
 }
 
-
+.react-thumbnail,
 #modules .react-thumbnail {
   background: url('../assets/icons/select/icn_framework_icn_react.svg') center / 100% no-repeat transparent;
 }
@@ -207,34 +207,42 @@ header {
   display: none;
 }
 
+.vanilla-black,
 #modules [framework=vanilla] .framework-logo {
   background: url('../assets/icons/select/icon_javascript_black.svg') center / 100% no-repeat transparent;
 }
 
+.angular1-black,
 #modules [framework=angular1] .framework-logo {
   background: url('../assets/icons/select/icon_angular1_black.svg') center / 100% no-repeat transparent;
 }
 
+.angular2-black,
 #modules [framework=angular2] .framework-logo {
   background: url('../assets/icons/select/icon_angular2_black.svg') center / 100% no-repeat transparent;
 }
 
+.react-black,
 #modules [framework=react] .framework-logo {
   background: url('../assets/icons/select/icon_react_black.svg') center / 100% no-repeat transparent;
 }
 
+.vanilla-blue,
 #modules input#r-vanilla:checked ~ label .framework-logo {
   background: url('../assets/icons/select/icon_javascript_blue.svg') center / 100% no-repeat transparent;
 }
 
+.angular1-blue,
 #modules input#r-angular1:checked ~ label .framework-logo {
   background: url('../assets/icons/select/icon_angular1_blue.svg') center / 100% no-repeat transparent;
 }
 
+.angular2-blue,
 #modules input#r-angular2:checked ~ label .framework-logo {
   background: url('../assets/icons/select/icon_angular2_blue.svg') center / 100% no-repeat transparent;
 }
 
+.react-blue,
 #modules input#r-react:checked ~ label .framework-logo {
   background: url('../assets/icons/select/icon_react_blue.svg') center / 100% no-repeat transparent;
 }
