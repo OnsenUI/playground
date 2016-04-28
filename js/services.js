@@ -166,7 +166,8 @@ app.services.updateDropdown = function(framework, category, module) {
 
 app.services.updateSelectedItem = function(framework, module) {
   if (window.Split) {
-    document.querySelector('#modules .select-item').innerHTML = module;
+    var description = document.querySelector('label[module="' + module + '"]').getAttribute('desc');
+    document.querySelector('#modules .select-item').innerHTML = description;
     var thumbnail = document.querySelector('#modules .select-thumbnail');
     thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
   }

@@ -117,13 +117,13 @@ app.setup.modules = function() {
 
         var listElement = document.createElement('ul');
 
-        app.modules[framework][category].forEach(function(module) {
+        Object.keys(app.modules[framework][category]).forEach(function(module) {
           var id = `r-${framework}-${app.util.parseId(category)}-${app.util.parseId(module)}`;
           var moduleItem = document.createElement('li');
           moduleItem.classList.add('module-item');
           moduleItem.innerHTML = `
             <input type="radio" name="select-item" id="${id}">
-            <label for="${id}" module="${module}"></label>
+            <label for="${id}" module="${module}" desc="${app.modules[framework][category][module]}"></label>
           `;
           listElement.appendChild(moduleItem)
         });
