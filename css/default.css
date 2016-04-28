@@ -332,7 +332,7 @@ header {
 }
 
 #modules .module-item > label::after {
-  content: attr(module);
+  content: attr(desc);
 }
 
 #modules .category-item > label::after {
