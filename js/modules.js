@@ -12,8 +12,6 @@ app.modules = {
       'dialog': 'Dialogs',
       'popover': 'Popover',
       'input': 'Form input',
-      'Checkboxes': 'Checkboxes',
-      'Radio buttons': 'Radio buttons',
       'switch': 'Switches',
       'range': 'Range sliders',
       'icon': 'Icons',
