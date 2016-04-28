@@ -16,6 +16,9 @@
         },
         countItems: function() {
           return 10000;
+        },
+        calculateItemHeight: function() {
+          return ons.platform.isAndroid() ? 77 : 45;
         }
       };
 
