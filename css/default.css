@@ -541,26 +541,12 @@ header {
   display: block;
 }
 
-/* @media (max-width: 772px) {
-  #module-title {
-    display: none !important;
-    min-width: 0;
-  }
-
-  #modules {
-    min-width: 200px;
-  }
+.coming-soon {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 18px;
+  color: #333;
 }
-
-@media (max-width: 545px) {
-  #h2 {
-    width: 100px;
-  }
-
-  #h2 > a > span:not(.logo) {
-    display: none !important;
-  }
-} */
 
 
 .cssload-loader * {

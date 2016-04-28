@@ -15,6 +15,7 @@ app.modules = {
       'switch': 'Switches',
       'range': 'Range sliders',
       'icon': 'Icons',
+      'progress': 'Progress',
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial'
     }
