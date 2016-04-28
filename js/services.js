@@ -50,20 +50,19 @@ app.services.generateTemplateCSS = function(position) {
 
 app.services.showWelcomeMessage = function() {
   var message = `
-## Welcome
+## Welcome!
 
-This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
+![onsen](assets/icons/logo_onsenui.svg)
+
+This is the Onsen UI Interactive Tutorial. Select a module to display a new sample application with its description.
 
   * In the preview section you can switch between iOS and Android view for Automatic Styling.
 
-  * If you want to save any of these examples you export the code to Codepen.
+  * If you want to save any of these examples you can export the code to Codepen or generate a Cordova project and download it.
 
   * Press 'ctrl + s' to quickly refresh the preview.
 
-
-This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
-
-![onsen](assets/icons/onsenui.svg)
+We hope you find this helpful! You can ask anything in the [community forum](https://community.onsen.io) if you have issues.
 
 ` ;
 
