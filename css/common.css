@@ -96,7 +96,8 @@ body {
   cursor: default;
   background-color: rgb(245, 245, 245);
   opacity: 0.5;
-  transition: opacity .1s;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
   border-radius: 4px;
   padding: 4px;
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -223,7 +224,8 @@ button:focus {
   height: 100%;
   background: white;
   z-index: 10;
-  animation: pulse 0.5s ease-in-out infinite alternate;
+  -webkit-animation: pulse 0.5s ease-in-out infinite alternate;
+          animation: pulse 0.5s ease-in-out infinite alternate;
 }
 
 #placeholder svg {
