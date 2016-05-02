@@ -137,7 +137,7 @@ app.setup.modules = function() {
         var extraInfo = document.createElement('li');
         extraInfo.classList.add('category-item');
         extraInfo.innerHTML = `
-          <a href="https://onsen.io/v2/docs/${framework === 'vanilla' ? 'js' : framework}/.html">Further reading</a>
+          <a href="https://onsen.io/v2/docs/${framework === 'vanilla' ? 'js' : framework}.html">Further reading</a>
         `;
         moduleList.appendChild(extraInfo);
       } else {
