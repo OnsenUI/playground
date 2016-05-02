@@ -65,7 +65,8 @@ div#container {
   position: relative;
 }
 
-#modules .select-arrow span {
+#modules .select-arrow::after {
+  content: '';
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-top: 11px solid #FFF;
@@ -243,6 +244,7 @@ div#container {
   max-height: 0;
 }
 
+#modules .category-item > a,
 #modules .category-item > label {
   display: block;
   width: 100%;
@@ -257,6 +259,8 @@ div#container {
   border-bottom: 1px solid #ccc;
   padding: 8px;
   height: 34px;
+  text-decoration: none;
+  position: relative;
 }
 
 #modules .module-item:last-of-type {
@@ -277,12 +281,32 @@ div#container {
   color: #336699;
 }
 
-#modules .module-item > label::after {
+#modules .module-item > label::before {
   content: attr(desc);
 }
 
-#modules .category-item > label::after {
+#modules .category-item > label::before {
   content: attr(category);
+}
+
+#modules .category-item > label::after {
+  content: '';
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid #666;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+#modules .category-item > a::after {
+  content: '';
+  background: url('../assets/icons/link.svg') center / 12px no-repeat transparent;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 11px;
+  right: 10px;
 }
 
 #modules .module-item input:checked ~ label {

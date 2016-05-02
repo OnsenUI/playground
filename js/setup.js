@@ -132,6 +132,20 @@ app.setup.modules = function() {
         categoryItem.appendChild(listElement);
         moduleList.appendChild(categoryItem);
       });
+
+      if (moduleList.querySelectorAll('li').length) {
+        var extraInfo = document.createElement('li');
+        extraInfo.classList.add('category-item');
+        extraInfo.innerHTML = `
+          <a href="https://onsen.io/v2/docs/${framework === 'vanilla' ? 'js' : framework}/.html">Further reading</a>
+        `;
+        moduleList.appendChild(extraInfo);
+      } else {
+        var comingSoon = document.createElement('div');
+        comingSoon.classList.add('coming-soon');
+        comingSoon.innerHTML = 'Coming soon ™';
+        moduleList.appendChild(comingSoon);
+      }
     }
 
     document.body.querySelector('#modules').onchange = function(event) {
