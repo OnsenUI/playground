@@ -132,7 +132,7 @@ div#container {
   border: 1px solid #ccc;
   border-top: none;
   margin-left: -1px;
-  padding: 3px 10px 10px;
+  padding: 5px 10px 10px;
   position: relative;
   left: 1px;
   cursor: pointer;
@@ -201,23 +201,23 @@ div#container {
 
 #modules .framework-item > label::before {
 
-  border-left: 11px solid transparent;
-  border-right: 11px solid transparent;
-  border-bottom: 11px solid #ccc;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
 
   z-index: 9;
   bottom: 0;
-  right: calc(50% - 11px);
+  right: calc(50% - 7px);
 }
 
 #modules .framework-item > label::after {
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #eee;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #eee;
 
   z-index: 10;
   bottom: -1px;
-  right: calc(50% - 10px);
+  right: calc(50% - 6px);
 }
 
 #modules .framework-item > input[type=radio]:checked ~ .module-list,
@@ -252,7 +252,7 @@ div#container {
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
   color: #333;
-  font-size: 12px;
+  font-size: 14px;
   box-sizing: border-box;
   border-bottom: 1px solid #ccc;
   padding: 8px;
@@ -264,7 +264,7 @@ div#container {
 }
 
 #modules .module-item label {
-  font-size: 12px;
+  font-size: 14px;
   padding: 6px 18px;
   display: block;
   box-sizing: border-box;
@@ -491,7 +491,7 @@ div#container {
 .coming-soon {
   text-align: center;
   margin-top: 30px;
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
 }
 
