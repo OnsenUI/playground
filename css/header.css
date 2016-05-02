@@ -69,6 +69,7 @@ header {
 
 .design-2016 ul {
   list-style: none;
+  cursor: default;
 }
 
 .design-2016 #monaca-bar {
