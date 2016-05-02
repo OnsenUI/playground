@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Theme setup
-  if (window.localStorage.getItem('onsDarkSkin')) {
+  if (!window.Split || window.localStorage.getItem('onsDarkSkin')) {
     document.body.classList.add('dark-skin');
   }
 
