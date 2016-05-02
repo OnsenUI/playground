@@ -219,7 +219,7 @@ app.services.detectLibraries = function(position) {
   switch (app.config.framework) {
     case 'react':
       libs.react = {
-        'react': [app.config.lib[position].js.react, app.config.lib[position].js.reactDom, app.config.lib[position].js.reactDomServer],
+        'react': [app.config.lib[position].js.react, app.config.lib[position].js.reactDom],
         'react-onsenui': [app.config.lib[position].js.reactOnsenui]
       }
       break;

@@ -68,7 +68,9 @@ body {
   position: relative;
 }
 
-.main-view-link svg {
+.main-view-link a {
+  content: '';
+  background: url('../assets/icons/link.svg') center / 20px no-repeat transparent;
   position: absolute;
   top: 11px;
   right: 10px;
