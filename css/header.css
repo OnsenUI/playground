@@ -1,0 +1,34 @@
+.design-2016 ul {
+  list-style: none;
+}
+
+.design-2016 #monaca-bar {
+  background-color: #E24637;
+  font-size: 11px;
+  text-align: right;
+  padding: 3px 0;
+}
+.design-2016 #monaca-bar>.wrapper {
+  width: 100%;
+}
+.design-2016 #monaca-bar>.wrapper>ul {
+  margin: 0;
+  color: #F0A29B;
+}
+.design-2016 #monaca-bar>.wrapper>ul>li>a {
+  color: #F0A29B;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 5px 8px;
+  font-size: 13px;
+  line-height: 15px;
+}
+.design-2016 #monaca-bar>.wrapper>ul>li:first-child>a:before {
+  content: '';
+  display: inline-block;
+  vertical-align: -1px;
+  margin-right: 10px;
+  width: 12px;
+  height: 12px;
+  background: url(/assets/icons/logo_monaca_header.png);
+}

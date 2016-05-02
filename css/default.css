@@ -135,14 +135,14 @@ header {
   left: 12px;
 }
 
-#modules .dropdown {
+#modules .menu {
   height: 400px;
   background-color: #eee;
   display: none;
   border-bottom: 1px solid #ccc;
 }
 
-#modules .dropdown-mask{
+#modules .menu-mask{
   position: fixed;
   height: 100%;
   width: 100%;
@@ -159,7 +159,7 @@ header {
   display: none;
 }
 
-#modules > input:checked ~ .dropdown {
+#modules > input:checked ~ .menu {
   display: block;
 }
 
@@ -173,17 +173,17 @@ header {
   overflow: hidden;
 }
 
-#modules .dropdown > ul {
+#modules .menu > ul {
   position: absolute;
   z-index: 8;
 }
 
-#modules .dropdown > ul > li {
+#modules .menu > ul > li {
   float: left;
   height: inherit;
 }
 
-#modules .dropdown > ul > li > label {
+#modules .menu > ul > li > label {
   height: 55px;
   width: 72px;
   box-sizing: border-box;
@@ -206,7 +206,7 @@ header {
   height: 40px;
 }
 
-#modules .dropdown input[type=radio] {
+#modules .menu input[type=radio] {
   display: none;
 }
 
