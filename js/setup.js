@@ -56,7 +56,7 @@ app.setup.pagesCounter  = function() {
     if (app.tutorial && app.tutorial.pageIndex > 0) {
       app.tutorial.pageIndex--;
       document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
-      document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+      app.services.updateTutorialPage();
     }
   };
 
@@ -64,7 +64,7 @@ app.setup.pagesCounter  = function() {
     if (app.tutorial && app.tutorial.pageIndex < app.tutorial.pages.length - 1) {
       app.tutorial.pageIndex++;
       document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
-      document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+      app.services.updateTutorialPage();
     }
   };
 };
