@@ -2,67 +2,6 @@ div#container {
   padding-top: 113px;
 }
 
-header {
-  width: 100%;
-  position: fixed;
-  z-index: 2;
-}
-
-#h1 {
-  height: 20px;
-  background: -webkit-linear-gradient(#E54738, #E04537);
-  background: linear-gradient(#E54738, #E04537);
-}
-
-#h2 {
-  height: 34px;
-  display: block;
-  width: 100%;
-  font-size: 20px;
-  padding-top: 8px;
-  padding-left: 12px;
-  background-color: #FFF;
-  border-bottom: 2px solid #DDD;
-}
-
-#h2 .logo {
-  width: 120px;
-  height: 26px;
-  float: left;
-  background: url('../assets/icons/logo_onsenui.svg') center / 100% no-repeat transparent;
-}
-#h2 .subtitle {
-  float: left;
-  padding-left: 20px;
-  line-height: 30px;
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-}
-
-#h2 .subtitle > span:first-of-type {
-  color: #AAA;
-}
-
-#h2 .subtitle > span:last-of-type {
-  color: #FF1A33;
-}
-
-#h2 > a {
-  text-decoration: none;
-  color: inherit;
-}
-
-#h3 {
-  padding-top: 6px;
-  padding-left: 2px;
-}
-
-#h3 > a {
-  text-decoration: none;
-  color: inherit;
-}
-
 #modules {
   float: left;
   position: relative;
@@ -425,7 +364,7 @@ header {
   border-width: 0 6px 6px 6px;
   top: 24px;
   content: "";
-  left: 6px;
+  left: 12px;
   position: absolute;
 }
 
