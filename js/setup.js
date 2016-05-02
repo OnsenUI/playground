@@ -5,7 +5,8 @@ app.setup.splitPanes = function() {
     gutterSize: 15,
     sizes: [30, 70],
     minSize: 300,
-    cursor: 'col-resize'
+    cursor: 'col-resize',
+    onDrag: app.util.resize.handler
   });
 
   Split(['#leftTopPane', '#leftBottomPane'], {
