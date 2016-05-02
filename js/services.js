@@ -147,7 +147,7 @@ app.services.loadModule = function(framework, category, module) {
 
       document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
       document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
-      document.querySelector('#tutorial-content').innerHTML = app.tutorial.pages[0];
+      app.services.updateTutorialPage();
     })
     .catch(function(err) {
       console.error(err.message);
@@ -367,4 +367,10 @@ app.services.generateCordovaProject = function() {
         console.error(err.message);
       });
   });
+};
+
+app.services.updateTutorialPage = function() {
+  var tutorialContent = document.querySelector('#tutorial-content');
+  tutorialContent.innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+  tutorialContent.scrollTop = 0;
 };
