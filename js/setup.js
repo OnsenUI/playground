@@ -3,10 +3,10 @@ app.setup = {};
 app.setup.splitPanes = function() {
   Split(['#leftPane', '#rightPane'], {
     gutterSize: 15,
-    sizes: [30, 70],
+    sizes: [35, 65],
     minSize: 300,
     cursor: 'col-resize',
-    onDrag: app.util.resize.handler
+    onDrag: app.util.resize.editorResize
   });
 
   Split(['#leftTopPane', '#leftBottomPane'], {
@@ -22,11 +22,11 @@ app.setup.splitPanes = function() {
     minSize: 140,
     gutterSize: 15,
     cursor: 'row-resize',
-    onDrag: app.util.resize.handler
+    onDrag: app.util.resize.editorResize
   });
 
-  document.querySelector('#leftPane').style.width = 'calc(30% - 7.5px)';
-  document.querySelector('#rightPane').style.width = 'calc(70% - 7.5px)';
+  document.querySelector('#leftPane').style.width = 'calc(35% - 7.5px)';
+  document.querySelector('#rightPane').style.width = 'calc(65% - 7.5px)';
 }
 
 app.setup.editor = function(id, language) {

@@ -6,6 +6,8 @@ window.onkeydown = function(e){
 };
 
 window.onload = function() {
+  app.services.refreshSplit();
+
   var placeholder = document.body.querySelector('#placeholder');
   if (placeholder) {
     placeholder.remove();
