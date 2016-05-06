@@ -11,16 +11,20 @@ app.util.arrayFrom = function(arrayLike) {
 };
 
 app.util.resize = {
-  lock: null,
+  editorLock: null,
+  toolbarLock: null,
   throttler: function() {
-    if (!app.util.resize.lock) {
-      app.util.resize.lock = setTimeout(function() {
-        app.util.resize.lock = null;
-        app.util.resize.handler();
+    clearTimeout(app.util.resize.toolbarLock);
+    app.util.resize.toolbarLock = setTimeout(app.services.refreshSplit, 100);
+
+    if (!app.util.resize.editorLock) {
+      app.util.resize.editorLock = setTimeout(function() {
+        app.util.resize.editorLock = null;
+        app.util.resize.editorResize();
        }, 50);
     }
   },
-  handler: function() {
+  editorResize: function() {
     app.editors.js.resize();
     app.editors.html.resize();
   }

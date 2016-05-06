@@ -374,3 +374,16 @@ app.services.updateTutorialPage = function() {
   tutorialContent.innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
   tutorialContent.scrollTop = 0;
 };
+
+app.services.refreshSplit = function() {
+  var mousedown = new CustomEvent('mousedown');
+  var mousemove = new CustomEvent('mousemove', {bubbles: true});
+  var mouseup = new CustomEvent('mouseup', {bubbles: true});
+  var gutter = document.querySelector('.gutter-horizontal');
+
+  mousemove.clientX = gutter.getBoundingClientRect().left;
+
+  gutter.dispatchEvent(mousedown);
+  gutter.dispatchEvent(mousemove);
+  gutter.dispatchEvent(mouseup);
+};

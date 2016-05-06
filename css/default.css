@@ -6,7 +6,7 @@ div#container {
   float: left;
   position: relative;
   margin-left: 6px;
-  width: 285px;
+  width: 350px;
 }
 #modules .select {
   background: #fff;
@@ -50,11 +50,15 @@ div#container {
 }
 
 #modules .select-item {
-  height: 20px;
+  height: inherit;
+  width: calc(100% - 16px - 18px - 36px - 2px);
   float: left;
   line-height: 34px;
   padding-left: 6px;
   color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #modules .select-arrow {
@@ -91,7 +95,8 @@ div#container {
   z-index: 7;
 }
 
-.ace_gutter {
+.ace_gutter,
+.ace_cursor-layer {
   z-index: 1 !important;
 }
 
@@ -125,7 +130,7 @@ div#container {
 
 #modules .menu > ul > li > label {
   height: 55px;
-  width: 72px;
+  width: 88px;
   box-sizing: border-box;
   display: inline-block;
   background-color: #FFF;
@@ -152,42 +157,42 @@ div#container {
 
 .vanilla-black,
 #modules [framework=vanilla] .framework-logo {
-  background: url('../assets/icons/select/icon_javascript_black.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_javascript_black.svg') center / 50px no-repeat transparent;
 }
 
 .angular1-black,
 #modules [framework=angular1] .framework-logo {
-  background: url('../assets/icons/select/icon_angular1_black.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_angular1_black.svg') center / 50px no-repeat transparent;
 }
 
 .angular2-black,
 #modules [framework=angular2] .framework-logo {
-  background: url('../assets/icons/select/icon_angular2_black.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_angular2_black.svg') center / 50px no-repeat transparent;
 }
 
 .react-black,
 #modules [framework=react] .framework-logo {
-  background: url('../assets/icons/select/icon_react_black.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_react_black.svg') center / 50px no-repeat transparent;
 }
 
 .vanilla-blue,
 #modules input#r-vanilla:checked ~ label .framework-logo {
-  background: url('../assets/icons/select/icon_javascript_blue.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_javascript_blue.svg') center / 50px no-repeat transparent;
 }
 
 .angular1-blue,
 #modules input#r-angular1:checked ~ label .framework-logo {
-  background: url('../assets/icons/select/icon_angular1_blue.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_angular1_blue.svg') center / 50px no-repeat transparent;
 }
 
 .angular2-blue,
 #modules input#r-angular2:checked ~ label .framework-logo {
-  background: url('../assets/icons/select/icon_angular2_blue.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_angular2_blue.svg') center / 50px no-repeat transparent;
 }
 
 .react-blue,
 #modules input#r-react:checked ~ label .framework-logo {
-  background: url('../assets/icons/select/icon_react_blue.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_react_blue.svg') center / 50px no-repeat transparent;
 }
 
 #modules .framework-item > label::before,
@@ -590,4 +595,11 @@ div#container {
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
+}
+
+@media (max-width: 680px) {
+  #h2 > ul,
+  #h3 #toolbar {
+    display: none;
+  }
 }
