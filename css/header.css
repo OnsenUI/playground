@@ -88,15 +88,15 @@ header {
 .design-2016 #monaca-bar>.wrapper>ul>li>a {
   color: #F0A29B;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 500;
   padding: 5px 10px;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 15px;
 }
 .design-2016 #monaca-bar>.wrapper>ul>li:first-child>a:before {
   content: '';
   display: inline-block;
-  vertical-align: -1px;
+  vertical-align: -2px;
   margin-right: 10px;
   width: 12px;
   height: 12px;

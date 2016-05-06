@@ -78,6 +78,11 @@ body {
   height: 20px;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+}
+
 @media (max-width: 290px) {
   .button-text {
     display: none;
