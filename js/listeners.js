@@ -16,7 +16,11 @@ window.onload = function() {
   }
 };
 
-window.onresize = app.util.resize.throttler;
+window.onresize = function() {
+  if (window.Split) {
+    app.util.resize.throttler();
+  }
+}
 
 window.onpopstate = function(event) {
   if (event.state) {
