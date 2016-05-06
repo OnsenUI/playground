@@ -6,7 +6,9 @@ window.onkeydown = function(e){
 };
 
 window.onload = function() {
-  app.services.refreshSplit();
+  if (window.Split) {
+    app.services.refreshSplit();
+  }
 
   var placeholder = document.body.querySelector('#placeholder');
   if (placeholder) {
