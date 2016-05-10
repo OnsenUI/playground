@@ -150,7 +150,12 @@ button:focus {
   display: none;
 }
 
+.custom-button {
+  pointer-events: none;
+}
+
 .custom-button > span {
+  pointer-events: auto;
   font-size: 14px;
   height: 24px;
   display: inline-block;
