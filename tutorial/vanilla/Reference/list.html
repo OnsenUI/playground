@@ -14,23 +14,23 @@
     </ons-toolbar>
 
     <ons-list>
-      <ons-list-header>Text</ons-list-header>
+      <ons-list-header>Default</ons-list-header>
       <ons-list-item>Item A</ons-list-item>
       <ons-list-item>Item B</ons-list-item>
 
-      <ons-list-header>Tappable</ons-list-header>
+      <ons-list-header>Tappable / Ripple</ons-list-header>
       <ons-list-item tappable>Tap me</ons-list-item>
 
       <ons-list-header>Chevron</ons-list-header>
       <ons-list-item modifier="chevron" tappable>Chevron</ons-list-item>
 
-      <ons-list-header>Thumbnails</ons-list-header>
+      <ons-list-header>Thumbnails and titles</ons-list-header>
       <ons-list-item>
         <div class="left">
           <img class="list__item__thumbnail" src="http://placekitten.com/g/40/40">
         </div>
         <div class="center">
-          Cute cat
+          <span class="list__item__title">Cutest kitty</span><span class="list__item__subtitle">On the Internet</span>
         </div>
       </ons-list-item>
 
@@ -66,13 +66,22 @@
           <ons-switch></ons-switch>
         </div>
       </ons-list-item>
+
+      <ons-list-header>No divider</ons-list-header>
+      <ons-list-item modifier="nodivider">Item A</ons-list-item>
+      <ons-list-item modifier="nodivider">Item B</ons-list-item>
+
+      <ons-list-header>Long divider</ons-list-header>
+      <ons-list-item modifier="longdivider">Item A</ons-list-item>
+      <ons-list-item modifier="longdivider">Item B</ons-list-item>
     </ons-list>
 
     <br />
 
     <ons-list modifier="inset">
-      <ons-list-item>Inset list</ons-list-item>
-      <ons-list-item>Inset list</ons-list-item>
+      <ons-list-header>Inset list</ons-list-header>
+      <ons-list-item modifier="longdivider">Item A</ons-list-item>
+      <ons-list-item modifier="longdivider">Item B</ons-list-item>
     </ons-list>
 
     <br />
@@ -162,7 +171,7 @@ In Onsen UI modifiers are applied by adding the `modifier` attribute to an eleme
 To create an inset list you can use the `inset` modifier on the `<ons-list>` element:
 
 ```
-<ons-list modifier="insert">
+<ons-list modifier="inset">
   ...
 </ons-list>
 ```
