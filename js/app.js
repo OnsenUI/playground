@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     js: app.setup.editor('js-input', 'javascript')
   };
   app.editors.html.setValue(window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>', -1);
-  app.editors.js.setValue(window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\')', -1);
+  app.editors.js.setValue(window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\');', -1);
   app.services.updateEditors();
 
   // Preview setup
