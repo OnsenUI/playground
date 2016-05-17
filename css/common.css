@@ -1,4 +1,5 @@
 body {
+  overflow: hidden;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
@@ -96,7 +97,8 @@ body {
   cursor: default;
   background-color: rgb(245, 245, 245);
   opacity: 0.5;
-  transition: opacity .1s;
+  -webkit-transition: opacity .1s;
+          transition: opacity .1s;
   border-radius: 4px;
   padding: 4px;
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -114,11 +116,6 @@ body .ace_scrollbar {
 
 body .ace_editor:hover .ace_scrollbar {
     display: block;
-}
-
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -153,7 +150,12 @@ button:focus {
   display: none;
 }
 
+.custom-button {
+  pointer-events: none;
+}
+
 .custom-button > span {
+  pointer-events: auto;
   font-size: 14px;
   height: 24px;
   display: inline-block;
@@ -223,7 +225,8 @@ button:focus {
   height: 100%;
   background: white;
   z-index: 10;
-  animation: pulse 0.5s ease-in-out infinite alternate;
+  -webkit-animation: pulse 0.5s ease-in-out infinite alternate;
+          animation: pulse 0.5s ease-in-out infinite alternate;
 }
 
 #placeholder svg {

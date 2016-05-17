@@ -2,75 +2,16 @@ div#container {
   padding-top: 113px;
 }
 
-header {
-  width: 100%;
-  position: fixed;
-  z-index: 2;
-}
-
-#h1 {
-  height: 20px;
-  background: -webkit-linear-gradient(#E54738, #E04537);
-  background: linear-gradient(#E54738, #E04537);
-}
-
-#h2 {
-  height: 34px;
-  display: block;
-  width: 100%;
-  font-size: 20px;
-  padding-top: 8px;
-  padding-left: 12px;
-  background-color: #FFF;
-  border-bottom: 2px solid #DDD;
-}
-
-#h2 .logo {
-  width: 120px;
-  height: 26px;
-  float: left;
-  background: url('../assets/icons/logo_onsenui.svg') center / 100% no-repeat transparent;
-}
-#h2 .subtitle {
-  float: left;
-  padding-left: 20px;
-  line-height: 30px;
-}
-
-#h2 .subtitle > span:first-of-type {
-  color: #AAA;
-}
-
-#h2 .subtitle > span:last-of-type {
-  color: #FF1A33;
-}
-
-#h2 > a {
-  text-decoration: none;
-  color: inherit;
-}
-
-#h3 {
-  padding-top: 6px;
-  padding-left: 2px;
-}
-
-#h3 > a {
-  text-decoration: none;
-  color: inherit;
-}
-
 #modules {
   float: left;
   position: relative;
   margin-left: 6px;
-  width: 285px;
+  width: 350px;
 }
 #modules .select {
   background: #fff;
   border: 1px solid #ccc;
   font-size: 16px;
-  color: #AAA;
   height: 36px;
   box-sizing: border-box;
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -109,10 +50,15 @@ header {
 }
 
 #modules .select-item {
-  height: 20px;
+  height: inherit;
+  width: calc(100% - 16px - 18px - 36px - 2px);
   float: left;
   line-height: 34px;
   padding-left: 6px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #modules .select-arrow {
@@ -123,7 +69,8 @@ header {
   position: relative;
 }
 
-#modules .select-arrow span {
+#modules .select-arrow::after {
+  content: '';
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-top: 11px solid #FFF;
@@ -132,14 +79,14 @@ header {
   left: 12px;
 }
 
-#modules .dropdown {
+#modules .menu {
   height: 400px;
   background-color: #eee;
   display: none;
   border-bottom: 1px solid #ccc;
 }
 
-#modules .dropdown-mask{
+#modules .menu-mask{
   position: fixed;
   height: 100%;
   width: 100%;
@@ -148,7 +95,8 @@ header {
   z-index: 7;
 }
 
-.ace_gutter {
+.ace_gutter,
+.ace_cursor-layer {
   z-index: 1 !important;
 }
 
@@ -156,7 +104,7 @@ header {
   display: none;
 }
 
-#modules > input:checked ~ .dropdown {
+#modules > input:checked ~ .menu {
   display: block;
 }
 
@@ -170,19 +118,19 @@ header {
   overflow: hidden;
 }
 
-#modules .dropdown > ul {
+#modules .menu > ul {
   position: absolute;
   z-index: 8;
 }
 
-#modules .dropdown > ul > li {
+#modules .menu > ul > li {
   float: left;
   height: inherit;
 }
 
-#modules .dropdown > ul > li > label {
+#modules .menu > ul > li > label {
   height: 55px;
-  width: 72px;
+  width: 88px;
   box-sizing: border-box;
   display: inline-block;
   background-color: #FFF;
@@ -190,7 +138,7 @@ header {
   border: 1px solid #ccc;
   border-top: none;
   margin-left: -1px;
-  padding: 3px 10px 10px;
+  padding: 5px 10px 10px;
   position: relative;
   left: 1px;
   cursor: pointer;
@@ -203,48 +151,48 @@ header {
   height: 40px;
 }
 
-#modules .dropdown input[type=radio] {
+#modules .menu input[type=radio] {
   display: none;
 }
 
 .vanilla-black,
 #modules [framework=vanilla] .framework-logo {
-  background: url('../assets/icons/select/icon_javascript_black.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_javascript_black.svg') center / 50px no-repeat transparent;
 }
 
 .angular1-black,
 #modules [framework=angular1] .framework-logo {
-  background: url('../assets/icons/select/icon_angular1_black.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_angular1_black.svg') center / 50px no-repeat transparent;
 }
 
 .angular2-black,
 #modules [framework=angular2] .framework-logo {
-  background: url('../assets/icons/select/icon_angular2_black.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_angular2_black.svg') center / 50px no-repeat transparent;
 }
 
 .react-black,
 #modules [framework=react] .framework-logo {
-  background: url('../assets/icons/select/icon_react_black.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_react_black.svg') center / 50px no-repeat transparent;
 }
 
 .vanilla-blue,
 #modules input#r-vanilla:checked ~ label .framework-logo {
-  background: url('../assets/icons/select/icon_javascript_blue.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_javascript_blue.svg') center / 50px no-repeat transparent;
 }
 
 .angular1-blue,
 #modules input#r-angular1:checked ~ label .framework-logo {
-  background: url('../assets/icons/select/icon_angular1_blue.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_angular1_blue.svg') center / 50px no-repeat transparent;
 }
 
 .angular2-blue,
 #modules input#r-angular2:checked ~ label .framework-logo {
-  background: url('../assets/icons/select/icon_angular2_blue.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_angular2_blue.svg') center / 50px no-repeat transparent;
 }
 
 .react-blue,
 #modules input#r-react:checked ~ label .framework-logo {
-  background: url('../assets/icons/select/icon_react_blue.svg') center / 100% no-repeat transparent;
+  background: url('../assets/icons/select/icon_react_blue.svg') center / 50px no-repeat transparent;
 }
 
 #modules .framework-item > label::before,
@@ -259,23 +207,23 @@ header {
 
 #modules .framework-item > label::before {
 
-  border-left: 11px solid transparent;
-  border-right: 11px solid transparent;
-  border-bottom: 11px solid #ccc;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
 
   z-index: 9;
   bottom: 0;
-  right: calc(50% - 11px);
+  right: calc(50% - 7px);
 }
 
 #modules .framework-item > label::after {
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #eee;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #eee;
 
   z-index: 10;
   bottom: -1px;
-  right: calc(50% - 10px);
+  right: calc(50% - 6px);
 }
 
 #modules .framework-item > input[type=radio]:checked ~ .module-list,
@@ -298,9 +246,10 @@ header {
 }
 
 #modules .category-item > input:not(:checked) ~ ul {
-  height: 0;
+  max-height: 0;
 }
 
+#modules .category-item > a,
 #modules .category-item > label {
   display: block;
   width: 100%;
@@ -310,15 +259,21 @@ header {
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
   color: #333;
-  font-size: 12px;
+  font-size: 14px;
   box-sizing: border-box;
   border-bottom: 1px solid #ccc;
   padding: 8px;
   height: 34px;
+  text-decoration: none;
+  position: relative;
+}
+
+#modules .module-item:last-of-type {
+  border-bottom: 1px solid #ccc;
 }
 
 #modules .module-item label {
-  font-size: 12px;
+  font-size: 14px;
   padding: 6px 18px;
   display: block;
   box-sizing: border-box;
@@ -331,12 +286,32 @@ header {
   color: #336699;
 }
 
-#modules .module-item > label::after {
-  content: attr(module);
+#modules .module-item > label::before {
+  content: attr(desc);
+}
+
+#modules .category-item > label::before {
+  content: attr(category);
 }
 
 #modules .category-item > label::after {
-  content: attr(category);
+  content: '';
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid #666;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+#modules .category-item > a::after {
+  content: '';
+  background: url('../assets/icons/link.svg') center / 12px no-repeat transparent;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 11px;
+  right: 10px;
 }
 
 #modules .module-item input:checked ~ label {
@@ -418,7 +393,7 @@ header {
   border-width: 0 6px 6px 6px;
   top: 24px;
   content: "";
-  left: 6px;
+  left: 12px;
   position: absolute;
 }
 
@@ -457,7 +432,8 @@ header {
   pointer-events: none;
   opacity: 0;
   top: 30px;
-  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+          transition: all 0.3s ease-out;
 
   width: 400px;
   height: 200px;
@@ -541,26 +517,12 @@ header {
   display: block;
 }
 
-/* @media (max-width: 772px) {
-  #module-title {
-    display: none !important;
-    min-width: 0;
-  }
-
-  #modules {
-    min-width: 200px;
-  }
+.coming-soon {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 16px;
+  color: #333;
 }
-
-@media (max-width: 545px) {
-  #h2 {
-    width: 100px;
-  }
-
-  #h2 > a > span:not(.logo) {
-    display: none !important;
-  }
-} */
 
 
 .cssload-loader * {
@@ -617,22 +579,10 @@ header {
 }
 
 
-
 @keyframes spin {
   from {
-    transform: rotate(360deg);
-  }
-}
-
-@-o-keyframes spin {
-  from {
-    -o-transform: rotate(360deg);
-  }
-}
-
-@-ms-keyframes spin {
-  from {
-    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 
@@ -642,8 +592,14 @@ header {
   }
 }
 
-@-moz-keyframes spin {
-  from {
-    -moz-transform: rotate(360deg);
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+@media (max-width: 680px) {
+  #h2 > ul,
+  #h3 #toolbar {
+    display: none;
   }
 }

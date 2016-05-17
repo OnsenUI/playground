@@ -1,0 +1,183 @@
+header {
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+}
+
+#h1 {
+  height: 20px;
+  background: -webkit-linear-gradient(#E54738, #E04537);
+  background: linear-gradient(#E54738, #E04537);
+}
+
+#h2 {
+  height: 42px;
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  padding-left: 12px;
+  background-color: #FFF;
+  border-bottom: 2px solid #DDD;
+}
+
+#h2 .title {
+  width: 300px;
+  position: relative;
+  padding-top: 8px;
+}
+
+#h2 .title:hover {
+  opacity: 0.7;
+}
+
+#h2 .logo {
+  width: 120px;
+  height: 26px;
+  float: left;
+  background: url('../assets/icons/logo_onsenui.svg') center / 100% no-repeat transparent;
+}
+#h2 .subtitle {
+  float: right;
+  line-height: 30px;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+}
+
+#h2 .subtitle > span:first-of-type {
+  color: #AAA;
+}
+
+#h2 .subtitle > span:last-of-type {
+  color: #FF1A33;
+}
+
+#h2 > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#h3 {
+  padding-top: 6px;
+  padding-left: 2px;
+}
+
+#h3 > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.design-2016 ul {
+  list-style: none;
+  cursor: default;
+}
+
+.design-2016 #monaca-bar {
+  background-color: #E24637;
+  font-size: 11px;
+  text-align: right;
+  padding: 3px 0;
+}
+.design-2016 #monaca-bar>.wrapper {
+  width: 100%;
+}
+.design-2016 #monaca-bar>.wrapper>ul {
+  margin: 0;
+  color: #F0A29B;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+}
+.design-2016 #monaca-bar>.wrapper>ul>li>a {
+  color: #F0A29B;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 15px;
+}
+.design-2016 #monaca-bar>.wrapper>ul>li:first-child>a:before {
+  content: '';
+  display: inline-block;
+  vertical-align: -2px;
+  margin-right: 10px;
+  width: 12px;
+  height: 12px;
+  background: url(/assets/icons/logo_monaca_header.png);
+}
+
+#h2.design-2016 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.design-2016 > ul {
+  font-size: 14px;
+  margin: 0 10px;
+  padding-top: 4px;
+  box-sizing: border-box;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+}
+
+.design-2016 > ul a {
+  color: #444;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  box-sizing: border-box;
+  height: 40px;
+}
+.design-2016 > ul > li {
+  display: inline-block;
+  opacity: .9;
+  z-index: 1;
+}
+
+.design-2016 .dropdown {
+  position: relative;
+}
+
+.design-2016 .dropdown ul {
+  width: 230px;
+  margin: 0;
+  padding: 6px 16px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  z-index: 2;
+  opacity: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  top: 38px;
+  left: -75px;
+  pointer-events: none;
+  position: absolute;
+  background-color: #fff;
+}
+
+.design-2016 .dropdown:hover ul {
+  opacity: 1;
+  pointer-events: auto;
+  transition: all .1s linear;
+  display: block;
+}
+
+.design-2016 .dropdown:hover ul:after {
+  content: '';
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  height: 14px;
+  width: 14px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: -8px;
+  left: 105px;
+  background-color: #fff;
+  position: absolute;
+}
+
+.design-2016 a.dropdown {
+  padding-right: 1.3em;
+  text-decoration: none;
+  border-bottom: 1px solid;
+}

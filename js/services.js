@@ -50,20 +50,19 @@ app.services.generateTemplateCSS = function(position) {
 
 app.services.showWelcomeMessage = function() {
   var message = `
-## Welcome
+## Welcome!
 
-This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
+![onsen](assets/icons/logo_onsenui.svg)
+
+This is the Onsen UI Interactive Tutorial. Select a module to display a new sample application with its description.
 
   * In the preview section you can switch between iOS and Android view for Automatic Styling.
 
-  * If you want to save any of these examples you export the code to Codepen.
+  * If you want to save any of these examples you can export the code to Codepen or generate a Cordova project and download it.
 
   * Press 'ctrl + s' to quickly refresh the preview.
 
-
-This is the Onsen UI Interactive Tutorial. Select a module and blah blah...
-
-![onsen](assets/icons/onsenui.svg)
+We hope you find this helpful! You can ask anything in the [community forum](https://community.onsen.io) if you have issues.
 
 ` ;
 
@@ -148,7 +147,7 @@ app.services.loadModule = function(framework, category, module) {
 
       document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
       document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
-      document.querySelector('#tutorial-content').innerHTML = app.tutorial.pages[0];
+      app.services.updateTutorialPage();
     })
     .catch(function(err) {
       console.error(err.message);
@@ -166,7 +165,8 @@ app.services.updateDropdown = function(framework, category, module) {
 
 app.services.updateSelectedItem = function(framework, module) {
   if (window.Split) {
-    document.querySelector('#modules .select-item').innerHTML = module;
+    var description = document.querySelector('label[module="' + module + '"]').getAttribute('desc');
+    document.querySelector('#modules .select-item').innerHTML = description;
     var thumbnail = document.querySelector('#modules .select-thumbnail');
     thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
   }
@@ -219,7 +219,7 @@ app.services.detectLibraries = function(position) {
   switch (app.config.framework) {
     case 'react':
       libs.react = {
-        'react': [app.config.lib[position].js.react, app.config.lib[position].js.reactDom, app.config.lib[position].js.reactDomServer],
+        'react': [app.config.lib[position].js.react, app.config.lib[position].js.reactDom],
         'react-onsenui': [app.config.lib[position].js.reactOnsenui]
       }
       break;
@@ -367,4 +367,23 @@ app.services.generateCordovaProject = function() {
         console.error(err.message);
       });
   });
+};
+
+app.services.updateTutorialPage = function() {
+  var tutorialContent = document.querySelector('#tutorial-content');
+  tutorialContent.innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+  tutorialContent.scrollTop = 0;
+};
+
+app.services.refreshSplit = function() {
+  var mousedown = new CustomEvent('mousedown');
+  var mousemove = new CustomEvent('mousemove', {bubbles: true});
+  var mouseup = new CustomEvent('mouseup', {bubbles: true});
+  var gutter = document.querySelector('.gutter-horizontal');
+
+  mousemove.clientX = gutter.getBoundingClientRect().left;
+
+  gutter.dispatchEvent(mousedown);
+  gutter.dispatchEvent(mousemove);
+  gutter.dispatchEvent(mouseup);
 };

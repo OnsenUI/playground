@@ -3,9 +3,10 @@ app.setup = {};
 app.setup.splitPanes = function() {
   Split(['#leftPane', '#rightPane'], {
     gutterSize: 15,
-    sizes: [30, 70],
+    sizes: [35, 65],
     minSize: 300,
-    cursor: 'col-resize'
+    cursor: 'col-resize',
+    onDrag: app.util.resize.editorResize
   });
 
   Split(['#leftTopPane', '#leftBottomPane'], {
@@ -21,11 +22,11 @@ app.setup.splitPanes = function() {
     minSize: 140,
     gutterSize: 15,
     cursor: 'row-resize',
-    onDrag: app.util.resize.handler
+    onDrag: app.util.resize.editorResize
   });
 
-  document.querySelector('#leftPane').style.width = 'calc(30% - 7.5px)';
-  document.querySelector('#rightPane').style.width = 'calc(70% - 7.5px)';
+  document.querySelector('#leftPane').style.width = 'calc(35% - 7.5px)';
+  document.querySelector('#rightPane').style.width = 'calc(65% - 7.5px)';
 }
 
 app.setup.editor = function(id, language) {
@@ -55,7 +56,7 @@ app.setup.pagesCounter  = function() {
     if (app.tutorial && app.tutorial.pageIndex > 0) {
       app.tutorial.pageIndex--;
       document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
-      document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+      app.services.updateTutorialPage();
     }
   };
 
@@ -63,7 +64,7 @@ app.setup.pagesCounter  = function() {
     if (app.tutorial && app.tutorial.pageIndex < app.tutorial.pages.length - 1) {
       app.tutorial.pageIndex++;
       document.getElementById('pages-current').innerHTML = app.tutorial.pageIndex + 1;
-      document.getElementById('tutorial-content').innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
+      app.services.updateTutorialPage();
     }
   };
 };
@@ -117,13 +118,13 @@ app.setup.modules = function() {
 
         var listElement = document.createElement('ul');
 
-        app.modules[framework][category].forEach(function(module) {
+        Object.keys(app.modules[framework][category]).forEach(function(module) {
           var id = `r-${framework}-${app.util.parseId(category)}-${app.util.parseId(module)}`;
           var moduleItem = document.createElement('li');
           moduleItem.classList.add('module-item');
           moduleItem.innerHTML = `
             <input type="radio" name="select-item" id="${id}">
-            <label for="${id}" module="${module}"></label>
+            <label for="${id}" module="${module}" desc="${app.modules[framework][category][module]}"></label>
           `;
           listElement.appendChild(moduleItem)
         });
@@ -131,6 +132,20 @@ app.setup.modules = function() {
         categoryItem.appendChild(listElement);
         moduleList.appendChild(categoryItem);
       });
+
+      if (moduleList.querySelectorAll('li').length) {
+        var extraInfo = document.createElement('li');
+        extraInfo.classList.add('category-item');
+        extraInfo.innerHTML = `
+          <a href="https://onsen.io/v2/docs/${framework === 'vanilla' ? 'js' : framework}.html">Further reading</a>
+        `;
+        moduleList.appendChild(extraInfo);
+      } else {
+        var comingSoon = document.createElement('div');
+        comingSoon.classList.add('coming-soon');
+        comingSoon.innerHTML = 'Coming soon ™';
+        moduleList.appendChild(comingSoon);
+      }
     }
 
     document.body.querySelector('#modules').onchange = function(event) {

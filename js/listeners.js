@@ -6,13 +6,21 @@ window.onkeydown = function(e){
 };
 
 window.onload = function() {
+  if (window.Split) {
+    app.services.refreshSplit();
+  }
+
   var placeholder = document.body.querySelector('#placeholder');
   if (placeholder) {
     placeholder.remove();
   }
 };
 
-window.onresize = app.util.resize.throttler;
+window.onresize = function() {
+  if (window.Split) {
+    app.util.resize.throttler();
+  }
+}
 
 window.onpopstate = function(event) {
   if (event.state) {

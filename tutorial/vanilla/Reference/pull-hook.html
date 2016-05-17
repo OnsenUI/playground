@@ -26,9 +26,9 @@
         pullHook.innerHTML = message;
       });
 
-      pullHook.setActionCallback(function(done) {
+      pullHook.onAction = function(done) {
         setTimeout(done, 1000);
-      });
+      };
     });
   </script>
 </head>
@@ -74,16 +74,16 @@ It is normally put as a direct descendant to the `<ons-page>` element.
 
 ## Setting the callback
 
-To set the callback that should be executed when the user pulls the page you can use the `setActionCallback(callback)` method.
+To set the callback that should be executed when the user pulls the page you can modify the `actionCallback(callback)` property.
 
 The callback will take a function as an argument that needs to be called when the action is performed. Calling the function will cause the page to snap back into position.
 
 ```
 var pullHook = document.getElementById('pull-hook');
-pullHook.setActionCallback(function(done) {
+pullHook.actionCallback = function(done) {
   refreshTheData()
     .then(done);
-});
+};
 ```
 
 ## States

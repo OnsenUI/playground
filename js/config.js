@@ -9,8 +9,8 @@ app.config.repos = {
 };
 app.config.versions = {
   defaults: {
-    onsenui: '2.0.0-beta.15',
-    reactOnsenui: '0.0.20'
+    onsenui: '2.0.0-rc.3',
+    reactOnsenui: '0.2.0'
   },
   onsenui: window.sessionStorage.getItem('onsenui-version'),
   reactOnsenui: window.sessionStorage.getItem('react-onsenui-version')
@@ -62,7 +62,6 @@ app.config.ready.then(function() {
         angularOnsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/js/angular-onsenui.js`,
         react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.min.js',
         reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.min.js',
-        reactDomServer: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom-server.min.js',
         reactOnsenui: `${app.config.cdn}/${app.config.repos.reactOnsenui}/${app.config.versions.reactOnsenui}/dist/react-onsenui.js`
       },
       css: {
@@ -78,7 +77,6 @@ app.config.ready.then(function() {
         angularOnsenui: 'onsen/js/angular-onsenui.js',
         react: 'react/react.min.js',
         reactDom: 'react/react-dom.min.js',
-        reactDomServer: 'react/react-dom-server.min.js',
         reactOnsenui: `react-onsenui/react-onsenui.js`
       },
       css: {
@@ -97,7 +95,7 @@ app.config.ready.then(function() {
   app.config.npm = {
     onsenui: ['"onsenui": "' + app.config.versions.onsenui + '"'],
     angular: ['"angular": ""'],
-    react: ['"react": ""', '"react-dom": ""', '"react-server": ""', '"react-onsenui": ""'],
+    react: ['"react": ""', '"react-dom": ""', '"react-onsenui": ""'],
     babel: ['"babel-cli": ""', '"babel-preset-react": ""']
   };
 });
