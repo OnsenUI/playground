@@ -175,7 +175,18 @@ app.services.updateSelectedItem = function(framework, module) {
 app.services.transpile = function(code) {
   switch (app.services.detectTranspiler()) {
     case 'babel':
-      return Babel.transform(code, { presets: ['react'] }).code;
+      var result;
+      try {
+        result = Babel.transform(code, { presets: ['react'] }).code;
+      } catch(e) {
+        result = `
+          setTimeout(function() {
+            document.body.setAttribute('style', 'color: red; margin: 8px; font-family: Arial');
+            document.body.innerHTML = \`${e.message}\`;
+          }, 0);
+        `;
+      }
+      return result;
     case 'none':
     default:
       return code;

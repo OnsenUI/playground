@@ -19,7 +19,8 @@ app.modules = {
       'if': 'Conditional element',
       'progress': 'Progress',
       'fab': 'Floating action button',
-      'speed-dial': 'Speed dial'
+      'speed-dial': 'Speed dial',
+      'ripple': 'Ripple effect'
     }
   },
   'angular1': {

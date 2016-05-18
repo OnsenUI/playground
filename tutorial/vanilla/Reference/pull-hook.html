@@ -26,7 +26,7 @@
         pullHook.innerHTML = message;
       });
 
-      pullHook.actionCallback = function(done) {
+      pullHook.onAction = function(done) {
         setTimeout(done, 1000);
       };
     });
