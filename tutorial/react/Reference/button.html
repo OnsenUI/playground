@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/jsx">
+    var MyPage = React.createClass({
+      handleClick: function() {
+        ons.notification.alert('Hello world!');
+      },
+
+      render: function() {
+        return (
+          <Ons.Page>
+            <Ons.Toolbar>
+              <div className='center'>Buttons</div>
+              <div className='right'>
+                <Ons.ToolbarButton>
+                  <Ons.Icon icon="ion-navicon, material:md-menu"></Ons.Icon>
+                </Ons.ToolbarButton>
+              </div>
+            </Ons.Toolbar>
+
+            <section style={{margin: '16px'}}>
+                <Ons.Button style={{margin: '6px'}} onClick={this.handleClick.bind(this)}>Normal</Ons.Button>
+                <Ons.Button style={{margin: '6px'}} modifier='quiet'>Quiet</Ons.Button>
+                <Ons.Button style={{margin: '6px'}} modifier='outline'>Outline</Ons.Button>
+                <Ons.Button style={{margin: '6px'}} modifier='cta'>Call to action</Ons.Button>
+                <Ons.Button style={{margin: '6px'}} modifier='large'>Large</Ons.Button>
+            </section>
+
+            <Ons.Fab position='bottom right'>
+              +
+            </Ons.Fab>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Buttons
+
+Buttons are created using the `Button` component.
+
+```
+<Button>Tap me</Button>
+```
+
+The button will automatically select the style based on the platform. On Android it will be a Material Design button with a ripple effect.
+
+## Adding actions
+
+A button is no good if it doesn't do anything. To bind an action to a button the `onClick` prop is used.
+
+```
+<Button onClick={this.handleClick.bind(this)}>Tap me</Button>
+```
+
+## Modifiers
+
+The appearance of the button can be changed with the `modifier` prop.
+
+Available props are: `quiet`, `outline`, `cta` and `large`.
+-->

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/jsx">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          items: [
+            '#F1948A',
+            '#D7BDE2',
+            '#85C1E9',
+            '#73C6B6',
+          ]
+        };
+      },
+
+      render: function() {
+        return (
+          <Ons.Page>
+            <Ons.Toolbar>
+              <div className='center'>Carousel</div>
+            </Ons.Toolbar>
+
+            <Ons.Carousel fullscreen swipeable autoScroll overscrollable>
+            {this.state.items.map((item) => (
+              <Ons.CarouselItem style={{backgroundColor: item}}>
+                <div style={{marginTop: '50%', textAlign: 'center'}}>
+                  Swipe me!
+                </div>
+              </Ons.CarouselItem>)
+            )}
+            </Ons.Carousel>
+
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Carousel
+
+A carousel is used to show several items in the same place. The user can switch between the items by panning. The carousel can also be controlled programatically
+
+-->
