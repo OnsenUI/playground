@@ -179,10 +179,15 @@ app.services.transpile = function(code) {
       try {
         result = Babel.transform(code, { presets: ['react'] }).code;
       } catch(e) {
+        var msg = e.message
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+
         result = `
           setTimeout(function() {
             document.body.setAttribute('style', 'color: red; margin: 8px; font-family: Arial');
-            document.body.innerHTML = \`${e.message}\`;
+            document.body.innerHTML = \`<pre>${msg}</pre>\`;
           }, 0);
         `;
       }
