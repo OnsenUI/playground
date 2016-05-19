@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap();
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Speed dial</div>
+    </ons-toolbar>
+
+    <ons-speed-dial position="bottom right" direction="up">
+      <ons-fab>
+        <ons-icon icon="md-share"></ons-icon>
+      </ons-fab>
+      <ons-speed-dial-item>
+        <ons-icon icon="md-twitter"></ons-icon>
+      </ons-speed-dial-item>
+      <ons-speed-dial-item>
+        <ons-icon icon="md-facebook"></ons-icon>
+      </ons-speed-dial-item>
+      <ons-speed-dial-item>
+        <ons-icon icon="md-google-plus"></ons-icon>
+      </ons-speed-dial-item>
+    </ons-speed-dial>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Speed dial
+
+The Speed dial is a Material Design component similar to the Floating action button. It is used to display a `<ons-fab>` element that when clicked displays a menu.
+
+The component is defined using the `<ons-speed-dial>` element and the items with `<ons-speed-dial-item>`.
+
+```
+<ons-speed-dial>
+  <ons-fab>
+    A
+  </ons-fab>
+  <ons-speed-dial-item>
+    B
+  </ons-speed-dial-item>
+  <ons-speed-dial-item>
+    C
+  </ons-speed-dial-item>
+  <ons-speed-dial-item>
+    D
+  </ons-speed-dial-item>
+</ons-speed-dial>
+```
+
+## Changing the position and direction
+
+Just like with the `<ons-fab>` element the position can be changed using the `position` attribute. Normally the value is `bottom right`.
+
+It is also possible to configure the direction in which the menu is displayed with the `direction` attribute. Possible values are `up`, `down`, `left` and `right`.
+
+```
+<ons-speed-dial
+  position="bottom right"
+  direction="up">
+  ...
+</ons-speed-dial>
+```
+
+-->

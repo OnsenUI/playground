@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap();
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Floating action button</div>
+    </ons-toolbar>
+
+    <ons-fab position="bottom right">
+      <ons-icon icon="md-plus"></ons-icon>
+    </ons-fab>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Floating action button
+
+The Floating action button is a UI component introduced in Material Design. It is used to represent the primary action of an app.
+
+In Onsen UI the Floating action button can be displayed using the `<ons-fab>` element.
+
+```
+<ons-fab>
+  <ons-icon
+    icon="md-plus">
+  </ons-icon>
+</ons-fab>
+```
+
+## Changing the position
+
+By default the component is displayed as an inline element. By using the `position` attribute it can be placed in one of the corners. The most common value is `bottom right` since that's where it's usually positioned in Android native apps.
+
+```
+<ons-fab position="bottom right">
+  ...
+</ons-fab>
+```
+
+## Hiding in iOS
+
+By default the `<ons-fab>` will be rendered in both iOS and Android. However, in most cases it should not be displayed in iOS but instead the same action should be tied to some other UI component.
+
+To only display it in Android, the `<ons-if>` element can be used.
+
+```
+<ons-if platform="android">
+  <ons-fab>
+    ...
+  </ons-fab>
+</ons-if>
+```
+
+You can try adding the `<ons-if>` element in the code and switch between iOS and Android.
+
+-->

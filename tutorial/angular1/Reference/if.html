@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap();
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Conditional element</div>
+    </ons-toolbar>
+
+    <div style="text-align: center; margin-top: 30px">
+      <ons-if platform="android">
+        <ons-icon icon="md-android" size="50px" style="color: #A5C83A"></ons-icon>
+        This is Android
+      </ons-if>
+
+      <ons-if platform="ios other">
+        <ons-icon icon="md-apple" size="50px" style="color: #9E9D9D"></ons-icon>
+        This is iOS
+      </ons-if>
+    </div>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Conditional element
+
+`<ons-if>` will let you filter the content of your app depending on some variables:
+
+* `platform` attribute: allows or removes content depending on the running platform. Possible values are `ios`, `android`, `windows` and `other`. Normally you will include an `android` condition and a `ios other` condition.
+* `orientation` attribute: Possible values are `landscape` and `portrait`. Unlike the platform, this attribute is dynamic so it refreshes the view when changing the orientation.
+
+In AngularJS this element can be substituted by the more powerful `ng-if`, `ng-switch`, `ng-show` or `ng-hide` directives. Use [`ons.platform`](https://onsen.io/v2/docs/angular1/ons.platform.html) and [`ons.orientation`](https://onsen.io/v2/docs/angular1/ons.orientation.html) methods to achieve a similar result.
+
+-->
