@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap();
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Ripple</div>
+    </ons-toolbar>
+
+    <div style="width: 200px; height: 200px; margin: 10px auto; background-color: #ec7063;">
+      <ons-ripple color="#bb8fce" background="#85c1e9"></ons-ripple>
+    </div>
+
+    <p style="text-align: center;">
+      <ons-fab ripple>A</ons-fab>
+    </p>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Ripple effect
+
+The *ripple* effect is a part of Material Design. The effect extends from the point the user taps to the edges of the element.
+
+Try to click the square below to see it in action.
+
+## Customizing the color
+
+To customize the color of the of ripple effect the `color` and `background` attributes are used.
+
+```
+<ons-ripple color="#bb8fce" background="#85c1e9">
+```
+
+## The `ripple` attribute
+
+There are some elements that support the `ripple` attribute. For these elements adding a ripple effect is very simple.
+
+```
+<ons-button ripple>
+  Tap me!
+</ons-button>
+```
+
+The elements that support this attribute are:
+
+* `<ons-button>`
+* `<ons-fab>`
+* `<ons-speed-dial-item>`
+* `<ons-list-item>`
+
+-->
