@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/jsx">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          dialogShown: false,
+          alertDialogShown: false,
+          items: [
+            {
+              title: 'Dialog',
+              fn: this.showDialog.bind(this)
+            },
+            {
+              title: 'Alert dialog',
+              fn: this.showAlertDialog.bind(this)
+            },
+            {
+              title: 'Alert notification',
+              fn: () => ons.notification.alert('An error has occurred!')
+            },
+            {
+              title: 'Confirmation',
+              fn: () => ons.notification.confirm('Are you ready?')
+            },
+            {
+              title: 'Prompt',
+              fn: () => ons.notification.prompt('What\'s your name?')
+            }
+          ]
+        };
+      },
+
+      showDialog: function() {
+        this.setState({dialogShown: true});
+      },
+
+      hideDialog: function() {
+        this.setState({dialogShown: false});
+      },
+
+      showAlertDialog: function() {
+        this.setState({alertDialogShown: true});
+      },
+
+      hideAlertDialog: function() {
+        this.setState({alertDialogShown: false});
+      },
+
+      renderRow(row) {
+        return (
+          <Ons.ListItem tappable onClick={row.fn}>
+            {row.title}
+          </Ons.ListItem>
+        );
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Dialogs</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.List dataSource={this.state.items} renderRow={this.renderRow.bind(this)} />
+
+            <Ons.Dialog
+              isOpen={this.state.dialogShown}
+              isCancelable={true}
+              onCancel={this.hideDialog.bind(this)}>
+              <div style={{textAlign: 'center', margin: '20px'}}>
+                <p style={{opacity: 0.5}}>This is a dialog!</p>
+                <p>
+                  <Ons.Button onClick={this.hideDialog.bind(this)}>Close</Ons.Button>
+                </p>
+              </div>
+            </Ons.Dialog>
+
+            <Ons.AlertDialog
+              isOpen={this.state.alertDialogShown}
+              isCancelable={false}>
+              <div className='alert-dialog-title'>Warning!</div>
+              <div className='alert-dialog-content'>
+                An error has occurred!
+              </div>
+              <div className='alert-dialog-footer'>
+                <button onClick={this.hideAlertDialog.bind(this)} className='alert-dialog-button'>
+                  Cancel
+                </button>
+                <button onClick={this.hideAlertDialog.bind(this)} className='alert-dialog-button'>
+                  Ok
+                </button>
+              </div>
+            </Ons.AlertDialog>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Dialogs
+
+There are two components used to show dialogs: `Dialog` and `AlertDialog`. The `Dialog` component is a general dialog where you can put any content while the `AlertDialog` has some default styles that make it easy to show errors, warnings or questions to the user.
+
+To show or hide the dialog the `isOpen` prop is used.
+
+```
+<Dialog isOpen={this.state.dialogShown}>
+  Hi!
+
+  <Button onClick={this.hideDialog.bind(this)}>
+    Close
+  </Button>
+</Dialog>
+```
+
+## Notification methods
+
+The `ons.notification` object contains some useful methods to easily show alerts, confirmation dialogs and prompts:
+
+* `ons.notification.alert(message, options)`
+* `ons.notificaiton.confirm(message, options)`
+* `ons.notification.prompt(message, options)`
+
+They all return a `Promise` object that can be used to handle the input from the user.
+
+```
+ons.notification.confirm('Are you ready?')
+  .then((response) => {
+    // Handle response.
+  });
+```
+
+-->

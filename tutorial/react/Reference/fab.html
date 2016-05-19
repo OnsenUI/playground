@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/jsx">
+    var MyPage = React.createClass({
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Floating action button</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      handleClick() {
+        ons.notification.alert('You clicked the button!');
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.Fab
+              style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}} 
+              onClick={this.handleClick}
+              position='bottom right'>
+              <Ons.Icon icon='md-face' />
+            </Ons.Fab>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Floating action button
+
+The *Floating action button* is a Material Design component that displays a circular button. It is normally displayed in the lower right corner and is used to represent the primary action of the app.
+
+It is displayed using the `Fab` component. To specify the position the `position` prop is used. To put an icon inside the button the `Icon` component can be used.
+
+```
+<Fab position='bottom right'>
+  <Icon icon="md-face" />
+</Fab>
+```
+
+To assign an action to the button the `onClick` prop can be used.
+
+-->

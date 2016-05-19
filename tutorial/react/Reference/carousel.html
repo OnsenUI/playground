@@ -13,27 +13,50 @@
             '#D7BDE2',
             '#85C1E9',
             '#73C6B6',
-          ]
+          ],
+          index: 0
         };
+      },
+
+      handleChange(e) {
+        this.setState({index: e.activeIndex});
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Carousel</div>
+          </Ons.Toolbar>
+        );
       },
 
       render: function() {
         return (
-          <Ons.Page>
-            <Ons.Toolbar>
-              <div className='center'>Carousel</div>
-            </Ons.Toolbar>
-
-            <Ons.Carousel fullscreen swipeable autoScroll overscrollable>
-            {this.state.items.map((item) => (
-              <Ons.CarouselItem style={{backgroundColor: item}}>
-                <div style={{marginTop: '50%', textAlign: 'center'}}>
-                  Swipe me!
-                </div>
-              </Ons.CarouselItem>)
-            )}
+        <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.Carousel onPostChange={this.handleChange.bind(this)} index={this.state.index} fullscreen swipeable autoScroll overscrollable>
+              {this.state.items.map((item) => (
+                <Ons.CarouselItem style={{backgroundColor: item}}>
+                  <div style={{marginTop: '50%', textAlign: 'center'}}>
+                    Swipe me!
+                  </div>
+                  </Ons.CarouselItem>
+              ))}
             </Ons.Carousel>
 
+            <div style={{
+              textAlign: 'center',
+              fontSize: '20px',
+              position: 'absolute',
+              bottom: '36px',
+              left: '0px',
+              right: '0px'
+            }}>
+              {this.state.items.map((item, index) => (
+                <span style={{cursor: 'pointer'}} onClick={this.setState.bind(this, {index: index})}>
+                  {this.state.index === index ? '\u25CF' : '\u25CB'}
+                </span>
+              ))}
+            </div>
           </Ons.Page>
         );
       }
@@ -53,6 +76,8 @@
 
 ## Carousel
 
-A carousel is used to show several items in the same place. The user can switch between the items by panning. The carousel can also be controlled programatically
+A carousel is used to show several items in the same place. The user can switch between the items by panning. The carousel can also be controlled programatically.
+
+The current carousel index can be controlled using the `index` prop and you can listen to changes with the `onPostChange` prop which will be called efter the index has changed.
 
 -->

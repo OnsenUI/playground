@@ -10,17 +10,22 @@
         ons.notification.alert('Hello world!');
       },
 
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Buttons</div>
+            <div className='right'>
+              <Ons.ToolbarButton>
+                <Ons.Icon icon="ion-navicon, material:md-menu"></Ons.Icon>
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      },
+
       render: function() {
         return (
-          <Ons.Page>
-            <Ons.Toolbar>
-              <div className='center'>Buttons</div>
-              <div className='right'>
-                <Ons.ToolbarButton>
-                  <Ons.Icon icon="ion-navicon, material:md-menu"></Ons.Icon>
-                </Ons.ToolbarButton>
-              </div>
-            </Ons.Toolbar>
+        <Ons.Page renderToolbar={this.renderToolbar}>
 
             <section style={{margin: '16px'}}>
                 <Ons.Button style={{margin: '6px'}} onClick={this.handleClick.bind(this)}>Normal</Ons.Button>
