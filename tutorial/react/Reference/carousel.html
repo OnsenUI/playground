@@ -38,8 +38,8 @@
         return (
         <Ons.Page renderToolbar={this.renderToolbar}>
             <Ons.Carousel onPostChange={this.handleChange} index={this.state.index} fullscreen swipeable autoScroll overscrollable>
-              {this.state.items.map((item) => (
-                <Ons.CarouselItem key={item} style={{backgroundColor: item}}>
+              {this.state.items.map((item, index) => (
+                <Ons.CarouselItem key={index} style={{backgroundColor: item}}>
                   <div style={{marginTop: '50%', textAlign: 'center'}}>
                     Swipe me!
                   </div>
@@ -56,7 +56,7 @@
               right: '0px'
             }}>
               {this.state.items.map((item, index) => (
-                <span style={{cursor: 'pointer'}} onClick={this.setIndex.bind(this, index)}>
+                <span key={index} style={{cursor: 'pointer'}} onClick={this.setIndex.bind(this, index)}>
                   {this.state.index === index ? '\u25CF' : '\u25CB'}
                 </span>
               ))}
