@@ -5,6 +5,8 @@
 	<title>Onsen UI App</title>
 
   <script type="text/jsx">
+    var index = 0;
+
     var MyPage = React.createClass({
       renderToolbar: function(route, navigator) {
         const backButton = route.hasBackButton
@@ -30,14 +32,16 @@
 
       pushPage: function(navigator) {
         navigator.pushPage({
-          title: 'Another page',
+          title: `Another page ${index}`,
           hasBackButton: true
         });
+
+        index++;
       },
 
       renderPage: function(route, navigator) {
         return (
-          <Ons.Page renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
+          <Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
             <section style={{margin: '16px', textAlign: 'center'}}>
               <Ons.Button onClick={this.pushPage.bind(this, navigator)}>
                 Push Page
@@ -50,7 +54,7 @@
       render: function() {
         return (
           <Ons.Navigator
-            renderPage={this.renderPage.bind(this)}
+            renderPage={this.renderPage}
             initialRoute={{
               title: 'First page',
               hasBackButton: false

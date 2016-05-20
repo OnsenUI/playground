@@ -16,7 +16,7 @@
 
       renderRow: function(index) {
         return (
-          <Ons.ListItem>
+          <Ons.ListItem key={index}>
             {`Item ${index + 1}`}
           </Ons.ListItem>
         );

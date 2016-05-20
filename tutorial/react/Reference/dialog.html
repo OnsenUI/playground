@@ -13,11 +13,11 @@
           items: [
             {
               title: 'Dialog',
-              fn: this.showDialog.bind(this)
+              fn: this.showDialog
             },
             {
               title: 'Alert dialog',
-              fn: this.showAlertDialog.bind(this)
+              fn: this.showAlertDialog
             },
             {
               title: 'Alert notification',
@@ -53,7 +53,7 @@
 
       renderRow(row) {
         return (
-          <Ons.ListItem tappable onClick={row.fn}>
+          <Ons.ListItem key={row.title} tappable onClick={row.fn}>
             {row.title}
           </Ons.ListItem>
         );
@@ -70,16 +70,16 @@
       render: function() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
-            <Ons.List dataSource={this.state.items} renderRow={this.renderRow.bind(this)} />
+            <Ons.List dataSource={this.state.items} renderRow={this.renderRow} />
 
             <Ons.Dialog
               isOpen={this.state.dialogShown}
               isCancelable={true}
-              onCancel={this.hideDialog.bind(this)}>
+              onCancel={this.hideDialog}>
               <div style={{textAlign: 'center', margin: '20px'}}>
                 <p style={{opacity: 0.5}}>This is a dialog!</p>
                 <p>
-                  <Ons.Button onClick={this.hideDialog.bind(this)}>Close</Ons.Button>
+                  <Ons.Button onClick={this.hideDialog}>Close</Ons.Button>
                 </p>
               </div>
             </Ons.Dialog>
@@ -92,10 +92,10 @@
                 An error has occurred!
               </div>
               <div className='alert-dialog-footer'>
-                <button onClick={this.hideAlertDialog.bind(this)} className='alert-dialog-button'>
+                <button onClick={this.hideAlertDialog} className='alert-dialog-button'>
                   Cancel
                 </button>
-                <button onClick={this.hideAlertDialog.bind(this)} className='alert-dialog-button'>
+                <button onClick={this.hideAlertDialog} className='alert-dialog-button'>
                   Ok
                 </button>
               </div>

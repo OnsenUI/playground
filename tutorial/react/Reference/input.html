@@ -52,7 +52,7 @@
 
       renderCheckboxRow(row) {
         return (
-          <Ons.ListItem tappable>
+          <Ons.ListItem key={row} tappable>
             <label className='left'>
               <Ons.Input
                 inputId={`checkbox-${row}`}
@@ -68,7 +68,7 @@
 
       renderRadioRow(row) {
         return (
-          <Ons.ListItem tappable>
+          <Ons.ListItem key={row} tappable>
             <label className='left'>
               <Ons.Input
                 inputId={`radio-${row}`}
@@ -91,7 +91,7 @@
               <p>
                 <Ons.Input
                   value={this.state.username}
-                  onChange={this.handleUsernameChange.bind(this)}
+                  onChange={this.handleUsernameChange}
                   modifier='underbar'
                   float
                   placeholder='Username' />
@@ -99,27 +99,27 @@
               <p>
                 <Ons.Input
                   value={this.state.password}
-                  onChange={this.handlePasswordChange.bind(this)}
+                  onChange={this.handlePasswordChange}
                   modifier='underbar'
                   type='password'
                   float
                   placeholder='Password' />
               </p>
               <p>
-                <Ons.Button onClick={this.handleClick.bind(this)}>Sign in</Ons.Button>
+                <Ons.Button onClick={this.handleClick}>Sign in</Ons.Button>
               </p>
             </section>
 
             <Ons.List
               dataSource={this.state.vegetables}
               renderHeader={() => <Ons.ListHeader>Radio buttons</Ons.ListHeader>}
-              renderRow={this.renderRadioRow.bind(this)}
+              renderRow={this.renderRadioRow}
             />
 
             <Ons.List
               dataSource={this.state.vegetables}
               renderHeader={() => <Ons.ListHeader>Checkboxes</Ons.ListHeader>}
-              renderRow={this.renderCheckboxRow.bind(this)}
+              renderRow={this.renderCheckboxRow}
             />
           </Ons.Page>
         );

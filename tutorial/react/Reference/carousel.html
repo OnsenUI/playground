@@ -30,12 +30,16 @@
         );
       },
 
+      setIndex(index) {
+        this.setState({index: index});
+      },
+
       render: function() {
         return (
         <Ons.Page renderToolbar={this.renderToolbar}>
-            <Ons.Carousel onPostChange={this.handleChange.bind(this)} index={this.state.index} fullscreen swipeable autoScroll overscrollable>
+            <Ons.Carousel onPostChange={this.handleChange} index={this.state.index} fullscreen swipeable autoScroll overscrollable>
               {this.state.items.map((item) => (
-                <Ons.CarouselItem style={{backgroundColor: item}}>
+                <Ons.CarouselItem key={item} style={{backgroundColor: item}}>
                   <div style={{marginTop: '50%', textAlign: 'center'}}>
                     Swipe me!
                   </div>
@@ -52,7 +56,7 @@
               right: '0px'
             }}>
               {this.state.items.map((item, index) => (
-                <span style={{cursor: 'pointer'}} onClick={this.setState.bind(this, {index: index})}>
+                <span style={{cursor: 'pointer'}} onClick={this.setIndex.bind(this, index)}>
                   {this.state.index === index ? '\u25CF' : '\u25CB'}
                 </span>
               ))}

@@ -14,7 +14,7 @@
         );
       },
 
-      renderRow: function(row) {
+      renderRow: function(row, index) {
         const x = 40 + Math.round(5 * (Math.random() - 0.5)),
               y = 40 + Math.round(5 * (Math.random() - 0.5));
 
@@ -22,9 +22,9 @@
         const name = names[Math.floor(names.length * Math.random())];
 
         return (
-          <Ons.ListItem>
+          <Ons.ListItem key={index}>
             <div className='left'>
-              <img src={`http://placekitten.com/g/${x}/${y}`} className='list__item__thumbnail' />
+              <img src={`http://placekitten.com/g/${x}/${y}`} style={{margin: 0}} className='list__item__thumbnail' />
             </div>
             <div className='center'>
               {name}
