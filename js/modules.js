@@ -69,7 +69,7 @@ app.modules = {
       'lazy-list': 'Infinite scrolling',
       'list': 'Lists',
       'navigator': 'Stack navigation',
-      'page': 'Page'
+      'page': 'Page',
       'popover': 'Popover',
       'progress': 'Progress indicators',
       'pull-hook': 'Pull to refresh',
