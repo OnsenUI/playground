@@ -60,8 +60,8 @@ app.config.ready.then(function() {
         onsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/js/onsenui.js`,
         angular: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js',
         angularOnsenui: `${app.config.cdn}/${app.config.repos.onsenui}/${app.config.versions.onsenui}/js/angular-onsenui.js`,
-        react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.min.js',
-        reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.min.js',
+        react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js',
+        reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js',
         reactOnsenui: `${app.config.cdn}/${app.config.repos.reactOnsenui}/${app.config.versions.reactOnsenui}/dist/react-onsenui.js`
       },
       css: {
