@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    var showDialog = function(id) {
+      document
+        .getElementById(id)
+        .show();
+    };
+
+    var hideDialog = function(id) {
+      document
+        .getElementById(id)
+        .hide();
+    };
+
+    var fromTemplate = function() {
+      var dialog = document.getElementById('dialog-3');
+
+      if (dialog) {
+        dialog.show();
+      }
+      else {
+        ons.createDialog('dialog.html')
+          .then(function(dialog) {
+            dialog.show();
+          });
+      }
+   };
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Dialogs</div>
+    </ons-toolbar>
+
+    <ons-list>
+      <ons-list-header>Showing dialogs</ons-list-header>
+      <ons-list-item tappable onclick="showDialog('dialog-1')">Simple dialog</ons-list-item>
+      <ons-list-item tappable onclick="showDialog('dialog-2')">Alert dialog</ons-list-item>
+      <ons-list-item tappable onclick="fromTemplate()">From template</ons-list-item>
+      <ons-list-header>Notifications</ons-list-header>
+      <ons-list-item tappable onclick="ons.notification.alert('Hello, world')">Alert</ons-list-item>
+      <ons-list-item tappable onclick="ons.notification.confirm({message: 'Are you ready?'})">Confirmation</ons-list-item>
+      <ons-list-item tappable onclick="ons.notification.prompt({message: 'What is your name?'})">Prompt</ons-list-item>
+    </ons-list>
+  </ons-page>
+
+  <ons-dialog id="dialog-1">
+    <div style="text-align: center; padding: 10px;">
+      <p>
+        This is a dialog.
+      <p>
+
+      <p>
+        <ons-button onclick="hideDialog('dialog-1')">Close</ons-button>
+      </p>
+    </div>
+  </ons-dialog>
+
+  <ons-alert-dialog id="dialog-2">
+    <div class="alert-dialog-title">Warning!</div>
+    <div class="alert-dialog-content">
+      An error has occurred!
+    </div>
+    <div class="alert-dialog-footer">
+      <button class="alert-dialog-button" onclick="hideDialog('dialog-2')">Cancel</button>
+      <button class="alert-dialog-button" onclick="hideDialog('dialog-2')">OK</button>
+    </div>
+  </ons-alert-dialog>
+
+  <ons-template id="dialog.html">
+    <ons-dialog id="dialog-3">
+      <div style="text-align: center; padding: 10px;">
+        <p>
+          This dialog was created from a template.
+        <p>
+
+        <p>
+          <ons-button onclick="hideDialog('dialog-3')">Close</ons-button>
+        </p>
+      </div>
+    </ons-dialog>
+  </ons-template>
+</body>
+</html>
+
+<!-- info
+
+## Dialogs
+
+Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-alert-dialog>` tag that is used to display alert dialogs.
+
+```
+<ons-dialog id="dialog-1">
+  This is a dialog!
+</ons-dialog>
+```
+
+The dialog is hidden by default and usually attached as a direct child of the `<body>` tag.
+
+## Displaying a dialog
+
+To display a dialog you need to get a reference to the element and execute the `show(options)` method.
+
+```
+document
+  .getElementById('dialog-1')
+  .show();
+```
+
+It is hidden with the `hide(options)` method.
+
+## Loading from a template
+
+Another way to use dialogs is with the `ons.createDialog(template)` utility function. The dialog needs to be defined as a template and the function returns a `Promise` that resolves to the dialog element.
+
+```
+<ons-template id="dialog.html">
+  <ons-dialog>
+    This dialog is defined as a template.
+  </ons-dialog>
+</ons-template>
+```
+
+```
+ons
+  .createDialog('dialog.html')
+  .then(function(dialog) {
+    dialog.show();
+  });
+```
+
+## Alert dialogs
+
+Alert dialogs work exactly like normal dialogs but they require some additional markup. With this element you can create a beautifully styled dialog without any additional CSS.
+
+```
+<ons-alert-dialog>
+  <div class="alert-dialog-title">Warning!</div>
+  <div class="alert-dialog-content">
+    An error has occurred!
+  </div>
+  <div class="alert-dialog-footer">
+    <button class="alert-dialog-button">Cancel</button>
+    <button class="alert-dialog-button">OK</button>
+  </div>
+</ons-alert-dialog>
+```
+
+## The `cancelable` attribute
+
+Both the `<ons-dialog>` and the `<ons-alert-dialog>` support the `cancelable` attribute. This enables hiding the dialog by tapping outside of it or by pressing the back button on Android devices.
+
+<ons-dialog cancelable>
+  This dialog can be cancelled!
+</ons-dialog>
+
+Try adding the `cancelable` attribute to one of the dialogs to see how it works.
+
+## Notification
+
+Another way to display dialogs is with the `ons.notification` methods:
+
+* `ons.notification.alert(options)`
+* `ons.notification.confirm(options)`
+* `ons.notification.prompt(options)`
+
+These methods all return a `Promise`. For the `confirm` it resolves to the index of the button pressed and for the `prompt` it resolves to the user input.
+
+```
+ons
+  .notification.prompt({message: 'What is your name?'})
+  .then(function(name) {
+    ons.notification.alert('Hello ' + name);
+  });
+```
+
+
+-->
