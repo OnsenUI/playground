@@ -5,17 +5,7 @@
 	<title>Onsen UI App</title>
 
   <script>
-    var showPopover = function(target) {
-      document
-        .getElementById('popover')
-        .show(target);
-    };
-
-    var hidePopover = function() {
-      document
-        .getElementById('popover')
-        .hide();
-    };
+    ons.bootstrap();
   </script>
 </head>
 <body>
@@ -25,17 +15,17 @@
     </ons-toolbar>
 
     <p style="text-align: center; margin: 50% 0;">
-      <ons-button onclick="showPopover(this)">Click me</ons-button>
+      <ons-button ng-click="popover.show($event)">Click me</ons-button>
     </p>
   </ons-page>
 
-  <ons-popover direction="up" id="popover">
+  <ons-popover direction="up" var="popover">
     <div style="padding: 10px; text-align: center;">
       <p>
         This is a popover
       </p>
       <p>
-        <ons-button onclick="hidePopover()">Close</ons-button>
+        <ons-button ng-click="popover.hide()">Close</ons-button>
       </p>
     </div>
   </ons-popover>
@@ -51,10 +41,12 @@ A popover can be used to give additional information about a component or add ex
 The usage is very similar to that of `<ons-dialog>` and `<ons-alert-dialog>`. It is defined using the `<ons-popover>` tag:
 
 ```
-<ons-popover>
+<ons-popover var="popover">
   This is a popover!
 </ons-popover>
 ```
+
+`var` attribute is used to store the popover in a variable for later access.
 
 It is hidden by default and usually attached directly to the `<body>` tag.
 
@@ -81,6 +73,8 @@ ons
     popover.show();
   });
 ```
+
+For AngularJS, an extra parameter can be passed to specify the scope of the new popover: `ons.createPopover('popover.html', { parentScope: $scope });`
 
 ## The `cancelable` attribute
 
