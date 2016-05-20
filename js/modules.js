@@ -70,14 +70,14 @@ app.modules = {
       'list': 'Lists',
       'navigator': 'Stack navigation',
       'page': 'Page'
-/*      'popover': 'Popover',
+      'popover': 'Popover',
       'progress': 'Progress indicators',
       'pull-hook': 'Pull to refresh',
       'ripple': 'Ripple effect',
       'speed-dial': 'Speed dial',
       'splitter': 'Splitter',
       'tabbar': 'Tabs',
-      'toolbar': 'Toolbar'*/
+      'toolbar': 'Toolbar'
     }
   }
 };
