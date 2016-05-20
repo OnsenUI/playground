@@ -5,71 +5,60 @@
 	<title>Onsen UI App</title>
 
   <script>
-    var showDialog = function(id) {
-      document
-        .getElementById(id)
-        .show();
-    };
-
-    var hideDialog = function(id) {
-      document
-        .getElementById(id)
-        .hide();
-    };
-
-    var fromTemplate = function() {
-      var dialog = document.getElementById('dialog-3');
-
-      if (dialog) {
-        dialog.show();
-      }
-      else {
-        ons.createDialog('dialog.html')
-          .then(function(dialog) {
-            dialog.show();
-          });
-      }
-   };
+    ons.bootstrap()
+      .controller('PageController', function($scope) {
+        this.showDialog = function() {
+          if (this.dialog) {
+            this.dialog.show();
+          } else {
+            ons.createDialog('dialog.html', { parentScope: $scope })
+              .then(function(dialog) {
+                this.dialog = dialog;
+                dialog.show();
+              }.bind(this));
+          }
+        }.bind(this);
+      });
   </script>
 </head>
 <body>
-  <ons-page>
+  <ons-page ng-controller="PageController as page">
     <ons-toolbar>
       <div class="center">Dialogs</div>
     </ons-toolbar>
 
     <ons-list>
       <ons-list-header>Showing dialogs</ons-list-header>
-      <ons-list-item tappable onclick="showDialog('dialog-1')">Simple dialog</ons-list-item>
-      <ons-list-item tappable onclick="showDialog('dialog-2')">Alert dialog</ons-list-item>
-      <ons-list-item tappable onclick="fromTemplate()">From template</ons-list-item>
+      <ons-list-item tappable ng-click="dialog.show()">Simple dialog</ons-list-item>
+      <ons-list-item tappable ng-click="alertDialog.show()">Alert dialog</ons-list-item>
+      <ons-list-item tappable ng-click="page.showDialog()">From template</ons-list-item>
       <ons-list-header>Notifications</ons-list-header>
-      <ons-list-item tappable onclick="ons.notification.alert('Hello, world')">Alert</ons-list-item>
-      <ons-list-item tappable onclick="ons.notification.confirm({message: 'Are you ready?'})">Confirmation</ons-list-item>
-      <ons-list-item tappable onclick="ons.notification.prompt({message: 'What is your name?'})">Prompt</ons-list-item>
+      <ons-list-item tappable ng-click="ons.notification.alert('Hello, world')">Alert</ons-list-item>
+      <ons-list-item tappable ng-click="ons.notification.confirm({message: 'Are you ready?'})">Confirmation</ons-list-item>
+      <ons-list-item tappable ng-click="ons.notification.prompt({message: 'What is your name?'})">Prompt</ons-list-item>
     </ons-list>
   </ons-page>
 
-  <ons-dialog id="dialog-1">
+  <ons-dialog var="dialog">
     <div style="text-align: center; padding: 10px;">
       <p>
         This is a dialog.
-      <p>
+      </p>
 
       <p>
-        <ons-button onclick="hideDialog('dialog-1')">Close</ons-button>
+        <ons-button ng-click="dialog.hide()">Close</ons-button>
       </p>
     </div>
   </ons-dialog>
 
-  <ons-alert-dialog id="dialog-2">
+  <ons-alert-dialog var="alertDialog">
     <div class="alert-dialog-title">Warning!</div>
     <div class="alert-dialog-content">
       An error has occurred!
     </div>
     <div class="alert-dialog-footer">
-      <button class="alert-dialog-button" onclick="hideDialog('dialog-2')">Cancel</button>
-      <button class="alert-dialog-button" onclick="hideDialog('dialog-2')">OK</button>
+      <button class="alert-dialog-button" ng-click="alertDialog.hide()">Cancel</button>
+      <button class="alert-dialog-button" ng-click="alertDialog.hide()">OK</button>
     </div>
   </ons-alert-dialog>
 
@@ -81,7 +70,7 @@
         <p>
 
         <p>
-          <ons-button onclick="hideDialog('dialog-3')">Close</ons-button>
+          <ons-button ng-click="page.dialog.hide()">Close</ons-button>
         </p>
       </div>
     </ons-dialog>
@@ -96,23 +85,18 @@
 Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-alert-dialog>` tag that is used to display alert dialogs.
 
 ```
-<ons-dialog id="dialog-1">
+<ons-dialog var="dialog">
   This is a dialog!
 </ons-dialog>
 ```
+
+`var` attribute is used to store the dialog in a variable for later access.
 
 The dialog is hidden by default and usually attached as a direct child of the `<body>` tag.
 
 ## Displaying a dialog
 
 To display a dialog you need to get a reference to the element and execute the `show(options)` method.
-
-```
-document
-  .getElementById('dialog-1')
-  .show();
-```
-
 It is hidden with the `hide(options)` method.
 
 ## Loading from a template
@@ -134,6 +118,8 @@ ons
     dialog.show();
   });
 ```
+
+For AngularJS, an extra parameter can be passed to specify the scope of the new popover: `ons.createDialog('dialog.html', { parentScope: $scope });`
 
 ## Alert dialogs
 
