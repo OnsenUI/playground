@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/jsx">
+    var MyPage = React.createClass({
+      renderToolbar: function() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Page</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <section style={{margin: '16px'}}>
+              This is a page
+            </section>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Page
+
+The `Page` component serves as the main view of a screen in an app. Its children will be displayed on the screen. It is possible to add a navigation bar to the top of the page using the `renderToolbar` property.
+
+```
+<Page>
+  Content goes here
+</Page>
+```
+
+## Adding a toolbar
+
+To add a toolbar at the top of the page the `renderToolbar` property will be used. This property should be a function that renders to a `Toolbar` component.
+
+```
+<Page
+  renderToolbar={() =>
+    <Toolbar>
+      <div className='center'>Title</div>
+    </Toolbar>
+  }
+/>
+```
+
+-->
