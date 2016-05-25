@@ -10,13 +10,17 @@
         ons.notification.alert('Hello world!');
       },
 
+      renderToolbar: function() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>My app</div>
+          </Ons.Toolbar>
+        );
+      },
+
       render: function() {
         return (
-          <Ons.Page>
-            <Ons.Toolbar>
-              <div className="center">My app</div>
-            </Ons.Toolbar>
-
+          <Ons.Page renderToolbar={this.renderToolbar}>
             <Ons.Button onClick={this.handleClick}>
               Click me!
             </Ons.Button>
