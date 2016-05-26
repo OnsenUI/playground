@@ -322,7 +322,6 @@ div#container {
 #toolbar {
   padding-top: 8px;
   float: right;
-  width: 260px;
 }
 
 #toolbar > * {
@@ -334,7 +333,8 @@ div#container {
 .toolbar-button {
   border: none;
   background-color: transparent;
-  padding-right: 6px;
+  padding-right: 10px;
+  padding-left: 16px;
 }
 
 .toolbar-button span {
@@ -344,10 +344,12 @@ div#container {
   left: -4px;
 }
 
+#modify-button {
+  height: 22px;
+}
+
 #download-button {
-  width: 100px;
   height: 26px;
-  padding-right: 0;
 }
 
 #download-button span {
@@ -358,7 +360,6 @@ div#container {
 }
 
 #codepen-button {
-  width: 150px;
   height: 26px;
 }
 
@@ -393,7 +394,7 @@ div#container {
   border-width: 0 6px 6px 6px;
   top: 24px;
   content: "";
-  left: 12px;
+  left: 15px;
   position: absolute;
 }
 
@@ -597,7 +598,7 @@ div#container {
   height: 4px;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 725px) {
   #h2 > ul,
   #h3 #toolbar {
     display: none;
