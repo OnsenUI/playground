@@ -96,6 +96,7 @@ app.setup.toolbar = function() {
   document.querySelector('#modal-cancel-button').onclick = app.services.hideGenerateModal;
   document.querySelector('#modal-mask').onclick = app.services.hideGenerateModal;
   document.querySelector('#codepen-form').onsubmit = app.services.codepenSubmit;
+  document.querySelector('#modify-button').onclick = app.services.modifySource;
 };
 
 app.setup.modules = function() {

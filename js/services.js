@@ -403,3 +403,10 @@ app.services.refreshSplit = function() {
   gutter.dispatchEvent(mousemove);
   gutter.dispatchEvent(mouseup);
 };
+
+app.services.modifySource = function() {
+  var state = window.history.state;
+  if (state) {
+    window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
+  }
+};
