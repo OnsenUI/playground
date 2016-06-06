@@ -26,9 +26,9 @@ app.config.ready = Promise.all(function() {
     return app.util.request(`https://api.github.com/repos/${app.config.repos[libName]}/releases/latest`)
       .then(function(res) {
         var response = JSON.parse(res);
-        if (response.name) {
-          app.config.versions[libName] = response.name;
-          window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.name);
+        if (response.tag_name) {
+          app.config.versions[libName] = response.tag_name;
+          window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.tag_name);
         } else {
           setDefault(libName);
         }
