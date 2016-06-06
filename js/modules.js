@@ -21,6 +21,9 @@ app.modules = {
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial',
       'ripple': 'Ripple effect'
+    },
+    'Common usecases': {
+      'splitter_navigator': 'Splitter animations with Navigator'
     }
   },
   'angular1': {
