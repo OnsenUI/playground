@@ -9,8 +9,8 @@ app.config.repos = {
 };
 app.config.versions = {
   defaults: {
-    onsenui: '2.0.0-rc.3',
-    reactOnsenui: '0.2.0'
+    onsenui: '2.0.0-rc.9',
+    reactOnsenui: '0.2.22'
   },
   onsenui: window.sessionStorage.getItem('onsenui-version'),
   reactOnsenui: window.sessionStorage.getItem('react-onsenui-version')
