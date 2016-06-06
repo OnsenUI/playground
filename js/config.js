@@ -9,8 +9,8 @@ app.config.repos = {
 };
 app.config.versions = {
   defaults: {
-    onsenui: '2.0.0-rc.3',
-    reactOnsenui: '0.2.0'
+    onsenui: '2.0.0-rc.9',
+    reactOnsenui: '0.2.22'
   },
   onsenui: window.sessionStorage.getItem('onsenui-version'),
   reactOnsenui: window.sessionStorage.getItem('react-onsenui-version')
@@ -26,9 +26,9 @@ app.config.ready = Promise.all(function() {
     return app.util.request(`https://api.github.com/repos/${app.config.repos[libName]}/releases/latest`)
       .then(function(res) {
         var response = JSON.parse(res);
-        if (response.name) {
-          app.config.versions[libName] = response.name;
-          window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.name);
+        if (response.tag_name) {
+          app.config.versions[libName] = response.tag_name;
+          window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.tag_name);
         } else {
           setDefault(libName);
         }
