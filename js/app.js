@@ -36,10 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
       return lang ? hljs.highlight(lang, code).value : hljs.highlightAuto(code, ['html', 'javascript']).value;
     }
   });
-  app.setup.pagesCounter();
-  if ((!framework || !category || !module) && !external) {
-    app.services.showWelcomeMessage();
-  }
 
   // Editors setup
   ace.require("ace/ext/language_tools");
@@ -47,9 +43,10 @@ document.addEventListener("DOMContentLoaded", function() {
     html: app.setup.editor('html-input', 'html'),
     js: app.setup.editor('js-input', 'javascript')
   };
-  app.editors.html.setValue(window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>', -1);
-  app.editors.js.setValue(window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\');', -1);
-  app.services.updateEditors();
+  app.setup.pagesCounter();
+  if ((!framework || !category || !module) && !external) {
+    app.services.showWelcomeMessage();
+  }
 
   // Preview setup
   app.services.switchStyle(app.config.platform);
