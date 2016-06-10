@@ -85,7 +85,7 @@ app.services.runProject = function() {
   window.sessionStorage.setItem('editorJsContent', app.editors.js.getValue());
   window.sessionStorage.setItem('ons-framework', app.config.framework);
 
-  document.querySelector('#output iframe').srcdoc = app.services.generateTemplateOutput();
+  window.srcDoc.set(document.querySelector('#output iframe'), app.services.generateTemplateOutput());
 };
 
 app.services.codepenSubmit = function() {

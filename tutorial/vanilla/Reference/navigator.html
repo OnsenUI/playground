@@ -5,20 +5,16 @@
 	<title>Onsen UI App</title>
 
   <script>
-    ons.ready(function() {
-      var button = document.getElementById('push-button');
-      var myNavigator = document.getElementById('myNavigator');
+    document.addEventListener('init', function(event) {
+      var page = event.target;
 
-      myNavigator.addEventListener('init', function(event) {
-        var page = event.target;
-        if (page.id === 'page2') {
-          page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-        }
-      });
-
-      button.onclick = function() {
-        myNavigator.pushPage('page2.html', {data: {title: 'Page 2'}});
-      };
+      if (page.id === 'page1') {
+        page.querySelector('#push-button').onclick = function() {
+          document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
+        };
+      } else if (page.id === 'page2') {
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+      }
     });
   </script>
 </head>
@@ -26,7 +22,7 @@
   <ons-navigator id="myNavigator" page="page1.html"></ons-navigator>
 
   <ons-template id="page1.html">
-    <ons-page>
+    <ons-page id="page1">
       <ons-toolbar>
         <div class="center">Page 1</div>
       </ons-toolbar>
@@ -38,10 +34,10 @@
   </ons-template>
 
   <ons-template id="page2.html">
-    <ons-page>
+    <ons-page id="page2">
       <ons-toolbar>
         <div class="left"><ons-back-button>Back</ons-back-button></div>
-        <div class="center">Page 2</div>
+        <div class="center"></div>
       </ons-toolbar>
 
       <p>This is the second page.</p>
