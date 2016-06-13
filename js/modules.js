@@ -23,8 +23,7 @@ app.modules = {
       'ripple': 'Ripple effect'
     },
     'Common usecases': {
-      'splitter_navigator': 'Splitter animations with Navigator',
-      'speed-dial_labels': 'Speed dial with labels'
+      'splitter_navigator': 'Splitter animations with Navigator'
     }
   },
   'angular1': {
