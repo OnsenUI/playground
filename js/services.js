@@ -73,6 +73,10 @@ We hope you find this helpful! You can ask anything in the [community forum](htt
     pageIndex: 0,
     pages: 1
   };
+
+  var html = window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>';
+  var code = window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\');';
+  app.services.updateEditors(html, code);
 };
 
 
@@ -81,7 +85,7 @@ app.services.runProject = function() {
   window.sessionStorage.setItem('editorJsContent', app.editors.js.getValue());
   window.sessionStorage.setItem('ons-framework', app.config.framework);
 
-  document.querySelector('#output iframe').srcdoc = app.services.generateTemplateOutput();
+  window.srcDoc.set(document.querySelector('#output iframe'), app.services.generateTemplateOutput());
 };
 
 app.services.codepenSubmit = function() {
@@ -130,13 +134,10 @@ app.services.loadModule = function(framework, category, module) {
       var script = extract(responseText, /<head>[\s\S]*(<script[\s\S]*<\/script>)[\s\S]*<\/head>/);
       var code = format(extract(script, /<script.*>([\s\S]*)<\/script>/));
 
-      app.editors.html.setValue(html, -1);
-      app.editors.js.setValue(code, -1);
-
       var rawTranspiler = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
       app.services.detectFramework(rawTranspiler, code);
 
-      app.services.updateEditors();
+      app.services.updateEditors(html, code);
 
       app.tutorial = {
         pageIndex: 0,
@@ -198,7 +199,10 @@ app.services.transpile = function(code) {
   }
 };
 
-app.services.updateEditors = function() {
+app.services.updateEditors = function(html, js) {
+  app.editors.html.session.setValue(html, -1);
+  app.editors.js.session.setValue(js, -1);
+
   var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
   switch (app.services.detectTranspiler()) {
     case 'babel':
