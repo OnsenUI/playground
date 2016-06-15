@@ -42,7 +42,8 @@
               }}
               side='left'
               width={200}
-              isCollapsed={true}
+              collapse={true}
+              isSwipeable={true}
               isOpen={this.state.isOpen}
               onClose={this.hide}
               onOpen={this.show}
@@ -88,7 +89,7 @@ The `Splitter` is used to display a menu next to the main content. It can be con
 
 ## Menu
 
-The menu is defined using the `SplitterSide` component.  This component can either be displayed as a column next to the main content or as a swipeable menu. This behavior is controlled using the `isCollapsed` property.
+The menu is defined using the `SplitterSide` component.  This component can either be displayed as a column next to the main content or as a swipeable menu. This behavior is controlled using the `collapse` property.
 
 To enable opening and closing the menu by swiping the `isSwipeable` property must be defined. The `side` property is used to specify on which side of the screen the menu is displayed.
 
