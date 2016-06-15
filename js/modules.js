@@ -4,7 +4,7 @@ app.modules = {
       'page': 'Creating a page',
       'navigator': 'Stack navigation',
       'tabbar': 'Using tabs',
-      'splitter': 'Side menu',
+      'splitter': 'Side menu (Splitter)',
       'list': 'Lists',
       'lazy-repeat': 'Infinite lists',
       'pull-hook': 'Pull to refresh',
@@ -23,8 +23,7 @@ app.modules = {
       'ripple': 'Ripple effect'
     },
     'Common usecases': {
-      'splitter_navigator': 'Splitter animations with Navigator',
-      'speed-dial_labels': 'Speed dial with labels'
+      'splitter_navigator': 'Splitter animations with Navigator'
     }
   },
   'angular1': {
@@ -37,7 +36,7 @@ app.modules = {
       'page': 'Creating a page',
       'navigator': 'Stack navigation',
       'tabbar': 'Using tabs',
-      'splitter': 'Side menu',
+      'splitter': 'Side menu (Splitter)',
       'list': 'Lists',
       'lazy-repeat': 'Infinite lists',
       'pull-hook': 'Pull to refresh',
