@@ -22,8 +22,9 @@ app.modules = {
       'speed-dial': 'Speed dial',
       'ripple': 'Ripple effect'
     },
-    'Common usecases': {
-      'splitter_navigator': 'Splitter animations with Navigator'
+    'Community tutorials': {
+      'splitter_navigator': 'Splitter animations with Navigator',
+      'passing_data': 'Passing data outside Onsen UI'
     }
   },
   'angular1': {
