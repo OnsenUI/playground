@@ -14,27 +14,36 @@
         );
       },
 
+      renderFixed() {
+        return (
+          <Ons.SpeedDial position='bottom right'>
+            <Ons.Fab>
+              <Ons.Icon icon='md-share' />
+            </Ons.Fab>
+            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Twitter')}>
+              <Ons.Icon icon='md-twitter' />
+            </Ons.SpeedDialItem>
+            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Facebook')}>
+              <Ons.Icon icon='md-facebook' />
+            </Ons.SpeedDialItem>
+            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Google+')}>
+              <Ons.Icon icon='md-google-plus' />
+            </Ons.SpeedDialItem>
+          </Ons.SpeedDial>
+        );
+      },
+
       share: function(name) {
         ons.notification.confirm(`Do you want to share on "${name}"?`);
       },
 
       render: function() {
         return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
-            <Ons.SpeedDial position='bottom right'>
-              <Ons.Fab>
-                <Ons.Icon icon='md-share' />
-              </Ons.Fab>
-              <Ons.SpeedDialItem onClick={this.share.bind(this, 'Twitter')}>
-                <Ons.Icon icon='md-twitter' />
-              </Ons.SpeedDialItem>
-              <Ons.SpeedDialItem onClick={this.share.bind(this, 'Facebook')}>
-                <Ons.Icon icon='md-facebook' />
-              </Ons.SpeedDialItem>
-              <Ons.SpeedDialItem onClick={this.share.bind(this, 'Google+')}>
-                <Ons.Icon icon='md-google-plus' />
-              </Ons.SpeedDialItem>
-            </Ons.SpeedDial>
+          <Ons.Page
+            renderToolbar={this.renderToolbar}
+            renderFixed={this.renderFixed}
+          >
+            Some content
           </Ons.Page>
         );
       }
@@ -62,13 +71,18 @@ The menu items of the `SpeedDial` component are defined using the `SpeedDialItem
 
 To define the position of the component the `position` property is used. By default it is placed in the bottom right corner which can also be achieved by setting the property to the literal string `"bottom right"`.
 
+
+In order for the `SpeedDial` component to be fixed when scrolling the page, it needs to be put outside the page. This can be archived by rendering it in the renderFixed function of the `Page` component.
+
 ```
-<Page>
-  <SpeedDial position='bottom right'>
-    <Fab>A</Fab>
-    <SpeedDialItem onClick={this.doSomething}>B</SpeedDialItem>
-    <SpeedDialItem onClick={this.doSomethingElse}>C</SpeedDialItem>
-  </SpeedDial>
-</Page>
+<Page
+  renderFixed={() => (
+    <SpeedDial position='bottom right'>
+      <Fab>A</Fab>
+      <SpeedDialItem onClick={this.doSomething}>B</SpeedDialItem>
+      <SpeedDialItem onClick={this.doSomethingElse}>C</SpeedDialItem>
+    </SpeedDial>
+  )} />
 ```
+
 -->

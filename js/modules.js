@@ -4,7 +4,7 @@ app.modules = {
       'page': 'Creating a page',
       'navigator': 'Stack navigation',
       'tabbar': 'Using tabs',
-      'splitter': 'Side menu',
+      'splitter': 'Side menu (Splitter)',
       'list': 'Lists',
       'lazy-repeat': 'Infinite lists',
       'pull-hook': 'Pull to refresh',
@@ -22,9 +22,9 @@ app.modules = {
       'speed-dial': 'Speed dial',
       'ripple': 'Ripple effect'
     },
-    'Common usecases': {
+    'Community tutorials': {
       'splitter_navigator': 'Splitter animations with Navigator',
-      'speed-dial_labels': 'Speed dial with labels'
+      'passing_data': 'Passing data outside Onsen UI'
     }
   },
   'angular1': {
@@ -37,7 +37,7 @@ app.modules = {
       'page': 'Creating a page',
       'navigator': 'Stack navigation',
       'tabbar': 'Using tabs',
-      'splitter': 'Side menu',
+      'splitter': 'Side menu (Splitter)',
       'list': 'Lists',
       'lazy-repeat': 'Infinite lists',
       'pull-hook': 'Pull to refresh',
