@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/ts">
+    class Greeter {
+      constructor(public greeting: string) { }
+      greet() {
+          return "<h1>" + this.greeting + "</h1>";
+      }
+    };
+
+    var greeter = new Greeter("Hello, world!");
+  </script>
+</head>
+<body>
+  <ons-page ng-controller="PageController as page">
+    <ons-toolbar>
+      <div class="center">My app</div>
+    </ons-toolbar>
+
+    <p style="text-align: center">
+      <ons-button ng-click="page.showAlert('Hello world!')">Click me!</ons-button>
+    </p>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Hello world!
+
+This is a simple "Hello world" example to get us started. The app contains just one page with a toolbar and a button.
+
+When the button is clicked an alert dialog is displayed. In this tutorial we will show you step-by-step how this is created.
+
+## The `<ons-page>` element
+
+The root of a page in Onsen UI is created using the `<ons-page>` element. It covers the whole screen and is used as a container for the other elements.
+
+An `<ons-page>` element with no content would just display a blank screen so let's go ahead and add some content to it.
+
+## Adding a toolbar
+
+Most mobile apps have a toolbar at the top containing a header text and maybe some buttons.
+
+In Onsen UI this is achieved using the `<ons-toolbar>` element. It is divided into three sections that are defined using the HTML classes `left`, `center` and `right`.
+
+```
+<ons-toolbar>
+  <div class="left">
+    <!-- left section -->
+  </div>
+  <div class="center">
+    <!-- title -->
+  </div>
+  <div class="right">
+    <!-- right section -->
+  </div>
+</ons-toolbar>
+```
+
+## The `ons` object
+
+Onsen UI not only provides custom elements, it also provides an object called `ons` with a lot of useful functions attached to it.
+
+In this example we set a click handler to `ons-button` with `ng-click` attribute. This button is inside the previously declared `PageController` scope.
+
+## Displaying a dialog
+
+Onsen UI also provides functions for displaying dialogs. In this example we are using `ons.notification.alert` to show an alert dialog.
+
+There are also `confirm` and `prompt` methods available to show other types of dialogs. You can try replacing the click handler with the following code to get another type of dialog:
+
+```
+ons.notification.confirm({message: 'Are you ready?'});
+```
+
+We will take a look at other types of dialogs in a later section.
+
+-->

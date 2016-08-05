@@ -56,7 +56,9 @@ app.modules = {
     }
   },
   'angular2': {
-
+    'Reference': {
+      'page': 'Creating a page'
+    }
   },
   'react': {
     'Getting started': {
