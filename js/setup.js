@@ -12,6 +12,7 @@ app.setup.splitPanes = function () {
   Split(['#leftTopPane', '#leftBottomPane'], {
     direction: 'vertical',
     sizes: [40, 60],
+    minSize: [0, 4],
     gutterSize: 15,
     cursor: 'row-resize'
   });
@@ -19,7 +20,7 @@ app.setup.splitPanes = function () {
   Split(['#rightTopPane', '#rightBottomPane'], {
     direction: 'vertical',
     sizes: [50, 50],
-    minSize: 140,
+    minSize: [0, 4],
     gutterSize: 15,
     cursor: 'row-resize',
     onDrag: app.util.resize.editorResize
