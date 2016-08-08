@@ -1,6 +1,7 @@
 window.app = {};
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+  app.config.welcomeMessage = document.querySelector('#tutorial-content').innerHTML;
 
   // General setup
   var framework = app.util.getParam('framework'),
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Preview setup
   app.services.switchStyle(app.config.platform);
   app.config.ready
-    .then(function() {
+    .then(function () {
       if (external) {
         return app.services.loadModule(external);
       } else if (framework && category && module) {
@@ -62,8 +63,8 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(app.services.runProject);
 
   document.querySelector('#run').onclick = app.services.runProject;
-  Array.prototype.slice.call(document.querySelectorAll('#styling > label > span')).forEach(function(button) {
-    button.onclick = function(event) {
+  Array.prototype.slice.call(document.querySelectorAll('#styling > label > span')).forEach(function (button) {
+    button.onclick = function (event) {
       if (app.config.platform !== event.target.getAttribute('platform')) {
         app.services.switchStyle(event.target.getAttribute('platform'));
         app.services.runProject();
