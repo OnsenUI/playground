@@ -49,29 +49,12 @@ app.services.generateTemplateCSS = function(position) {
 };
 
 app.services.showWelcomeMessage = function() {
-  var message = `
-## Welcome!
-
-![onsen](assets/icons/logo_onsenui.svg)
-
-This is the Onsen UI Interactive Tutorial. Select a module to display a new sample application with its description.
-
-  * In the preview section you can switch between iOS and Android view for Automatic Styling.
-
-  * If you want to save any of these examples you can export the code to Codepen or generate a Cordova project and download it.
-
-  * Press 'ctrl + s' to quickly refresh the preview.
-
-We hope you find this helpful! You can ask anything in the [community forum](https://community.onsen.io) if you have issues.
-
-` ;
-
   document.getElementById('pages-current').innerHTML = 1;
   document.getElementById('pages-total').innerHTML = 1;
-  document.getElementById('tutorial-content').innerHTML = marked(message);
+  document.getElementById('tutorial-content').innerHTML = app.config.welcomeMessage;
   app.tutorial = {
-    pageIndex: 0,
-    pages: 1
+      pageIndex: 0,
+      pages: 1
   };
 
   var html = window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>';
@@ -166,7 +149,7 @@ app.services.updateDropdown = function(framework, category, module) {
 
 app.services.updateSelectedItem = function(framework, module) {
   if (window.Split) {
-    var description = document.querySelector('label[module="' + module + '"]').getAttribute('desc');
+    var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : 'Select Tutorial';
     document.querySelector('#modules .select-item').innerHTML = description;
     var thumbnail = document.querySelector('#modules .select-thumbnail');
     thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
@@ -293,8 +276,11 @@ app.services.addTranspilerDependencies = function(packageJSON) {
 };
 
 app.services.showGenerateModal = function() {
-  document.querySelector('#modal').classList.remove('generating');
-  document.querySelector('#modal-container').classList.add('visible');
+  var state = window.history.state;
+  if (state) {
+    document.querySelector('#modal').classList.remove('generating');
+    document.querySelector('#modal-container').classList.add('visible');
+  }
 };
 
 

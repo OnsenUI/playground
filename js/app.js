@@ -1,6 +1,7 @@
 window.app = {};
 
 document.addEventListener("DOMContentLoaded", function() {
+  app.config.welcomeMessage = document.querySelector('#tutorial-content').innerHTML;
 
   // General setup
   var framework = app.util.getParam('framework'),

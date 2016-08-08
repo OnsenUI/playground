@@ -36,7 +36,7 @@ window.onpopstate = function(event) {
     if (external) {
       app.services.loadModule(external);
     } else {
-      app.services.updateSelectedItem('', 'Select Tutorial');
+      app.services.updateSelectedItem();
       app.services.showWelcomeMessage();
     }
   }
