@@ -1,6 +1,6 @@
 app.services = {};
 
-app.services.generateTemplateOutput = function() {
+app.services.generateTemplateOutput = function () {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -30,31 +30,31 @@ app.services.generateTemplateOutput = function() {
   `;
 };
 
-app.services.generateTemplateFromLibs = function(position) {
+app.services.generateTemplateFromLibs = function (position) {
   var libs = app.util.flattenJSLibs(app.services.detectLibraries(position));
   var result = '';
 
-  libs.forEach(function(lib) {
+  libs.forEach(function (lib) {
     result += `\n  <script src="${lib}"></script>`
   });
 
   return result;
 }
 
-app.services.generateTemplateCSS = function(position) {
+app.services.generateTemplateCSS = function (position) {
   position = position || 'remote';
   return `
   <link rel="stylesheet" href="${app.config.lib[position].css.onsenui}">
   <link rel="stylesheet" href="${app.config.lib[position].css.onsenuiCssComponents}">`;
 };
 
-app.services.showWelcomeMessage = function() {
+app.services.showWelcomeMessage = function () {
   document.getElementById('pages-current').innerHTML = 1;
   document.getElementById('pages-total').innerHTML = 1;
   document.getElementById('tutorial-content').innerHTML = app.config.welcomeMessage;
   app.tutorial = {
-      pageIndex: 0,
-      pages: 1
+    pageIndex: 0,
+    pages: 1
   };
 
   var html = window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>';
@@ -63,7 +63,7 @@ app.services.showWelcomeMessage = function() {
 };
 
 
-app.services.runProject = function() {
+app.services.runProject = function () {
   window.sessionStorage.setItem('editorHtmlContent', app.editors.html.getValue());
   window.sessionStorage.setItem('editorJsContent', app.editors.js.getValue());
   window.sessionStorage.setItem('ons-framework', app.config.framework);
@@ -71,11 +71,11 @@ app.services.runProject = function() {
   window.srcDoc.set(document.querySelector('#output iframe'), app.services.generateTemplateOutput());
 };
 
-app.services.codepenSubmit = function() {
+app.services.codepenSubmit = function () {
   document.querySelector('#codepen-data').value = JSON.stringify({
     title: 'Onsen UI',
     description: 'Onsen UI Tutorial Export',
-    html:  app.editors.html.getValue(),
+    html: app.editors.html.getValue(),
     js: app.editors.js.getValue(),
     editors: '101',
     js_external: app.util.flattenJSLibs(app.services.detectLibraries()).join(';'),
@@ -84,19 +84,19 @@ app.services.codepenSubmit = function() {
   });
 };
 
-app.services.switchStyle = function(platform) {
+app.services.switchStyle = function (platform) {
   app.config.platform = platform;
 };
 
-app.services.toggleTheme = function() {
+app.services.toggleTheme = function () {
   document.body.classList.toggle('dark-skin');
   window.localStorage[window.localStorage.getItem('onsDarkSkin') ? 'removeItem' : 'setItem']('onsDarkSkin', 'true');
-  Object.keys(app.editors).forEach(function(editor) {
+  Object.keys(app.editors).forEach(function (editor) {
     app.editors[editor].setTheme('ace/theme/' + ((document.body.classList.contains('dark-skin')) ? 'monokai' : 'chrome'));
   });
 };
 
-app.services.changeModule = function(framework, category, module) {
+app.services.changeModule = function (framework, category, module) {
   window.history.pushState({
     framework: framework,
     category: category,
@@ -106,9 +106,9 @@ app.services.changeModule = function(framework, category, module) {
   return app.services.loadModule(framework, category, module);
 };
 
-app.services.loadModule = function(framework, category, module) {
+app.services.loadModule = function (framework, category, module) {
   return app.util.request(module ? `./tutorial/${framework}/${category.replace(/\s/g, '_')}/${module.replace(/\s/g, '_')}.html` : framework)
-    .then(function(responseText) {
+    .then(function (responseText) {
       var format = app.util.format,
         extract = app.util.extract;
 
@@ -124,7 +124,7 @@ app.services.loadModule = function(framework, category, module) {
 
       app.tutorial = {
         pageIndex: 0,
-        pages: docs.split(/\n(?=[ \t]*#{2}(?!#))/).map(function(e) {
+        pages: docs.split(/\n(?=[ \t]*#{2}(?!#))/).map(function (e) {
           return marked(e);
         })
       };
@@ -133,12 +133,12 @@ app.services.loadModule = function(framework, category, module) {
       document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
       app.services.updateTutorialPage();
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.error(err.message);
     });
 };
 
-app.services.updateDropdown = function(framework, category, module) {
+app.services.updateDropdown = function (framework, category, module) {
   app.services.updateSelectedItem(framework, module);
   category = app.util.parseId(category);
   module = app.util.parseId(module);
@@ -147,7 +147,7 @@ app.services.updateDropdown = function(framework, category, module) {
   document.querySelector('#r-' + framework + '-' + category + '-' + module).checked = true;
 };
 
-app.services.updateSelectedItem = function(framework, module) {
+app.services.updateSelectedItem = function (framework, module) {
   if (window.Split) {
     var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : 'Select Tutorial';
     document.querySelector('#modules .select-item').innerHTML = description;
@@ -156,13 +156,13 @@ app.services.updateSelectedItem = function(framework, module) {
   }
 };
 
-app.services.transpile = function(code) {
+app.services.transpile = function (code) {
   switch (app.services.detectTranspiler()) {
     case 'babel':
       var result;
       try {
         result = Babel.transform(code, { presets: ['react'] }).code;
-      } catch(e) {
+      } catch (e) {
         var msg = e.message
           .replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
@@ -182,7 +182,7 @@ app.services.transpile = function(code) {
   }
 };
 
-app.services.updateEditors = function(html, js) {
+app.services.updateEditors = function (html, js) {
   app.editors.html.session.setValue(html, -1);
   app.editors.js.session.setValue(js, -1);
 
@@ -198,7 +198,7 @@ app.services.updateEditors = function(html, js) {
   }
 };
 
-app.services.loadFrameworkLib = function(position) {
+app.services.loadFrameworkLib = function (position) {
   switch (app.config.framework) {
     case 'react':
       return app.services.generateTemplate.react(position);
@@ -210,7 +210,7 @@ app.services.loadFrameworkLib = function(position) {
   }
 };
 
-app.services.detectLibraries = function(position) {
+app.services.detectLibraries = function (position) {
   position = position || 'remote';
   var libs = {
     'onsenui': {
@@ -237,7 +237,7 @@ app.services.detectLibraries = function(position) {
   return libs;
 };
 
-app.services.detectFramework = function(rawTranspiler, code) {
+app.services.detectFramework = function (rawTranspiler, code) {
   switch (rawTranspiler) {
     case 'jsx':
     case 'babel':
@@ -249,7 +249,7 @@ app.services.detectFramework = function(rawTranspiler, code) {
   }
 };
 
-app.services.detectTranspiler = function() {
+app.services.detectTranspiler = function () {
   switch (app.config.framework) {
     case 'react':
       return 'babel';
@@ -258,7 +258,7 @@ app.services.detectTranspiler = function() {
   }
 };
 
-app.services.addTranspilerDependencies = function(packageJSON) {
+app.services.addTranspilerDependencies = function (packageJSON) {
   switch (app.services.detectTranspiler()) {
     case 'babel':
       packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[0], true);
@@ -275,7 +275,7 @@ app.services.addTranspilerDependencies = function(packageJSON) {
   return packageJSON;
 };
 
-app.services.showGenerateModal = function() {
+app.services.showGenerateModal = function () {
   var state = window.history.state;
   if (state) {
     document.querySelector('#modal').classList.remove('generating');
@@ -284,14 +284,14 @@ app.services.showGenerateModal = function() {
 };
 
 
-app.services.hideGenerateModal = function() {
+app.services.hideGenerateModal = function () {
   document.querySelector('#modal-container').classList.remove('visible');
 };
 
-app.services.generateCordovaProject = function() {
+app.services.generateCordovaProject = function () {
   document.querySelector('#modal').classList.add('generating');
 
-  JSZipUtils.getBinaryContent('./project-template.zip', function(err, data) {
+  JSZipUtils.getBinaryContent('./project-template.zip', function (err, data) {
     if (err) {
       throw new Error(err);
     }
@@ -308,7 +308,8 @@ app.services.generateCordovaProject = function() {
     // INDEX.HTML
     var indexHTML = zip.file('www/index.html').asText();
     indexHTML = indexHTML
-      .replace(token.body, token.body + app.editors.html.getValue().split('\n').map(function(line) {return line ? ('  ' + line) : line;}).join('\n'))
+      .replace(token.body, token.body + app.editors.html.getValue().split('\n').map(function (line) {
+        return line ? ('  ' + line) : line; }).join('\n'))
       .replace(token.css, token.css + app.services.generateTemplateCSS('local'))
       .replace(token.js, token.js + app.services.generateTemplateFromLibs('local'));
     zip.file('www/index.html', indexHTML);
@@ -326,7 +327,7 @@ app.services.generateCordovaProject = function() {
 
     packageJSON = app.util.addEntry(packageJSON, 'dependencies', app.config.npm.onsenui, true);
     if (app.config.npm.hasOwnProperty(app.config.framework)) {
-      app.config.npm[app.config.framework].forEach(function(dep) {
+      app.config.npm[app.config.framework].forEach(function (dep) {
         packageJSON = app.util.addEntry(packageJSON, 'dependencies', dep);
       });
 
@@ -338,12 +339,12 @@ app.services.generateCordovaProject = function() {
     // EXTERNAL LIBRARIES
     var promises = [];
     var externalLibraries = app.services.detectLibraries();
-    var addLib = function(lib) {
+    var addLib = function (lib) {
       if (externalLibraries.hasOwnProperty(lib)) {
-        Object.keys(externalLibraries[lib]).forEach(function(dir) {
-          externalLibraries[lib][dir].forEach(function(file) {
+        Object.keys(externalLibraries[lib]).forEach(function (dir) {
+          externalLibraries[lib][dir].forEach(function (file) {
             promises.push(app.util.request(file)
-              .then(function(res) {
+              .then(function (res) {
                 zip.file(`www/lib/${dir}/${file.split('/').pop()}`, res);
               })
             );
@@ -357,7 +358,7 @@ app.services.generateCordovaProject = function() {
 
     // GENERATE AND DOWNLOAD
     Promise.all(promises)
-      .then(function() {
+      .then(function () {
         console.info('Done!');
         app.services.hideGenerateModal();
 
@@ -366,25 +367,25 @@ app.services.generateCordovaProject = function() {
           title = 'OnsenUI-Project.zip';
         }
 
-        window.saveAs(zip.generate({type: 'blob'}), `${title}.zip`);
+        window.saveAs(zip.generate({ type: 'blob' }), `${title}.zip`);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         alert('Could not generate Cordova project.')
         console.error(err.message);
       });
   });
 };
 
-app.services.updateTutorialPage = function() {
+app.services.updateTutorialPage = function () {
   var tutorialContent = document.querySelector('#tutorial-content');
   tutorialContent.innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
   tutorialContent.scrollTop = 0;
 };
 
-app.services.refreshSplit = function() {
+app.services.refreshSplit = function () {
   var mousedown = new CustomEvent('mousedown');
-  var mousemove = new CustomEvent('mousemove', {bubbles: true});
-  var mouseup = new CustomEvent('mouseup', {bubbles: true});
+  var mousemove = new CustomEvent('mousemove', { bubbles: true });
+  var mouseup = new CustomEvent('mouseup', { bubbles: true });
   var gutter = document.querySelector('.gutter-horizontal');
 
   mousemove.clientX = gutter.getBoundingClientRect().left;
@@ -394,7 +395,7 @@ app.services.refreshSplit = function() {
   gutter.dispatchEvent(mouseup);
 };
 
-app.services.modifySource = function() {
+app.services.modifySource = function () {
   var state = window.history.state;
   if (state) {
     window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
