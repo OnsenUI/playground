@@ -449,13 +449,16 @@ div#container {
 }
 
 #modal-mask {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
   position: absolute;
   height: 100%;
   width: 100%;
   top: 0;
   z-index: 4;
   background-color: rgba(0,0,0,0.2);
+  -webkit-transition: opacity 0.3s ease-out;
+          transition: opacity 0.3s ease-out;
 }
 
 .modal-body {
@@ -515,7 +518,7 @@ div#container {
 
 .visible #modal-mask {
   pointer-events: auto;
-  display: block;
+  opacity: 1;
 }
 
 .coming-soon {

@@ -36,9 +36,10 @@ body {
 #tutorial-content {
   font-size: 15px;
   padding-left: 12px;
-  padding-right: 2px;
+  padding-right: 6px;
   overflow-y: auto;
   box-sizing: border-box;
+  color: #333;
 }
 
 #tutorial-content pre {
@@ -80,6 +81,16 @@ body {
 
 #tutorial-content a {
   text-decoration: none;
+}
+
+#tutorial-content ul {
+  padding-left: 26px;
+}
+
+#tutorial-content .welcome-logo {
+  position: absolute;
+  top: 18px;
+  right: 8px;
 }
 
 #tutorial-pages {

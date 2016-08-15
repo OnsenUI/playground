@@ -1,11 +1,11 @@
-window.onkeydown = function(e){
-  if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
+window.onkeydown = function (e) {
+  if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
     e.preventDefault();
     app.services.runProject();
   }
 };
 
-window.onload = function() {
+window.onload = function () {
   if (window.Split) {
     app.services.refreshSplit();
   }
@@ -16,13 +16,13 @@ window.onload = function() {
   }
 };
 
-window.onresize = function() {
+window.onresize = function () {
   if (window.Split) {
     app.util.resize.throttler();
   }
 }
 
-window.onpopstate = function(event) {
+window.onpopstate = function (event) {
   if (event.state) {
     app.services.updateDropdown(event.state.framework, event.state.category, event.state.module);
     app.services.loadModule(event.state.framework, event.state.category, event.state.module).then(app.services.runProject);
@@ -36,7 +36,7 @@ window.onpopstate = function(event) {
     if (external) {
       app.services.loadModule(external);
     } else {
-      app.services.updateSelectedItem('', 'Select Tutorial');
+      app.services.updateSelectedItem();
       app.services.showWelcomeMessage();
     }
   }
