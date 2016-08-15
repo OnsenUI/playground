@@ -5,7 +5,7 @@
 	<title>Onsen UI App</title>
 
   <script type="text/jsx">
-    var MyTab = React.createClass({ 
+    var MyTab = React.createClass({
       renderToolbar: function() {
         return (
           <Ons.Toolbar>
@@ -28,6 +28,11 @@
     });
 
     var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          index: 0
+        }
+      },
       renderTabs: function() {
         return [
           {
@@ -44,7 +49,14 @@
       render: function() {
         return (
           <Ons.Tabbar
-            initialIndex={0}
+            index={this.state.index}
+            onPreChange={(event) =>
+              {
+                if (event.index != this.state.index) {
+                  this.setState({index: event.index});
+                }
+              }
+            }
             renderTabs={this.renderTabs}
           />
         );
@@ -69,7 +81,24 @@ The `Tabbar` component is used to add tab navigation to an app. It is a very com
 
 Every tab is defined by one `Page` component and one `Tab` component. The `Tab` component displays the actual tab and the `Page` component will be displayed when the tab is tapped.
 
-The `Tabbar` component has a `initialIndex` property which is used to specify the page that is visible initially. There is also a `renderTabs` property that should be set to a function that returns an array of objects with the keys `content` and `tab`:
+The `Tabbar` component has a `index` property which is used to specify the page that is currently visible. To handle changing tabs by user input, the property `onPreChange` should be implemented.
+
+```
+<Ons.Tabbar
+  index={this.state.index}
+  onPreChange={(event) =>
+    {
+      if (event.index != index) {
+        this.setState({index: event.index});
+      }
+    }
+  }
+  renderTabs={this.renderTabs}
+/>
+```
+
+
+There is also a `renderTabs` property that should be set to a function that returns an array of objects with the keys `content` and `tab`:
 
 ```
 {
