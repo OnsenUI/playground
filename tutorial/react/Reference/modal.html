@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/jsx">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          isOpen: false
+        };
+      },
+
+      renderToolbar: function() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Modal</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      getTarget: function() {
+        return this.refs.button;
+      },
+
+      show: function () {
+        this.setState({isOpen: true});
+      },
+
+      hide: function() {
+        this.setState({isOpen: false});
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <section style={{margin: '16px'}}>
+              <p style={{textAlign: 'center'}}>
+                <Ons.Button ref='button' onClick={this.show}>Tap here!</Ons.Button>
+              </p>
+            </section>
+
+            <Ons.Modal
+              isOpen={this.state.isOpen}
+              onOpen={this.show}
+              onHide={this.hide}
+            >
+              <section style={{margin: '16px'}}>
+                <p style={{opacity: 0.6}}>
+                  This is a Modal. Show some information here.
+                </p>
+                <p>
+                  <Ons.Button onClick={this.hide}>
+                    Close
+                  </Ons.Button>
+                </p>
+              </section>
+            </Ons.Modal>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Modal
+
+A `modal` component covers the entire screen. Underlying components are not subject to any events while the modal component is shown.
+
+This component can be used to block user input while some operation is running or to show some information to the user.
+
+To show or hide a popover the `isOpen` property is used.
+
+-->
