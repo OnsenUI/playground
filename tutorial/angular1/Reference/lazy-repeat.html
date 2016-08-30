@@ -22,12 +22,15 @@
   </script>
 </head>
 <body>
-  <ons-page>
+  <ons-page ng-controller="ListController as list">
     <ons-toolbar>
       <div class="center">Lists</div>
+      <div class="right">
+        <ons-toolbar-button ng-click="list.delegate.refresh()">Refresh</ons-toolbar-button>
+      </div>
     </ons-toolbar>
 
-    <ons-list ng-controller="ListController as list">
+    <ons-list>
       <ons-list-item ons-lazy-repeat="list.delegate">{{ item }}</ons-list-item>
     </ons-list>
   </ons-page>
@@ -83,6 +86,9 @@ ons.bootstrap()
     };
  });
 ```
+
+In order to refresh the list when the data has changed, `refresh` method is exposed in the `delegate` object: `this.delegate.refresh()`.
+
 
 ## Calculating the height
 
