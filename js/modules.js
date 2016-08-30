@@ -72,6 +72,7 @@ app.modules = {
       'input': 'Form input',
       'lazy-list': 'Infinite scrolling',
       'list': 'Lists',
+      'modal': 'Modal',
       'navigator': 'Stack navigation',
       'page': 'Page',
       'popover': 'Popover',
