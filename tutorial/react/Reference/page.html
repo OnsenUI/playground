@@ -61,4 +61,18 @@ To add a toolbar at the top of the page the `renderToolbar` property will be use
 />
 ```
 
+## Adding a Fab or SpeedDial
+
+To add a `Fab` (Floating action button) or a `SpeeDial` component the `renderFixed` property will be used. If multiple elements will be used, they can be put together in a div.
+
+```
+<Page
+  renderFixed={() =>
+    <Fab position='bottom right'>
+      <Icon icon="md-face" />
+    </Fab>
+  }
+/>
+```
+
 -->

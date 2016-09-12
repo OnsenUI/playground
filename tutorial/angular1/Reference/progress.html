@@ -5,16 +5,23 @@
 	<title>Onsen UI App</title>
 
   <script>
-    ons.bootstrap();
+    ons.bootstrap()
+      .controller('PageController', function($interval) {
+        this.v = 20;
+
+        $interval(function() {
+          this.v = (this.v + 2) % 102;
+        }.bind(this), 400)
+      });
   </script>
 </head>
 <body>
-  <ons-page>
+  <ons-page ng-controller="PageController as page">
     <ons-toolbar>
       <div class="center">Progress</div>
     </ons-toolbar>
 
-    <ons-progress-bar value="10"></ons-progress-bar>
+    <ons-progress-bar value="{{page.v}}"></ons-progress-bar>
 
     <div style="margin: 20px auto; width: 320px;">
       <p>Loading stuff...</p>

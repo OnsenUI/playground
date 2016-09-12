@@ -16,34 +16,34 @@ app.config.versions = {
   reactOnsenui: window.sessionStorage.getItem('react-onsenui-version')
 };
 
-app.config.ready = Promise.all(function() {
-  var setDefault = function(libName) {
+app.config.ready = Promise.all(function () {
+  var setDefault = function (libName) {
     console.warn('Could not fetch ' + app.util.toDash(libName) + '.js version. Github\'s API rate limit exceeded.');
     app.config.versions[libName] = app.config.versions.defaults[libName];
   };
 
-  var lastVersionOf = function(libName) {
+  var lastVersionOf = function (libName) {
     return app.util.request(`https://api.github.com/repos/${app.config.repos[libName]}/releases/latest`)
-      .then(function(res) {
+      .then(function (res) {
         var response = JSON.parse(res);
-        if (response.name) {
-          app.config.versions[libName] = response.name;
-          window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.name);
+        if (response.tag_name) {
+          app.config.versions[libName] = response.tag_name;
+          window.sessionStorage.setItem(app.util.toDash(libName) + '-version', response.tag_name);
         } else {
           setDefault(libName);
         }
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.error(err.message);
         setDefault(libName);
       });
   };
 
   var promises = [];
-  Object.keys(app.config.versions.defaults).forEach(function(libName) {
+  Object.keys(app.config.versions.defaults).forEach(function (libName) {
     var promise = (!app.config.versions[libName]) ? lastVersionOf(libName) : Promise.resolve();
 
-    promise.then(function() {
+    promise.then(function () {
       console.info('Using ' + app.util.toDash(libName) + '.js', app.config.versions[libName]);
     });
 
@@ -53,7 +53,7 @@ app.config.ready = Promise.all(function() {
   return promises;
 }());
 
-app.config.ready.then(function() {
+app.config.ready.then(function () {
   app.config.lib = {
     remote: {
       js: {
@@ -86,8 +86,9 @@ app.config.ready.then(function() {
     }
   };
 
-  var pref = function(o, k) { o[k] = 'lib/' + o[k]; };
-  var js = app.config.lib.local.js, css = app.config.lib.local.css;
+  var pref = function (o, k) { o[k] = 'lib/' + o[k]; };
+  var js = app.config.lib.local.js,
+    css = app.config.lib.local.css;
   Object.keys(js).forEach(pref.bind(null, js));
   Object.keys(css).forEach(pref.bind(null, css));
 

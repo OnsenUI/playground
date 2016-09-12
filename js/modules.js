@@ -4,7 +4,7 @@ app.modules = {
       'page': 'Creating a page',
       'navigator': 'Stack navigation',
       'tabbar': 'Using tabs',
-      'splitter': 'Side menu',
+      'splitter': 'Side menu (Splitter)',
       'list': 'Lists',
       'lazy-repeat': 'Infinite lists',
       'pull-hook': 'Pull to refresh',
@@ -21,6 +21,10 @@ app.modules = {
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial',
       'ripple': 'Ripple effect'
+    },
+    'Community tutorials': {
+      'splitter_navigator': 'Splitter animations with Navigator',
+      'passing_data': 'Passing data outside Onsen UI'
     }
   },
   'angular1': {
@@ -33,7 +37,7 @@ app.modules = {
       'page': 'Creating a page',
       'navigator': 'Stack navigation',
       'tabbar': 'Using tabs',
-      'splitter': 'Side menu',
+      'splitter': 'Side menu (Splitter)',
       'list': 'Lists',
       'lazy-repeat': 'Infinite lists',
       'pull-hook': 'Pull to refresh',
@@ -68,6 +72,7 @@ app.modules = {
       'input': 'Form input',
       'lazy-list': 'Infinite scrolling',
       'list': 'Lists',
+      'modal': 'Modal',
       'navigator': 'Stack navigation',
       'page': 'Page',
       'popover': 'Popover',
@@ -81,5 +86,3 @@ app.modules = {
     }
   }
 };
-
-

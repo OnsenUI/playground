@@ -1,6 +1,7 @@
 window.app = {};
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+  app.config.welcomeMessage = document.querySelector('#tutorial-content').innerHTML;
 
   // General setup
   var framework = app.util.getParam('framework'),
@@ -36,10 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
       return lang ? hljs.highlight(lang, code).value : hljs.highlightAuto(code, ['html', 'javascript']).value;
     }
   });
-  app.setup.pagesCounter();
-  if ((!framework || !category || !module) && !external) {
-    app.services.showWelcomeMessage();
-  }
 
   // Editors setup
   ace.require("ace/ext/language_tools");
@@ -47,14 +44,15 @@ document.addEventListener("DOMContentLoaded", function() {
     html: app.setup.editor('html-input', 'html'),
     js: app.setup.editor('js-input', 'javascript')
   };
-  app.editors.html.setValue(window.sessionStorage.getItem('editorHtmlContent') || '<p style="text-align: center;">Run your project!</p>', -1);
-  app.editors.js.setValue(window.sessionStorage.getItem('editorJsContent') || 'console.log(\'Run your project!\');', -1);
-  app.services.updateEditors();
+  app.setup.pagesCounter();
+  if ((!framework || !category || !module) && !external) {
+    app.services.showWelcomeMessage();
+  }
 
   // Preview setup
   app.services.switchStyle(app.config.platform);
   app.config.ready
-    .then(function() {
+    .then(function () {
       if (external) {
         return app.services.loadModule(external);
       } else if (framework && category && module) {
@@ -65,8 +63,8 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(app.services.runProject);
 
   document.querySelector('#run').onclick = app.services.runProject;
-  Array.prototype.slice.call(document.querySelectorAll('#styling > label > span')).forEach(function(button) {
-    button.onclick = function(event) {
+  Array.prototype.slice.call(document.querySelectorAll('#styling > label > span')).forEach(function (button) {
+    button.onclick = function (event) {
       if (app.config.platform !== event.target.getAttribute('platform')) {
         app.services.switchStyle(event.target.getAttribute('platform'));
         app.services.runProject();

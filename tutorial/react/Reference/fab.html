@@ -14,19 +14,28 @@
         );
       },
 
+      renderFixed() {
+        return (
+          <Ons.Fab
+            style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}}
+            onClick={this.handleClick}
+            position='bottom right'>
+            <Ons.Icon icon='md-face' />
+          </Ons.Fab>
+        );
+      },
+
       handleClick() {
         ons.notification.alert('You clicked the button!');
       },
 
       render: function() {
         return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
-            <Ons.Fab
-              style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}} 
-              onClick={this.handleClick}
-              position='bottom right'>
-              <Ons.Icon icon='md-face' />
-            </Ons.Fab>
+          <Ons.Page
+            renderToolbar={this.renderToolbar}
+            renderFixed={this.renderFixed}
+          >
+            Some Content
           </Ons.Page>
         );
       }
@@ -56,6 +65,12 @@ It is displayed using the `Fab` component. To specify the position the `position
 </Fab>
 ```
 
-To assign an action to the button the `onClick` prop can be used.
+In order for the `Fab` component to be fixed when scrolling the page, it needs to be put outside the page. This can be archived by rendering it in the renderFixed function of the `Page` component.
+
+```
+<Page renderFixed={() => <Fab />} />
+```
 
 -->
+
+
