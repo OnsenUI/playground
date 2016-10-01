@@ -66,7 +66,6 @@ app.services.showWelcomeMessage = function () {
 app.services.runProject = function () {
   window.sessionStorage.setItem('editorHtmlContent', app.editors.html.getValue());
   window.sessionStorage.setItem('editorJsContent', app.editors.js.getValue());
-  window.sessionStorage.setItem('ons-framework', app.config.framework);
 
   window.srcDoc.set(document.querySelector('#output iframe'), app.services.generateTemplateOutput());
 };

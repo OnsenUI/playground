@@ -55,6 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
     app.services.loadModule(external).then(app.services.runProject);
   } else if (framework && category && module) {
     app.services.changeModule(framework, category, module).then(app.services.runProject);
+  } else {
+    app.services.runProject();
   }
 
   document.querySelector('#run').onclick = app.services.runProject;

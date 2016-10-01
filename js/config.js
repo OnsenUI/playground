@@ -1,7 +1,6 @@
 app.config = {};
 
 app.config.platform = 'ios';
-app.config.framework = window.sessionStorage.getItem('ons-framework') || 'vanilla';
 app.config.cdn = 'https://unpkg.com';
 
 app.config.ownLibs = ['onsenui', 'react-onsenui', 'angular2-onsenui'];
