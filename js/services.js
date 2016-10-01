@@ -230,15 +230,9 @@ app.services.getAllLibs = function (position) {
       break;
     case 'angular2':
       libs.angular2 = {
-        systemjs: [app.config.lib[position].js.systemjs],
-        corejs: [app.config.lib[position].js.corejs],
-        zone: [app.config.lib[position].js.zone]
-        //'system': [app.config.lib[position].js.system],
-        //'angular2': [app.config.lib[position].js.angular2],
-        //'rx': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/Rx.umd.js',
-        //'angular2-polyfills': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-polyfills.js',
-        //'angular2': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-all.umd.js',
-        //'angular2-onsenui': [app.config.lib[position].js.angular2Onsenui]
+        'systemjs': [app.config.lib[position].js.systemjs],
+        'corejs': [app.config.lib[position].js.corejs],
+        'zone': [app.config.lib[position].js.zone]
       }
       break;
   }

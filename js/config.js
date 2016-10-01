@@ -5,10 +5,10 @@ app.config.framework = window.sessionStorage.getItem('ons-framework') || 'vanill
 app.config.cdn = 'https://unpkg.com';
 
 app.config.ownLibs = ['onsenui', 'react-onsenui', 'angular2-onsenui'];
-app.config.extLibs = [];
+app.config.extLibs = ['react', 'angular2'];
 
 app.config.versions = {};
-app.config.ownLibs.forEach(function(key) {
+(app.config.ownLibs.concat(app.config.extLibs)).forEach(function(key) {
   app.config.versions[key] = window.sessionStorage.getItem(key + '-version');
 });
 
@@ -33,14 +33,9 @@ app.config.lib = {
       reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js',
       reactOnsenui: `${app.config.cdn}/react-onsenui${(app.config.versions.reactOnsenui ? ('@' + app.config.versions.reactOnsenui) : '')}/dist/react-onsenui.js`,
       // Angular 2
-      //rx: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/Rx.umd.js',
-      //angular2: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-all.umd.js',
-      //angular2polyfills: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-polyfills.js',
-      //angular2Onsenui: `${app.config.cdn}/${app.config.repos[app.config.cdn].angular2Onsenui}${(app.config.versions.angular2Onsenui ? ('@' + app.config.versions.angular2Onsenui) : '')}/dist/src/angular2-onsenui.umd.js`,
       zone: `https://unpkg.com/zone.js@0.6.21/dist/zone.js`,
       corejs: `https://unpkg.com/core-js@2.4.1/client/core.js`,
       systemjs: `https://unpkg.com/systemjs@0.19.37/dist/system.js`,
-
       systemjsLibs: {
         'angular2-onsenui': `${app.config.cdn}/angular2-onsenui${(app.config.versions.angular2Onsenui ? ('@' + app.config.versions.angular2Onsenui) : '')}/dist/bundles/angular2-onsenui.umd.js`,
         '@angular/core': 'https://unpkg.com/@angular/core@2.0.0/bundles/core.umd.js',
