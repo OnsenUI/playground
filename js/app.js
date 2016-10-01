@@ -51,16 +51,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Preview setup
   app.services.switchStyle(app.config.platform);
-  app.config.ready
-    .then(function () {
-      if (external) {
-        return app.services.loadModule(external);
-      } else if (framework && category && module) {
-        return app.services.changeModule(framework, category, module);
-      }
-      return Promise.resolve();
-    })
-    .then(app.services.runProject);
+  if (external) {
+    app.services.loadModule(external).then(app.services.runProject);
+  } else if (framework && category && module) {
+    app.services.changeModule(framework, category, module).then(app.services.runProject);
+  } else {
+    app.services.runProject();
+  }
 
   document.querySelector('#run').onclick = app.services.runProject;
   Array.prototype.slice.call(document.querySelectorAll('#styling > label > span')).forEach(function (button) {
