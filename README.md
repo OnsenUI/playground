@@ -13,4 +13,5 @@ $ npm install -g http-server
 $ http-server
 ```
 
+In order to create new tutorials simply add an HTML file to the corresponding directory under `./tutorial/`. After that, include a line in `./js/modules.js` to index it in the app. Please check the existing examples to understand the proper syntax.
 
