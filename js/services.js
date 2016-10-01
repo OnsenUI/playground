@@ -8,19 +8,18 @@ app.services.generateTemplateOutput = function () {
       <meta charset="UTF-8">
       <title>OnsenUI Tutorial</title>
 
-      ${app.services.generateTemplateFromLibs()}
+      ${app.services.getTranspilerLib()}
 
+      ${app.services.getJSLibs()}
       <script>
         ons.platform.select('${app.config.platform}');
       </script>
-
-      ${app.services.generateTemplateCSS()}
-      <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
-
-      <script>
-        ${app.services.transpile(app.editors.js.getValue())}
+      <script type="text/${app.config.codeType}">
+        ${app.editors.js.getValue()}
       </script>
 
+      ${app.services.getCSSLibs()}
+      <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
     </head>
 
     <body>
@@ -30,8 +29,8 @@ app.services.generateTemplateOutput = function () {
   `;
 };
 
-app.services.generateTemplateFromLibs = function (position) {
-  var libs = app.util.flattenJSLibs(app.services.detectLibraries(position));
+app.services.getJSLibs = function (position) {
+  var libs = app.util.flattenJSLibs(app.services.getAllLibs(position));
   var result = '';
 
   libs.forEach(function (lib) {
@@ -41,7 +40,7 @@ app.services.generateTemplateFromLibs = function (position) {
   return result;
 }
 
-app.services.generateTemplateCSS = function (position) {
+app.services.getCSSLibs = function (position) {
   position = position || 'remote';
   return `
   <link rel="stylesheet" href="${app.config.lib[position].css.onsenui}">
@@ -78,9 +77,9 @@ app.services.codepenSubmit = function () {
     html: app.editors.html.getValue(),
     js: app.editors.js.getValue(),
     editors: '101',
-    js_external: app.util.flattenJSLibs(app.services.detectLibraries()).join(';'),
+    js_external: app.util.flattenJSLibs(app.services.getAllLibs()).join(';'),
     css_external: app.config.lib.remote.css.onsenui + ';' + app.config.lib.remote.css.onsenuiCssComponents,
-    js_pre_processor: app.services.detectTranspiler()
+    js_pre_processor: app.config.codeType
   });
 };
 
@@ -117,8 +116,8 @@ app.services.loadModule = function (framework, category, module) {
       var script = extract(responseText, /<head>[\s\S]*(<script[\s\S]*<\/script>)[\s\S]*<\/head>/);
       var code = format(extract(script, /<script.*>([\s\S]*)<\/script>/));
 
-      var rawTranspiler = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
-      app.services.detectFramework(rawTranspiler, code);
+      app.config.codeType = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
+      app.config.framework = app.util.getParam('framework')
 
       app.services.updateEditors(html, code);
 
@@ -157,7 +156,7 @@ app.services.updateSelectedItem = function (framework, module) {
 };
 
 app.services.transpile = function (code) {
-  switch (app.services.detectTranspiler()) {
+  switch (app.config.codeType) {
     case 'babel':
       var result;
       try {
@@ -180,7 +179,7 @@ app.services.transpile = function (code) {
       var result;
       result = ts.transpileModule(code, { module: ts.ModuleKind.CommonJS, reportDiagnostics: true }).outputText;
       return result;
-    case 'none':
+    case 'javascript':
     default:
       return code;
   }
@@ -191,7 +190,7 @@ app.services.updateEditors = function (html, js) {
   app.editors.js.session.setValue(js, -1);
 
   var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
-  switch (app.services.detectTranspiler()) {
+  switch (app.config.codeType) {
     case 'babel':
       editorTitle.innerHTML = 'JSX';
       app.editors.js.session.setMode('ace/mode/jsx');
@@ -206,7 +205,7 @@ app.services.updateEditors = function (html, js) {
   }
 };
 
-app.services.detectLibraries = function (position) {
+app.services.getAllLibs = function (position) {
   position = position || 'remote';
   var libs = {
     'onsenui': {
@@ -222,16 +221,19 @@ app.services.detectLibraries = function (position) {
         'react-onsenui': [app.config.lib[position].js.reactOnsenui]
       }
       break;
-    case 'angular':
-      libs.angular = {
-        'angular': [app.config.lib[position].js.angular],
+    case 'angular1':
+      libs.angular1 = {
+        'angular1': [app.config.lib[position].js.angular1],
         'onsen/js': [app.config.lib[position].js.angularOnsenui]
       }
       break;
     case 'angular2':
       libs.angular2 = {
-        'system': [app.config.lib[position].js.system],
-        'angular2': [app.config.lib[position].js.angular2],
+        //'system': [app.config.lib[position].js.system],
+        //'angular2': [app.config.lib[position].js.angular2],
+        'rx': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/Rx.umd.js',
+        'angular2-polyfills': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-polyfills.js',
+        'angular2': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-all.umd.js',
         'angular2-onsenui': [app.config.lib[position].js.angular2Onsenui]
       }
       break;
@@ -240,36 +242,19 @@ app.services.detectLibraries = function (position) {
   return libs;
 };
 
-app.services.detectFramework = function (rawTranspiler, code) {
-  switch (rawTranspiler) {
-    case 'jsx':
+app.services.getTranspilerLib = function () {
+  switch (app.config.codeType) {
     case 'babel':
-    case 'react':
-      app.config.framework = 'react';
-      break;
-    case 'ts':
+      return `<script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>`;
     case 'typescript':
-    case 'angular2':
-      app.config.framework = 'angular2';
-      break;
+      return `<script src="https://unpkg.com/typescript@1.8.10/lib/typescript.js"></script>`;
     default:
-      app.config.framework = (code.match(/ons\.bootstrap/) || code.match(/angular\.module/)) ? 'angular' : 'vanilla';
-  }
-};
-
-app.services.detectTranspiler = function () {
-  switch (app.config.framework) {
-    case 'react':
-      return 'babel';
-    case 'angular2':
-      return 'typescript';
-    default:
-      return 'none';
+      return '';
   }
 };
 
 app.services.addTranspilerDependencies = function (packageJSON) {
-  switch (app.services.detectTranspiler()) {
+  switch (app.config.codeType) {
     case 'babel':
       packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[0], true);
       packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[1], false);
@@ -324,8 +309,8 @@ app.services.generateCordovaProject = function () {
       .replace(token.body, token.body + app.editors.html.getValue().split('\n').map(function (line) {
         return line ? ('  ' + line) : line;
       }).join('\n'))
-      .replace(token.css, token.css + app.services.generateTemplateCSS('local'))
-      .replace(token.js, token.js + app.services.generateTemplateFromLibs('local'));
+      .replace(token.css, token.css + app.services.getCSSLibs('local'))
+      .replace(token.js, token.js + app.services.getJSLibs('local'));
     zip.file('www/index.html', indexHTML);
 
     // APP.JS
@@ -352,7 +337,7 @@ app.services.generateCordovaProject = function () {
 
     // EXTERNAL LIBRARIES
     var promises = [];
-    var externalLibraries = app.services.detectLibraries();
+    var externalLibraries = app.services.getAllLibs();
     var addLib = function (lib) {
       if (externalLibraries.hasOwnProperty(lib)) {
         Object.keys(externalLibraries[lib]).forEach(function (dir) {

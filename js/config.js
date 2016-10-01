@@ -26,7 +26,7 @@ app.config.lib = {
       // Vanilla
       onsenui: `${app.config.cdn}/onsenui${(app.config.versions.onsenui ? ('@' + app.config.versions.onsenui) : '')}/js/onsenui.js`,
       // AngularJS
-      angular: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js',
+      angular1: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js',
       angularOnsenui: `${app.config.cdn}/onsenui${(app.config.versions.onsenui ? ('@' + app.config.versions.onsenui) : '')}/js/angular-onsenui.js`,
       // React
       react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js',
@@ -50,7 +50,7 @@ app.config.lib = {
   local: {
     js: {
       onsenui: 'onsen/js/onsenui.js',
-      angular: 'angular/angular.min.js',
+      angular1: 'angular/angular.min.js',
       angularOnsenui: 'onsen/js/angular-onsenui.js',
       system: 'system/system.js',
       angular2: 'angular2/angular2.min.js',
@@ -74,7 +74,7 @@ Object.keys(css).forEach(pref.bind(null, css));
 
 app.config.npm = {
   onsenui: ['"onsenui": "' + app.config.versions.onsenui + '"'],
-  angular: ['"angular": ""'],
+  angular1: ['"angular": ""'],
   angular2: ['"angular2": ""', '"angular2-onsenui": ""'],
   typescript: ['"typescript": ""'],
   react: ['"react": ""', '"react-dom": ""', '"react-onsenui": ""'],
