@@ -39,7 +39,18 @@ app.config.lib = {
       //angular2Onsenui: `${app.config.cdn}/${app.config.repos[app.config.cdn].angular2Onsenui}${(app.config.versions.angular2Onsenui ? ('@' + app.config.versions.angular2Onsenui) : '')}/dist/src/angular2-onsenui.umd.js`,
       zone: `https://unpkg.com/zone.js@0.6.21/dist/zone.js`,
       corejs: `https://unpkg.com/core-js@2.4.1/client/core.js`,
-      systemjs: `https://unpkg.com/systemjs@0.19.37/dist/system.js`
+      systemjs: `https://unpkg.com/systemjs@0.19.37/dist/system.js`,
+
+      systemjsLibs: {
+        'angular2-onsenui': `${app.config.cdn}/angular2-onsenui${(app.config.versions.angular2Onsenui ? ('@' + app.config.versions.angular2Onsenui) : '')}/dist/bundles/angular2-onsenui.umd.js`,
+        '@angular/core': 'https://unpkg.com/@angular/core@2.0.0/bundles/core.umd.js',
+        '@angular/compiler': 'https://unpkg.com/@angular/compiler@2.0.0/bundles/compiler.umd.js',
+        '@angular/common': 'https://unpkg.com/@angular/common@2.0.0/bundles/common.umd.js',
+        '@angular/platform-browser': 'https://unpkg.com/@angular/platform-browser@2.0.0/bundles/platform-browser.umd.js',
+        '@angular/platform-browser-dynamic': 'https://unpkg.com/@angular/platform-browser-dynamic@2.0.0/bundles/platform-browser-dynamic.umd.js',
+        'rxjs': 'https://unpkg.com/rxjs@5.0.0-beta.11',
+        'process': 'https://unpkg.com/process@0.11.9'
+      }
     },
     css: {
       onsenui: `${app.config.cdn}/onsenui${(app.config.versions.onsenui ? ('@' + app.config.versions.onsenui) : '')}/css/onsenui.css`,
@@ -80,3 +91,59 @@ app.config.npm = {
   react: ['"react": ""', '"react-dom": ""', '"react-onsenui": ""'],
   babel: ['"babel-cli": ""', '"babel-preset-react": ""']
 };
+
+app.config.systemjs = {
+  config: {
+    map: app.config.lib.remote.js.systemjsLibs,
+    packages: {
+      'angular2-onsenui': {
+        format: 'cjs'
+      },
+      'core-js': {
+        main: 'index.js',
+        format: 'cjs'
+      },
+      'typescript': {
+        format: 'cjs'
+      },
+      'app': {
+        defaultExtension: 'ts',
+        format: 'esm'
+      }
+    },
+    meta: {
+      'inline': {
+        loader: 'inline-loader'
+      }
+    },
+    transpiler: 'typescript',
+    typescriptOptions: {
+      'emitDecoratorMetadata': true
+    }
+  },
+
+  inlineLoader: function(window) {
+    return {
+      fetch: function() {
+        return new Promise(function(resolve, reject) {
+          if (window.document.readyState === 'complete') {
+            load();
+          } else {
+            window.onload = load;
+          }
+
+          function load() {
+            const target = window.document.querySelector('script[type="text/typescript"]');
+
+            if (target) {
+              resolve(target.textContent);
+            } else {
+              reject('Error: inline-loader fail.');
+            }
+          }
+        });
+      }
+    };
+  }
+};
+

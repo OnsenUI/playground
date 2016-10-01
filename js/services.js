@@ -11,6 +11,7 @@ app.services.generateTemplateOutput = function () {
       ${app.services.getTranspilerLib()}
 
       ${app.services.getJSLibs()}
+      ${app.services.setupJSLibs()}
       <script>
         ons.platform.select('${app.config.platform}');
       </script>
@@ -117,7 +118,7 @@ app.services.loadModule = function (framework, category, module) {
       var code = format(extract(script, /<script.*>([\s\S]*)<\/script>/));
 
       app.config.codeType = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
-      app.config.framework = app.util.getParam('framework')
+      app.config.framework = app.util.getParam('framework');
 
       app.services.updateEditors(html, code);
 
@@ -229,12 +230,15 @@ app.services.getAllLibs = function (position) {
       break;
     case 'angular2':
       libs.angular2 = {
+        systemjs: [app.config.lib[position].js.systemjs],
+        corejs: [app.config.lib[position].js.corejs],
+        zone: [app.config.lib[position].js.zone]
         //'system': [app.config.lib[position].js.system],
         //'angular2': [app.config.lib[position].js.angular2],
-        'rx': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/Rx.umd.js',
-        'angular2-polyfills': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-polyfills.js',
-        'angular2': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-all.umd.js',
-        'angular2-onsenui': [app.config.lib[position].js.angular2Onsenui]
+        //'rx': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/Rx.umd.js',
+        //'angular2-polyfills': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-polyfills.js',
+        //'angular2': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-all.umd.js',
+        //'angular2-onsenui': [app.config.lib[position].js.angular2Onsenui]
       }
       break;
   }
@@ -398,5 +402,19 @@ app.services.modifySource = function () {
   var state = window.history.state;
   if (state) {
     window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
+  }
+};
+
+app.services.setupJSLibs = function() {
+  if (app.config.framework === 'angular2') {
+    return `
+      <script>
+        System.config(parent.window.app.config.systemjs.config);
+        System.amdDefine('inline-loader', [], parent.window.app.config.systemjs.inlineLoader.bind('null', window));
+        System.import('inline');
+      </script>
+    `;
+  } else {
+    return '';
   }
 };

@@ -114,7 +114,7 @@ app.setup.modules = function () {
         categoryItem.classList.add('category-item');
 
         categoryItem.innerHTML = `
-          <input type="checkbox" id="${id}" ${index === 0 ? 'checked': ''}>
+          <input type="checkbox" id="${id}" ${index === 0 ? 'checked' : ''}>
           <label for="${id}" category="${category}"></label>
         `;
 
