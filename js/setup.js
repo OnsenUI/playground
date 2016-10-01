@@ -92,7 +92,7 @@ app.setup.tabView = function () {
 };
 
 app.setup.toolbar = function () {
-  document.querySelector('#download-button').onclick = app.services.showGenerateModal;
+  // document.querySelector('#download-button').onclick = app.services.showGenerateModal;
   document.querySelector('#modal-generate-button').onclick = app.services.generateCordovaProject;
   document.querySelector('#modal-cancel-button').onclick = app.services.hideGenerateModal;
   document.querySelector('#modal-mask').onclick = app.services.hideGenerateModal;
