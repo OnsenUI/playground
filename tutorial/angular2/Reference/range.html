@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+  <script type="text/typescript">
+
+  import {
+    Component,
+    OnsRange,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'angular2-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Range Example</div>
+      </ons-toolbar>
+      <div class="background"></div>
+      <div class="content">
+        <div style="text-align: center; margin: 10px">
+          <!-- (input) is needed for immediate change detection on dragging range component.
+          -->
+          <ons-range [(value)]="value" (input)="value = $event.target.value"></ons-range><br>
+          <ons-range modifier="material" [(value)]="value"></ons-range><br>
+          {{value}}
+        </div>
+      </div>
+    </ons-page>
+    `
+  })
+  export class AppComponent {
+    value: string = '10';
+    constructor() { }
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- info
+
+## Range
+
+`ons-range` element renders a range. Please refer to [ons-range element Reference](https://onsen.io/v2/docs/angular2/ons-range.html) for more details.
+
+Tutorial contents will be added soon.
+
+-->
