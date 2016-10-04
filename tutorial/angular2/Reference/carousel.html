@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/typescript">
+    import {
+      Component,
+      OnsenModule,
+      NgModule,
+      CUSTOM_ELEMENTS_SCHEMA
+    } from 'angular2-onsenui';
+    import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+    @Component({
+      selector: 'app',
+      template: `
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button (click)="prev()">
+              <ons-icon icon="md-chevron-left"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">Carousel</div>
+          <div class="right">
+            <ons-toolbar-button (click)="next()">
+              <ons-icon icon="md-chevron-right"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        </ons-toolbar>
+        <div class="content">
+          <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
+            <ons-carousel-item style="background-color: #085078;">
+              <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                BLUE
+              </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #373B44;">
+              <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                DARK
+              </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #D38312;">
+              <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                ORANGE
+              </div>
+            </ons-carousel-item>
+          </ons-carousel>
+        </div>
+      </ons-page>
+      `
+    })
+    export class AppComponent {
+      prev() {
+        document.querySelector('ons-carousel').prev();
+      }
+      next() {
+        document.querySelector('ons-carousel').next();
+      }
+    }
+
+    @NgModule({
+      imports: [OnsenModule],
+      declarations: [AppComponent],
+      bootstrap: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    class AppModule { }
+
+    platformBrowserDynamic().bootstrapModule(AppModule);
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- info
+
+## Carousel
+
+`ons-carousel` element renders a carousel. Please refer to [ons-carousel element Reference](https://onsen.io/v2/docs/angular2/ons-carousel.html) for more details.
+
+Tutorial contents will be added soon.
+
+-->
