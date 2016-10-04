@@ -227,7 +227,7 @@ app.services.getAllLibs = function (position) {
       break;
     case 'angular2':
       libs.angular2 = {
-        'systemjs': [app.config.lib[position].js.systemjs, 'https://onsenui.github.io/tutorial/js/onsenui.system.js'],
+        'systemjs': [app.config.lib[position].js.systemjs, 'https://tutorial.onsen.io/js/onsenui.system.js'],
         'corejs': [app.config.lib[position].js.corejs],
         'zone': [app.config.lib[position].js.zone]
       }
