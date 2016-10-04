@@ -242,7 +242,7 @@ app.services.getTranspilerLib = function () {
     case 'babel':
       return `<script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>`;
     case 'typescript':
-      return `<script src="https://unpkg.com/typescript@1.8.10/lib/typescript.js"></script>`;
+      return `<script src="lib/typescript/typescript-1.8.10.min.js"></script>`;
     default:
       return '';
   }
