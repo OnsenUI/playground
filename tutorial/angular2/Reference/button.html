@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+  <script type="text/typescript">
+  import {
+    Component,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'angular2-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  declare var alert: Function;
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Button Example</div>
+      </ons-toolbar>
+      <div class="background"></div>
+      <div class="content">
+        <div style="text-align: center; margin: 10px;">
+          <ons-button (click)="onClick()">MyButton</ons-button>
+        </div>
+      </div>
+    </ons-page>
+      `
+  })
+  export class AppComponent {
+    constructor() {
+    }
+
+    onClick() {
+      alert('Clicked!');
+    }
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- info
+
+## Button
+
+`ons-button` element renders a button. Please refer to [ons-button element Reference](https://onsen.io/v2/docs/angular2/ons-button.html) for more details.
+
+Tutorial contents will be added soon.
+
+-->

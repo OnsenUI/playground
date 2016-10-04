@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+  <script type="text/typescript">
+  import {
+    Component,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'angular2-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+      <ons-toolbar>
+        <div class="center">Content Page</div> 
+      </ons-toolbar>
+      <div class="content">
+        
+      </div>
+    `
+  })
+  class ContentPageComponent {
+  }
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+      <ons-toolbar>
+        <div class="center">Left Page</div> 
+      </ons-toolbar>
+      <div class="background"></div>
+      <div class="content">
+        
+      </div>
+    `
+  })
+  class SidePageComponent {
+  }
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-splitter>
+      <ons-splitter-side [page]="sidePage" side="left" width="200px" style="border-right: 1px solid #ccc">
+      </ons-splitter-side>
+
+      <ons-splitter-content [page]="contentPage">
+      </ons-splitter-content>
+    `
+  })
+  export class AppComponent {
+    sidePage = SidePageComponent;
+    contentPage = ContentPageComponent;
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent, SidePageComponent, ContentPageComponent],
+    bootstrap: [AppComponent],
+    entryComponents: [SidePageComponent, ContentPageComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- info
+
+## Splitter
+
+Splitter menu is made using `ons-splitter` element, `ons-splitter-content` element and `OnsSplitterSide` directive. Please refer to [OnsSplitterSide Reference](https://onsen.io/v2/docs/angular2/ons-splitter-side.html) for details.
+
+Tutorial contents will be added soon.
+
+-->
