@@ -28,12 +28,12 @@ app.config.lib = {
       angular1: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js',
       angularOnsenui: `${app.config.cdn}/onsenui${(app.config.versions.onsenui ? ('@' + app.config.versions.onsenui) : '')}/js/angular-onsenui.js`,
       // React
-      react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js',
-      reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js',
+      react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js',
+      reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js',
       reactOnsenui: `${app.config.cdn}/react-onsenui${(app.config.versions.reactOnsenui ? ('@' + app.config.versions.reactOnsenui) : '')}/dist/react-onsenui.js`,
       // Angular 2
-      zone: `https://unpkg.com/zone.js@0.6.21/dist/zone.js`,
-      corejs: `https://unpkg.com/core-js@2.4.1/client/core.js`,
+      zone: `https://unpkg.com/zone.js@0.6.21/dist/zone.min.js`,
+      corejs: `https://unpkg.com/core-js@2.4.1/client/core.min.js`,
       systemjs: `https://unpkg.com/systemjs@0.19.37/dist/system.js`
     },
     css: {
