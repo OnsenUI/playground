@@ -58,7 +58,20 @@ app.modules = {
   },
   'angular2': {
     'Reference': {
-      'page': 'Creating a page'
+      'introduction': 'Introduction',
+      'navigator': 'Stack navigation',
+      'tabbar': 'Using tabs',
+      'splitter': 'Side menu (Splitter)',
+      'pull-hook': 'Pull to refresh',
+      'dialog': 'Dialogs',
+      'alert-dialog': 'Alert Dialogs',
+      'popover': 'Popover',
+      'input': 'Form input',
+      'switch': 'Switches',
+      'button': 'Buttons',
+      'range': 'Range sliders',
+      'modal': 'Modal',
+      'notification': 'Notification'
     }
   },
   'react': {
