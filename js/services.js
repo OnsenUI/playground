@@ -9,9 +9,7 @@ app.services.generateTemplateOutput = function () {
       <title>OnsenUI Tutorial</title>
 
       ${app.services.getTranspilerLib()}
-
       ${app.services.getJSLibs()}
-      ${app.services.setupJSLibs()}
       <script>
         ons.platform.select('${app.config.platform}');
       </script>
@@ -229,7 +227,7 @@ app.services.getAllLibs = function (position) {
       break;
     case 'angular2':
       libs.angular2 = {
-        'systemjs': [app.config.lib[position].js.systemjs],
+        'systemjs': [app.config.lib[position].js.systemjs, 'https://onsenui.github.io/tutorial/js/onsenui.system.js'],
         'corejs': [app.config.lib[position].js.corejs],
         'zone': [app.config.lib[position].js.zone]
       }
@@ -244,7 +242,7 @@ app.services.getTranspilerLib = function () {
     case 'babel':
       return `<script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>`;
     case 'typescript':
-      return `<script src="https://unpkg.com/typescript@1.8.10/lib/typescript.js"></script>`;
+      return `<script src="lib/typescript/typescript-1.8.10.min.js"></script>`;
     default:
       return '';
   }
@@ -395,19 +393,5 @@ app.services.modifySource = function () {
   var state = window.history.state;
   if (state) {
     window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
-  }
-};
-
-app.services.setupJSLibs = function() {
-  if (app.config.framework === 'angular2') {
-    return `
-      <script>
-        System.config(parent.window.app.config.systemjs.config);
-        System.amdDefine('inline-loader', [], parent.window.app.config.systemjs.inlineLoader.bind('null', window));
-        System.import('inline');
-      </script>
-    `;
-  } else {
-    return '';
   }
 };
