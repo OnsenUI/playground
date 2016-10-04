@@ -5,6 +5,7 @@ System.config({
     '@angular/core': 'https://unpkg.com/@angular/core@2.0.0/bundles/core.umd.min.js',
     '@angular/compiler': 'https://unpkg.com/@angular/compiler@2.0.0/bundles/compiler.umd.min.js',
     '@angular/common': 'https://unpkg.com/@angular/common@2.0.0/bundles/common.umd.min.js',
+    '@angular/forms': 'https://unpkg.com/@angular/forms@2.0.0/bundles/forms.umd.min.js',
     '@angular/platform-browser': 'https://unpkg.com/@angular/platform-browser@2.0.0/bundles/platform-browser.umd.min.js',
     '@angular/platform-browser-dynamic': 'https://unpkg.com/@angular/platform-browser-dynamic@2.0.0/bundles/platform-browser-dynamic.umd.min.js',
     'rxjs': 'https://unpkg.com/rxjs@5.0.0-beta.11',
