@@ -58,11 +58,13 @@ app.modules = {
   },
   'angular2': {
     'Reference': {
-      'introduction': 'Introduction',
+      'page': 'Creating a page',
       'navigator': 'Stack navigation',
       'tabbar': 'Using tabs',
       'splitter': 'Side menu (Splitter)',
+      'list': 'Lists',
       'pull-hook': 'Pull to refresh',
+      'carousel': 'Carousel',
       'dialog': 'Dialogs',
       'alert-dialog': 'Alert Dialogs',
       'popover': 'Popover',
