@@ -79,8 +79,7 @@ app.modules = {
       'switch': 'Switches',
       'button': 'Buttons',
       'range': 'Range sliders',
-      'modal': 'Modal',
-      'notification': 'Notification'
+      'modal': 'Modal'
     }
   },
   'react': {
