@@ -1,6 +1,7 @@
 app.config = {};
 
 app.config.platform = 'ios';
+app.config.codeType = 'javascript';
 app.config.cdn = 'https://unpkg.com';
 
 app.config.ownLibs = ['onsenui', 'react-onsenui'];
