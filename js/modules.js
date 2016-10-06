@@ -68,12 +68,18 @@ app.modules = {
       'dialog': 'Dialogs',
       'alert-dialog': 'Alert Dialogs',
       'popover': 'Popover',
+      'icon': 'Icon',
+      'lazy-repeat': 'Lazy Repeat',
       'input': 'Form input',
+      'fab': 'Fab',
+      'ripple': 'Ripple',
+      'speed-dial': 'Speed Dial',
+      'progress': 'Progress',
+      'conditional': 'Conditional',
       'switch': 'Switches',
       'button': 'Buttons',
       'range': 'Range sliders',
-      'modal': 'Modal',
-      'notification': 'Notification'
+      'modal': 'Modal'
     }
   },
   'react': {
