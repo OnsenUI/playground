@@ -12,7 +12,7 @@ app.setup.splitPanes = function () {
   Split(['#leftTopPane', '#leftBottomPane'], {
     direction: 'vertical',
     sizes: [40, 60],
-    minSize: [0, 4],
+    minSize: [9, 9],
     gutterSize: 15,
     cursor: 'row-resize'
   });
@@ -20,7 +20,7 @@ app.setup.splitPanes = function () {
   Split(['#rightTopPane', '#rightBottomPane'], {
     direction: 'vertical',
     sizes: [50, 50],
-    minSize: [0, 4],
+    minSize: [9, 9],
     gutterSize: 15,
     cursor: 'row-resize',
     onDrag: app.util.resize.editorResize
@@ -28,7 +28,14 @@ app.setup.splitPanes = function () {
 
   document.querySelector('#leftPane').style.width = 'calc(35% - 7.5px)';
   document.querySelector('#rightPane').style.width = 'calc(65% - 7.5px)';
-}
+
+  var rememberDrag = function(event) {
+    app.config.autoHideHTMLPane = false;
+    event.target.removeEventListener('click', rememberDrag);
+  };
+
+  document.querySelector('#rightPane .gutter-vertical').addEventListener('click', rememberDrag);
+};
 
 app.setup.editor = function (id, language) {
   var editor = ace.edit(id);

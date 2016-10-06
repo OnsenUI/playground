@@ -87,3 +87,15 @@ app.util.addEntry = function (packageJSON, key, dep, first) {
 app.util.parseId = function (string) {
   return string.replace(/\s+/g, '_');
 };
+
+app.util.simulatePanelDrag = function (gutter, position, value) {
+  var mousedown = new CustomEvent('mousedown');
+  var mousemove = new CustomEvent('mousemove', { bubbles: true });
+  var mouseup = new CustomEvent('mouseup', { bubbles: true });
+
+  mousemove['client' + position.toUpperCase()] = value;
+
+  gutter.dispatchEvent(mousedown);
+  gutter.dispatchEvent(mousemove);
+  gutter.dispatchEvent(mouseup);
+};

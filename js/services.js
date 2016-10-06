@@ -129,6 +129,10 @@ app.services.loadModule = function (framework, category, module) {
       document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
       document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
       app.services.updateTutorialPage();
+
+      if (['react', 'angular2'].indexOf(app.config.framework) !== -1 && app.config.autoHideHTMLPane !== false) {
+        app.services.closeHTMLEditorPanel();
+      }
     })
     .catch(function (err) {
       console.error(err.message);
@@ -376,17 +380,9 @@ app.services.updateTutorialPage = function () {
   tutorialContent.scrollTop = 0;
 };
 
-app.services.refreshSplit = function () {
-  var mousedown = new CustomEvent('mousedown');
-  var mousemove = new CustomEvent('mousemove', { bubbles: true });
-  var mouseup = new CustomEvent('mouseup', { bubbles: true });
+app.services.refreshSplit = function (selector, position) {
   var gutter = document.querySelector('.gutter-horizontal');
-
-  mousemove.clientX = gutter.getBoundingClientRect().left;
-
-  gutter.dispatchEvent(mousedown);
-  gutter.dispatchEvent(mousemove);
-  gutter.dispatchEvent(mouseup);
+  app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().left);
 };
 
 app.services.modifySource = function () {
@@ -394,4 +390,8 @@ app.services.modifySource = function () {
   if (state) {
     window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
   }
+};
+
+app.services.closeHTMLEditorPanel = function() {
+  app.util.simulatePanelDrag(document.querySelector('#rightPane .gutter-vertical'), 'y', 0);
 };
