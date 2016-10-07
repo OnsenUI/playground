@@ -1,5 +1,9 @@
-div#container {
+body:not(.compact) div#container {
   padding-top: 113px;
+}
+
+body.compact .content {
+  height: 100%;
 }
 
 #modules {

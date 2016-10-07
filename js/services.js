@@ -130,13 +130,16 @@ app.services.loadModule = function (framework, category, module) {
       document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
       app.services.updateTutorialPage();
 
-      if (['react', 'angular2'].indexOf(app.config.framework) !== -1 && app.config.autoHideHTMLPane !== false) {
-        app.services.closeHTMLEditorPanel();
+      if (app.config.autoHideHTMLPane !== false) {
+        if (['react', 'angular2'].indexOf(app.config.framework) !== -1) {
+          app.services.resizeHTMLPane(0);
+        } else if (app.config.initRightPanePos) {
+          app.services.resizeHTMLPane(app.config.initRightPanePos);
+        }
       }
-    })
-    .catch(function (err) {
-      console.error(err.message);
-    });
+    },
+    console.error.bind(console)
+  );
 };
 
 app.services.updateDropdown = function (framework, category, module) {
@@ -381,8 +384,14 @@ app.services.updateTutorialPage = function () {
 };
 
 app.services.refreshSplit = function (selector, position) {
-  var gutter = document.querySelector('.gutter-horizontal');
-  app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().left);
+  var gutter = document.querySelector('#rightPane').previousElementSibling;
+  app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().right);
+};
+
+app.services.resizeHTMLPane = function(newPosition) {
+  var gutter = document.querySelector('#rightPane .gutter-vertical');
+  app.config.initRightPanePos = app.config.initRightPanePos || gutter.getBoundingClientRect().top;
+  app.util.simulatePanelDrag(gutter, 'y', newPosition);
 };
 
 app.services.modifySource = function () {
@@ -390,8 +399,4 @@ app.services.modifySource = function () {
   if (state) {
     window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
   }
-};
-
-app.services.closeHTMLEditorPanel = function() {
-  app.util.simulatePanelDrag(document.querySelector('#rightPane .gutter-vertical'), 'y', 0);
 };
