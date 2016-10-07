@@ -384,8 +384,8 @@ app.services.updateTutorialPage = function () {
 };
 
 app.services.refreshSplit = function (selector, position) {
-  var gutter = document.querySelector('.gutter-horizontal');
-  app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().left);
+  var gutter = document.querySelector('#rightPane').previousElementSibling;
+  app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().right);
 };
 
 app.services.resizeHTMLPane = function(newPosition) {
