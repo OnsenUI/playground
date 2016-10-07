@@ -93,18 +93,17 @@ body {
   right: 8px;
 }
 
-#tutorial-pages {
-  position: absolute;
-  right: 22px;
-  bottom: 8px;
-}
-
 #pages-previous,
 #pages-next {
   cursor: pointer;
   color: rgba(24,103,194,0.81);
 }
+
 #tutorial-pages {
+  white-space: nowrap;
+  position: absolute;
+  right: 22px;
+  bottom: 8px;
   cursor: default;
   background-color: rgb(245, 245, 245);
   opacity: 0.5;
