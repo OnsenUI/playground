@@ -17,7 +17,7 @@ window.onload = function () {
 };
 
 window.onresize = function () {
-  if (window.Split) {
+  if (window.Split && (!app.config.compact || !app.config.showDocs)) {
     app.util.resize.throttler();
   }
 }
