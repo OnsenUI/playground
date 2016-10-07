@@ -22,8 +22,8 @@ app.setup.splitPanes = function () {
     document.querySelector('#rightPane').style.width = 'calc(65% - 7.5px)';
 
   } else { // Compact View
-    var showDocs = app.util.getParam('docs') !== 'false';
-    if (showDocs) {
+    app.config.showDocs = app.util.getParam('docs') !== 'false';
+    if (app.config.showDocs) {
       Split(['#leftPane', '#centerPane', '#rightPane'], {
         gutterSize: 15,
         sizes: [20, 25, 55],
@@ -69,7 +69,7 @@ app.setup.splitPanes = function () {
 
 app.setup.editor = function (id, language) {
   var editor = ace.edit(id);
-  editor.setTheme('ace/theme/' + (document.body.classList.contains('dark-skin') ? 'monokai' : 'chrome'));
+  editor.setTheme('ace/theme/' + (document.body.classList.contains('dark-skin') || app.config.compact ? 'monokai' : 'chrome'));
   editor.session.setMode("ace/mode/" + language);
   editor.session.setTabSize(2);
   editor.session.setUseSoftTabs(true);

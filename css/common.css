@@ -21,11 +21,16 @@ body {
   top: 0;
   background-color: rgba(211, 211, 211, 0.24);
   border-bottom: 1px solid #bbb;
+  overflow: hidden;
 }
 
 .preview-toolbar > * {
   float: right;
   margin-right: 8px;
+}
+
+#run {
+  margin-bottom: 4px;
 }
 
 #run > span > span:not(.button-text) {
