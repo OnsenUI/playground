@@ -11,6 +11,7 @@ app.modules = {
       'carousel': 'Carousel',
       'dialog': 'Dialogs',
       'popover': 'Popover',
+      'modal': 'Modal',
       'input': 'Form input',
       'switch': 'Switches',
       'button': 'Buttons',
@@ -44,6 +45,7 @@ app.modules = {
       'carousel': 'Carousel',
       'dialog': 'Dialogs',
       'popover': 'Popover',
+      'modal': 'Modal',
       'input': 'Form input',
       'switch': 'Switches',
       'button': 'Buttons',
@@ -68,6 +70,7 @@ app.modules = {
       'dialog': 'Dialogs',
       'alert-dialog': 'Alert Dialogs',
       'popover': 'Popover',
+      'modal': 'Modal',
       'icon': 'Icon',
       'lazy-repeat': 'Lazy Repeat',
       'input': 'Form input',
@@ -78,8 +81,7 @@ app.modules = {
       'conditional': 'Conditional',
       'switch': 'Switches',
       'button': 'Buttons',
-      'range': 'Range sliders',
-      'modal': 'Modal'
+      'range': 'Range sliders'
     }
   },
   'react': {
