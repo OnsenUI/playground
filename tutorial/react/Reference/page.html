@@ -49,28 +49,18 @@ The `Page` component serves as the main view of a screen in an app. Its children
 
 ## Adding a toolbar
 
-To add a toolbar at the top of the page the `renderToolbar` property will be used. This property should be a function that renders to a `Toolbar` component.
+The `Toolbar` component displays a navigation bar on the top of a `Page` component. It is separated into three sections (left, center and right) in order to let the buttons and title be layouted a beautiful way.
+
+A toolbar is displayed on the screen by return the `Toolbar` component in the `renderToolbar` property of the `Page` element. To layout the content the `left`, `center` and `right` classes are used.
 
 ```
 <Page
   renderToolbar={() =>
     <Toolbar>
-      <div className='center'>Title</div>
+      <div className='left'>Left</div>
+      <div className='center'>Center</div>
+      <div className='right'>Right</div>
     </Toolbar>
-  }
-/>
-```
-
-## Adding a Fab or SpeedDial
-
-To add a `Fab` (Floating action button) or a `SpeeDial` component the `renderFixed` property will be used. If multiple elements will be used, they can be put together in a div.
-
-```
-<Page
-  renderFixed={() =>
-    <Fab position='bottom right'>
-      <Icon icon="md-face" />
-    </Fab>
   }
 />
 ```
