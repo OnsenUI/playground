@@ -19,10 +19,10 @@
       template: `
       <ons-page>
         <ons-toolbar>
-          <div class="center">My app</div>
+          <div class="center">{{title}}</div>
           <div class="right">
             <ons-toolbar-button>
-              <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>  
+              <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
             </ons-toolbar-button>
           </div>
         </ons-toolbar>
@@ -35,6 +35,7 @@
       `
     })
     export class AppComponent {
+      title:string = 'My app';
 
       alert() {
         onsNotification.alert('Hello, world!');
