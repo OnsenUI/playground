@@ -5,12 +5,21 @@
 	<title>Onsen UI App</title>
 
   <script>
+    document.addEventListener('init', function(event) {
+      var page = event.target;
+      if (page.matches('#helloworld-page')) {
+        page.querySelector('ons-toolbar .center').innerHTML = 'My app';
+        page.querySelector('ons-button').onclick = function() {
+          ons.notification.alert('Hello world!');
+        };
+      }
+    });
   </script>
 </head>
 <body>
-  <ons-page>
+  <ons-page id="helloworld-page">
     <ons-toolbar>
-      <div class="center">My app</div>
+      <div class="center"></div>
       <div class="right">
         <ons-toolbar-button>
           <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>  
@@ -19,7 +28,7 @@
     </ons-toolbar>
 
     <p style="text-align: center">
-      <ons-button onclick="ons.notification.alert('Hello world!')">Click me!</ons-button>
+      <ons-button>Click me!</ons-button>
     </p>
   </ons-page>
 </body>
@@ -31,7 +40,14 @@
 
 The root of a page in Onsen UI is created using the `<ons-page>` element. It covers the whole screen and is used as a container for the other elements.
 
-An `<ons-page>` element with no content would just display a blank screen so let's go ahead and add some content to it.
+The page element throws events depending on its lifecycle. The most important one is perhaps `init` event, where all the page initialization code should be placed:
+
+```
+document.addEventListener('init', function(event) {
+  console.log(event.target.id + ' init!');
+  // Set up click handlers, etc.
+});
+```
 
 ## Adding a toolbar
 
