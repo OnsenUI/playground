@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/javascript">
+    document.addEventListener('init', function(event) {
+      var page = event.target;
+      var viewModel = page.id.charAt(0).toUpperCase() + (page.id.split('-')[0] || '').slice(1) + 'ViewModel';
+      if (window[viewModel]) {
+        ko.applyBindings(new window[viewModel](), page);
+      }
+    });
+
+    function HelloworldViewModel() {
+      this.title = 'My app';
+    }
+  </script>
+</head>
+<body>
+  <script src="https://unpkg.com/knockout"></script>
+
+  <ons-page id="helloworld-page">
+    <ons-toolbar>
+      <div class="center" data-bind="text: title"></div>
+      <div class="right">
+        <ons-toolbar-button>
+          <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>  
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+
+    <p style="text-align: center">
+      <ons-button onclick="ons.notification.alert('Hello world!')">Click me!</ons-button>
+    </p>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Simple Hello World with Knockout.js
+
+
+
+-->

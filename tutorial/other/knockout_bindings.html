@@ -7,7 +7,7 @@
   <script type="text/javascript">
     ///// KO-OnsenUI """bindings"""
     document.addEventListener('init', function(event) {
-      var page = event.target
+      var page = event.target;
       if (page.data && page.data.viewModel) {
         // Shortcut for ons-navigator
         ko.applyBindings(page.data.viewModel, page);
@@ -46,14 +46,14 @@
 
       self.removeItem = function() {
         self.items.remove(this);
-      }
+      };
 
       self.detailsItem = function() {
         document.querySelector('ons-navigator')
           .pushPage('details.html', {
             data: { viewModel: new DetailsViewModel(this) }
           });
-      }
+      };
     }
 
     // Settings page view model
@@ -125,7 +125,7 @@
 
 <!-- info
 
-## Simple Hello World with Vue.js
+## Simple Hello World with Knockout.js
 
 
 
