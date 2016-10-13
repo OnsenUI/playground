@@ -5,6 +5,7 @@
 	<title>Onsen UI App</title>
 
   <script type="text/javascript">
+    // Simple bindings. #main-page => MainViewModel
     document.addEventListener('init', function(event) {
       var page = event.target;
       var viewModel = page.id.charAt(0).toUpperCase() + (page.id.split('-')[0] || '').slice(1) + 'ViewModel';
@@ -15,6 +16,9 @@
 
     function HelloworldViewModel() {
       this.title = 'My app';
+      this.alert = function() {
+        ons.notification.alert('Hello world!');
+      };
     }
   </script>
 </head>
@@ -32,7 +36,7 @@
     </ons-toolbar>
 
     <p style="text-align: center">
-      <ons-button onclick="ons.notification.alert('Hello world!')">Click me!</ons-button>
+      <ons-button data-bind="click: alert">Click me!</ons-button>
     </p>
   </ons-page>
 </body>
