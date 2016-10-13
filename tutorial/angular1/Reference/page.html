@@ -7,6 +7,7 @@
   <script>
     ons.bootstrap()
       .controller('PageController', function() {
+        this.title = 'My app';
         this.showAlert = function(message) {
           ons.notification.alert(message)
         };
@@ -16,7 +17,7 @@
 <body>
   <ons-page ng-controller="PageController as page">
     <ons-toolbar>
-      <div class="center">My app</div>
+      <div class="center">{{page.title}}</div>
       <div class="right">
         <ons-toolbar-button>
           <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>  
