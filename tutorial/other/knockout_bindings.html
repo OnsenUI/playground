@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/javascript">
+    ///// KO-OnsenUI """bindings"""
+    document.addEventListener('init', function(event) {
+      var page = event.target
+      if (page.data && page.data.viewModel) {
+        // Shortcut for ons-navigator
+        ko.applyBindings(page.data.viewModel, page);
+      } else {
+        // Everything else by ID
+        var viewModel = page.id.charAt(0).toUpperCase() + (page.id.split('-')[0] || '').slice(1) + 'ViewModel';
+        if (window[viewModel]) {
+          ko.applyBindings(new window[viewModel](), event.target);
+        }
+      }
+    });
+    ///////////////////////////////
+
+    // Item model
+    function ListItem(content) {
+      var self = this;
+      self.content = content;
+    }
+    // Details page view model
+    function DetailsViewModel(item) {
+      var self = this;
+      self.item = item;
+    }
+    // List page view model
+    function ListViewModel() {
+      var self = this;
+
+      self.items = ko.observableArray([]);
+      for(var i = 0; i < 6; i++) {
+        self.items.push(new ListItem("Item " + i));
+      }
+
+      self.addItem = function() {
+        self.items.push(new ListItem('Item ' + self.items().length));
+      };
+
+      self.removeItem = function() {
+        self.items.remove(this);
+      }
+
+      self.detailsItem = function() {
+        document.querySelector('ons-navigator')
+          .pushPage('details.html', {
+            data: { viewModel: new DetailsViewModel(this) }
+          });
+      }
+    }
+
+    // Settings page view model
+    function SettingsViewModel() {
+      var self = this;
+      
+      self.info = 'More stuff';
+    }
+  </script>
+</head>
+<body>
+  <script src="https://unpkg.com/knockout"></script>
+
+  <ons-navigator page="tabbar.html"></ons-navigator>
+
+  <ons-template id="tabbar.html">
+    <ons-page id="tabbar-page">
+      <ons-toolbar>
+        <div class="center">KO List </div>
+      </ons-toolbar>
+      <ons-tabbar position="auto"> 
+        <ons-tab page="list.html" label="List" active></ons-tab>
+        <ons-tab page="settings.html" label="Settings"></ons-tab>
+      </ons-tabbar>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="list.html">
+    <ons-page id="list-page">
+      <ons-list data-bind="foreach: items">
+        <ons-list-item tappable>
+          <div class="center" data-bind="text: content, click: $parent.detailsItem"></div>
+          <div class="right" data-bind="click: $parent.removeItem">
+            <ons-icon icon="ion-ios-trash-outline, material:md-delete"></ons-icon>
+          </div>
+        </ons-list-item>
+      </ons-list>
+
+      <ons-if platform="android">
+        <ons-fab position="bottom right" data-bind="click: addItem">+</ons-fab>
+      </ons-if>
+      <ons-if platform="ios other">
+        <p><ons-button modifier="large--quiet" data-bind="click: addItem">Add new item</ons-button></p>
+      </ons-if>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="details.html">
+    <ons-page id="details-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>KO List</ons-back-button></div>
+        <div class="center">Items details</div>
+      </ons-toolbar>
+        <ons-row style="margin-top: 100px; text-align: center;">
+            <ons-col>
+                <p style="color: #666; font-size: 18px;">You clicked on: <span style="color: #999" data-bind="text: item.content"></span></p>
+            </ons-col>
+        </ons-row>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="settings.html">
+    <ons-page id="settings-page">
+      <p style="text-align: center" data-bind="text: info"></p>
+    </ons-page>
+  </ons-template>
+</body>
+</html>
+
+<!-- info
+
+## Simple Hello World with Vue.js
+
+
+
+-->
