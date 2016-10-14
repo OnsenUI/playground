@@ -69,7 +69,7 @@ app.services.runProject = function () {
 };
 
 app.services.codepenSubmit = function () {
-  document.querySelector('#codepen-data').value = JSON.stringify({
+  var options = {
     title: 'Onsen UI',
     description: 'Onsen UI Tutorial Export',
     html: app.editors.html.getValue(),
@@ -78,7 +78,22 @@ app.services.codepenSubmit = function () {
     js_external: app.util.flattenJSLibs(app.services.getAllLibs()).join(';'),
     css_external: app.config.lib.remote.css.onsenui + ';' + app.config.lib.remote.css.onsenuiCssComponents,
     js_pre_processor: app.config.codeType
-  });
+  };
+
+  // Fix TypeScript in Codepen
+  if (app.config.codeType === 'typescript') {
+    options.html = `${options.html}
+
+<script type="text/typescript">
+${options.js}
+</script>
+`;
+    options.js = '';
+    options.js_external += ';https://unpkg.com/typescript@1.8.10';
+    options.editors = '100';
+  }
+
+  document.querySelector('#codepen-data').value = JSON.stringify(options);
 };
 
 app.services.switchStyle = function (platform) {
