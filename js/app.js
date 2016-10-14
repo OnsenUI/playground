@@ -1,4 +1,8 @@
 window.app = {};
+window.setVersion = function(lib, version) {
+  window.sessionStorage.setItem(lib + '-version', version);
+  console.info('Reload the page to get the new version.');
+};
 
 document.addEventListener("DOMContentLoaded", function () {
   app.config.compact = document.body.classList.contains('compact');
