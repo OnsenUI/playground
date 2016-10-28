@@ -60,10 +60,82 @@
 
 <!-- info
 
-## The `ons-page` element
+## `<ons-page>`要素
 
-Please refer to [ons-page element Reference](https://onsen.io/v2/docs/angular2/ons-page.html) for more details.
+Onsen UIを使ったアプリケーションでは、`<ons-page>`要素を使ってある画面を作成します。この要素は、スクリーンいっぱいに広がり他の要素のコンテナとして利用されます。
 
-For additional resources, please also see  [Guide for Angular 2](https://onsen.io/v2/docs/guide/angular2).
+## コンテンツを配置する
+
+`<ons-page>`要素で作った画面にコンポーネントを配置するには、`content`クラス属性をもつdiv要素以下に配置してください。
+
+```
+<ons-page>
+  <div class="content">
+    Hello World!
+  </div>
+</ons-page>
+```
+
+次のように書くこともできます。
+
+```
+<ons-page>
+  <div class="page__content">
+    Hello World!
+  </div>
+</ons-page>
+```
+
+## ツールバーを配置する
+
+ほとんどのモバイルアプリケーションでは、画面の上部にツールバーを持ちます。このツールバーにはテキストやボタン等を配置できます。
+
+Onsen UIでは、`<ons-toolbar>`要素を使ってツールバーを置くことができます。ツールバー内には、次のように左右中央に要素を配置することができます。
+
+```
+<ons-page>
+  <ons-toolbar>
+    <div class="left">
+      <ons-toolbar-button>Left</ons-toolbar-button>
+    </div>
+    <div class="center">
+      Title
+    </div>
+    <div class="right">
+      <ons-toolbar-button>Right</ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <div class="content">
+    ...
+  </div>
+</ons-page>
+```
+
+## 背景を配置する
+
+`<ons-page>`の背景を表現する要素は、`<ons-page>`コンポーネント内に自動的に補完されますが、開発者がページの背景を指定したい場合にはクラス属性に`background`を指定したdiv要素を手動で配置することができます。
+
+次のコードでは、`<ons-page>`の背景を`gray`にします。
+
+```
+<ons-page>
+  <div class="background" style="background-color: gray;"></div>
+  <div class="content">
+    ...
+  </div>
+</ons-page>
+```
+
+背景を指定するには、次のように書くこともできます。
+
+```
+<ons-page>
+  <div class="page__background" style="background-color: gray;"></div>
+  <div class="page__content">
+    ...
+  </div>
+</ons-page>
+```
 
 -->

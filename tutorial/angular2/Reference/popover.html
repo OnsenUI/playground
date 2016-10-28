@@ -111,8 +111,69 @@
 
 ## Popover
 
-`ons-popover` displays a popover dialog on the specified element. Please refer to [ons-popover element Reference](https://onsen.io/v2/docs/angular2/ons-popover.html) for more details.
+`ons-popover`はpopoverを表示することができる要素です。ここではAngular 2下では、`ons-popover`と`PopoverFactory`を使ってpopoverを表示するコンポーネントを作成します。
 
-Tutorial contents will be added soon.
+まず、`ons-popover`をテンプレートのルートに置いたコンポーネントを宣言します。
+
+```
+@Component({
+  template: `
+    <ons-popover direction="up down" cancelable #popover>
+      <div style="text-align: center; opacity: 0.7;">
+        <p>HelloWorld!</p>
+      </div>
+    </ons-popover>
+  `
+})
+class MyPopoverComponent implements OnInit {
+}
+```
+
+次にPopoverFactoryを使ってコンポーネントを生成します。
+
+```
+export class AppComponent implements OnInit, OnDestroy {
+  private _popover: any;
+  private _destroyPopover: Function;
+
+  constructor(private _popoverFactory: PopoverFactory) { }
+
+  ngOnInit() {
+    this._popoverFactory
+      .createPopover(MyPopoverComponent, {msg: 'This is popover.'})
+      .then(({popover, destroy}) => {
+        this._popover = popover;
+        this._destroyPopover = destroy;
+      });
+  }
+
+  ngOnDestroy() {
+    this._destroyPopover();
+  }
+}
+```
+
+popoverを表示するには、取得した`ons-popover`要素の`show()`メソッドを呼び出します。`show()`メソッドの第一引数には、popoverを表示する位置のベースとなる要素を指定します。
+
+```
+this._popover.show(button);
+```
+
+基本的にはAlertDialogFactoryやDialogFactoryと変わりません。AlertDialogやDialogと同様に、`ngOnDestroy`で作成したポップオーバーを破棄することを忘れないでください。
+
+## NgModuleへのコンポーネントの追加
+
+PopoverFactoryを使って読み込むコンポーネントは、NgModuleの`declarations`と`entryComponents`に追加することを忘れないでください。
+
+```
+@NgModule({
+  imports: [OnsenModule],
+  declarations: [AppComponent, MyPopoverComponent],
+  bootstrap: [AppComponent],
+  entryComponents: [MyPopoverComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+class AppModule { }
+```
 
 -->

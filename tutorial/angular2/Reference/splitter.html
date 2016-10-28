@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Onsen UI App</title>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
   <script type="text/typescript">
   import {
     Component,
@@ -50,6 +50,7 @@
 
       <ons-splitter-content [page]="contentPage">
       </ons-splitter-content>
+    </ons-splitter>
     `
   })
   export class AppComponent {
@@ -79,8 +80,27 @@
 
 ## Splitter
 
-Splitter menu is made using `ons-splitter` element, `ons-splitter-content` element and `OnsSplitterSide` directive. Please refer to [OnsSplitterSide Reference](https://onsen.io/v2/docs/angular2/ons-splitter-side.html) for details.
+縦に分割する画面を作ったり、横からスワイプで表示するスライディングメニューを作るには、`ons-splitter`要素と`ons-splitter-content`要素とOnsSplitterSideディレクティブやOnsSplitterContentディレクティブを使って利用します。
 
-Tutorial contents will be added soon.
+[page]バインディングを使って指定します。
+
+```
+@Component({
+  selector: 'app',
+  template: `
+  <ons-splitter>
+    <ons-splitter-side [page]="sidePage" side="left" width="200px" style="border-right: 1px solid #ccc">
+    </ons-splitter-side>
+
+    <ons-splitter-content [page]="contentPage">
+    </ons-splitter-content>
+  </ons-splitter>
+  `
+})
+export class AppComponent {
+  sidePage = SidePageComponent;
+  contentPage = ContentPageComponent;
+}
+```
 
 -->

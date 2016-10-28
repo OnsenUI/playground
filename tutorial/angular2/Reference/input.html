@@ -5,8 +5,7 @@
   <title>Onsen UI App</title>
   <script type="text/typescript">
   import {
-    Component,
-    OnsenModule,
+    Component, OnsenModule,
     NgModule,
     CUSTOM_ELEMENTS_SCHEMA
   } from 'angular2-onsenui';
@@ -56,8 +55,33 @@
 
 ## Input
 
-`ons-input` element renders a input box. Please refer to [ons-input element Reference](https://onsen.io/v2/docs/angular2/ons-input.html) for more details.
+基本的な使い方
+`ons-input`要素を使うとすることができます。`value`双方向バインディングを使うことができます。
 
-Tutorial contents will be added soon.
+```
+@Component({
+  selector: 'app',
+  template: `
+  <ons-page>
+    <div class="content">
+      <div><ons-input placeholder="Type here" [(value)]="target"></ons-input></div>
+
+      <p>Text: {{target}}</p>
+    </div>
+  </ons-page>
+  `
+})
+export class AppComponent{
+  target: string = '';
+}
+```
+
+## 入力した瞬間に反映させる
+
+`ons-input`の`value`バインディングでは、フォーカスが外れたタイミング(`change`イベントが発生したタイミング)で値の変更が反映されます。入力した瞬間に双方向バインディングに値を反映させるには、次のように`(input)`イベントバインディングを使って値を代入して下さい。
+
+```
+<ons-input [(value)]="target" (input)="target = $event.target.value"></ons-input>
+```
 
 -->

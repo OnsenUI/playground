@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Onsen UI App</title>
+<html lang="en"> <head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
   <script type="text/typescript">
   import {
     Component,
@@ -66,9 +65,7 @@
 
   @NgModule({
     imports: [OnsenModule, BrowserModule],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    declarations: [AppComponent], bootstrap: [AppComponent], schemas: [CUSTOM_ELEMENTS_SCHEMA]
   })
   class AppModule { }
 
@@ -85,8 +82,66 @@
 
 ## Pull Hook
 
-Pull hook is made using `OnsPullHook` directive. Please see [OnsPullHook Reference](https://onsen.io/v2/docs/angular2/ons-pull-hook.html) for more details.
+Pull hookはいわゆる`pull-to-refresh`を実現するためのUIコンポーネントです。Onsen UIでは`ons-pull-hook`要素を使って宣言します。
 
-Tutorial contents will be added soon.
+まずコンポーネントのテンプレート中に`ons-pull-hook`要素を宣言し、振る舞いは`(changestate)`バインディングや`(action)`バインディングに記述します。
+
+```
+@Component({
+  selector: 'app',
+  template: `
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Pull Hook</div>
+    </ons-toolbar>
+
+    <div class="content">
+      <ons-pull-hook height="64px" threshold-height="128px" (changestate)="onChangeState($event)" (action)="onAction($event)">
+        {{message}}
+      </ons-pull-hook>
+    </div>
+  </ons-page>
+  `
+})
+```
+
+`(action)`イベントバインディングは、Pull hookが`threshold-height`属性で指定した以上に引き出された時に呼び出されます。一度のこの状態になると、pull hookはロード中の状態になって下に引き出されたままの状態になります。一般的に、この状態ではアプリケーションは何らかの読み込み処理を行います。
+
+このpull hookを元の状態に戻すには、`$event`の`done()`メソッドを呼び出すことで元の状態に戻ります。pull hookを使う際には適切なタイミングで`$event.done()`を呼び出して下さい。
+
+```
+  onAction($event) {
+    // 1秒後に元の状態に戻す
+    setTimeout(() => {
+      $event.done();
+    }, 1000);
+  }
+```
+
+## 状態の変化を検知する
+
+`ons-pull-hook`には次の３つの状態があります。
+
+ * `initial` - 最初の状態
+ * `preaction` - 途中までpull hookが引き出された状態
+ * `action` - pull hookが完全に引き出されている状態
+
+pull hookは最初に`initial`状態になります。pull hookが引き出されている時点では`preaction`状態になります。`threshold-height`属性で指定した以上に引き出されると`action`状態になり、`$event.done()`巻数が呼び出されると`initial`状態に戻ります。
+
+状態の変化に応じてなんらかの処理をする場合には`(changestate)`イベントバインディングを利用します。
+
+```
+<ons-pull-hook height="64px" threshold-height="128px" (changestate)="onChangeState($event)" (action)="onAction($event)">
+  {{message}}
+</ons-pull-hook>
+```
+
+その時の状態名は`$event.state`で参照することができます。
+
+```
+onChangeState($event) {
+  console.log($event.state);
+}
+```
 
 -->
