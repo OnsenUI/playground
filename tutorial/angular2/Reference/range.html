@@ -61,8 +61,42 @@
 
 ## Range
 
-`ons-range` element renders a range. Please refer to [ons-range element Reference](https://onsen.io/v2/docs/angular2/ons-range.html) for more details.
+`ons-range`要素は、`range`要素をラップしたコンポーネントです。`ons-range`要素を利用することでモバイルでのrange UIを作成することができます。
 
-Tutorial contents will be added soon.
+`value`双方向バインディングを使うことで、`ons-range`の値を指定したり変更を受け取ったりすることができます。 
+
+```
+  @Component({
+    selector: 'app',
+    template: `
+    <div>
+      <ons-range modifier="material" [(value)]="value"></ons-range><br>
+      Value: {{value}}
+    </div>
+    `
+  })
+  export class AppComponent {
+    value: string = '10';
+  }
+```
+
+## ドラッグ中に値の変更を検知する
+
+`ons-range`の双方向バインディングでは、値の変更が通知されるのは`ons-range`のコントロールを動かし終わったときです。もし動かしている最中に値の変更を受け取りたい場合には、`(input)`イベントバインディングを次のように記述します。
+
+```
+  @Component({
+    selector: 'app',
+    template: `
+    <div>
+      <ons-range modifier="material" [(value)]="value" (input)="value = $event.target.value"></ons-range><br>
+      Value: {{value}}
+    </div>
+    `
+  })
+  export class AppComponent {
+    value: string = '10';
+  }
+```
 
 -->

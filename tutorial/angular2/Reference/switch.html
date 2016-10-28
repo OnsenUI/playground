@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Onsen UI App</title>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
   <script type="text/typescript">
   import {
     Component,
@@ -28,7 +28,7 @@
           <label><input type="checkbox" [(ngModel)]="target"> {{target ? 'On' : 'Off'}}</label>
           <br>
           <br>
-          <ons-switch [(value)]="target"></ons-switch>
+          <ons-switch [value]="target" (change)="target = $event.target.checked"></ons-switch>
         </div>
       </div>
     </ons-page>
@@ -36,9 +36,6 @@
   })
   export class AppComponent {
     target: boolean = true;
-
-    constructor() {
-    }
   }
 
   @NgModule({
@@ -63,8 +60,37 @@
 
 ## Switch
 
-`ons-switch` element renders a switch. Please refer to [ons-switch element Reference](https://onsen.io/v2/docs/angular2/ons-switch.html) for more details.
+`ons-switch`要素はswitch UIを作ることができます。`ons-switch`に値を指定する場合には、`[value]`バインディングを使って値を指定します。
 
-Tutorial contents will be added soon.
+```
+@Component({
+  selector: 'app',
+  template: `
+    <ons-switch [value]="target"></ons-switch>
+    `
+})
+export class AppComponent {
+  target: boolean = true;
+}
+```
+
+## 値の変更を補足する
+
+`ons-switch`の値を補足するには、`(change)`イベントバインディングを次のように記述します。
+
+```
+@Component({
+  selector: 'app',
+  template: `
+    <div>
+      <div><ons-switch [value]="target" (change)="target = $event.target.checked"></ons-switch></div>
+      <div>{{target ? 'on' : 'off'}}</div>
+    </div>
+    `
+})
+export class AppComponent {
+  target: boolean = true;
+}
+```
 
 -->
