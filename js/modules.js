@@ -76,7 +76,6 @@ app.modules = {
       'button': 'Buttons',
       'range': 'Range sliders',
       'icon': 'Icons',
-      'if': 'Conditional element',
       'progress': 'Progress indicators',
       'fab': 'Floating action button',
       'speed-dial': 'Speed Dial',
