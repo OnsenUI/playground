@@ -2,18 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Learn how to develop awesome looking hybrid mobile apps with Onsen UI in this interactive tutorial.">
+  <meta name="description" content="Learn how to create awesome looking hybrid mobile apps with Onsen UI and AngularJS, Angular 2, React or Vanilla JS in this interactive tutorial.">
   <title>Onsen UI Tutorial</title>
 
+  <link rel="stylesheet" href="css/split.css">
   <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/dark-skin.css">
-  <link rel="stylesheet" href="css/embed.css">
+  <link rel="stylesheet" href="lib/highlight/chrome.css">
   <link rel="stylesheet" href="lib/highlight/monokai.css">
+  <link rel="canonical" href="https://tutorial.onsen.io/" />
 
-  <script defer src="lib/marked/marked.min.js"></script>
+  <script defer src="lib/Split.js/split.min.js"></script>
   <script defer src="lib/highlight/highlight.min.js"></script>
+  <script defer src="lib/marked/marked.min.js"></script>
   <!--<script defer src="lib/babel/babel.min.js" type="text/javascript" charset="utf-8"></script>-->
   <!--<script defer src="lib/typescript/typescript.min.js" type="text/javascript" charset="utf-8"></script>-->
+  <!--<script defer src="lib/jszip/jszip.min.js" type="text/javascript" charset="utf-8"></script>-->
+  <!--<script defer src="lib/jszip/jszip-utils.min.js" type="text/javascript" charset="utf-8"></script>-->
+  <!--<script defer src="lib/FileSaver/FileSaver.min.js" type="text/javascript" charset="utf-8"></script>-->
   <script defer src="lib/ace/emmet.min.js"></script>
   <script defer src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
   <script defer src="lib/ace/mode-html.js" type="text/javascript" charset="utf-8"></script>
@@ -27,66 +35,21 @@
   <script src="js/app.js"></script>
   <script src="js/util.js"></script>
   <script src="js/config.js"></script>
-  <script src="js/services.js"></script>
   <script src="js/setup.js"></script>
+  <script src="js/services.js"></script>
   <script src="js/listeners.js"></script>
   <script src="js/modules.js"></script>
 
 </head>
 
-<body class="tabs dark-skin">
+<body class="compact">
 
 <base target="_blank">
 
-<ul class="tabs">
-  <li class="tab">
-    <input type="radio" id="tab-1" name="tab-group-1">
-    <label for="tab-1">HTML</label>
-
-    <div class="content">
-      <div id="html-input" class="frame input"></div>
-    </div>
-  </li>
-  <li class="tab">
-    <input type="radio" id="tab-2" name="tab-group-1">
-    <label for="tab-2">JS</label>
-
-    <div class="content">
-      <div id="js-input" class="frame input"></div>​
-    </div>
-  </li>
-  <li class="tab">
-    <input type="radio" id="tab-3" name="tab-group-1" checked>
-    <label for="tab-3">Preview</label>
-
-    <div class="content">
-
-      <div id="output" class="frame">
-        <div class="preview-toolbar">
-          <div id="run" class="custom-button"><span><span>▶</span><span class="button-text"> Run</span></span></div>
-          <span id="styling">
-            <label class="custom-button">
-              <input type="radio" name="styling" checked>
-              <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label button-text">iOS View</span></span>
-            </label>
-            <label class="custom-button">
-              <input type="radio" name="styling">
-              <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label button-text">Android View</span></span>
-            </label>
-          </span>
-        </div>
-
-        <iframe frameborder="0" scrolling="no"></iframe>
-      </div>
-
-    </div>
-  </li>
-  <li class="tab">
-    <input type="radio" id="tab-4" name="tab-group-1">
-    <label for="tab-4">Docs</label>
-
-    <div class="content">
-
+<div id="container">
+  
+  <div id="leftPane" class="split split-horizontal">
+    <div class="split content">
       <div id="tutorial-content" class="frame"></div>
       <div id="tutorial-pages">
         <span id="pages-previous">◀</span>
@@ -96,17 +59,42 @@
         <span id="pages-next">▶</span>
 
       </div>
-
     </div>
-  </li>
-</ul>
+  </div>
 
-<div class="main-view-link" title="Open in Main View">
-  <a></a>
+  <div id="centerPane" class="split split-horizontal">
+    <div class="split content">
+      <div id="output" class="frame">
+        <div class="preview-toolbar">
+          <div id="run" class="custom-button"><span><span>▶</span> Run</span></div>
+          <span id="styling">
+            <label class="custom-button">
+              <input type="radio" name="styling" checked>
+              <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label">iOS View</span></span>
+            </label>
+            <label class="custom-button">
+              <input type="radio" name="styling">
+              <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label">Android View</span></span>
+            </label>
+          </span>
+        </div>
+
+        <iframe frameborder="0" scrolling="no"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div id="rightPane" class="split split-horizontal">
+    <div id="rightTopPane" class="split content">
+      <div class="editor-title">HTML</div>
+      <div id="html-input" class="frame input"></div>
+    </div>
+    <div id="rightBottomPane" class="split content">
+      <div class="editor-title">JS</div>
+      <div id="js-input" class="frame input"></div>
+    </div>
+  </div>
 </div>
-
-<div class="icon-ios icon-android" style="display: none"></div>
-
 
 <div id="placeholder">
   <svg version="1.0" xmlns="http://www.w3.org/2000/svg"

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          value: 0
+        };
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Range</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      handleChange(e) {
+        this.setState({value: e.target.value});
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <section style={{textAlign: 'center'}}>
+              <p>
+                <span>-50 </span>
+                <Ons.Range
+                  onChange={this.handleChange}
+                  value={this.state.value}
+                  min={-50}
+                  max={50}
+                />
+                <span> +50</span>
+              </p>
+              <p>
+                Value: {this.state.value}
+              </p>
+            </section>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Range sliders
+
+The `<Range>` element is used to display a slider.
+
+There are several props that can be used to customize the behavior of the element. Most of these props come from the original attributes for `<input type="range">` element.
+
+To set the maximum and minimum and maximum value the `min` and `max` props are used. The `step` prop can be used to change how much the value changes every step.
+
+The element can be disabled using the `disabled` prop.
+
+-->

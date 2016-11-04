@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Onsen UI App</title>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
 
   <script type="text/typescript">
     import {
       Component,
       OnsenModule,
       NgModule,
+      ViewChild,
       CUSTOM_ELEMENTS_SCHEMA
     } from 'angular2-onsenui';
     import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -31,7 +32,7 @@
           </div>
         </ons-toolbar>
         <div class="content">
-          <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
+          <ons-carousel #carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
             <ons-carousel-item style="background-color: #085078;">
               <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
                 BLUE
@@ -53,11 +54,13 @@
       `
     })
     export class AppComponent {
+      @ViewChild('carousel') carousel;
+
       prev() {
-        document.querySelector('ons-carousel').prev();
+        this.carousel.nativeElement.prev();
       }
       next() {
-        document.querySelector('ons-carousel').next();
+        this.carousel.nativeElement.next();
       }
     }
 

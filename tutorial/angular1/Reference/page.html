@@ -7,8 +7,9 @@
   <script>
     ons.bootstrap()
       .controller('PageController', function() {
+        this.title = 'My app';
         this.showAlert = function(message) {
-          ons.notification.alert(message)
+          ons.notification.alert(message);
         };
       });
   </script>
@@ -16,7 +17,12 @@
 <body>
   <ons-page ng-controller="PageController as page">
     <ons-toolbar>
-      <div class="center">My app</div>
+      <div class="center">{{page.title}}</div>
+      <div class="right">
+        <ons-toolbar-button>
+          <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>  
+        </ons-toolbar-button>
+      </div>
     </ons-toolbar>
 
     <p style="text-align: center">
@@ -27,12 +33,6 @@
 </html>
 
 <!-- info
-
-## Hello world!
-
-This is a simple "Hello world" example to get us started. The app contains just one page with a toolbar and a button.
-
-When the button is clicked an alert dialog is displayed. In this tutorial we will show you step-by-step how this is created.
 
 ## The `<ons-page>` element
 

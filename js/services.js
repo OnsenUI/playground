@@ -69,7 +69,7 @@ app.services.runProject = function () {
 };
 
 app.services.codepenSubmit = function () {
-  document.querySelector('#codepen-data').value = JSON.stringify({
+  var options = {
     title: 'Onsen UI',
     description: 'Onsen UI Tutorial Export',
     html: app.editors.html.getValue(),
@@ -78,7 +78,22 @@ app.services.codepenSubmit = function () {
     js_external: app.util.flattenJSLibs(app.services.getAllLibs()).join(';'),
     css_external: app.config.lib.remote.css.onsenui + ';' + app.config.lib.remote.css.onsenuiCssComponents,
     js_pre_processor: app.config.codeType
-  });
+  };
+
+  // Fix TypeScript in Codepen
+  if (app.config.codeType === 'typescript') {
+    options.html = `${options.html}
+
+<script type="text/typescript">
+${options.js}
+</script>
+`;
+    options.js = '';
+    options.js_external += ';https://unpkg.com/typescript@1.8.10';
+    options.editors = '100';
+  }
+
+  document.querySelector('#codepen-data').value = JSON.stringify(options);
 };
 
 app.services.switchStyle = function (platform) {
@@ -129,10 +144,17 @@ app.services.loadModule = function (framework, category, module) {
       document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
       document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
       app.services.updateTutorialPage();
-    })
-    .catch(function (err) {
-      console.error(err.message);
-    });
+
+      if (app.config.autoHideHTMLPane !== false) {
+        if (['react', 'angular2'].indexOf(app.config.framework) !== -1) {
+          app.services.resizeHTMLPane(0);
+        } else if (app.config.initRightPanePos) {
+          app.services.resizeHTMLPane(app.config.initRightPanePos);
+        }
+      }
+    },
+    console.error.bind(console)
+  );
 };
 
 app.services.updateDropdown = function (framework, category, module) {
@@ -376,17 +398,15 @@ app.services.updateTutorialPage = function () {
   tutorialContent.scrollTop = 0;
 };
 
-app.services.refreshSplit = function () {
-  var mousedown = new CustomEvent('mousedown');
-  var mousemove = new CustomEvent('mousemove', { bubbles: true });
-  var mouseup = new CustomEvent('mouseup', { bubbles: true });
-  var gutter = document.querySelector('.gutter-horizontal');
+app.services.refreshSplit = function (selector, position) {
+  var gutter = document.querySelector('#rightPane').previousElementSibling;
+  app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().right);
+};
 
-  mousemove.clientX = gutter.getBoundingClientRect().left;
-
-  gutter.dispatchEvent(mousedown);
-  gutter.dispatchEvent(mousemove);
-  gutter.dispatchEvent(mouseup);
+app.services.resizeHTMLPane = function(newPosition) {
+  var gutter = document.querySelector('#rightPane .gutter-vertical');
+  app.config.initRightPanePos = app.config.initRightPanePos || gutter.getBoundingClientRect().top;
+  app.util.simulatePanelDrag(gutter, 'y', newPosition);
 };
 
 app.services.modifySource = function () {

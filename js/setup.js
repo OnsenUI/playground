@@ -1,34 +1,71 @@
 app.setup = {};
 
 app.setup.splitPanes = function () {
-  Split(['#leftPane', '#rightPane'], {
-    gutterSize: 15,
-    sizes: [35, 65],
-    minSize: 300,
-    cursor: 'col-resize',
-    onDrag: app.util.resize.editorResize
-  });
+  if (!app.config.compact) { // Full View
+    Split(['#leftPane', '#rightPane'], {
+      gutterSize: 15,
+      sizes: [35, 65],
+      minSize: 300,
+      cursor: 'col-resize',
+      onDrag: app.util.resize.editorResize
+    });
 
-  Split(['#leftTopPane', '#leftBottomPane'], {
-    direction: 'vertical',
-    sizes: [40, 60],
-    minSize: [0, 4],
-    gutterSize: 15,
-    cursor: 'row-resize'
-  });
+    Split(['#leftTopPane', '#leftBottomPane'], {
+      direction: 'vertical',
+      sizes: [40, 60],
+      minSize: [9, 9],
+      gutterSize: 15,
+      cursor: 'row-resize'
+    });
+
+    document.querySelector('#leftPane').style.width = 'calc(35% - 7.5px)';
+    document.querySelector('#rightPane').style.width = 'calc(65% - 7.5px)';
+
+  } else { // Compact View
+    app.config.showDocs = app.util.getParam('docs') !== 'false';
+    if (app.config.showDocs) {
+      Split(['#leftPane', '#centerPane', '#rightPane'], {
+        gutterSize: 15,
+        sizes: [20, 25, 55],
+        minSize: [9, 310, 200],
+        cursor: 'col-resize',
+        onDrag: app.util.resize.editorResize
+      });
+
+      document.querySelector('#leftPane').style.width = 'calc(20% - 10px)';
+      document.querySelector('#centerPane').style.width = 'calc(25% - 10px)';
+      document.querySelector('#rightPane').style.width = 'calc(55% - 10px)';
+    } else {
+      Split(['#centerPane', '#rightPane'], {
+        gutterSize: 15,
+        sizes: [20, 80],
+        minSize: [300, 9],
+        cursor: 'col-resize',
+        onDrag: app.util.resize.editorResize
+      });
+
+      document.querySelector('#leftPane').style.display = 'none';
+      document.querySelector('#centerPane').style.width = 'calc(20% - 7.5px)';
+      document.querySelector('#rightPane').style.width = 'calc(80% - 7.5px)';
+    }
+  }
 
   Split(['#rightTopPane', '#rightBottomPane'], {
     direction: 'vertical',
     sizes: [50, 50],
-    minSize: [0, 4],
+    minSize: [9, 9],
     gutterSize: 15,
     cursor: 'row-resize',
     onDrag: app.util.resize.editorResize
   });
 
-  document.querySelector('#leftPane').style.width = 'calc(35% - 7.5px)';
-  document.querySelector('#rightPane').style.width = 'calc(65% - 7.5px)';
-}
+  var rememberDrag = function(event) {
+    app.config.autoHideHTMLPane = false;
+    event.target.removeEventListener('click', rememberDrag);
+  };
+
+  document.querySelector('#rightPane .gutter-vertical').addEventListener('click', rememberDrag);
+};
 
 app.setup.editor = function (id, language) {
   var editor = ace.edit(id);

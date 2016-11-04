@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Onsen UI App</title>
+
+  <script>
+    function showModal() {
+      var modal = document.querySelector('ons-modal');
+      modal.show();
+      setTimeout(function() {
+        modal.hide();
+      }, 2000);
+    }
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Modal</div>
+    </ons-toolbar>
+
+    <p style="text-align: center">
+      <ons-button onclick="showModal()">Show modal</ons-button>
+    </p>
+  </ons-page>
+
+  <ons-modal direction="up">
+    <div style="text-align: center">
+      <p>
+        <ons-icon icon="md-spinner" size="28px" spin></ons-icon> Loading...
+      </p>
+    </div>
+  </ons-modal>
+</body>
+</html>
+
+<!-- info
+
+## Modal
+
+Modals are used to display some information on top of the app and take the focus. It forbids user interaction with the background.
+
+Simply add the modal tags together with the page.
+
+```
+<ons-page>...</ons-page>
+
+<ons-modal>
+  This is a modal!
+</ons-modal>
+```
+
+Use `show`, `hide` and `toggle` methods to control it.
+
+-->

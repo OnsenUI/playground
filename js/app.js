@@ -1,6 +1,11 @@
 window.app = {};
+window.setVersion = function(lib, version) {
+  window.sessionStorage.setItem(lib + '-version', version);
+  console.info('Reload the page to get the new version.');
+};
 
 document.addEventListener("DOMContentLoaded", function () {
+  app.config.compact = document.body.classList.contains('compact');
   app.config.welcomeMessage = document.querySelector('#tutorial-content').innerHTML;
 
   // General setup
@@ -10,18 +15,15 @@ document.addEventListener("DOMContentLoaded", function () {
     external = app.util.getParam('external');
   if (window.Split) {
     app.setup.splitPanes();
-    app.setup.modules();
-    app.setup.toolbar();
-    if (framework && category && module) {
-      app.services.updateDropdown(framework, category, module);
+    if (!app.config.compact) {
+      app.setup.modules();
+      app.setup.toolbar();
+      if (framework && category && module) {
+        app.services.updateDropdown(framework, category, module);
+      }
     }
   } else {
     app.setup.tabView();
-  }
-
-  // Theme setup
-  if (!window.Split || window.localStorage.getItem('onsDarkSkin')) {
-    document.body.classList.add('dark-skin');
   }
 
   // Tutorial setup

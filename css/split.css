@@ -12,6 +12,10 @@ html, body {
   box-sizing: border-box;
 }
 
+.compact #container {
+  padding: 15px;
+}
+
 .split {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;

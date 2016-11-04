@@ -1,106 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Onsen UI App</title>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
   <script type="text/typescript">
-  import {
-    Component,
-    DialogFactory,
-    AfterViewInit,
-    OnInit,
-    OnDestroy,
-    Params,
-    OnsenModule,
-    NgModule,
-    CUSTOM_ELEMENTS_SCHEMA
-  } from 'angular2-onsenui';
-  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+    import {
+      Component,
+      ComponentRef,
+      DialogFactory,
+      AlertDialogFactory,
+      ViewChild,
+      Params,
+      AfterViewInit,
+      OnDestroy,
+      OnsenModule,
+      NgModule,
+      onsNotification,
+      CUSTOM_ELEMENTS_SCHEMA
+    } from 'angular2-onsenui';
+    import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-  @Component({
-    template: `
-      <ons-dialog animation="default" cancelable #dialog>
-        <div class="dialog-mask"></div>
-        <div class="dialog">
-          <div class="dialog-container" style="height: 200px;">
-            <ons-page>
-              <ons-toolbar>
-                <div class="center">Name</div>
-              </ons-toolbar>
-              <div class="content">
-                <div style="text-align: center">
-                  <p>{{message}}</p>
-                  <br>
-                  <ons-button (click)="dialog.hide()">Close</ons-button>
+    @Component({
+      template: `
+        <ons-dialog animation="default" cancelable #dialog>
+          <div class="dialog-mask"></div>
+          <div class="dialog">
+            <div class="dialog-container" style="height: 200px;">
+              <ons-page>
+                <ons-toolbar>
+                  <div class="center">Name</div>
+                </ons-toolbar>
+                <div class="content">
+                  <div style="text-align: center">
+                    <p>{{message}}</p>
+                    <br>
+                    <ons-button (click)="dialog.hide()">Close</ons-button>
+                  </div>
                 </div>
-              </div>
-            </ons-page>
+              </ons-page>
+            </div>
           </div>
-        </div>
-      </ons-dialog>
-    `
-  })
-  class MyDialogComponent {
-    message = '';
+        </ons-dialog>
+      `
+    })
+    class MyDialogComponent {
+      message = '';
 
-    constructor(params: Params) {
-      this.message = <string>params.at('message');
-    }
-  }
-
-  @Component({
-    selector: 'app',
-    template: `
-    <ons-page class="page">
-      <ons-toolbar>
-        <div class="center">Dialog</div>
-      </ons-toolbar>
-      <div class="content">
-        <div style="text-align: center;">
-          <br>
-          <ons-button (click)="show()">Open</ons-button>
-        </div>
-      </div>
-    </ons-page>
-    `
-  })
-  export class AppComponent implements OnInit, OnDestroy {
-    private _dialog: any;
-    private _destroyDialog: Function;
-
-    constructor(private _dialogFactory: DialogFactory) {
-    }
-
-    ngOnInit() {
-      this._dialogFactory
-        .createDialog(MyDialogComponent, {message: 'This is just an example.'})
-        .then(({dialog, destroy}) => {
-          this._dialog = dialog;
-          this._destroyDialog = destroy;
-        });
-    }
-
-    show() {
-      if (this._dialog) {
-        this._dialog.show();
+      constructor(params: Params) {
+        this.message = <string>params.at('message');
       }
     }
 
-    ngOnDestroy() {
-      this._destroyDialog();
+    @Component({
+      template: `
+        <ons-alert-dialog cancelable #alert>
+          <div class="alert-dialog-title">Warning!</div>
+          <div class="alert-dialog-content">
+            {{message}}
+          </div>
+          <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" (click)="alert.hide()">OK</button>
+          </div>
+        </ons-alert-dialog>
+      `
+    })
+    class MyAlertDialogComponent {
+      message = '';
+
+      constructor(params: Params) {
+        this.message = <string>params.at('message');
+      }
     }
-  }
 
-  @NgModule({
-    imports: [OnsenModule],
-    declarations: [AppComponent, MyDialogComponent],
-    bootstrap: [AppComponent],
-    entryComponents: [MyDialogComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-  })
-  class AppModule { }
+    @Component({
+      selector: 'app',
+      template: `
+      <ons-page class="page">
+        <ons-toolbar>
+          <div class="center">Alert Dialog</div>
+        </ons-toolbar>
+        <div class="content">
+          <ons-list>
+            <ons-list-header>Custom dialogs</ons-list-header>
+            <ons-list-item tappable (click)="showAlertDialog()">Custom alert-dialog</ons-list-item>
+            <ons-list-item tappable (click)="showDialog()">Custom dialog</ons-list-item>
 
-  platformBrowserDynamic().bootstrapModule(AppModule);
+            <ons-list-header>Notification</ons-list-header>
+            <ons-list-item tappable (click)="alert()" id="alert-button">Alert</ons-list-item>
+            <ons-list-item tappable (click)="confirm()" id="confirm-button">Confirmation</ons-list-item>
+            <ons-list-item tappable (click)="prompt()" id="prompt-button">Prompt</ons-list-item>
+          </ons-list>
+        </div>
+      </ons-page>
+      `
+    })
+    export class AppComponent implements AfterViewInit, OnDestroy {
+      private _alert: any;
+      private _destroyAlert: Function;
+      private _dialog: any;
+      private _destroyDialog: Function;
+
+      constructor(private _adf: AlertDialogFactory, private _df: DialogFactory) {
+      }
+
+      ngAfterViewInit() {
+        this._adf
+          .createAlertDialog(MyAlertDialogComponent, {message: 'This is just an example.'})
+          .then(({alertDialog, destroy}) => {
+            this._alert = alertDialog;
+            this._destroyAlert = destroy;
+          });
+
+        this._df
+          .createDialog(MyDialogComponent, {message: 'This is just an example.'})
+          .then(({dialog, destroy}) => {
+            this._dialog = dialog;
+            this._destroyDialog = destroy;
+          });
+      }
+
+      showAlertDialog() {
+        if (this._alert) {
+          this._alert.show();
+        }
+      }
+
+      showDialog() {
+        if (this._dialog) {
+          this._dialog.show();
+        }
+      }
+
+      alert() {
+        onsNotification.alert('Hello, world!');
+      }
+
+      confirm() {
+        onsNotification.confirm({
+          message: 'This dialog can be canceled by tapping the background or using the back button on your device.',
+          cancelable: true,
+          callback: i => {
+            if (i == -1) {
+              onsNotification.alert({message: 'You canceled it!'});
+            }
+          }
+        });
+      }
+
+      prompt() {
+        onsNotification.prompt({
+          message: 'What is the meaning of Life, the Universe and Everything?',
+          callback: answer => {
+            if (answer === '42') {
+              onsNotification.alert({message: 'That\'s the correct answer!'});
+            } else {
+              onsNotification.alert({message: 'Incorrect! Please try again!'});
+            }
+          }
+        });
+      }
+
+      ngOnDestroy() {
+        this._destroyAlert();
+      }
+    }
+
+    @NgModule({
+      imports: [OnsenModule],
+      declarations: [AppComponent, MyAlertDialogComponent, MyDialogComponent],
+      bootstrap: [AppComponent],
+      entryComponents: [MyAlertDialogComponent, MyDialogComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    class AppModule { }
+
+    platformBrowserDynamic().bootstrapModule(AppModule);
   </script>
 
 </head>
@@ -113,7 +187,7 @@
 
 ## Dialog
 
-`ons-dialog` element is a general purpose dialog component. Please refer to [ons-dialog element Reference](https://onsen.io/v2/docs/angular2/ons-dialog.html) for more details.
+`ons-alert-dialog` element is a handy way to show a dialog with a button. Please refer to [ons-alert-dialog element Reference](https://onsen.io/v2/docs/angular2/ons-alert-dialog.html) for more details.
 
 Tutorial contents will be added soon.
 

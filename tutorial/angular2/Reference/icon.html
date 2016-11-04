@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Onsen UI App</title>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
 
   <script type="text/typescript">
     import {
       Component,
       OnsenModule,
       NgModule,
-      onsNotification,
       CUSTOM_ELEMENTS_SCHEMA
     } from 'angular2-onsenui';
     import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -19,27 +18,19 @@
       template: `
       <ons-page>
         <ons-toolbar>
-          <div class="center">{{title}}</div>
-          <div class="right">
-            <ons-toolbar-button>
-              <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-            </ons-toolbar-button>
-          </div>
+          <div class="center">Icon</div>
         </ons-toolbar>
         <div class="content">
-          <p style="text-align: center">
-            <ons-button (click)="alert()">Click me!</ons-button>
-          </p>
+          <div style="text-align: center; margin: 10px;">
+            <ons-icon icon="md-home" size="24px"></ons-icon>
+            <ons-icon icon="md-face" size="24px"></ons-icon>
+            <ons-icon icon="md-zoom-in" size="24px"></ons-icon>
+          </div>
         </div>
       </ons-page>
       `
     })
     export class AppComponent {
-      title:string = 'My app';
-
-      alert() {
-        onsNotification.alert('Hello, world!');
-      }
     }
 
     @NgModule({
@@ -60,10 +51,10 @@
 
 <!-- info
 
-## The `ons-page` element
+## Icon
 
-Please refer to [ons-page element Reference](https://onsen.io/v2/docs/angular2/ons-page.html) for more details.
+`ons-icon` element renders a icon.
 
-For additional resources, please also see  [Guide for Angular 2](https://onsen.io/v2/docs/guide/angular2).
+Tutorial contents will be added soon.
 
 -->

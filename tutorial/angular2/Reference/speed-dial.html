@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Onsen UI App</title>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
 
   <script type="text/typescript">
     import {
       Component,
       OnsenModule,
       NgModule,
-      onsNotification,
       CUSTOM_ELEMENTS_SCHEMA
     } from 'angular2-onsenui';
     import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -17,28 +16,26 @@
     @Component({
       selector: 'app',
       template: `
-      <ons-page>
+      <ons-page class="page">
         <ons-toolbar>
-          <div class="center">{{title}}</div>
-          <div class="right">
-            <ons-toolbar-button>
-              <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-            </ons-toolbar-button>
-          </div>
+          <div class="center">Speed Dial</div>
         </ons-toolbar>
+
+        <div class="background"></div>
         <div class="content">
-          <p style="text-align: center">
-            <ons-button (click)="alert()">Click me!</ons-button>
-          </p>
+
+          <ons-speed-dial position="right bottom" direction="up">
+            <ons-fab><ons-icon icon="md-car"></ons-icon></ons-fab>
+            <ons-speed-dial-item>A</ons-speed-dial-item>
+            <ons-speed-dial-item>B</ons-speed-dial-item>
+            <ons-speed-dial-item>C</ons-speed-dial-item>
+          </ons-speed-dial>
         </div>
       </ons-page>
       `
     })
     export class AppComponent {
-      title:string = 'My app';
-
-      alert() {
-        onsNotification.alert('Hello, world!');
+      constructor() {
       }
     }
 
@@ -60,10 +57,8 @@
 
 <!-- info
 
-## The `ons-page` element
+## Speed Dial
 
-Please refer to [ons-page element Reference](https://onsen.io/v2/docs/angular2/ons-page.html) for more details.
-
-For additional resources, please also see  [Guide for Angular 2](https://onsen.io/v2/docs/guide/angular2).
+Tutorial contents will be added soon.
 
 -->
