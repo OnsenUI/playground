@@ -74,6 +74,7 @@ app.setup.editor = function (id, language) {
   editor.session.setTabSize(2);
   editor.session.setUseSoftTabs(true);
   editor.renderer.setShowGutter(window.Split);
+  editor.container.style.lineHeight = 1.3;
   editor.$blockScrolling = Infinity;
   editor.commands.removeCommand('find');
   editor.setOptions({
