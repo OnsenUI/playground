@@ -74,6 +74,7 @@ app.setup.editor = function (id, language) {
   editor.session.setTabSize(2);
   editor.session.setUseSoftTabs(true);
   editor.renderer.setShowGutter(window.Split);
+  editor.container.style.lineHeight = 1.3;
   editor.$blockScrolling = Infinity;
   editor.commands.removeCommand('find');
   editor.setOptions({
@@ -125,7 +126,7 @@ app.setup.tabView = function () {
   }
 
   var mainViewLink = document.querySelector('.main-view-link a');
-  mainViewLink.setAttribute('href', window.location.href.replace('/embed.html', '/index.html'));
+  mainViewLink.setAttribute('href', window.location.href.replace('/tabs.html', '/index.html'));
 };
 
 app.setup.toolbar = function () {
