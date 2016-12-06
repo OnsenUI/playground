@@ -2,7 +2,7 @@
 
 System.config({
   map: {
-    'angular2-onsenui': (window._onsNightlyBuild ? 'https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/artifacts/0/$CIRCLE_ARTIFACTS/angular2-onsenui' : ('https://unpkg.com/angular2-onsenui' + (window._onsAngular2LibVersion ? ('@' + window._onsAngular2LibVersion) : ''))) + '/dist/bundles/angular2-onsenui.umd.js' + (window._onsNightlyBuild ? '?branch=master&filter=successful' : ''),
+    'angular2-onsenui': (window._onsNightlyBuild ? 'https://crossorigin.me/https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/artifacts/0/$CIRCLE_ARTIFACTS/angular2-onsenui' : ('https://unpkg.com/angular2-onsenui' + (window._onsAngular2LibVersion ? ('@' + window._onsAngular2LibVersion) : ''))) + '/dist/bundles/angular2-onsenui.umd.js' + (window._onsNightlyBuild ? '?branch=master&filter=successful' : ''),
     '@angular/core': 'https://unpkg.com/@angular/core@2.0.0/bundles/core.umd.min.js',
     '@angular/compiler': 'https://unpkg.com/@angular/compiler@2.0.0/bundles/compiler.umd.min.js',
     '@angular/common': 'https://unpkg.com/@angular/common@2.0.0/bundles/common.umd.min.js',
@@ -17,10 +17,10 @@ System.config({
       format: 'cjs',
       meta: {
         '*': {
-          'scriptLoad': true,
+          'scriptLoad': false,
           // 'authorization': true,
           // 'crossOrigin': 'anonymous',
-          'exports': 'angular2-onsenui',
+          // 'exports': 'angular2-onsenui',
           format: 'cjs'
         }
       }
