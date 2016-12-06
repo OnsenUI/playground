@@ -152,7 +152,7 @@ app.services.loadModule = function (framework, category, module) {
       document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
       app.services.updateTutorialPage();
 
-      if (app.config.autoHideHTMLPane !== false) {
+      if (window.Split && app.config.autoHideHTMLPane !== false) {
         if (['react', 'angular2'].indexOf(app.config.framework) !== -1) {
           app.services.resizeHTMLPane(0);
         } else if (app.config.initRightPanePos) {
