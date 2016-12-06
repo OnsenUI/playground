@@ -29,8 +29,8 @@ app.services.generateTemplateOutput = function () {
   `;
 };
 
-app.services.getJSLibs = function (position) {
-  var libs = app.util.flattenJSLibs(app.services.getAllLibs(position));
+app.services.getJSLibs = function () {
+  var libs = app.services.getRequiredLibs();
   var result = '';
 
   libs.forEach(function (lib) {
@@ -41,9 +41,10 @@ app.services.getJSLibs = function (position) {
 }
 
 app.services.getCSSLibs = function () {
+  var css = app.config.lib().css;
   return `
-  <link rel="stylesheet" href="${app.config.lib.css.onsenui}">
-  <link rel="stylesheet" href="${app.config.lib.css.onsenuiCssComponents}">`;
+  <link rel="stylesheet" href="${css.onsenui}">
+  <link rel="stylesheet" href="${css.onsenuiCssComponents}">`;
 };
 
 app.services.showWelcomeMessage = function () {
@@ -69,14 +70,16 @@ app.services.runProject = function () {
 };
 
 app.services.codepenSubmit = function () {
+  var css = app.config.lib().css;
+
   var options = {
     title: 'Onsen UI',
     description: 'Onsen UI Tutorial Export',
     html: app.editors.html.getValue(),
     js: app.editors.js.getValue(),
     editors: '101',
-    js_external: app.util.flattenJSLibs(app.services.getAllLibs()).join(';'),
-    css_external: app.config.lib.remote.css.onsenui + ';' + app.config.lib.remote.css.onsenuiCssComponents,
+    js_external: app.services.getRequiredLibs().join(';'),
+    css_external: css.onsenui + ';' + css.onsenuiCssComponents,
     js_pre_processor: app.config.codeType
   };
 
@@ -195,38 +198,38 @@ app.services.updateEditors = function (html, js) {
   }
 };
 
-app.services.getAllLibs = function (position) {
-  position = position || 'remote';
-  var libs = {
+app.services.getRequiredLibs = function () {
+  var libs = app.config.lib()
+  var requiredLibs = {
     'onsenui': {
-      'onsen/js': [app.config.lib.js.onsenui],
-      'onsen/css': [app.config.lib.css.onsenui, app.config.lib.css.onsenuiCssComponents]
+      'onsen/js': [libs.js.onsenui],
+      'onsen/css': [libs.css.onsenui, libs.css.onsenuiCssComponents]
     }
   };
 
   switch (app.config.framework) {
     case 'react':
-      libs.react = {
-        'react': [app.config.lib.js.react, app.config.lib.js.reactDom],
-        'react-onsenui': [app.config.lib.js.reactOnsenui]
+      requiredLibs.react = {
+        'react': [libs.js.react, libs.js.reactDom],
+        'react-onsenui': [libs.js.reactOnsenui]
       }
       break;
     case 'angular1':
-      libs.angular1 = {
-        'angular1': [app.config.lib.js.angular1],
-        'onsen/js': [app.config.lib.js.angularOnsenui]
+      requiredLibs.angular1 = {
+        'angular1': [libs.js.angular1],
+        'onsen/js': [libs.js.angularOnsenui]
       }
       break;
     case 'angular2':
-      libs.angular2 = {
-        'systemjs': [app.config.lib.js.systemjs, 'https://tutorial.onsen.io/js/onsenui.system.js'],
-        'corejs': [app.config.lib.js.corejs],
-        'zone': [app.config.lib.js.zone]
+      requiredLibs.angular2 = {
+        'systemjs': [libs.js.systemjs, 'https://tutorial.onsen.io/js/onsenui.system.js'],
+        'corejs': [libs.js.corejs],
+        'zone': [libs.js.zone]
       }
       break;
   }
 
-  return libs;
+  return app.util.flattenJSLibs(requiredLibs);
 };
 
 app.services.getTranspilerLib = function () {

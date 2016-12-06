@@ -1,7 +1,9 @@
 window.app = {};
-window.setVersion = function(lib, version) {
+
+app.setVersion = function(lib, version) {
+  app.config.versions[lib] = version;
   window.sessionStorage.setItem(lib + '-version', version);
-  console.info('Reload the page to get the new version.');
+  console.info('Run the project to update the version.');
 };
 
 document.addEventListener("DOMContentLoaded", function () {
