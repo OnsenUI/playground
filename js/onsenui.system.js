@@ -15,15 +15,6 @@ System.config({
   packages: {
     'angular2-onsenui': {
       format: 'cjs',
-      meta: {
-        '*': {
-          'scriptLoad': false,
-          // 'authorization': true,
-          // 'crossOrigin': 'anonymous',
-          // 'exports': 'angular2-onsenui',
-          format: 'cjs'
-        }
-      }
     },
     'core-js': {
       main: 'index.js',
@@ -40,12 +31,7 @@ System.config({
   meta: {
     'inline': {
       loader: 'inline-loader'
-    },
-    // 'angular2-onsenui': {
-    //   'scriptLoad': true,
-    //   'format': 'cjs',
-    //   'exports': 'angular2-onsenui'
-    // }
+    }
   },
   transpiler: 'typescript',
   typescriptOptions: {

@@ -7,7 +7,7 @@ app.config.ci = 'https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/arti
 app.config.nightly = window.sessionStorage.getItem('nightly') === 'true';
 app.config.getCdnUrl = function(lib, path) {
   var url = app.config.nightly ?　app.config.ci : app.config.cdn;
-  url += `${lib}${(app.config.versions[lib] ? ('@' + app.config.versions[lib]) : '')}/${path}`;
+  url += `${lib}${(app.config.versions[lib] && !app.config.nightly ? ('@' + app.config.versions[lib]) : '')}/${path}`;
 
   if (app.config.nightly) {
     url += '?branch=master&filter=successful';
@@ -51,7 +51,8 @@ app.config.lib = function() {
       systemjs: `https://unpkg.com/systemjs@0.19.37/dist/system.js`
     },
     css: {
-      onsenui: app.config.getCdnUrl('onsenui', 'css/onsenui.css'),
+      // onsenui: app.config.getCdnUrl('onsenui', 'css/onsenui.css'),
+      onsenui: `https://unpkg.com/onsenui${!app.config.versions.onsenui || app.config.nightly ? '' : ('@' + app.config.versions.onsenui)}/css/onsenui.css`, // CORS browser issue with fonts from the same server
       onsenuiCssComponents: app.config.getCdnUrl('onsenui', 'css/onsen-css-components.css')
     }
   };

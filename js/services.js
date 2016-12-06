@@ -17,7 +17,6 @@ app.services.generateTemplateOutput = function () {
       ${app.services.getJSLibs()}
       <script>
         ons.platform.select('${app.config.platform}');
-        ons.nightly = ${app.config.nightly};
       </script>
       <script type="text/${app.config.codeType}">
         ${app.editors.js.getValue()}
