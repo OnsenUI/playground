@@ -125,7 +125,7 @@ app.setup.tabView = function () {
   }
 
   var mainViewLink = document.querySelector('.main-view-link a');
-  mainViewLink.setAttribute('href', window.location.href.replace('/embed.html', '/index.html'));
+  mainViewLink.setAttribute('href', window.location.href.replace('/tabs.html', '/index.html'));
 };
 
 app.setup.toolbar = function () {
