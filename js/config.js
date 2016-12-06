@@ -15,7 +15,7 @@ app.config.getCdnUrl = function(lib, path) {
   return url;
 };
 
-app.config.ownLibs = ['onsenui', 'react-onsenui'];
+app.config.ownLibs = ['onsenui', 'react-onsenui', 'angular2-onsenui'];
 app.config.extLibs = ['react', 'angular2'];
 
 app.config.versions = {};
@@ -32,7 +32,6 @@ app.config.ownLibs.forEach(function (libName) {
     console.info(`Using latest release of ${libName}.js`);
   }
 });
-console.info('Using latest release of angular2-onsenui.js'); // Version provided in onsenui.system.js
 
 app.config.lib = function() {
   return {

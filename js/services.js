@@ -9,10 +9,15 @@ app.services.generateTemplateOutput = function () {
       <meta charset="UTF-8">
       <title>OnsenUI Tutorial</title>
 
+      <script>
+        window._onsNightlyBuild = ${app.config.nightly};
+        window._onsAngular2LibVersion = '${app.config.versions['angular2-onsenui'] || ''}';
+      </script>
       ${app.services.getTranspilerLib()}
       ${app.services.getJSLibs()}
       <script>
         ons.platform.select('${app.config.platform}');
+        ons.nightly = ${app.config.nightly};
       </script>
       <script type="text/${app.config.codeType}">
         ${app.editors.js.getValue()}
@@ -222,7 +227,7 @@ app.services.getRequiredLibs = function () {
       break;
     case 'angular2':
       requiredLibs.angular2 = {
-        'systemjs': [libs.js.systemjs, 'https://tutorial.onsen.io/js/onsenui.system.js'],
+        'systemjs': [libs.js.systemjs, '/js/onsenui.system.js'],
         'corejs': [libs.js.corejs],
         'zone': [libs.js.zone]
       }
