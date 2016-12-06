@@ -1,3 +1,4 @@
+/* global app */
 app.services = {};
 
 app.services.generateTemplateOutput = function () {
@@ -8,6 +9,10 @@ app.services.generateTemplateOutput = function () {
       <meta charset="UTF-8">
       <title>OnsenUI Tutorial</title>
 
+      <script>
+        window._onsNightlyBuild = ${app.config.nightly};
+        window._onsAngular2LibVersion = '${app.config.versions['angular2-onsenui'] || ''}';
+      </script>
       ${app.services.getTranspilerLib()}
       ${app.services.getJSLibs()}
       <script>
@@ -28,8 +33,8 @@ app.services.generateTemplateOutput = function () {
   `;
 };
 
-app.services.getJSLibs = function (position) {
-  var libs = app.util.flattenJSLibs(app.services.getAllLibs(position));
+app.services.getJSLibs = function () {
+  var libs = app.services.getRequiredLibs();
   var result = '';
 
   libs.forEach(function (lib) {
@@ -39,11 +44,11 @@ app.services.getJSLibs = function (position) {
   return result;
 }
 
-app.services.getCSSLibs = function (position) {
-  position = position || 'remote';
+app.services.getCSSLibs = function () {
+  var css = app.config.lib().css;
   return `
-  <link rel="stylesheet" href="${app.config.lib[position].css.onsenui}">
-  <link rel="stylesheet" href="${app.config.lib[position].css.onsenuiCssComponents}">`;
+  <link rel="stylesheet" href="${css.onsenui}">
+  <link rel="stylesheet" href="${css.onsenuiCssComponents}">`;
 };
 
 app.services.showWelcomeMessage = function () {
@@ -69,14 +74,16 @@ app.services.runProject = function () {
 };
 
 app.services.codepenSubmit = function () {
+  var css = app.config.lib().css;
+
   var options = {
     title: 'Onsen UI',
     description: 'Onsen UI Tutorial Export',
     html: app.editors.html.getValue(),
     js: app.editors.js.getValue(),
     editors: '101',
-    js_external: app.util.flattenJSLibs(app.services.getAllLibs()).join(';'),
-    css_external: app.config.lib.remote.css.onsenui + ';' + app.config.lib.remote.css.onsenuiCssComponents,
+    js_external: app.services.getRequiredLibs().join(';'),
+    css_external: css.onsenui + ';' + css.onsenuiCssComponents,
     js_pre_processor: app.config.codeType
   };
 
@@ -175,36 +182,6 @@ app.services.updateSelectedItem = function (framework, module) {
   }
 };
 
-app.services.transpile = function (code) {
-  switch (app.config.codeType) {
-    case 'babel':
-      var result;
-      try {
-        result = Babel.transform(code, { presets: ['react'] }).code;
-      } catch (e) {
-        var msg = e.message
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;');
-
-        result = `
-          setTimeout(function() {
-            document.body.setAttribute('style', 'color: red; margin: 8px; font-family: Arial');
-            document.body.innerHTML = \`<pre>${msg}</pre>\`;
-          }, 0);
-        `;
-      }
-      return result;
-    case 'typescript':
-      var result;
-      result = ts.transpileModule(code, { module: ts.ModuleKind.CommonJS, reportDiagnostics: true }).outputText;
-      return result;
-    case 'javascript':
-    default:
-      return code;
-  }
-};
-
 app.services.updateEditors = function (html, js) {
   app.editors.html.session.setValue(html, -1);
   app.editors.js.session.setValue(js, -1);
@@ -225,38 +202,38 @@ app.services.updateEditors = function (html, js) {
   }
 };
 
-app.services.getAllLibs = function (position) {
-  position = position || 'remote';
-  var libs = {
+app.services.getRequiredLibs = function () {
+  var libs = app.config.lib()
+  var requiredLibs = {
     'onsenui': {
-      'onsen/js': [app.config.lib[position].js.onsenui],
-      'onsen/css': [app.config.lib[position].css.onsenui, app.config.lib[position].css.onsenuiCssComponents]
+      'onsen/js': [libs.js.onsenui],
+      'onsen/css': [libs.css.onsenui, libs.css.onsenuiCssComponents]
     }
   };
 
   switch (app.config.framework) {
     case 'react':
-      libs.react = {
-        'react': [app.config.lib[position].js.react, app.config.lib[position].js.reactDom],
-        'react-onsenui': [app.config.lib[position].js.reactOnsenui]
+      requiredLibs.react = {
+        'react': [libs.js.react, libs.js.reactDom],
+        'react-onsenui': [libs.js.reactOnsenui]
       }
       break;
     case 'angular1':
-      libs.angular1 = {
-        'angular1': [app.config.lib[position].js.angular1],
-        'onsen/js': [app.config.lib[position].js.angularOnsenui]
+      requiredLibs.angular1 = {
+        'angular1': [libs.js.angular1],
+        'onsen/js': [libs.js.angularOnsenui]
       }
       break;
     case 'angular2':
-      libs.angular2 = {
-        'systemjs': [app.config.lib[position].js.systemjs, 'https://tutorial.onsen.io/js/onsenui.system.js'],
-        'corejs': [app.config.lib[position].js.corejs],
-        'zone': [app.config.lib[position].js.zone]
+      requiredLibs.angular2 = {
+        'systemjs': [libs.js.systemjs, '/js/onsenui.system.js'],
+        'corejs': [libs.js.corejs],
+        'zone': [libs.js.zone]
       }
       break;
   }
 
-  return libs;
+  return app.util.flattenJSLibs(requiredLibs);
 };
 
 app.services.getTranspilerLib = function () {
@@ -268,128 +245,6 @@ app.services.getTranspilerLib = function () {
     default:
       return '';
   }
-};
-
-app.services.addTranspilerDependencies = function (packageJSON) {
-  switch (app.config.codeType) {
-    case 'babel':
-      packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[0], true);
-      packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[1], false);
-
-      packageJSON = app.util.addEntry(packageJSON, 'scripts', '"build": "babel www/js/app.jsx -o www/js/app.js"', true);
-      packageJSON = app.util.addEntry(packageJSON, 'scripts', '"watch": "babel www/js/app.jsx --watch -o www/js/app.js"', false);
-
-      packageJSON = packageJSON.replace(/\}\s*\}[\s]*$/, '},\n  "babel": {\n\n  }\n}');
-      packageJSON = app.util.addEntry(packageJSON, 'babel', '"presets": ["react"]', true);
-      break;
-    case 'typescript':
-      packageJSON = app.util.addEntry(packageJSON, 'typescript', app.config.npm.typescript[0], true);
-      break;
-  }
-
-  return packageJSON;
-};
-
-app.services.showGenerateModal = function () {
-  var state = window.history.state;
-  if (state) {
-    document.querySelector('#modal').classList.remove('generating');
-    document.querySelector('#modal-container').classList.add('visible');
-  }
-};
-
-
-app.services.hideGenerateModal = function () {
-  document.querySelector('#modal-container').classList.remove('visible');
-};
-
-app.services.generateCordovaProject = function () {
-  document.querySelector('#modal').classList.add('generating');
-
-  JSZipUtils.getBinaryContent('./project-template.zip', function (err, data) {
-    if (err) {
-      throw new Error(err);
-    }
-
-    var token = {
-      body: '<!-- App layout -->\n',
-      css: '<!-- CSS dependencies -->',
-      js: '<!-- JS dependencies -->'
-    };
-
-    // ZIP FILE
-    var zip = new JSZip(data);
-
-    // INDEX.HTML
-    var indexHTML = zip.file('www/index.html').asText();
-    indexHTML = indexHTML
-      .replace(token.body, token.body + app.editors.html.getValue().split('\n').map(function (line) {
-        return line ? ('  ' + line) : line;
-      }).join('\n'))
-      .replace(token.css, token.css + app.services.getCSSLibs('local'))
-      .replace(token.js, token.js + app.services.getJSLibs('local'));
-    zip.file('www/index.html', indexHTML);
-
-    // APP.JS
-    if (app.config.framework === 'react') {
-      zip.file('www/js/app.js', app.services.transpile(app.editors.js.getValue()));
-      zip.file('www/js/app.jsx', app.editors.js.getValue());
-    } else {
-      zip.file('www/js/app.js', app.editors.js.getValue());
-    }
-
-    // PACKAGE.JSON
-    var packageJSON = zip.file('package.json').asText();
-
-    packageJSON = app.util.addEntry(packageJSON, 'dependencies', app.config.npm.onsenui, true);
-    if (app.config.npm.hasOwnProperty(app.config.framework)) {
-      app.config.npm[app.config.framework].forEach(function (dep) {
-        packageJSON = app.util.addEntry(packageJSON, 'dependencies', dep);
-      });
-
-      packageJSON = app.services.addTranspilerDependencies(packageJSON);
-    }
-    zip.file('package.json', packageJSON);
-
-
-    // EXTERNAL LIBRARIES
-    var promises = [];
-    var externalLibraries = app.services.getAllLibs();
-    var addLib = function (lib) {
-      if (externalLibraries.hasOwnProperty(lib)) {
-        Object.keys(externalLibraries[lib]).forEach(function (dir) {
-          externalLibraries[lib][dir].forEach(function (file) {
-            promises.push(app.util.request(file)
-              .then(function (res) {
-                zip.file(`www/lib/${dir}/${file.split('/').pop()}`, res);
-              })
-            );
-          });
-        });
-      }
-    };
-    addLib('onsenui');
-    addLib(app.config.framework);
-
-
-    // GENERATE AND DOWNLOAD
-    Promise.all(promises)
-      .then(function () {
-        console.info('Done!');
-        app.services.hideGenerateModal();
-
-        var title = document.querySelector('#modules .select-item').innerHTML.replace(/\s+/g, '_');
-        if (title === 'Select_Tutorial') {
-          title = 'OnsenUI-Project.zip';
-        }
-
-        window.saveAs(zip.generate({ type: 'blob' }), `${title}.zip`);
-      })
-      .catch(function (err) {
-        alert('Could not generate Cordova project.')
-        console.error(err.message);
-      });
-  });
 };
 
 app.services.updateTutorialPage = function () {

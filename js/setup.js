@@ -5,7 +5,7 @@ app.setup.splitPanes = function () {
     Split(['#leftPane', '#rightPane'], {
       gutterSize: 15,
       sizes: [35, 65],
-      minSize: 300,
+      minSize: 301,
       cursor: 'col-resize',
       onDrag: app.util.resize.editorResize
     });
@@ -26,7 +26,7 @@ app.setup.splitPanes = function () {
     if (app.config.showDocs) {
       Split(['#leftPane', '#centerPane', '#rightPane'], {
         gutterSize: 15,
-        sizes: [20, 25, 55],
+        sizes: [25, 25, 50],
         minSize: [9, 310, 200],
         cursor: 'col-resize',
         onDrag: app.util.resize.editorResize
@@ -129,10 +129,6 @@ app.setup.tabView = function () {
 };
 
 app.setup.toolbar = function () {
-  // document.querySelector('#download-button').onclick = app.services.showGenerateModal;
-  document.querySelector('#modal-generate-button').onclick = app.services.generateCordovaProject;
-  document.querySelector('#modal-cancel-button').onclick = app.services.hideGenerateModal;
-  document.querySelector('#modal-mask').onclick = app.services.hideGenerateModal;
   document.querySelector('#codepen-form').onsubmit = app.services.codepenSubmit;
   document.querySelector('#modify-button').onclick = app.services.modifySource;
 };

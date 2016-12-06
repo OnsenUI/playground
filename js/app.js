@@ -1,8 +1,16 @@
 window.app = {};
-window.setVersion = function(lib, version) {
+
+app.setVersion = function(lib, version) {
+  app.config.versions[lib] = version;
   window.sessionStorage.setItem(lib + '-version', version);
-  console.info('Reload the page to get the new version.');
+  console.info(`Using ${lib}@${version}.`, 'Run the project to update the version.');
 };
+
+app.toggleNightly = function() {
+  app.config.nightly = !app.config.nightly;
+  window.sessionStorage.setItem('nightly', app.config.nightly);
+  console.info(`Using latest ${app.config.nightly ? 'commit' : 'release'}.`, 'Run the project to update the version.')
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   app.config.compact = document.body.classList.contains('compact');
