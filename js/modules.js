@@ -21,7 +21,8 @@ app.modules = {
       'progress': 'Progress indicators',
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial',
-      'ripple': 'Ripple effect'
+      'ripple': 'Ripple effect',
+      'select': 'Select input'
     },
     'Community tutorials': {
       'splitter_navigator': 'Splitter animations with Navigator',
