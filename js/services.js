@@ -1,4 +1,4 @@
-/* global app */
+/* global app, marked */
 app.services = {};
 
 app.services.generateTemplateOutput = function () {
@@ -19,7 +19,9 @@ app.services.generateTemplateOutput = function () {
         ons.platform.select('${app.config.platform}');
       </script>
       <script type="text/${app.config.codeType}">
-        ${app.editors.js.getValue()}
+        ${app.config.framework === 'vue' ? 'ons.ready(function() {' : ''}
+          ${app.editors.js.getValue()}
+        ${app.config.framework === 'vue' ? '});' : ''}
       </script>
 
       ${app.services.getCSSLibs()}
@@ -153,7 +155,7 @@ app.services.loadModule = function (framework, category, module) {
       app.services.updateTutorialPage();
 
       if (window.Split && app.config.autoHideHTMLPane !== false) {
-        if (['react', 'angular2'].indexOf(app.config.framework) !== -1) {
+        if (['react', 'angular2', 'vue'].indexOf(app.config.framework) !== -1) {
           app.services.resizeHTMLPane(0);
         } else if (app.config.initRightPanePos) {
           app.services.resizeHTMLPane(app.config.initRightPanePos);
@@ -216,6 +218,12 @@ app.services.getRequiredLibs = function () {
       requiredLibs.react = {
         'react': [libs.js.react, libs.js.reactDom],
         'react-onsenui': [libs.js.reactOnsenui]
+      }
+      break;
+    case 'vue':
+      requiredLibs.vue = {
+        'vue': [libs.js.vue],
+        'vue-onsenui': [libs.js.vueOnsenui]
       }
       break;
     case 'angular1':

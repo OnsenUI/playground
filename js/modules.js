@@ -22,7 +22,7 @@ app.modules = {
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial',
       'ripple': 'Ripple effect',
-      // 'select': 'Select input'
+      'select': 'Select input'
     },
     'Community tutorials': {
       'splitter_navigator': 'Splitter animations with Navigator',
@@ -108,6 +108,11 @@ app.modules = {
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial',
       'ripple': 'Ripple effect'
+    }
+  },
+  'vue': {
+    'Reference': {
+      'page': 'Creaing a page'
     }
   }
 };

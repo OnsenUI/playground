@@ -10,7 +10,7 @@ body.compact .content {
   float: left;
   position: relative;
   margin-left: 6px;
-  width: 350px;
+  width: 436px;
 }
 #modules .select {
   background: #fff;
@@ -51,6 +51,11 @@ body.compact .content {
 .react-thumbnail,
 #modules .react-thumbnail {
   background: url('../assets/icons/select/icn_framework_icn_react.svg') center / 100% no-repeat transparent;
+}
+
+.vue-thumbnail,
+#modules .vue-thumbnail {
+  background: url('../assets/icons/select/icn_framework_icn_vue.svg') center / 100% no-repeat transparent;
 }
 
 #modules .select-item {
@@ -179,6 +184,11 @@ body.compact .content {
   background: url('../assets/icons/select/icon_react_black.svg') center / 50px no-repeat transparent;
 }
 
+.vue-black,
+#modules [framework=vue] .framework-logo {
+  background: url('../assets/icons/select/icon_vue_black.svg') center / 50px no-repeat transparent;
+}
+
 .vanilla-blue,
 #modules input#r-vanilla:checked ~ label .framework-logo {
   background: url('../assets/icons/select/icon_javascript_blue.svg') center / 50px no-repeat transparent;
@@ -197,6 +207,11 @@ body.compact .content {
 .react-blue,
 #modules input#r-react:checked ~ label .framework-logo {
   background: url('../assets/icons/select/icon_react_blue.svg') center / 50px no-repeat transparent;
+}
+
+.vue-blue,
+#modules input#r-vue:checked ~ label .framework-logo {
+  background: url('../assets/icons/select/icon_vue_blue.svg') center / 50px no-repeat transparent;
 }
 
 #modules .framework-item > label::before,
