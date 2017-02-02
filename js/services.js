@@ -226,7 +226,7 @@ app.services.getRequiredLibs = function () {
       break;
     case 'angular2':
       requiredLibs.angular2 = {
-        'systemjs': [libs.js.systemjs, '/js/onsenui.system.js'],
+      'systemjs': [libs.js.systemjs, 'https://tutorial.onsen.io/js/onsenui.system.js'],
         'corejs': [libs.js.corejs],
         'zone': [libs.js.zone]
       }
