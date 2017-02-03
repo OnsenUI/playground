@@ -62,3 +62,8 @@ app.config.lib = function() {
   };
 };
 
+app.config.transpilerLib = {
+  'babel': "https://unpkg.com/babel-standalone/babel.min.js",
+  'typescript': "https://cdnjs.cloudflare.com/ajax/libs/typescript/2.2.0/typescript.min.js"
+};
+

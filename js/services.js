@@ -191,8 +191,13 @@ app.services.updateEditors = function (html, js) {
   var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
   switch (app.config.codeType) {
     case 'babel':
-      editorTitle.innerHTML = 'JSX';
-      app.editors.js.session.setMode('ace/mode/jsx');
+      if (app.config.framework === 'react') {
+        editorTitle.innerHTML = 'JSX';
+        app.editors.js.session.setMode('ace/mode/jsx');
+      } else {
+        editorTitle.innerHTML = 'JS';
+        app.editors.js.session.setMode('ace/mode/javascript');
+      }
       break;
     case 'typescript':
       editorTitle.innerHTML = 'TS';
@@ -245,14 +250,7 @@ app.services.getRequiredLibs = function () {
 };
 
 app.services.getTranspilerLib = function () {
-  switch (app.config.codeType) {
-    case 'babel':
-      return `<script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>`;
-    case 'typescript':
-      return `<script src="lib/typescript/typescript-1.8.10.min.js"></script>`;
-    default:
-      return '';
-  }
+  return `<script src="${app.config.transpilerLib[app.config.codeType] || ''}"></script>`;
 };
 
 app.services.updateTutorialPage = function () {
