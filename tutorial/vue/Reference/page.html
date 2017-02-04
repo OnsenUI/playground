@@ -4,22 +4,12 @@
   <meta charset="UTF-8">
   <title>Onsen UI App</title>
 
-  <script>
+  <script type="text/babel">
     new Vue({
       el: '#app',
-      template: `
-      <v-ons-page>
-        <v-ons-toolbar>
-          <div class="center">My app</div>
-        </v-ons-toolbar>
-
-        <p style="text-align: center">
-          <v-ons-button @click="alert">Click</v-ons-button>
-        </p>
-      </v-ons-page>
-      `,
+      template: '#main',
       methods: {
-        alert: function() {
+        alert() {
           this.$notification.alert('Hello World!');
         }
       }
@@ -27,6 +17,18 @@
   </script>
 </head>
 <body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">My app</div>
+      </v-ons-toolbar>
+
+      <p style="text-align: center">
+        <v-ons-button @click="alert">Click</v-ons-button>
+      </p>
+    </v-ons-page>
+  </template>
+
   <div id="app"></div>
 </body>
 </html>
