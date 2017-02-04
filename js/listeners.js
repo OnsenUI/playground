@@ -1,3 +1,4 @@
+/* globals app */
 window.onkeydown = function (e) {
   if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
     e.preventDefault();
@@ -7,7 +8,7 @@ window.onkeydown = function (e) {
 
 window.onload = function () {
   if (window.Split) {
-    app.services.refreshSplit();
+    app.util.resize.refreshSplit();
   }
 
   var placeholder = document.body.querySelector('#placeholder');
@@ -17,7 +18,7 @@ window.onload = function () {
 };
 
 window.onresize = function () {
-  if (window.Split && (!app.config.compact || !app.config.showDocs)) {
+  if (window.Split) {
     app.util.resize.throttler();
   }
 }
