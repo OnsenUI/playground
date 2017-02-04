@@ -155,11 +155,15 @@ app.services.loadModule = function (framework, category, module) {
       app.services.updateTutorialPage();
 
       if (window.Split && app.config.autoHideHTMLPane !== false) {
-        if (['react', 'angular2', 'vue'].indexOf(app.config.framework) !== -1) {
-          app.services.resizeHTMLPane(0);
-        } else if (app.config.initRightPanePos) {
-          app.services.resizeHTMLPane(app.config.initRightPanePos);
+        if (html.split(/\n/).length <= 1) {
+          app.splits.editors.collapse(0);
+        } else if (code.split(/\n/).length <= 1) {
+          app.splits.editors.collapse(1);
+        } else {
+          app.splits.editors.setSizes([50, 50]);
         }
+
+        app.util.resize.editorResize();
       }
     },
     console.error.bind(console)
@@ -191,8 +195,13 @@ app.services.updateEditors = function (html, js) {
   var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
   switch (app.config.codeType) {
     case 'babel':
-      editorTitle.innerHTML = 'JSX';
-      app.editors.js.session.setMode('ace/mode/jsx');
+      if (app.config.framework === 'react') {
+        editorTitle.innerHTML = 'JSX';
+        app.editors.js.session.setMode('ace/mode/jsx');
+      } else {
+        editorTitle.innerHTML = 'JS';
+        app.editors.js.session.setMode('ace/mode/javascript');
+      }
       break;
     case 'typescript':
       editorTitle.innerHTML = 'TS';
@@ -245,31 +254,13 @@ app.services.getRequiredLibs = function () {
 };
 
 app.services.getTranspilerLib = function () {
-  switch (app.config.codeType) {
-    case 'babel':
-      return `<script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>`;
-    case 'typescript':
-      return `<script src="lib/typescript/typescript-1.8.10.min.js"></script>`;
-    default:
-      return '';
-  }
+  return `<script src="${app.config.transpilerLib[app.config.codeType] || ''}"></script>`;
 };
 
 app.services.updateTutorialPage = function () {
   var tutorialContent = document.querySelector('#tutorial-content');
   tutorialContent.innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
   tutorialContent.scrollTop = 0;
-};
-
-app.services.refreshSplit = function (selector, position) {
-  var gutter = document.querySelector('#rightPane').previousElementSibling;
-  app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().right);
-};
-
-app.services.resizeHTMLPane = function(newPosition) {
-  var gutter = document.querySelector('#rightPane .gutter-vertical');
-  app.config.initRightPanePos = app.config.initRightPanePos || gutter.getBoundingClientRect().top;
-  app.util.simulatePanelDrag(gutter, 'y', newPosition);
 };
 
 app.services.modifySource = function () {

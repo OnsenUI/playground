@@ -1,3 +1,4 @@
+/* globals app */
 app.util = {};
 
 app.util.getParam = function (param) {
@@ -15,18 +16,24 @@ app.util.resize = {
   toolbarLock: null,
   throttler: function () {
     clearTimeout(app.util.resize.toolbarLock);
-    app.util.resize.toolbarLock = setTimeout(app.services.refreshSplit, 100);
+    this.toolbarLock = setTimeout(this.refreshSplit, 100);
 
-    if (!app.util.resize.editorLock) {
-      app.util.resize.editorLock = setTimeout(function () {
-        app.util.resize.editorLock = null;
-        app.util.resize.editorResize();
-      }, 50);
+    if (!this.editorLock) {
+      this.editorLock = setTimeout(function () {
+        this.editorLock = null;
+        this.editorResize();
+      }.bind(this), 50);
     }
   },
+
   editorResize: function () {
     app.editors.js.resize();
     app.editors.html.resize();
+  },
+
+  refreshSplit: function () {
+    var gutter = document.querySelector('#rightPane').previousElementSibling;
+    app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().right);
   }
 };
 
