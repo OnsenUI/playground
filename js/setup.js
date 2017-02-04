@@ -71,15 +71,14 @@ app.setup.editor = function (id, language) {
   editor.renderer.setShowGutter(!!window.Split);
   editor.container.style.lineHeight = 1.3;
   editor.$blockScrolling = Infinity;
-  editor.commands.removeCommand('find');
   editor.setOptions({
     fontSize: '10pt',
     fontFamily: 'hermit',
     enableBasicAutocompletion: true,
     enableSnippets: true,
     enableLiveAutocompletion: false,
-    showPrintMargin: false
-
+    showPrintMargin: false,
+    enableEmmet: true
   });
 
   return editor;
