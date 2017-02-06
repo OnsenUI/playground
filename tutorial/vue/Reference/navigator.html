@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const pop = function() {
+      this.pageStack.pop();
+    };
+
+    const customToolbar = {
+      template: '#custom-toolbar',
+      props: ['pop', 'backLabel']
+    };
+
+    const page2 = {
+      template: '#page2',
+      methods: { pop },
+      props: ['pageStack'],
+      components: { customToolbar }
+    };
+
+    const page1 = {
+      template: '#page1',
+      methods: {
+        pop,
+        push() {
+          this.pageStack.push(page2);
+        }
+      },
+      props: ['pageStack'],
+      components: { customToolbar }
+    };
+
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          pageStack: [page1]
+        };
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-navigator>
+      <div :is="page" v-for="page in pageStack" :page-stack="pageStack"></div>
+    </v-ons-navigator>
+  </template>
+
+  <template id="page1">
+    <v-ons-page>
+      <custom-toolbar :pop="pop">Page 1</custom-toolbar>
+      <p style="text-align: center">
+        This is the first page
+        <v-ons-button @click="push">Push Page 2</v-ons-button>
+      </p>
+    </v-ons-page>
+  </template>
+
+  <template id="page2">
+    <v-ons-page>
+      <custom-toolbar :pop="pop" :back-label="'Page 1'">Page 2</custom-toolbar>
+      <p style="text-align: center">This is the second page</p>
+    </v-ons-page>
+  </template>
+
+  <template id="custom-toolbar">
+    <v-ons-toolbar>
+      <div class="left">
+        <v-ons-back-button :on-click="pop">{{ backLabel }}</v-ons-back-button>
+      </div>
+      <div class="center"><slot></slot></div>
+    </v-ons-toolbar>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Stack navigation
+
+The `VOnsNavigator` is a component that provides stack based navigation. It is a very common navigation pattern in mobile apps.
+
+After pushing a page to the top of the stack it will be displayed using transition animation. When the user goes back to the previous page the top page will be popped from the top of the stack and hidden with an corresponding transition animation.
+
+## Basic usage
+
+An array of `VOnsPage` components work as `VOnsNavigator` children. `v-for` directive can be used to iterate over the array and pass down the needed props.
+
+Whenever the array is modified, `VOnsNavigator` will perform the corresponding transition. Pushing or popping multiple pages at once is allowed, although only 1 animation will be performed.
+
+`VOnsNavigator` exposes an `isReady()` method which returns a promise that resolves when the animation is finished.
+
+## The back button
+
+The `VOnsBackButton` component can be used to put a back button in the navigation bar. By default, this component automatically finds the `Navigator` component and pop a page when pressed uing the Methods API. However, in case of using the Props API, `onClick` prop must be provided with the desired modification of the page stack.
+
+```
+<v-ons-toolbar>
+  <div class="left">
+    <v-ons-back-button :on-click="() => {}">Back</v-ons-back-button>
+  </div>
+  <div class="center">
+    Title
+  </div>
+</v-ons-toolbar>
+```
+
+## Customizing the animation
+
+There are several animations available for `VOnsNavigator` component. It can be specified with the `options.animation` prop. Available animations are `slide`, `lift` and `fade`. Setting the property to `none` will make the transition instantly.
+
+It is also possible to customize the duration, delay and timing function of the animation using the `options.animationOptions` property.
+
+```
+<v-ons-navigator
+  :options="{
+    animation: 'fade',
+    animationOptions: {duration: 0.2, timing: 'ease-in'}
+  }"
+>
+</v-ons-navigator>
+```
+
+-->

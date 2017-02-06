@@ -112,7 +112,8 @@ app.modules = {
   },
   'vue': {
     'Reference': {
-      'page': 'Creaing a page'
+      'page': 'Creating a page',
+      'navigator': 'Stack navigation'
     }
   }
 };
