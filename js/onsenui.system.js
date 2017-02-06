@@ -50,7 +50,7 @@ System.amdDefine('inline-loader', [], function() {
         }
 
         function load() {
-          const target = document.querySelector('script[type="text/typescript"]');
+          var target = document.querySelector('script[type="text/typescript"]');
 
           if (target) {
             resolve(target.textContent);

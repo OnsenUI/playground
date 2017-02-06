@@ -82,12 +82,12 @@ app.setup.editor = function (id, language) {
   });
 
   editor.session.on("changeAnnotation", function() {
-    const annotations = editor.session.getAnnotations() || []
-    const len = annotations.length;
-    let i = annotations.length;
+    var annotations = editor.session.getAnnotations() || [];
+    var len = annotations.length;
+    var i = annotations.length;
 
     while (i--) {
-      const a = annotations[i].text;
+      var a = annotations[i].text;
       if ((/doctype first\. Expected/).test(a) ||
         (/Unexpected End of file\. Expected/).test(a)) {
         annotations.splice(i, 1);
