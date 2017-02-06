@@ -81,6 +81,24 @@ app.setup.editor = function (id, language) {
     enableEmmet: true
   });
 
+  editor.session.on("changeAnnotation", function() {
+    const annotations = editor.session.getAnnotations() || []
+    const len = annotations.length;
+    let i = annotations.length;
+
+    while (i--) {
+      const a = annotations[i].text;
+      if ((/doctype first\. Expected/).test(a) ||
+        (/Unexpected End of file\. Expected/).test(a)) {
+        annotations.splice(i, 1);
+      }
+    }
+
+    if (len > annotations.length) {
+      editor.session.setAnnotations(annotations);
+    }
+  });
+
   return editor;
 };
 
