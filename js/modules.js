@@ -115,7 +115,11 @@ app.modules = {
     'Reference': {
       'page': 'Creating a page',
       'navigator': 'Stack navigation',
-      'tabbar': 'Using tabs'
+      'tabbar': 'Using tabs',
+      'splitter': 'Side menu (Splitter)',
+      'list': 'Lists',
+      'pull-hook': 'Pull to refresh',
+      'carousel': 'Carousel'
     }
   }
 };
