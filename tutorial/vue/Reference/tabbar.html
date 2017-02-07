@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const homePage = {
+      template: '#home'
+    };
+
+    const newsPage = {
+      template: '#news'
+    };
+
+    const settingsPage = {
+      template: '#settings'
+    };
+
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          activeIndex: 0,
+          tabs: [
+            {
+              icon: 'ion-home',
+              label: 'Home'
+            },
+            {
+              icon: 'ion-ios-bell',
+              label: 'News',
+              badge: 7
+            },
+            {
+              icon: 'ion-ios-settings',
+              label: 'Settings'
+            }
+          ]
+        };
+      },
+      computed: {
+        title() {
+          return this.tabs[this.activeIndex].label;
+        }
+      },
+      components: { homePage, newsPage, settingsPage }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">{{ title }}</div>
+      </v-ons-toolbar>
+
+      <v-ons-tabbar v-ons-index="activeIndex" position="auto" :visible="true">
+        <template slot="pages">
+          <home-page></home-page>
+          <news-page></news-page>
+          <settings-page></settings-page>
+        </template>
+
+        <v-ons-tab v-for="(tab, i) in tabs"
+          :icon="!$platform.isAndroid() && tabs[i].icon"
+          :label="tabs[i].label"
+          :badge="tabs[i].badge"
+        ></v-ons-tab>
+      </v-ons-tabbar>
+    </v-ons-page>
+  </template>
+
+  <template id="home">
+    <v-ons-page>
+      <p style="text-align: center">
+        Welcome home.
+      </p>
+    </v-ons-page>
+  </template>
+
+  <template id="news">
+    <v-ons-page>
+      <p style="text-align: center">
+        Some news here.
+      </p>
+    </v-ons-page>
+  </template>
+
+  <template id="settings">
+    <v-ons-page>
+      <p style="text-align: center">
+        Change the settings.
+      </p>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Tabs
+
+The `VOnsTabbar` component is used to add tab navigation to an app. It is a very common navigation pattern in mobile apps.
+
+Every tab is defined by one `VOnsPage` component and one `VOnsTab` component. The `VOnsTab` component displays the actual tab and the `VOnsPage` component will be displayed when the tab is tapped.
+
+The `VOnsTabbar` component implements `VOnsIndex` directive which is used to specify the page that is currently visible. This directive will update the value of the index on user input (tapping tabs or future swipes).
+
+The `VOnsTab` components are provided directly under `VOnsTabbar`, whereas `VOnsPage` components must be inserted into a "pages" slot:
+
+```
+<v-ons-tabbar>
+  <template slot="pages">
+    <custom-page1></custom-page1>
+    <custom-page2></custom-page2>
+  </template>
+
+  <v-ons-tab></v-ons-tab>
+  <v-ons-tab></v-ons-tab>
+</v-ons-tabbar>
+```
+
+For convenience, each `VOnsTab` component automatically activates the `VOnsPage` component that matches its index.
+
+## The `VOnsIndex` directive
+
+This directive allows to specify the active index of the `VOnsTabbar`. Its value will be updated on user input and it can also be programmatically modified. Its initial value sets the inital active tab.
+
+Its use is recommended but not completely necessary. If you don't need to set an active tab in any other way than tapping, then it would be enough to provide `active` attribute (or prop) to the desired `VOnsTab` in order to set the initial active tab.
+
+## The `VOnsTab` component
+
+`VOnsTab` components have the following attributes/props:
+
+- `icon`: specifies the displayed icon.
+- `label`: specifies the displayed text label.
+- `badge`: shows a small badge on top of the tab.
+- `active`: Whether the tab should be displayed as active or not. This is not necessary when using `VOnsIndex` directive.
+
+## Advance use
+
+`VOnsTab` behavior can be overridden by setting `onClick` prop with a new action.
+
+For example, this can provide fine control to support some Vue's cool features:
+
+```html
+<v-ons-tabbar>
+  <template slot="pages">
+    <transition>
+      <keep-alive>
+        <div :is="currentPage"></div>
+      </keep-alive>
+    </transition>
+  </template>
+
+  <v-ons-tab :on-click="() => currentPage = 'home'" :active="currentPage === 'home'"></v-ons-tab>
+  <v-ons-tab :on-click="() => currentPage = 'settings'" :active="currentPage === 'settings'"></v-ons-tab>
+</v-ons-tabbar>
+```
+
+`VOnsIndex` can be optionally used in the last example as well. While these modification can be handy at times, they disable core life-cycle events, core animations and perhaps future swipe functionality.
+
+Notice that you cannot override `onClick` prop just to change the value of `VOnsIndex`. This would simply trigger the `onClick` prop twice without changing tabs.
+
+-->

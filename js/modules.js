@@ -1,3 +1,4 @@
+/* globals app */
 app.modules = {
   'vanilla': {
     'Reference': {
@@ -113,7 +114,8 @@ app.modules = {
   'vue': {
     'Reference': {
       'page': 'Creating a page',
-      'navigator': 'Stack navigation'
+      'navigator': 'Stack navigation',
+      'tabbar': 'Using tabs'
     }
   }
 };
