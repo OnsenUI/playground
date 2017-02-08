@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          spdVisible: true,
+          spdOpen: true,
+          spdStyle: {
+            backgroundColor: this.$platform.isIOS() ? '#4282cc' : null
+          },
+          shareItems: {
+            Twitter: 'md-twitter',
+            Facebook: 'md-facebook',
+            'Google+': 'md-google-plus'
+          }
+        };
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Floating action button</div>
+      </v-ons-toolbar>
+
+      <p style="text-align: center">
+        <label>Show FAB <input type="checkbox" v-model="spdVisible" /></label>
+        <br><br>
+        <label>Show items <input type="checkbox" v-model="spdOpen" /></label>
+      </p>
+
+      <v-ons-speed-dial
+        position="bottom right"
+        direction="up"
+        :visible="spdVisible"
+        :open="spdOpen"
+        :on-click="() => spdOpen = !spdOpen"
+      >
+        <v-ons-fab :style="spdStyle">
+          <v-ons-icon icon="md-face"></v-ons-icon>
+        </v-ons-fab>
+
+        <v-ons-speed-dial-item v-for="(icon, name) in shareItems"
+          :style="spdStyle"
+          @click="$notification.confirm(`Share on ${name}?`)"
+        >
+          <v-ons-icon :icon="icon"></v-ons-icon>
+        </v-ons-speed-dial-item>
+
+      </v-ons-speed-dial>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Speed dial
+
+The *speed dial* component is a Material Design component that displays a floating action button that expands into a menu when tapped. It's useful for situations where there are several actions needs to be displayed that are of equal importance.
+
+The menu items of the `SpeedDial` component are defined using the `VOnsSpeedDialItem` component. It also requires a `VOnsFab` component which represents the main button.
+
+To define the position of the component the `position` property can be specified. By default it is placed in the bottom right corner which can also be achieved by setting the property to the literal string `"bottom right"`.
+
+In order to show or hide `VOnsSpeedDial`, the `visible` prop must be used. The items will toggle by default when clicking on the button. However, the `open` prop can optionally be provided in order to programatically show or hide the items. In that case, the `onClick` prop must be set as well in order to change the value of the `open` prop and keep it updated:
+
+```html
+<v-ons-speed-dial :open="isOpen" :on-click="() => isOpen = !isOpen">...</v-ons-speed-dial>
+```
+
+-->

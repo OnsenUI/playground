@@ -17,13 +17,13 @@ app.modules = {
       'switch': 'Switches',
       'button': 'Buttons',
       'range': 'Range sliders',
+      'select': 'Select input',
       'icon': 'Icons',
       'if': 'Conditional element',
       'progress': 'Progress indicators',
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial',
-      'ripple': 'Ripple effect',
-      'select': 'Select input'
+      'ripple': 'Ripple effect'
     },
     'Community tutorials': {
       'splitter_navigator': 'Splitter animations with Navigator',
@@ -126,7 +126,13 @@ app.modules = {
       'input': 'Form input',
       'switch': 'Switches',
       'button': 'Buttons',
-      'range': 'Range sliders'
+      'range': 'Range sliders',
+      'select': 'Select input',
+      'icon': 'Icons',
+      'progress': 'Progress indicators',
+      'fab': 'Floating action button',
+      'speed-dial': 'Speed dial',
+      'ripple': 'Ripple effect'
     }
   }
 };
