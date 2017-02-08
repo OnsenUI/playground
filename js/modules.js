@@ -119,7 +119,10 @@ app.modules = {
       'splitter': 'Side menu (Splitter)',
       'list': 'Lists',
       'pull-hook': 'Pull to refresh',
-      'carousel': 'Carousel'
+      'carousel': 'Carousel',
+      'dialog': 'Dialogs',
+      'popover': 'Popover',
+      'modal': 'Modal'
     }
   }
 };
