@@ -126,7 +126,12 @@ app.modules = {
       'input': 'Form input',
       'switch': 'Switches',
       'button': 'Buttons',
-      'range': 'Range sliders'
+      'range': 'Range sliders',
+      'icon': 'Icons',
+      'progress': 'Progress indicators',
+      'fab': 'Floating action button',
+      'speed-dial': 'Speed dial',
+      'ripple': 'Ripple effect'
     }
   }
 };
