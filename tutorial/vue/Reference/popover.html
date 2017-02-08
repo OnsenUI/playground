@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          popoverVisible: false,
+          popoverTarget: null,
+          popoverDirection: 'up',
+          coverTarget: false
+        };
+      },
+      methods: {
+        showPopover(event, direction, coverTarget = false) {
+          this.popoverTarget = event;
+          this.popoverDirection = direction;
+          this.coverTarget = coverTarget;
+          this.popoverVisible = true;
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Popover</div>
+        <div class="right">
+          <v-ons-toolbar-button @click="showPopover($event, 'down', true)">
+            <v-ons-icon v-if="$platform.isAndroid()" icon="md-more-vert"></v-ons-icon>
+            <span v-else> Click me </span>
+          </v-ons-toolbar-button>
+        </div>
+      </v-ons-toolbar>
+
+      <div style="height: 100%; display: flex; flex-direction: column">
+        <div style="height: 100%; margin: 1em 0; display: flex; justify-content: space-around">
+          <v-ons-button @click="showPopover($event, 'right')" style="align-self: flex-start">Click me</v-ons-button>
+          <v-ons-button @click="showPopover($event, 'up')" style="align-self: center">Click me</v-ons-button>
+          <v-ons-button @click="showPopover($event, 'left')" style="align-self: flex-end">Click me</v-ons-button>
+        </div>
+      </div>
+
+      <v-ons-popover
+        :visible="popoverVisible"
+        :target="popoverTarget"
+        :direction="popoverDirection"
+        :cover-target="coverTarget"
+        @mask="popoverVisible = false"
+      >
+        <p style="text-align: center">Lorem ipsum</p>
+      </v-ons-popover>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Popover
+
+The `VOnsPopover` component displays a box next to a target component or element. It can be used to show a tooltip, an info box or even for displaying a menu.
+
+To show or hide a popover the `visible` property is used. To determine which component it should visually point to, the `target` property must be set to either a **Vue component reference ($refs)**, DOM element, DOM query (e.g `'div#id.class'` or **an event**. In the provided example, `$event` is used to display the popover on `$event.target`.
+
+The popover will automatically alter its style based on the platform. On Android it will be displayed as a Material Design component that can be used as a menu. The prop `coverTarget` is provided in order to optionally show the popover over the original target (only for Material Design).
+
+-->
