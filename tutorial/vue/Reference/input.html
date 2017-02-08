@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          name: '',
+          switchOn: true,
+          vegetables: ['Apples', 'Bananas', 'Oranges'],
+          selectedVegetable: 'Bananas',
+          colors: ['Red', 'Green', 'Blue'],
+          checkedColors: ['Green', 'Blue']
+        };
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Form input</div>
+      </v-ons-toolbar>
+
+      <ons-list>
+        <ons-list-header>
+          Text input
+        </ons-list-header>
+        <ons-list-item>
+          <div class="center">
+            <v-ons-input
+              placeholder="Input your name"
+              float
+              v-ons-model="name"
+              >
+            </v-ons-input>
+          </div>
+        </ons-list-item>
+        <ons-list-item>
+          <div class="right">
+            Hello {{ name || 'anonymous' }}!
+          </div>
+        </ons-list-item>
+
+        <ons-list-header>
+          Switches
+        </ons-list-header>
+        <ons-list-item>
+          <label class="center" for="switch1">
+            Switch ({{ switchOn ? 'on' : 'off' }})
+          </label>
+          <div class="right">
+            <v-ons-switch
+              v-ons-model="switchOn"
+              input-id="switch1"
+            >
+            </v-ons-switch>
+          </div>
+        </ons-list-item>
+        <ons-list-item>
+          <label class="center" for="mySwitch">
+            {{ switchOn ? 'Enabled switch' : 'Disabled switch' }}
+          </label>
+          <div class="right">
+            <v-ons-switch
+              :disabled="!switchOn"
+              input-id="mySwitch"
+            >
+            </v-ons-switch>
+          </div>
+        </ons-list-item>
+
+        <ons-list-header>
+          Radio buttons
+        </ons-list-header>
+        <ons-list-item v-for="(vegetable, $index) in vegetables" tappable>
+          <label class="left">
+            <v-ons-input
+              type="radio"
+              :input-id="'radio-' + $index"
+              :value="vegetable"
+              v-ons-model=" selectedVegetable"
+            >
+            </v-ons-input>
+          </label>
+          <label :for="'radio-' + $index" class="center">
+            {{ vegetable }}
+          </label>
+        </ons-list-item>
+        <ons-list-item>
+          <div class="center">
+            I love {{ selectedVegetable }}!
+          </div>
+        </ons-list-item>
+
+        <ons-list-header>
+          Checkboxes - {{checkedColors}}
+        </ons-list-header>
+        <ons-list-item v-for="(color, $index) in colors" tappable>
+          <label class="left">
+            <v-ons-input
+              type="checkbox"
+              :input-id="'checkbox-' + $index"
+              :value="color"
+              v-ons-model="checkedColors"
+            >
+            </v-ons-input>
+          </label>
+          <label class="center" :for="'checkbox-' + $index">
+            {{ color }}
+          </label>
+        </ons-list-item>
+
+      </ons-list>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Form input
+
+Input elements are created using the `VOnsInput` component. It works almost exactly the same as a normal `<input>` tag.
+
+This component implements a `type` attribute to choose the type of the input. Default is `text` but it also admits `password`, `checkbox`, `radio`, etc. This should only be set during initialization.
+
+An attribute `input-id` is provided to set the ID of the inner native element. This is useful for `HTMLLabel` elements: `<label for="some-inner-input">`.
+
+For the text-like inputs, in Material Design the placeholder can be made to float using the `float` prop.
+
+## `VOnsModel` directive
+
+Due to some limitations in the original Vue's `v-model` implementation, a new `v-ons-model` custom directive is provided to be used with Onsen UI inputs. It works exactly as the original `v-model`.
+
+`VOnsModel` also supports modifiers: `v-ons-model.lazy="..."` or `v-ons-model.number="..."`.
+
+-->

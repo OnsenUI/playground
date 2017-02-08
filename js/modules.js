@@ -122,7 +122,11 @@ app.modules = {
       'carousel': 'Carousel',
       'dialog': 'Dialogs',
       'popover': 'Popover',
-      'modal': 'Modal'
+      'modal': 'Modal',
+      'input': 'Form input',
+      'switch': 'Switches',
+      'button': 'Buttons',
+      'range': 'Range sliders'
     }
   }
 };
