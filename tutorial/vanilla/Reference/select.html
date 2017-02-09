@@ -11,6 +11,13 @@
         document.getElementById('choose-sel').setAttribute('modifier', event.target.value);
       }
     }
+    function addOption(event) {
+      const option = document.createElement('option');
+      let text = document.getElementById('optionLabel').value;
+      option.innerText = text;
+      text = '';
+      document.getElementById('dynamic-sel').appendChild(option);
+    }
   </script>
 </head>
 <body>
@@ -19,12 +26,18 @@
       <div class="center">Select input</div>
     </ons-toolbar>
 
-    <h3>Choose which select input you want to see:</h3>
+    <h3>Choose a type of select with different modifiers:</h3>
     <ons-select id="choose-sel" onchange="editSelects(event)">
       <option value="basic">Basic</option>
       <option value="material">Material</option>
       <option value="underbar">Underbar</option>
     </ons-select>
+
+    <h3>Add options dynamically:</h3>
+    <ons-select select-id="dynamic-sel">
+    </ons-select>
+    <ons-input id="optionLabel" modifier="underbar"></ons-input>
+    <ons-button onclick="addOption()">Add option</ons-button>
   </ons-page>
 </body>
 </html>
@@ -33,7 +46,7 @@
 
 ## Select input
 
-The `<ons-select>` element is used to display a select box with an arbitrary number of options.
+The `<ons-select>` element is used to display a select box with an arbitrary number of options. The `select-id` attribute can be used for targeting the inner select element.
 
 There are several attributes that can be used to customize the behavior of the element. These are the same attributes as those that can be used for the regular HTML `<select>` element.
 
