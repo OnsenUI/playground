@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          modifier: ''
+        };
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Select input</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      editSelects(event) {
+        this.setState({modifier: event.target.value});
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <div style={{margin: 50}}>
+              <Ons.Select id="choose-sel" value={this.state.modifier} modifier={this.state.modifier} onChange={this.editSelects}>
+                <option value="basic">Basic</option>
+                <option value="material">Material</option>
+                <option value="underbar">Underbar</option>
+              </Ons.Select>
+            </div>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Select input
+
+The `<ons-select>` element is used to display a select box with an arbitrary number of options.
+
+There are several props that can be used to customize the behavior of the element. These are the same props as those that can be used for the regular HTML `<select>` element.
+
+If you want to place a select with an ID of `my-id` on a page, use `<Ons.Select select-id="my-id">`.
+
+Please check the Onsen UI Reference documentation for a complete reference of the enabled props.
+
+-->

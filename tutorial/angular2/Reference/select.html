@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+
+  import {
+    Component,
+    OnsSelect,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'angular2-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+  import { FormsModule } from '@angular/forms';
+
+  @Component({
+    selector: 'app',
+    template: `
+      <ons-page>
+        <ons-toolbar>
+          <div class="center">Select Example</div>
+        </ons-toolbar>
+        <div class="background"></div>
+        <div class="content">
+          <div style="margin: 10px">
+            <p>Choose which select input you want to see:<p>
+            <ons-select id="choose-sel" [(ngModel)]="selectedModifier" ngDefaultControl (ngModelChange)="editSelects($event)">
+              <option *ngFor="let modifier of modifiers" [value]="modifier.value">
+                {{ modifier.label }}
+              </option>
+            </ons-select>
+            <p>Modifier <strong>{{ selectedModifier }}</strong> looks great.</p>
+          </div>
+        </div>
+      </ons-page>
+    `
+  })
+  export class AppComponent {
+    selectedModifier: string = 'basic';
+    modifiers = [
+      {value: 'basic', label: 'Basic'},
+      {value: 'material', label: 'Material'},
+      {value: 'underbar', label: 'Underbar'}
+    ];
+
+    constructor() { }
+
+    editSelects(event) {
+      document.getElementById('choose-sel').removeAttribute('modifier');
+      if (event == 'material' || event == 'underbar') {
+        document.getElementById('choose-sel').setAttribute('modifier', event);
+      }
+    }
+  }
+
+  @NgModule({
+    imports: [OnsenModule, FormsModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- info
+
+## Select input
+
+The `<ons-select>` element is used to display a select box with an arbitrary number of options.
+
+There are several attributes that can be used to customize the behavior of the element. These are the same attributes as those that can be used for the regular HTML `<select>` element.
+
+If you want to place a select with an ID of `my-id` on a page, use `<ons-select select-id="my-id">`.
+
+Please check the Onsen UI Reference documentation for a complete reference of the enabled attributes.
+
+## Getting the value
+
+`ons-select` can be combined with `ngModel` in order to bind its value with a scope variable.
+
+-->
