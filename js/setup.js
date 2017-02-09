@@ -1,59 +1,54 @@
+/* globals app, Split, ace */
 app.setup = {};
 
 app.setup.splitPanes = function () {
+  app.splits = {};
+  var vw = window.innerWidth;
+  var demoWidth = Math.ceil(331 * 100 / vw);
+
   if (!app.config.compact) { // Full View
-    Split(['#leftPane', '#rightPane'], {
+    app.splits.main = Split(['#leftPane', '#rightPane'], {
       gutterSize: 15,
-      sizes: [35, 65],
-      minSize: 301,
+      sizes: [demoWidth, 100 - demoWidth],
+      minSize: [301, 0],
       cursor: 'col-resize',
       onDrag: app.util.resize.editorResize
     });
 
-    Split(['#leftTopPane', '#leftBottomPane'], {
+    app.splits.docsDemo = Split(['#leftTopPane', '#leftBottomPane'], {
       direction: 'vertical',
       sizes: [40, 60],
-      minSize: [9, 9],
+      minSize: 0,
       gutterSize: 15,
       cursor: 'row-resize'
     });
-
-    document.querySelector('#leftPane').style.width = 'calc(35% - 7.5px)';
-    document.querySelector('#rightPane').style.width = 'calc(65% - 7.5px)';
-
   } else { // Compact View
     app.config.showDocs = app.util.getParam('docs') !== 'false';
+
     if (app.config.showDocs) {
-      Split(['#leftPane', '#centerPane', '#rightPane'], {
+      app.splits.main = Split(['#leftPane', '#centerPane', '#rightPane'], {
         gutterSize: 15,
-        sizes: [25, 25, 50],
-        minSize: [9, 310, 200],
+        sizes: [25, demoWidth, 100 - 25 - demoWidth],
+        minSize: [1, 301, 0],
         cursor: 'col-resize',
         onDrag: app.util.resize.editorResize
       });
-
-      document.querySelector('#leftPane').style.width = 'calc(20% - 10px)';
-      document.querySelector('#centerPane').style.width = 'calc(25% - 10px)';
-      document.querySelector('#rightPane').style.width = 'calc(55% - 10px)';
     } else {
-      Split(['#centerPane', '#rightPane'], {
+      document.querySelector('#leftPane').style.display = 'none';
+      app.splits.main = Split(['#centerPane', '#rightPane'], {
         gutterSize: 15,
-        sizes: [20, 80],
-        minSize: [300, 9],
+        sizes: [demoWidth, 100 - demoWidth],
+        minSize: [301, 0],
         cursor: 'col-resize',
         onDrag: app.util.resize.editorResize
       });
-
-      document.querySelector('#leftPane').style.display = 'none';
-      document.querySelector('#centerPane').style.width = 'calc(20% - 7.5px)';
-      document.querySelector('#rightPane').style.width = 'calc(80% - 7.5px)';
     }
   }
 
-  Split(['#rightTopPane', '#rightBottomPane'], {
+  app.splits.editors = Split(['#rightTopPane', '#rightBottomPane'], {
     direction: 'vertical',
     sizes: [50, 50],
-    minSize: [9, 9],
+    minSize: 0,
     gutterSize: 15,
     cursor: 'row-resize',
     onDrag: app.util.resize.editorResize
@@ -73,18 +68,35 @@ app.setup.editor = function (id, language) {
   editor.session.setMode("ace/mode/" + language);
   editor.session.setTabSize(2);
   editor.session.setUseSoftTabs(true);
-  editor.renderer.setShowGutter(window.Split);
+  editor.renderer.setShowGutter(!!window.Split);
   editor.container.style.lineHeight = 1.3;
   editor.$blockScrolling = Infinity;
-  editor.commands.removeCommand('find');
   editor.setOptions({
     fontSize: '10pt',
     fontFamily: 'hermit',
     enableBasicAutocompletion: true,
     enableSnippets: true,
     enableLiveAutocompletion: false,
-    showPrintMargin: false
+    showPrintMargin: false,
+    enableEmmet: true
+  });
 
+  editor.session.on("changeAnnotation", function() {
+    var annotations = editor.session.getAnnotations() || [];
+    var len = annotations.length;
+    var i = annotations.length;
+
+    while (i--) {
+      var a = annotations[i].text;
+      if ((/doctype first\. Expected/).test(a) ||
+        (/Unexpected End of file\. Expected/).test(a)) {
+        annotations.splice(i, 1);
+      }
+    }
+
+    if (len > annotations.length) {
+      editor.session.setAnnotations(annotations);
+    }
   });
 
   return editor;

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      methods: {
+        alert() {
+          this.$notification.alert('Hello World!');
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">My app</div>
+      </v-ons-toolbar>
+
+      <p style="text-align: center">
+        <v-ons-button @click="alert">Click</v-ons-button>
+      </p>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## The `VOnsPage` component
+
+The `VOnsPage` component serves as the main view of a screen in an app. It covers the whole screen and is used as a container for the other components.
+
+```
+<v-ons-page>
+  Content goes here
+</v-ons-page>
+```
+
+## Adding a toolbar
+
+The `VOnsToolbar` component displays a navigation bar on the top of a `VOnsPage` component. It is separated into three sections (left, center and right) in order to let the buttons and title be layouted a beautiful way.
+
+```
+<v-ons-toolbar>
+  <div class="left">
+    <!-- left section -->
+  </div>
+  <div class="center">
+    <!-- title -->
+  </div>
+  <div class="right">
+    <!-- right section -->
+  </div>
+</v-ons-toolbar>
+```
+
+## Defining event handlers
+
+Clickable components such as `VOnsButton` turns the native `click` event into a VM event. Therefore, it can be handy handled with `@click="fn"` or `@click.native="fn"`.
+
+```
+<v-ons-button @click="fn">Click me!</v-ons-button>
+```
+
+## Showing a notification
+
+A `$notification` object is exposed directly in Vue's prototype. Therefore, it can be accessed with `this.$notification` or `Vue.$notification`.
+
+Just like in normal Onsen UI apps you can show dialogs using the `$notification` methods:
+
+```
+this.$notification.alert('Hello world!');
+```
+
+-->

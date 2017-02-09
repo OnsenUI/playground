@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          carouselIndex: 0,
+          items: {
+            BLUE: '#085078',
+            DARK: '#373B44',
+            ORANGE: '#D38312'
+          }
+        };
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="left"><ons-toolbar-button @click="carouselIndex > 0 && carouselIndex--">i--</ons-toolbar-button></div>
+        <div class="center">Index: {{carouselIndex}}</div>
+        <div class="right"><ons-toolbar-button @click="carouselIndex < 2 && carouselIndex++">i++</ons-toolbar-button></div>
+      </v-ons-toolbar>
+
+      <v-ons-carousel v-ons-index="carouselIndex" fullscreen swipeable auto-scroll overscrollable>
+        <v-ons-carousel-item v-for="(value, key) in items" :style="{backgroundColor: value}">
+          <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">{{key}}</div>
+        </v-ons-carousel-item>
+      </v-ons-carousel>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Carousel
+
+A carousel is used to show several items in the same place. The user can switch between the items by panning. The carousel can also be controlled programatically.
+
+The current carousel index can be controlled using the `VOnsIndex` directive.
+
+-->

@@ -1,3 +1,4 @@
+/* globals app */
 app.modules = {
   'vanilla': {
     'Reference': {
@@ -16,13 +17,13 @@ app.modules = {
       'switch': 'Switches',
       'button': 'Buttons',
       'range': 'Range sliders',
+      'select': 'Select input',
       'icon': 'Icons',
       'if': 'Conditional element',
       'progress': 'Progress indicators',
       'fab': 'Floating action button',
       'speed-dial': 'Speed dial',
-      'ripple': 'Ripple effect',
-      'select': 'Select input'
+      'ripple': 'Ripple effect'
     },
     'Community tutorials': {
       'splitter_navigator': 'Splitter animations with Navigator',
@@ -103,6 +104,30 @@ app.modules = {
       'switch': 'Switches',
       'button': 'Buttons',
       'range': 'Range sliders',
+      'icon': 'Icons',
+      'progress': 'Progress indicators',
+      'fab': 'Floating action button',
+      'speed-dial': 'Speed dial',
+      'ripple': 'Ripple effect'
+    }
+  },
+  'vue': {
+    'Reference': {
+      'page': 'Creating a page',
+      'navigator': 'Stack navigation',
+      'tabbar': 'Using tabs',
+      'splitter': 'Side menu (Splitter)',
+      'list': 'Lists',
+      'pull-hook': 'Pull to refresh',
+      'carousel': 'Carousel',
+      'dialog': 'Dialogs',
+      'popover': 'Popover',
+      'modal': 'Modal',
+      'input': 'Form input',
+      'switch': 'Switches',
+      'button': 'Buttons',
+      'range': 'Range sliders',
+      'select': 'Select input',
       'icon': 'Icons',
       'progress': 'Progress indicators',
       'fab': 'Floating action button',
