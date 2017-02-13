@@ -1,3 +1,4 @@
+/* globals app, marked, hljs, ace */
 window.app = {};
 
 app.setVersion = function(lib, version) {
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   } else {
+    app.setup.modules();
     app.setup.tabView();
   }
 

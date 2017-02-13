@@ -1,7 +1,7 @@
 .tabs {
   position: absolute;
   width: 100%;
-  height: calc(100% - 18px);
+  height: calc(100% - 12px - 36px);
   clear: both;
   margin: 11px 0;
   padding: 0;
@@ -36,7 +36,6 @@
   background: white;
   right: 0;
   bottom: 0;
-  height: calc(100% - 18px);
 }
 
 [type=radio]:checked ~ label {
@@ -61,6 +60,28 @@ body {
   margin: 0;
   padding: 0;
   overflow-y: hidden;
+}
+
+#dropdown-section {
+  width: 100%;
+}
+
+#modules {
+  float: initial;
+  position: initial;
+  margin-left: 0;
+  width: initial;
+}
+
+#modules .menu > ul {
+  background-color: #eee;
+  height: calc(100% - 36px);
+  display: flex;
+  justify-content: center;
+}
+
+#modules .menu > ul > li > label {
+  width: 72px;
 }
 
 .main-view-link {

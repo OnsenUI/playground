@@ -9,7 +9,7 @@
 
   <script>
     if (screen.width <= 699) {
-      location.href = '/tabs.html' + location.search;
+      location.href = location.pathname.replace('index.html', '') + 'tabs.html' + location.search;
     }
   </script>
 
@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/split.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/dropdown.css">
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/dark-skin.css">
   <link rel="stylesheet" href="vendor/highlight/chrome.css">
