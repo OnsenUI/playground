@@ -9,21 +9,30 @@ app.services.generateTemplateOutput = function () {
       <meta charset="UTF-8">
       <title>OnsenUI Tutorial</title>
 
+      <!-- Data for Angular2 SystemJS -->
       <script>
+        window._isLocalDev = ${app.config.local};
         window._onsNightlyBuild = ${app.config.nightly};
         window._onsAngular2LibVersion = '${app.config.versions['angular2-onsenui'] || ''}';
       </script>
+
+      <!-- Required libs -->
       ${app.services.getTranspilerLib()}
       ${app.services.getJSLibs()}
+
+      <!-- Autostyling -->
       <script>
         ons.platform.select('${app.config.platform}');
       </script>
+
+      <!-- App -->
       <script type="text/${app.config.codeType}">
         ${app.config.framework === 'vue' ? 'ons.ready(function() {' : ''}
           ${app.editors.js.getValue()}
         ${app.config.framework === 'vue' ? '});' : ''}
       </script>
 
+      <!-- Stylesheet -->
       ${app.services.getCSSLibs()}
       <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
     </head>
@@ -243,7 +252,7 @@ app.services.getRequiredLibs = function () {
       break;
     case 'angular2':
       requiredLibs.angular2 = {
-      'systemjs': [libs.js.systemjs, 'https://tutorial.onsen.io/js/onsenui.system.js'],
+      'systemjs': [libs.js.systemjs, (app.config.local ? '.' : 'https://tutorial.onsen.io') + '/js/onsenui.system.js'],
         'corejs': [libs.js.corejs],
         'zone': [libs.js.zone]
       }

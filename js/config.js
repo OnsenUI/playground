@@ -6,7 +6,32 @@ app.config.codeType = 'javascript';
 app.config.cdn = 'https://unpkg.com/';
 app.config.ci = 'https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/artifacts/0/$CIRCLE_ARTIFACTS/';
 app.config.nightly = window.sessionStorage.getItem('nightly') === 'true';
-app.config.getCdnUrl = function(lib, path) {
+
+// Enables local lib versions
+if ((window.location.hostname === 'localhost' || window.location.hostname.match(/[0-9.]+/)) && window.location.pathname === '/tutorial/') {
+  app.config.local = true;
+}
+
+app.config.getCdnUrl = function(lib, path, skipNightly) {
+  // Fetch from local disk
+  if (app.config.local === true) {
+    let directory = '../../OnsenUI/';
+    if (lib === 'onsenui') {
+      directory += directory + 'build/';
+    } else {
+      directory += `bindings/${lib.split('-')[0]}/`;
+    }
+
+    return directory + path;
+  }
+
+  // Fetch from remote CDN
+
+  // CORS browser issue with fonts from the same server
+  if (skipNightly) {
+    return `${app.config.cdn}${lib}${!app.config.versions.onsenui || app.config.nightly ? '' : ('@' + app.config.versions.onsenui)}/${path}`;
+  }
+
   var url = app.config.nightly ? app.config.ci : app.config.cdn;
   url += `${lib}${(app.config.versions[lib] && !app.config.nightly ? ('@' + app.config.versions[lib]) : '')}/${path}`;
 
@@ -55,8 +80,7 @@ app.config.lib = function() {
       systemjs: `https://unpkg.com/systemjs@0.19.37/dist/system.js`
     },
     css: {
-      // onsenui: app.config.getCdnUrl('onsenui', 'css/onsenui.css'),
-      onsenui: `https://unpkg.com/onsenui${!app.config.versions.onsenui || app.config.nightly ? '' : ('@' + app.config.versions.onsenui)}/css/onsenui.css`, // CORS browser issue with fonts from the same server
+      onsenui: app.config.getCdnUrl('onsenui', 'css/onsenui.css', true),
       onsenuiCssComponents: app.config.getCdnUrl('onsenui', 'css/onsen-css-components.css')
     }
   };
