@@ -189,12 +189,10 @@ app.services.updateDropdown = function (framework, category, module) {
 };
 
 app.services.updateSelectedItem = function (framework, module) {
-  if (window.Split) {
-    var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : 'Select Tutorial';
-    document.querySelector('#modules .select-item').innerHTML = description;
-    var thumbnail = document.querySelector('#modules .select-thumbnail');
-    thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
-  }
+  var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : 'Select Tutorial';
+  document.querySelector('#modules .select-item').innerHTML = description;
+  var thumbnail = document.querySelector('#modules .select-thumbnail');
+  thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
 };
 
 app.services.updateEditors = function (html, js) {

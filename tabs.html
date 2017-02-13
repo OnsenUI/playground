@@ -9,6 +9,7 @@
   <link rel="canonical" href="https://tutorial.onsen.io/" />
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/dark-skin.css">
+  <link rel="stylesheet" href="css/dropdown.css">
   <link rel="stylesheet" href="css/tabs.css">
   <link rel="stylesheet" href="vendor/highlight/chrome.css">
   <link rel="stylesheet" href="vendor/highlight/monokai.css">
@@ -35,72 +36,127 @@
 
 <base target="_blank">
 
-<ul class="tabs">
-  <li class="tab">
-    <input type="radio" id="tab-1" name="tab-group-1">
-    <label for="tab-1">HTML</label>
-
-    <div class="content">
-      <div id="html-input" class="frame input"></div>
+<section id="dropdown-section">
+  <label id="modules">
+    <div class="select">
+      <span class="select-thumbnail"></span>
+      <span class="select-item">Select Tutorial</span>
+      <span class="select-arrow"></span>
     </div>
-  </li>
-  <li class="tab">
-    <input type="radio" id="tab-2" name="tab-group-1">
-    <label for="tab-2">JS</label>
 
-    <div class="content">
-      <div id="js-input" class="frame input"></div>​
+    <input type="checkbox">
+
+    <div class="menu">
+      <div class="menu-mask"></div>
+
+      <ul>
+        <li class="framework-item">
+          <input type="radio" id="r-vanilla" name="framework" checked>
+          <label for="r-vanilla" framework="vanilla">
+            <div class="framework-logo"></div>
+          </label>
+          <ul class="module-list"></ul>
+        </li>
+        <li class="framework-item">
+          <input type="radio" id="r-angular1" name="framework">
+          <label for="r-angular1" framework="angular1">
+            <div class="framework-logo"></div>
+          </label>
+          <ul class="module-list"></ul>
+        </li>
+        <li class="framework-item">
+          <input type="radio" id="r-angular2" name="framework">
+          <label for="r-angular2" framework="angular2">
+            <div class="framework-logo"></div>
+          </label>
+          <ul class="module-list"></ul>
+        </li>
+        <li class="framework-item">
+          <input type="radio" id="r-react" name="framework">
+          <label for="r-react" framework="react">
+            <div class="framework-logo"></div>
+          </label>
+          <ul class="module-list"></ul>
+        </li>
+        <li class="framework-item">
+          <input type="radio" id="r-vue" name="framework">
+          <label for="r-vue" framework="vue">
+            <div class="framework-logo"></div>
+          </label>
+          <ul class="module-list"></ul>
+        </li>
+      </ul>
+
     </div>
-  </li>
-  <li class="tab">
-    <input type="radio" id="tab-3" name="tab-group-1" checked>
-    <label for="tab-3">Preview</label>
+  </label>
+</section>
 
-    <div class="content">
+<section id="tabs-section">
+  <ul class="tabs">
+    <li class="tab">
+      <input type="radio" id="tab-1" name="tab-group-1">
+      <label for="tab-1">HTML</label>
 
-      <div id="output" class="frame">
-        <div class="preview-toolbar">
-          <div id="run" class="custom-button"><span><span>▶</span><span class="button-text"> Run</span></span></div>
-          <span id="styling">
-            <label class="custom-button">
-              <input type="radio" name="styling" checked>
-              <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label button-text">iOS View</span></span>
-            </label>
-            <label class="custom-button">
-              <input type="radio" name="styling">
-              <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label button-text">Android View</span></span>
-            </label>
-          </span>
+      <div class="content">
+        <div id="html-input" class="frame input"></div>
+      </div>
+    </li>
+    <li class="tab">
+      <input type="radio" id="tab-2" name="tab-group-1">
+      <label for="tab-2">JS</label>
+
+      <div class="content">
+        <div id="js-input" class="frame input"></div>
+      </div>
+    </li>
+    <li class="tab">
+      <input type="radio" id="tab-3" name="tab-group-1" checked>
+      <label for="tab-3">Preview</label>
+
+      <div class="content">
+
+        <div id="output" class="frame">
+          <div class="preview-toolbar">
+            <div id="run" class="custom-button"><span><span>▶</span><span class="button-text"> Run</span></span></div>
+            <span id="styling">
+              <label class="custom-button">
+                <input type="radio" name="styling" checked>
+                <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label button-text">iOS View</span></span>
+              </label>
+              <label class="custom-button">
+                <input type="radio" name="styling">
+                <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label button-text">Android View</span></span>
+              </label>
+            </span>
+          </div>
+
+          <iframe frameborder="0" scrolling="no"></iframe>
         </div>
 
-        <iframe frameborder="0" scrolling="no"></iframe>
       </div>
+    </li>
+    <li class="tab">
+      <input type="radio" id="tab-4" name="tab-group-1">
+      <label for="tab-4">Docs</label>
 
-    </div>
-  </li>
-  <li class="tab">
-    <input type="radio" id="tab-4" name="tab-group-1">
-    <label for="tab-4">Docs</label>
+      <div class="content">
 
-    <div class="content">
+        <div id="tutorial-content" class="frame"></div>
+        <div id="tutorial-pages">
+          <span id="pages-previous">◀</span>
+          <span id="pages-current">1</span>
+          /
+          <span id="pages-total">1</span>
+          <span id="pages-next">▶</span>
 
-      <div id="tutorial-content" class="frame"></div>
-      <div id="tutorial-pages">
-        <span id="pages-previous">◀</span>
-        <span id="pages-current">1</span>
-        /
-        <span id="pages-total">1</span>
-        <span id="pages-next">▶</span>
+        </div>
 
       </div>
+    </li>
+  </ul>
+</section>
 
-    </div>
-  </li>
-</ul>
-
-<div class="main-view-link" title="Open in Main View">
-  <a></a>
-</div>
+<div class="settings-button" title="Show settings"></div>
 
 <div class="icon-ios icon-android" style="display: none"></div>
 
