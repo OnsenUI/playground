@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap()
+      .controller('PageController', function() {
+        this.selectedModifier = 'basic';
+        this.editSelects = function() {
+          alert("Changed :)");
+          document.getElementById('choose-sel').removeAttribute('modifier');
+          if (event.target.value == 'material' || event.target.value == 'underbar') {
+            document.getElementById('choose-sel').setAttribute('modifier', event.target.value);
+          }
+        }
+      });
+  </script>
+</head>
+<body>
+  <ons-page  ng-controller="PageController as page">
+    <ons-toolbar><div class="center">Select Input</div></ons-toolbar>
+    <div style="margin: 10px">
+      <p>Choose which select input you want to see:<p>
+      <ons-select ng-model="page.selectedModifier" id="choose-sel" ng-change="page.editSelects()">
+        <option value="basic">Basic</option>
+        <option value="material">Material</option>
+        <option value="underbar">Underbar</option>
+      </ons-select>
+      <p>Modifier <strong>{{ page.selectedModifier }}</strong> looks great.</p>
+    </div>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Select input
+
+The `<ons-select>` element is used to display a select box with an arbitrary number of options.
+
+There are several attributes that can be used to customize the behavior of the element. These are the same attributes as those that can be used for the regular HTML `<select>` element.
+
+If you want to place a select with an ID of `my-id` on a page, use `<ons-select select-id="my-id">`.
+
+Please check the Onsen UI Reference documentation for a complete reference of the enabled attributes.
+
+## Getting the value
+
+`ons-select` can be combined with `ng-model` in order to bind its value with a scope variable.
+
+-->
