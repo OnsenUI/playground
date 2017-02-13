@@ -8,7 +8,7 @@ app.config.ci = 'https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/arti
 app.config.nightly = window.sessionStorage.getItem('nightly') === 'true';
 
 // Enables local lib versions
-if ((window.location.hostname === 'localhost' || window.location.hostname.match(/[0-9.]+/)) && window.location.pathname === '/tutorial/') {
+if ((window.location.hostname === 'localhost' || window.location.hostname.match(/[0-9.]+/)) && window.location.pathname.indexOf('/tutorial/') === 0) {
   app.config.local = true;
 }
 
@@ -50,7 +50,9 @@ app.config.versions = {};
 });
 
 app.config.ownLibs.forEach(function (libName) {
-  if (app.config.nightly) {
+  if (app.config.local) {
+    console.info(`Using local version of ${libName}.js`);
+  } else if (app.config.nightly) {
     console.info(`Using ${libName}.js nightly build`);
   } else if (app.config.versions[libName]) {
     console.info(`Using ${libName}.js ${app.config.versions[libName]}`);
