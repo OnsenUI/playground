@@ -42,11 +42,17 @@ app.config.getCdnUrl = function(lib, path, skipNightly) {
 };
 
 app.config.ownLibs = ['onsenui', 'react-onsenui', 'angular2-onsenui', 'vue-onsenui'];
-app.config.extLibs = ['react', 'angular2', 'vue'];
+app.config.extLibs = ['react', 'angular1', 'angular2', 'vue'];
+app.config.defaultVersions = {
+  react: '15.1.0',
+  angular1: '1.5.5',
+  angular2: '2.0.0',
+  vue: '2.1.10'
+};
 
 app.config.versions = {};
 (app.config.ownLibs.concat(app.config.extLibs)).forEach(function(key) {
-  app.config.versions[key] = window.sessionStorage.getItem(key + '-version');
+  app.config.versions[key] = window.sessionStorage.getItem(key + '-version') || app.config.defaultVersions[key];
 });
 
 app.config.ownLibs.forEach(function (libName) {
@@ -67,14 +73,14 @@ app.config.lib = function() {
       // Vanilla
       onsenui: app.config.getCdnUrl('onsenui', 'js/onsenui.js'),
       // AngularJS
-      angular1: 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js',
+      angular1: `https://cdnjs.cloudflare.com/ajax/libs/angular.js/${app.config.versions.angular1}/angular.min.js`,
       angularOnsenui: app.config.getCdnUrl('onsenui', 'js/angular-onsenui.js'),
       // React
-      react: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js',
-      reactDom: 'https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js',
+      react: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react.min.js`,
+      reactDom: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react-dom.min.js`,
       reactOnsenui: app.config.getCdnUrl('react-onsenui', 'dist/react-onsenui.js'),
       // Vue
-      vue: 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js',
+      vue: `https://cdnjs.cloudflare.com/ajax/libs/vue/${app.config.versions.vue}/vue.js`,
       vueOnsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js'),
       // Angular 2
       zone: `https://unpkg.com/zone.js@0.6.21/dist/zone.min.js`,
