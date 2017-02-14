@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var framework = app.util.getParam('framework'),
     category = app.util.getParam('category'),
     module = app.util.getParam('module'),
-    external = app.util.getParam('external');
+    external = app.util.getParam('external'),
+    issue = app.util.getParam('issue');
   if (window.Split) {
     app.setup.splitPanes();
     if (!app.config.compact) {
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
     js: app.setup.editor('js-input', 'javascript')
   };
   app.setup.pagesCounter();
-  if ((!framework || !category || !module) && !external) {
+  if ((!framework || !category || !module) && !external && !issue) {
     app.services.showWelcomeMessage();
   }
 
@@ -65,6 +66,8 @@ document.addEventListener("DOMContentLoaded", function () {
   app.services.switchStyle(app.config.platform);
   if (external) {
     app.services.loadModule(external).then(app.services.runProject);
+  } else if (issue) {
+    app.services.loadIssue(issue);
   } else if (framework && category && module) {
     app.services.changeModule(framework, category, module).then(app.services.runProject);
   } else {
