@@ -253,7 +253,7 @@
   right: 0;
   bottom: 0;
   box-sizing: border-box;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 #modules .category-item > input:not(:checked) ~ ul {
