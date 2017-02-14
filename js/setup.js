@@ -144,6 +144,7 @@ app.setup.tabView = function () {
 app.setup.toolbar = function () {
   document.querySelector('#codepen-form').onsubmit = app.services.codepenSubmit;
   document.querySelector('#modify-button').onclick = app.services.modifySource;
+  document.querySelector('#issue-button').onclick = app.services.reportIssue;
 };
 
 app.setup.modules = function () {

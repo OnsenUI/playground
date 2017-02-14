@@ -57,7 +57,7 @@ app.util.toDash = function (string) {
     return "-" + $1.toLowerCase(); });
 };
 
-app.util.request = function (url) {
+app.util.request = function (url, CORS) {
   return new Promise(function (resolve, reject) {
     var request = new XMLHttpRequest();
 
@@ -67,7 +67,12 @@ app.util.request = function (url) {
       }
     };
 
-    request.open('get', url);
+    if (CORS) {
+      request.open('get', 'https://crossorigin.me/' + url);
+      request.setRequestHeader('Content-Type', 'application/json');
+    } else {
+      request.open('get', url);
+    }
     request.send();
   });
 };
@@ -106,3 +111,8 @@ app.util.simulatePanelDrag = function (gutter, position, value) {
   gutter.dispatchEvent(mousemove);
   gutter.dispatchEvent(mouseup);
 };
+
+app.util.capitalize = function (name) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+};
+

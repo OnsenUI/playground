@@ -12,7 +12,6 @@ body.compact .content {
 }
 
 #toolbar > * {
-  height: 26px;
   float: right;
   cursor: pointer;
 }
@@ -22,6 +21,7 @@ body.compact .content {
   background-color: transparent;
   padding-right: 10px;
   padding-left: 16px;
+  height: 22px;
 }
 
 .toolbar-button span {
@@ -31,27 +31,28 @@ body.compact .content {
   left: -4px;
 }
 
-#modify-button {
-  height: 22px;
-}
+/* #download-button span { */
+/*   background: url('../assets/icons/download.svg') left / 18px no-repeat transparent; */
+/*   width: 18px; */
+/*   height: 18px; */
+/*   top: -4px; */
+/* } */
 
-#download-button {
-  height: 26px;
-}
-
-#download-button span {
-  background: url('../assets/icons/download.svg') left / 18px no-repeat transparent;
-  width: 18px;
-  height: 18px;
-  top: -4px;
-}
-
-#codepen-button {
-  height: 26px;
+#modify-button span {
+  background: url('../assets/icons/edit.svg') left / 20px no-repeat transparent;
+  width: 14px;
+  height: 20px;
 }
 
 #codepen-button span {
   background: url('../assets/icons/codepen.svg') left / 20px no-repeat transparent;
+  width: 20px;
+  height: 20px;
+  top: -2px;
+}
+
+#issue-button span {
+  background: url('../assets/icons/github.svg') left / 20px no-repeat transparent;
   width: 20px;
   height: 20px;
   top: -2px;
@@ -288,7 +289,7 @@ body.compact .content {
   height: 4px;
 }
 
-@media (max-width: 725px) {
+@media (max-width: 860px) {
   #h2 > ul,
   #h3 #toolbar {
     display: none;

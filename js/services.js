@@ -1,4 +1,4 @@
-/* global app, marked */
+/* global app, marked, platform */
 app.services = {};
 
 app.services.generateTemplateOutput = function () {
@@ -9,12 +9,7 @@ app.services.generateTemplateOutput = function () {
       <meta charset="UTF-8">
       <title>OnsenUI Tutorial</title>
 
-      <!-- Data for Angular2 SystemJS -->
-      <script>
-        window._isLocalDev = ${app.config.local};
-        window._onsNightlyBuild = ${app.config.nightly};
-        window._onsAngular2LibVersion = '${app.config.versions['angular2-onsenui'] || ''}';
-      </script>
+      ${app.config.framework === 'angular2' ? app.services.generateAngular2Globals() : ''}
 
       <!-- Required libs -->
       ${app.services.getTranspilerLib()}
@@ -163,20 +158,75 @@ app.services.loadModule = function (framework, category, module) {
       document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
       app.services.updateTutorialPage();
 
-      if (window.Split && app.config.autoHideHTMLPane !== false) {
-        if (html.split(/\n/).length <= 1) {
-          app.splits.editors.collapse(0);
-        } else if (code.split(/\n/).length <= 1) {
-          app.splits.editors.collapse(1);
-        } else {
-          app.splits.editors.setSizes([50, 50]);
-        }
-
-        app.util.resize.editorResize();
-      }
+      app.services.collapseEditors(html, code);
     },
     console.error.bind(console)
   );
+};
+
+app.services.collapseEditors = function (html, code) {
+  if (window.Split && app.config.autoHideHTMLPane !== false) {
+    if (html.split(/\n/).length <= 1) {
+      app.splits.editors.collapse(0);
+    } else if (code.split(/\n/).length <= 4) {
+      app.splits.editors.collapse(1);
+    } else {
+      app.splits.editors.setSizes([50, 50]);
+    }
+
+    app.util.resize.editorResize();
+  }
+};
+
+app.services.loadIssue = function(issue) {
+  var matchRegExp = function(keyword, text, template) {
+    var regexp = new RegExp(template.replace('placeholder', keyword), 'm');
+    return text.match(regexp).slice(1, 3);
+  };
+
+  app.util.request('https://api.github.com/repos/OnsenUI/OnsenUI/issues/' + issue).then(function(responseText) {
+    var content = JSON.parse(responseText).body;
+    var regexSection = '\\[placeholder]\\s+([a-zA-Z\\-]+)\\s+(.+)\\s+';
+    var regexCode = '__placeholder__\\s+```[a-zA-z]*\\s+((.|\\s)*?)```';
+
+    // Get core version
+    var m = matchRegExp('Core', content, regexSection);
+    app.config.versions.onsenui = m[1];
+
+    // Get framework version
+    m = matchRegExp('Framework', content, regexSection);
+    if (m && m.length === 2) {
+      app.config.versions[m[0]] = m[1];
+    }
+
+    // Get bindings name + version and framework name
+    m = matchRegExp('Framework binding', content, regexSection);
+    if (m && m.length === 2) {
+      app.config.versions[m[0]] = m[1];
+      var currentFramework = m[0].split('-')[0].toLowerCase();
+      if (app.config.extLibs.indexOf(currentFramework) >= 0) {
+        app.config.framework = currentFramework;
+      }
+    }
+
+    // Fallback to vanilla
+    if (!app.config.framework) {
+      app.config.framework = 'vanilla';
+    }
+
+    // Get code
+    var html = matchRegExp('HTML', content, regexCode);
+    var js = matchRegExp('JS', content, regexCode);
+    if (html && html.length >= 1 && js && js.length >= 1) {
+      app.services.updateEditors(html[0], js[0]);
+    }
+
+    document.getElementById('tutorial-content').innerHTML = '';
+    app.splits.docsDemo.collapse(0);
+    app.services.collapseEditors(html[0], js[0]);
+    app.services.updateSelectedItem(app.config.framework, false, 'Issue ' + issue);
+    app.services.runProject();
+  });
 };
 
 app.services.updateDropdown = function (framework, category, module) {
@@ -188,8 +238,8 @@ app.services.updateDropdown = function (framework, category, module) {
   document.querySelector('#r-' + framework + '-' + category + '-' + module).checked = true;
 };
 
-app.services.updateSelectedItem = function (framework, module) {
-  var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : 'Select Tutorial';
+app.services.updateSelectedItem = function (framework, module, forceTitle) {
+  var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : (forceTitle || 'Select Tutorial');
   document.querySelector('#modules .select-item').innerHTML = description;
   var thumbnail = document.querySelector('#modules .select-thumbnail');
   thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
@@ -276,3 +326,116 @@ app.services.modifySource = function () {
     window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
   }
 };
+
+app.services.reportIssue = function () {
+  var state = window.history.state;
+  if (state) {
+    var libs = ['onsenui'];
+    if (app.config.framework !== 'vanilla') {
+      libs.push(app.config.framework + '-onsenui');
+    }
+
+    var promises = [];
+
+    libs.forEach(function(lib) {
+      if (!app.config.versions[lib]) {
+        promises.push(app.services.getLatestVersionOf(lib));
+      } else {
+        promises.push(new Promise(function(resolve) {
+          resolve(app.config.versions[lib]);
+        }));
+      }
+    });
+
+    Promise.all(promises).then(function(iterable) {
+      app.setVersion(libs[0], iterable[0]);
+      if (iterable[1]) {
+        app.setVersion(libs[1], iterable[1]);
+      }
+
+      var frameworkName = app.config.framework === 'vanilla' ? 'core' : state.framework;
+      var title = app.util.capitalize(frameworkName) + ' | ' + app.util.capitalize(state.module) + ' issue: ';
+      window.open(`https://github.com/OnsenUI/OnsenUI/issues/new?title=${title}&labels[]=${frameworkName}&labels[]=hasDemo&body=${app.services.generateIssueTemplate()}`, '_blank');
+    });
+  }
+};
+
+app.services.getLatestVersionOf = function (lib) {
+  return app.util.request('https://registry.npmjs.org/' + lib, true).then(function(responseText) {
+    var responseJSON = JSON.parse(responseText);
+    return responseJSON['dist-tags'].latest;
+  });
+};
+
+app.services.generateIssueTemplate = function () {
+  var frameworkInfo = '';
+  var frameworkBindingsInfo = '';
+  if (app.config.framework !== 'vanilla') {
+    frameworkInfo = `
+[Framework]
+  ${app.config.framework} ${app.config.versions[app.config.framework || '']}
+`;
+
+    var frameworkLib = app.config.framework + '-onsenui';
+    frameworkBindingsInfo = `
+[Framework binding]
+ ${frameworkLib} ${app.config.versions[frameworkLib]}
+`;
+  }
+
+  var platformType = (/^(ios|android)/i).test(platform.os.family) ? 'Mobile' : 'Desktop';
+  var platformInfo = platformType + ' - ' + platform.os.toString();
+  var browserInfo = platformType + ' - ' + platform.description;
+
+  return window.encodeURIComponent(`
+__Environment__
+
+  <!-- Modify if anything is wrong -->
+\`\`\`
+[Core]
+  onsenui ${app.config.versions.onsenui}
+  ${frameworkInfo}${frameworkBindingsInfo}
+[Platform]
+  ${platformInfo}
+
+[Browser]
+  ${browserInfo}
+\`\`\`
+
+__Encountered poblem__
+  <!-- Enter here the description  -->
+
+
+__How to reproduce__
+
+  <!-- Modify this link with the issue number once it is created -->
+  [__Demo link__](https://tutorial.onsen.io/?issue=ISSUE_NUMBER_HERE)
+
+  <!-- Do not change the following code structure -->
+
+- __HTML__
+
+\`\`\`html
+${app.editors.html.getValue()}
+\`\`\`
+
+- __JS__
+
+\`\`\`javascript
+${app.editors.js.getValue()}
+\`\`\`
+
+`);
+};
+
+app.services.generateAngular2Globals = function () {
+  return `
+    <!-- Data for Angular2 SystemJS -->
+    <script>
+      window._isLocalDev = ${app.config.local};
+      window._onsNightlyBuild = ${app.config.nightly};
+      window._onsAngular2LibVersion = '${app.config.versions['angular2-onsenui'] || ''}';
+      window._angular2LibVersion = '${app.config.versions.angular2}'
+    </script>
+  `;
+}
