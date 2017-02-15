@@ -347,24 +347,33 @@ app.services.reportIssue = function () {
       }
     });
 
-    Promise.all(promises).then(function(iterable) {
-      app.setVersion(libs[0], iterable[0]);
-      if (iterable[1]) {
-        app.setVersion(libs[1], iterable[1]);
-      }
+    var newTab = window.open('', '_blank');
+    newTab.document.write('Loading...');
 
-      var frameworkName = app.config.framework === 'vanilla' ? 'core' : state.framework;
-      var title = app.util.capitalize(frameworkName) + ' | ' + app.util.capitalize(state.module) + ' issue: ';
-      window.open(`https://github.com/OnsenUI/OnsenUI/issues/new?title=${title}&labels[]=${frameworkName}&labels[]=hasDemo&body=${app.services.generateIssueTemplate()}`, '_blank');
-    });
+    Promise.all(promises).then(
+      function(iterable) {
+        app.setVersion(libs[0], iterable[0]);
+        if (iterable[1]) {
+          app.setVersion(libs[1], iterable[1]);
+        }
+
+        var frameworkName = app.config.framework === 'vanilla' ? 'core' : state.framework;
+        var title = app.util.capitalize(frameworkName) + ' | ' + app.util.capitalize(state.module) + ' issue: ';
+        newTab.location.href = `https://github.com/OnsenUI/OnsenUI/issues/new?title=${title}&labels[]=${frameworkName}&labels[]=hasDemo&body=${app.services.generateIssueTemplate()}`;
+      },
+      function() {
+        newTab.close();
+      }
+    );
   }
 };
 
 app.services.getLatestVersionOf = function (lib) {
-  return app.util.request('https://registry.npmjs.org/' + lib, true).then(function(responseText) {
-    var responseJSON = JSON.parse(responseText);
-    return responseJSON['dist-tags'].latest;
-  });
+  return app.util.request('https://registry.npmjs.org/' + lib, true)
+    .then(function(responseText) {
+      var responseJSON = JSON.parse(responseText);
+      return responseJSON['dist-tags'].latest;
+    });
 };
 
 app.services.generateIssueTemplate = function () {
@@ -386,6 +395,10 @@ app.services.generateIssueTemplate = function () {
   var platformType = (/^(ios|android)/i).test(platform.os.family) ? 'Mobile' : 'Desktop';
   var platformInfo = platformType + ' - ' + platform.os.toString();
   var browserInfo = platformType + ' - ' + platform.description;
+  var codeType = app.config.codeType;
+  if (codeType === 'babel') {
+    codeType = app.config.framework === 'react' ? 'jsx' : 'javascript';
+  }
 
   return window.encodeURIComponent(`
 __Environment__
@@ -407,6 +420,8 @@ __Encountered poblem__
 
 
 __How to reproduce__
+  <!-- Enter optional here the description  -->
+
 
   <!-- This link will work once the issue is created -->
   [__Demo link__](https://tutorial.onsen.io/?issue)
@@ -421,7 +436,7 @@ ${app.editors.html.getValue()}
 
 - __JS__
 
-\`\`\`javascript
+\`\`\`${codeType}
 ${app.editors.js.getValue()}
 \`\`\`
 
