@@ -24,7 +24,7 @@ body.compact .content {
   height: 22px;
 }
 
-.toolbar-button span {
+.toolbar-button .icon {
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -38,20 +38,20 @@ body.compact .content {
 /*   top: -4px; */
 /* } */
 
-#modify-button span {
+#modify-button .icon {
   background: url('../assets/icons/edit.svg') left / 20px no-repeat transparent;
   width: 14px;
   height: 20px;
 }
 
-#codepen-button span {
+#codepen-button .icon {
   background: url('../assets/icons/codepen.svg') left / 20px no-repeat transparent;
   width: 20px;
   height: 20px;
   top: -2px;
 }
 
-#issue-button span {
+#issue-button .icon {
   background: url('../assets/icons/github.svg') left / 20px no-repeat transparent;
   width: 20px;
   height: 20px;
@@ -289,8 +289,19 @@ body.compact .content {
   height: 4px;
 }
 
-@media (max-width: 860px) {
-  #h2 > ul,
+@media (max-width: 840px) {
+  #h3 #toolbar .label {
+    display: none;
+  }
+}
+
+@media (max-width: 675px) {
+  #h2 > ul {
+    display: none;
+  }
+}
+
+@media (max-width: 575px) {
   #h3 #toolbar {
     display: none;
   }
