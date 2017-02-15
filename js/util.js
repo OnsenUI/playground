@@ -64,7 +64,7 @@ app.util.request = function (url, CORS) {
 
     request.onreadystatechange = function () {
       if (request.readyState === XMLHttpRequest.DONE) {
-        request.status === 200 ? resolve(request.responseText) : reject(new Error(request.statusText));
+        request.status === 200 ? resolve(request.responseText) : reject(Error(request.statusText));
       }
     };
 

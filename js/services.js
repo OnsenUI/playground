@@ -348,25 +348,32 @@ app.services.reportIssue = function () {
     });
 
     var newTab = window.open('', '_blank');
+    newTab.document.write('Loading...');
 
-    Promise.all(promises).then(function(iterable) {
-      app.setVersion(libs[0], iterable[0]);
-      if (iterable[1]) {
-        app.setVersion(libs[1], iterable[1]);
+    Promise.all(promises).then(
+      function(iterable) {
+        app.setVersion(libs[0], iterable[0]);
+        if (iterable[1]) {
+          app.setVersion(libs[1], iterable[1]);
+        }
+
+        var frameworkName = app.config.framework === 'vanilla' ? 'core' : state.framework;
+        var title = app.util.capitalize(frameworkName) + ' | ' + app.util.capitalize(state.module) + ' issue: ';
+        newTab.location.href = `https://github.com/OnsenUI/OnsenUI/issues/new?title=${title}&labels[]=${frameworkName}&labels[]=hasDemo&body=${app.services.generateIssueTemplate()}`;
+      },
+      function() {
+        newTab.close();
       }
-
-      var frameworkName = app.config.framework === 'vanilla' ? 'core' : state.framework;
-      var title = app.util.capitalize(frameworkName) + ' | ' + app.util.capitalize(state.module) + ' issue: ';
-      newTab.location.href = `https://github.com/OnsenUI/OnsenUI/issues/new?title=${title}&labels[]=${frameworkName}&labels[]=hasDemo&body=${app.services.generateIssueTemplate()}`;
-    });
+    );
   }
 };
 
 app.services.getLatestVersionOf = function (lib) {
-  return app.util.request('https://registry.npmjs.org/' + lib, true).then(function(responseText) {
-    var responseJSON = JSON.parse(responseText);
-    return responseJSON['dist-tags'].latest;
-  });
+  return app.util.request('https://registry.npmjs.org/' + lib, true)
+    .then(function(responseText) {
+      var responseJSON = JSON.parse(responseText);
+      return responseJSON['dist-tags'].latest;
+    });
 };
 
 app.services.generateIssueTemplate = function () {
