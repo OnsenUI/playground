@@ -390,7 +390,7 @@ app.services.generateIssueTemplate = function () {
   return window.encodeURIComponent(`
 __Environment__
 
-  <!-- Modify if anything is wrong -->
+  <!-- Modify if anything is wrong but keep the structure -->
 \`\`\`
 [Core]
   onsenui ${app.config.versions.onsenui}
@@ -408,8 +408,8 @@ __Encountered poblem__
 
 __How to reproduce__
 
-  <!-- Modify this link with the issue number once it is created -->
-  [__Demo link__](https://tutorial.onsen.io/?issue=ISSUE_NUMBER_HERE)
+  <!-- This link will work once the issue is created -->
+  [__Demo link__](https://tutorial.onsen.io/?issue)
 
   <!-- Do not change the following code structure -->
 

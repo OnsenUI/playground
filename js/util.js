@@ -2,9 +2,10 @@
 app.util = {};
 
 app.util.getParam = function (param) {
-  var regex = new RegExp(param + '=([^&]+)');
+  var regexContent = new RegExp(param + '=([^&]+)');
+  var regexExists = new RegExp('[?&]' + param + '(=|&|$)');
   var query = window.location.search.replace(/\+|%20/g, ' ');
-  return ((query.match(regex) || [])[1] || '');
+  return ((query.match(regexContent) || [])[1]) || (query.match(regexExists) ? '' : null);
 };
 
 app.util.arrayFrom = function (arrayLike) {
