@@ -149,19 +149,20 @@ app.services.loadModule = function (framework, category, module) {
 
       app.tutorial = {
         pageIndex: 0,
-        pages: docs.split(/\n(?=[ \t]*#{2}(?!#))/).map(function (e) {
-          return marked(e);
-        })
+        pages: app.services.generateTutorialPages(docs)
       };
 
-      document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
-      document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
       app.services.updateTutorialPage();
-
       app.services.collapseEditors(html, code);
     },
     console.error.bind(console)
   );
+};
+
+app.services.generateTutorialPages = function(markdown) {
+  return markdown.split(/\n(?=[ \t]*#{2}(?!#))/).map(function (e) {
+    return marked(e);
+  });
 };
 
 app.services.collapseEditors = function (html, code) {
@@ -181,7 +182,7 @@ app.services.collapseEditors = function (html, code) {
 app.services.loadIssue = function(issue) {
   var matchRegExp = function(keyword, text, template) {
     var regexp = new RegExp(template.replace('placeholder', keyword), 'm');
-    return text.match(regexp).slice(1, 3);
+    return (text.match(regexp) || []).slice(1, 3);
   };
 
   app.util.request('https://api.github.com/repos/OnsenUI/OnsenUI/issues/' + issue).then(function(responseText) {
@@ -221,7 +222,19 @@ app.services.loadIssue = function(issue) {
       app.services.updateEditors(html[0], js[0]);
     }
 
-    document.getElementById('tutorial-content').innerHTML = '';
+    // Get info
+    var info = content.match(/(__Environment__\s+(.|\s)*?)\[__Demo link__]/im);
+    if (info && info.length >= 1) {
+
+      app.tutorial = {
+        pageIndex: 0,
+        pages: app.services.generateTutorialPages(info[1].replace(/__([a-zA-z -]+)__/gm, function(title) {
+          return '## ' + title;
+        }))
+      };
+      app.services.updateTutorialPage();
+    }
+
     app.splits.docsDemo.collapse(0);
     app.services.collapseEditors(html[0], js[0]);
     app.services.updateSelectedItem(app.config.framework, false, 'Issue ' + issue);
@@ -314,10 +327,13 @@ app.services.getTranspilerLib = function () {
   return `<script src="${app.config.transpilerLib[app.config.codeType] || ''}"></script>`;
 };
 
-app.services.updateTutorialPage = function () {
-  var tutorialContent = document.querySelector('#tutorial-content');
-  tutorialContent.innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
-  tutorialContent.scrollTop = 0;
+app.services.updateTutorialPage = function (content) {
+  document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
+  document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
+
+  var contentElement = document.querySelector('#tutorial-content');
+  contentElement.innerHTML = content ? marked(content) : app.tutorial.pages[app.tutorial.pageIndex];
+  contentElement.scrollTop = 0;
 };
 
 app.services.modifySource = function () {
@@ -415,7 +431,7 @@ __Environment__
   ${browserInfo}
 \`\`\`
 
-__Encountered poblem__
+__Encountered problem__
   <!-- Enter here the description  -->
 
 
