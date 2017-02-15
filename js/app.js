@@ -23,6 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
     module = app.util.getParam('module'),
     external = app.util.getParam('external'),
     issue = app.util.getParam('issue');
+
+  if (issue === '') {
+    issue = (document.referrer.match(/github\.com\/OnsenUI\/OnsenUI\/issues\/([0-9]+)/i) || [])[1] || '';
+  }
+
   if (window.Split) {
     app.setup.splitPanes();
     if (!app.config.compact) {
