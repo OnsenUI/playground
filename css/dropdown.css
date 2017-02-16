@@ -2,7 +2,7 @@
   float: left;
   position: relative;
   margin-left: 6px;
-  width: 436px;
+  width: 400px;
 }
 #modules .select {
   background: #fff;
@@ -81,10 +81,8 @@
 }
 
 #modules .menu {
-  height: 400px;
   background-color: #eee;
   display: none;
-  border-bottom: 1px solid #ccc;
 }
 
 #modules .menu-mask{
@@ -94,6 +92,39 @@
   top: 0;
   left: 0;
   z-index: 7;
+}
+
+#modules .menu-container {
+  width: 100%;
+  position: absolute;
+  z-index: 8;
+  border: 1px solid #ccc;
+  border-top: 0;
+  box-sizing: border-box;
+}
+
+#modules .menu-search {
+  display: flex;
+  background: #fff;
+  height: 36px;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  z-index: 8;
+}
+
+#modules .menu-search #search-input {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0px 8px;
+  box-sizing: border-box;
+  font-size: 12px;
+  color: #666;
+}
+
+#modules .menu-search #search-input:focus {
+  outline: none;
+  outline-offset: 0;
 }
 
 .ace_gutter,
@@ -119,29 +150,31 @@
   overflow: hidden;
 }
 
-#modules .menu > ul {
-  position: absolute;
-  z-index: 8;
-}
-
-#modules .menu > ul > li {
-  float: left;
-  height: inherit;
-}
-
-#modules .menu > ul > li > label {
-  height: 55px;
-  width: 88px;
+#modules .menu-list {
+  height: 400px;
+  position: relative;
+  background-color: #eee;
   box-sizing: border-box;
-  display: inline-block;
+  display: flex;
+}
+
+#modules .framework-item {
+  flex-grow: 1;
+}
+
+#modules .framework-item > label {
+  height: 54px;
+  width: 100%;
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
   background-color: #FFF;
   color: #333;
-  border: 1px solid #ccc;
-  border-top: none;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px;
   margin-left: -1px;
-  padding: 5px 10px 10px;
   position: relative;
-  left: 1px;
   cursor: pointer;
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
@@ -150,6 +183,7 @@
 
 #modules .framework-logo {
   height: 40px;
+  flex-grow: 1;
 }
 
 #modules .menu input[type=radio] {
@@ -218,13 +252,13 @@
 
 #modules .framework-item > label::before {
 
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ccc;
 
   z-index: 9;
   bottom: 0;
-  right: calc(50% - 7px);
+  right: calc(50% - 6px);
 }
 
 #modules .framework-item > label::after {
@@ -247,9 +281,8 @@
   display: none;
   height: calc(100% - 54px);
   position: absolute;
+  border-top: 1px solid #ccc;
   left: 0;
-  border: 1px solid #ccc;
-  border-bottom: none;
   right: 0;
   bottom: 0;
   box-sizing: border-box;
@@ -281,6 +314,10 @@
 
 #modules .module-item:last-of-type {
   border-bottom: 1px solid #ccc;
+}
+
+#modules .module-item:focus {
+  outline: none;
 }
 
 #modules .module-item label {

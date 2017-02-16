@@ -12,10 +12,10 @@
 }
 
 .tab > label {
-  background: #ccc;
+  background: #eee;
   color: #333;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #eee;
   margin-left: -1px;
   position: relative;
   left: 1px;
@@ -29,6 +29,18 @@
   display: none;
 }
 
+.tab [type=radio]:checked ~ label {
+  background: #ccc;
+  color: #fff;
+  z-index: 2;
+  border-bottom: 2px inset #ccc;
+  box-shadow: inset 0px -4px 0px -2px white;
+}
+
+.tab [type=radio]:checked ~ label ~ .content {
+  z-index: 5;
+}
+
 .content {
   position: absolute;
   top: 28px;
@@ -36,18 +48,7 @@
   background: white;
   right: 0;
   bottom: 0;
-}
-
-[type=radio]:checked ~ label {
-  background: #999;
-  color: white;
-  z-index: 2;
-  border-bottom: 2px inset white;
-  box-shadow: inset 0px -4px 0px -2px white;
-}
-
-[type=radio]:checked ~ label ~ .content {
-  z-index: 5;
+  border-top: 1px solid #ccc;
 }
 
 #output > iframe {
@@ -56,14 +57,10 @@
 }
 
 body {
-  background: #ccc;
+  background: #eee;
   margin: 0;
   padding: 0;
   overflow-y: hidden;
-}
-
-#dropdown-section {
-  width: 100%;
 }
 
 #modules {
@@ -73,15 +70,12 @@ body {
   width: initial;
 }
 
-#modules .menu > ul {
-  background-color: #eee;
-  height: calc(100% - 36px);
-  display: flex;
-  justify-content: center;
+#modules .menu-container {
+  height: 100%;
 }
 
-#modules .menu > ul > li > label {
-  width: 72px;
+#modules .menu-list {
+  height: calc(100% - 72px);
 }
 
 .main-view-link {
