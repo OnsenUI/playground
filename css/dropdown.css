@@ -316,6 +316,10 @@
   border-bottom: 1px solid #ccc;
 }
 
+#modules .module-item:focus {
+  outline: none;
+}
+
 #modules .module-item label {
   font-size: 14px;
   padding: 6px 18px;

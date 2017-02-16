@@ -29,6 +29,18 @@
   display: none;
 }
 
+.tab [type=radio]:checked ~ label {
+  background: #ccc;
+  color: #fff;
+  z-index: 2;
+  border-bottom: 2px inset #ccc;
+  box-shadow: inset 0px -4px 0px -2px white;
+}
+
+.tab [type=radio]:checked ~ label ~ .content {
+  z-index: 5;
+}
+
 .content {
   position: absolute;
   top: 28px;
@@ -37,18 +49,6 @@
   right: 0;
   bottom: 0;
   border-top: 1px solid #ccc;
-}
-
-[type=radio]:checked ~ label {
-  background: #ccc;
-  color: #fff;
-  z-index: 2;
-  border-bottom: 2px inset #ccc;
-  box-shadow: inset 0px -4px 0px -2px white;
-}
-
-[type=radio]:checked ~ label ~ .content {
-  z-index: 5;
 }
 
 #output > iframe {
