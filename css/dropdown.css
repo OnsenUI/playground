@@ -2,7 +2,7 @@
   float: left;
   position: relative;
   margin-left: 6px;
-  width: 432px;
+  width: 400px;
 }
 #modules .select {
   background: #fff;
@@ -83,7 +83,6 @@
 #modules .menu {
   background-color: #eee;
   display: none;
-  /* border-bottom: 1px solid #ccc; */
 }
 
 #modules .menu-mask{
@@ -96,10 +95,12 @@
 }
 
 #modules .menu-container {
+  width: 100%;
   position: absolute;
   z-index: 8;
   border: 1px solid #ccc;
   border-top: 0;
+  box-sizing: border-box;
 }
 
 #modules .menu-search {
@@ -153,29 +154,27 @@
   height: 400px;
   position: relative;
   background-color: #eee;
-  /* border: 1px solid #ccc; */
   box-sizing: border-box;
+  display: flex;
 }
 
 #modules .framework-item {
-  float: left;
-  height: inherit;
+  flex-grow: 1;
 }
 
 #modules .framework-item > label {
   height: 54px;
-  width: 88px;
-  box-sizing: border-box;
-  display: inline-block;
+  width: 100%;
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
   background-color: #FFF;
   color: #333;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-bottom: 1px;
-  margin-left: -2px;
-  padding: 5px 10px 10px;
+  margin-left: -1px;
   position: relative;
-  left: 1px;
   cursor: pointer;
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
@@ -184,6 +183,7 @@
 
 #modules .framework-logo {
   height: 40px;
+  flex-grow: 1;
 }
 
 #modules .menu input[type=radio] {

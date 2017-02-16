@@ -63,10 +63,6 @@ body {
   overflow-y: hidden;
 }
 
-#dropdown-section {
-  width: 100%;
-}
-
 #modules {
   float: initial;
   position: initial;
@@ -76,19 +72,10 @@ body {
 
 #modules .menu-container {
   height: 100%;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 #modules .menu-list {
-  background-color: #eee;
   height: calc(100% - 72px);
-  display: flex;
-  justify-content: center;
-}
-
-#modules .menu-list > li > label {
-  width: 72px;
 }
 
 .main-view-link {
