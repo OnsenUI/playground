@@ -90,6 +90,8 @@
       </form>
       <button id="issue-button" class="toolbar-button tooltip" tooltip="Report an issue on GitHub based on this code"><span class="icon"></span><span class="label">Report an issue</span></button>
     </div>
+
+    <!-- menu - dropdown - frameworks - tuts -->
     <label id="modules">
       <div class="select">
         <span class="select-thumbnail"></span>
@@ -102,43 +104,49 @@
       <div class="menu">
         <div class="menu-mask"></div>
 
-        <ul>
-          <li class="framework-item">
-            <input type="radio" id="r-vanilla" name="framework" checked>
-            <label for="r-vanilla" framework="vanilla">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-          <li class="framework-item">
-            <input type="radio" id="r-angular1" name="framework">
-            <label for="r-angular1" framework="angular1">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-          <li class="framework-item">
-            <input type="radio" id="r-angular2" name="framework">
-            <label for="r-angular2" framework="angular2">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-          <li class="framework-item">
-            <input type="radio" id="r-react" name="framework">
-            <label for="r-react" framework="react">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-          <li class="framework-item">
-            <input type="radio" id="r-vue" name="framework">
-            <label for="r-vue" framework="vue">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-        </ul>
+        <div class="menu-container">
+          <label class="menu-search">
+            <input id="search-input" placeholder="Filter space-separated keywords (e.g. navigator menu)">
+          </label>
+
+          <ul class="menu-list">
+            <li class="framework-item">
+              <input type="radio" id="r-vanilla" name="framework" checked>
+              <label for="r-vanilla" framework="vanilla">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+            <li class="framework-item">
+              <input type="radio" id="r-angular1" name="framework">
+              <label for="r-angular1" framework="angular1">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+            <li class="framework-item">
+              <input type="radio" id="r-angular2" name="framework">
+              <label for="r-angular2" framework="angular2">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+            <li class="framework-item">
+              <input type="radio" id="r-react" name="framework">
+              <label for="r-react" framework="react">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+            <li class="framework-item">
+              <input type="radio" id="r-vue" name="framework">
+              <label for="r-vue" framework="vue">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+          </ul>
+        </div>
 
       </div>
     </label>

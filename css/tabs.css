@@ -41,7 +41,7 @@
 
 [type=radio]:checked ~ label {
   background: #ccc;
-  color: #333;
+  color: #fff;
   z-index: 2;
   border-bottom: 2px inset #ccc;
   box-shadow: inset 0px -4px 0px -2px white;
@@ -74,14 +74,20 @@ body {
   width: initial;
 }
 
-#modules .menu > ul {
+#modules .menu-container {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#modules .menu-list {
   background-color: #eee;
-  height: calc(100% - 36px);
+  height: calc(100% - 72px);
   display: flex;
   justify-content: center;
 }
 
-#modules .menu > ul > li > label {
+#modules .menu-list > li > label {
   width: 72px;
 }
 
