@@ -171,9 +171,10 @@ app.setup.modules = function () {
           var id = `r-${framework}-${app.util.parseId(category)}-${app.util.parseId(module)}`;
           var moduleItem = document.createElement('li');
           moduleItem.classList.add('module-item');
+          var itemContent = app.modules[framework][category][module].split('|');
           moduleItem.innerHTML = `
             <input type="radio" name="select-item" id="${id}">
-            <label for="${id}" module="${module}" desc="${app.modules[framework][category][module]}"></label>
+            <label for="${id}" module="${module}" desc="${itemContent[0]}" keywords="${itemContent[1] || ''}"></label>
           `;
           listElement.appendChild(moduleItem)
         });
@@ -207,6 +208,23 @@ app.setup.modules = function () {
         app.services.changeModule(framework, category, module).then(app.services.runProject);
         app.services.updateSelectedItem(framework, module);
         document.body.querySelector('#modules input').checked = false;
+      }
+    };
+
+    document.body.querySelector('#search-input').oninput = function(event) {
+      var v = event.target.value;
+      if (event.target.value) {
+        Array.prototype.forEach.call(document.querySelectorAll(`#modules .module-item label:not([keywords*="${v}" i]):not([module*="${v}" i]):not([desc*="${v}" i])`), function(e) {
+          e.style.display = 'none';
+        });
+
+        Array.prototype.forEach.call(document.querySelectorAll(`#modules .module-item label[keywords*="${v}" i],[module*="${v}" i],[desc*="${v}" i]`), function(e) {
+          e.style.display = 'block';
+        });
+      } else {
+        Array.prototype.forEach.call(document.querySelectorAll('#modules .module-item label'), function(e) {
+          e.style.display = 'block';
+        });
       }
     };
   });

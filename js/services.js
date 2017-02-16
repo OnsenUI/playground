@@ -252,7 +252,7 @@ app.services.updateDropdown = function (framework, category, module) {
 };
 
 app.services.updateSelectedItem = function (framework, module, forceTitle) {
-  var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : (forceTitle || 'Select Tutorial');
+  var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : (forceTitle || 'Select Template');
   document.querySelector('#modules .select-item').innerHTML = description;
   var thumbnail = document.querySelector('#modules .select-thumbnail');
   thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
