@@ -172,9 +172,11 @@ app.setup.modules = function () {
           var moduleItem = document.createElement('li');
           moduleItem.classList.add('module-item');
           var itemContent = app.modules[framework][category][module].split('|');
+          var itemDescription = itemContent[0];
+          var itemKeywords = (app.modulesDefaultKeywords.hasOwnProperty(module) ? app.modulesDefaultKeywords[module] : '').concat(itemContent[1] || '');
           moduleItem.innerHTML = `
             <input type="radio" name="select-item" id="${id}">
-            <label for="${id}" module="${module}" desc="${itemContent[0]}" keywords="${itemContent[1] || ''}"></label>
+            <label for="${id}" module="${module}" desc="${itemDescription}" keywords="${itemKeywords}"></label>
           `;
           listElement.appendChild(moduleItem)
         });
@@ -187,7 +189,7 @@ app.setup.modules = function () {
         var extraInfo = document.createElement('li');
         extraInfo.classList.add('category-item');
         extraInfo.innerHTML = `
-          <a href="https://onsen.io/v2/docs/${framework === 'vanilla' ? 'js' : framework}.html">Further reading</a>
+          <a href="https://onsen.io/v2/docs/${framework === 'vanilla' ? 'js' : framework}.html">Further Reading</a>
         `;
         moduleList.appendChild(extraInfo);
       } else {
@@ -212,18 +214,28 @@ app.setup.modules = function () {
     };
 
     document.body.querySelector('#search-input').oninput = function(event) {
-      var v = event.target.value;
-      if (event.target.value) {
-        Array.prototype.forEach.call(document.querySelectorAll(`#modules .module-item label:not([keywords*="${v}" i]):not([module*="${v}" i]):not([desc*="${v}" i])`), function(e) {
-          e.style.display = 'none';
-        });
+      var words = event.target.value.split(/\s+/);
+      var items = [];
 
-        Array.prototype.forEach.call(document.querySelectorAll(`#modules .module-item label[keywords*="${v}" i],[module*="${v}" i],[desc*="${v}" i]`), function(e) {
-          e.style.display = 'block';
-        });
-      } else {
-        Array.prototype.forEach.call(document.querySelectorAll('#modules .module-item label'), function(e) {
-          e.style.display = 'block';
+      words.forEach(function(word) {
+        if (word) {
+          var query = '#modules .module-item label';
+
+          ['keywords', 'module', 'desc'].forEach(function(attr) {
+            query += `:not([${attr}*="${word}" i])`;
+          });
+
+          items = items.concat(Array.prototype.slice.call(document.querySelectorAll(query)));
+        }
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll('#modules .module-item.filtered'), function(item) {
+        item.classList.remove('filtered');
+      });
+
+      if (items.length > 0) {
+        items.forEach(function(item) {
+          item.parentElement.classList.add('filtered');
         });
       }
     };
