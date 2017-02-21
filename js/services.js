@@ -181,13 +181,13 @@ app.services.collapseEditors = function (html, code) {
 
 app.services.loadIssue = function(issue) {
   var matchRegExp = function(keyword, text, template) {
-    var regexp = new RegExp(template.replace('placeholder', keyword), 'm');
+    var regexp = new RegExp(template.replace('placeholder', keyword), 'im');
     return (text.match(regexp) || []).slice(1, 3);
   };
 
   app.util.request('https://api.github.com/repos/OnsenUI/OnsenUI/issues/' + issue).then(function(responseText) {
     var content = JSON.parse(responseText).body;
-    var regexSection = '\\[placeholder]\\s+([a-zA-Z\\-]+)\\s+(.+)\\s+';
+    var regexSection = '\\[placeholder]\\s+([a-zA-Z0-9\\-]+)\\s+(.+)\\s+';
     var regexCode = '__placeholder__\\s+```[a-zA-z]*\\s+((.|\\s)*?)```';
 
     // Get core version
@@ -211,7 +211,7 @@ app.services.loadIssue = function(issue) {
     }
 
     // Fallback to vanilla
-    if (!app.config.framework) {
+    if (!app.config.framework || app.config.framework === 'none') {
       app.config.framework = 'vanilla';
     }
 
@@ -354,7 +354,7 @@ app.services.reportIssue = function () {
     var promises = [];
 
     libs.forEach(function(lib) {
-      if (!app.config.versions[lib]) {
+      if (!app.config.versions[lib] || app.config.versions[lib] === 'latest') {
         promises.push(app.services.getLatestVersionOf(lib));
       } else {
         promises.push(new Promise(function(resolve) {
@@ -386,9 +386,14 @@ app.services.reportIssue = function () {
 
 app.services.getLatestVersionOf = function (lib) {
   return app.util.request('https://registry.npmjs.org/' + lib, true)
-    .then(function(responseText) {
+  .then(
+    function(responseText) {
       var responseJSON = JSON.parse(responseText);
       return responseJSON['dist-tags'].latest;
+    },
+    function() {
+      console.warn('Request timed out.')
+      return 'latest';
     });
 };
 

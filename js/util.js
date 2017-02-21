@@ -77,6 +77,7 @@ app.util.request = function (url, CORS) {
     if (CORS) {
       request.open('get', 'https://crossorigin.me/' + url);
       request.setRequestHeader('Content-Type', 'application/json');
+      request.timeout = 4000;
     } else {
       request.open('get', url);
     }
