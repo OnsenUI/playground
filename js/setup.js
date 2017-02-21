@@ -172,9 +172,11 @@ app.setup.modules = function () {
           var moduleItem = document.createElement('li');
           moduleItem.classList.add('module-item');
           var itemContent = app.modules[framework][category][module].split('|');
+          var itemDescription = itemContent[0];
+          var itemKeywords = (app.modulesDefaultKeywords.hasOwnProperty(module) ? app.modulesDefaultKeywords[module] : '').concat(itemContent[1] || '');
           moduleItem.innerHTML = `
             <input type="radio" name="select-item" id="${id}">
-            <label for="${id}" module="${module}" desc="${itemContent[0]}" keywords="${itemContent[1] || ''}"></label>
+            <label for="${id}" module="${module}" desc="${itemDescription}" keywords="${itemKeywords}"></label>
           `;
           listElement.appendChild(moduleItem)
         });
@@ -220,7 +222,7 @@ app.setup.modules = function () {
           var query = '#modules .module-item label';
 
           ['keywords', 'module', 'desc'].forEach(function(attr) {
-            query += `:not([${attr}*="${word}"])`;
+            query += `:not([${attr}*="${word}" i])`;
           });
 
           items = items.concat(Array.prototype.slice.call(document.querySelectorAll(query)));
