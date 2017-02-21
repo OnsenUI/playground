@@ -143,7 +143,7 @@ app.services.loadModule = function (framework, category, module) {
       var code = format(extract(script, /<script.*>([\s\S]*)<\/script>/));
 
       app.config.codeType = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
-      app.config.framework = app.util.getParam('framework');
+      app.config.framework = framework;
 
       app.services.updateEditors(html, code);
 

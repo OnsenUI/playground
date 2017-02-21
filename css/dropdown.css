@@ -60,6 +60,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-transform: capitalize;
 }
 
 #modules .select-arrow {
@@ -263,7 +264,6 @@
 }
 
 #modules .framework-item > label::before {
-
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-bottom: 6px solid #ccc;
@@ -348,10 +348,12 @@
 
 #modules .module-item > label::before {
   content: attr(desc);
+  text-transform: capitalize;
 }
 
 #modules .category-item > label::before {
   content: attr(category);
+  text-transform: capitalize;
 }
 
 #modules .category-item > label::after {

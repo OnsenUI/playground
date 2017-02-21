@@ -5,7 +5,13 @@ app.util.getParam = function (param) {
   var regexContent = new RegExp(param + '=([^&]+)');
   var regexExists = new RegExp('[?&]' + param + '(=|&|$)');
   var query = window.location.search.replace(/\+|%20/g, ' ');
-  return ((query.match(regexContent) || [])[1]) || (query.match(regexExists) ? '' : null);
+
+  var content = (query.match(regexContent) || [])[1];
+  if (content) {
+    return content.toLowerCase();
+  }
+
+  return query.match(regexExists) ? '' : null;
 };
 
 app.util.arrayFrom = function (arrayLike) {
