@@ -213,6 +213,10 @@ app.setup.modules = function () {
       }
     };
 
+    document.body.querySelector('#search-input').onclick = function(event) {
+      event.preventDefault();
+    };
+
     document.body.querySelector('#search-input').oninput = function(event) {
       var words = event.target.value.split(/\s+/);
       var items = [];
