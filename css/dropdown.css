@@ -118,13 +118,25 @@
   border: 0;
   padding: 0px 8px;
   box-sizing: border-box;
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
+  background-color: #fff;
+}
+
+#modules .menu-search::before {
+  background: url('../assets/icons/search.svg') left / 18px no-repeat transparent;
+  width: 18px;
+  margin-left: 8px;
+  content: '';
 }
 
 #modules .menu-search #search-input:focus {
   outline: none;
   outline-offset: 0;
+}
+
+#modules .menu-list .filtered {
+  display: none;
 }
 
 .ace_gutter,
