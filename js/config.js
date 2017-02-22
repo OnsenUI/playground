@@ -12,12 +12,12 @@ if ((window.location.hostname === 'localhost' || window.location.hostname.match(
   app.config.local = true;
 }
 
-app.config.getCdnUrl = function(lib, path, skipNightly) {
+app.config.getCdnUrl = function(lib, path, forceRemote, skipNightly) {
   // Fetch from local disk
-  if (app.config.local === true) {
+  if (app.config.local === true && !forceRemote) {
     let directory = '../../OnsenUI/';
     if (lib === 'onsenui') {
-      directory += directory + 'build/';
+      directory += 'build/';
     } else {
       directory += `bindings/${lib.split('-')[0]}/`;
     }
@@ -67,29 +67,29 @@ app.config.ownLibs.forEach(function (libName) {
   }
 });
 
-app.config.lib = function() {
+app.config.lib = function(forceRemote) {
   return {
     js: {
       // Vanilla
-      onsenui: app.config.getCdnUrl('onsenui', 'js/onsenui.js'),
+      onsenui: app.config.getCdnUrl('onsenui', 'js/onsenui.js', forceRemote),
       // AngularJS
       angular1: `https://cdnjs.cloudflare.com/ajax/libs/angular.js/${app.config.versions.angular1}/angular.min.js`,
-      angularOnsenui: app.config.getCdnUrl('onsenui', 'js/angular-onsenui.js'),
+      angularOnsenui: app.config.getCdnUrl('onsenui', 'js/angular-onsenui.js', forceRemote),
       // React
       react: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react.min.js`,
       reactDom: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react-dom.min.js`,
-      reactOnsenui: app.config.getCdnUrl('react-onsenui', 'dist/react-onsenui.js'),
+      reactOnsenui: app.config.getCdnUrl('react-onsenui', 'dist/react-onsenui.js', forceRemote),
       // Vue
       vue: `https://cdnjs.cloudflare.com/ajax/libs/vue/${app.config.versions.vue}/vue.js`,
-      vueOnsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js'),
+      vueOnsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js', forceRemote),
       // Angular 2
       zone: `https://unpkg.com/zone.js@0.6.21/dist/zone.min.js`,
       corejs: `https://unpkg.com/core-js@2.4.1/client/core.min.js`,
       systemjs: `https://unpkg.com/systemjs@0.19.37/dist/system.js`
     },
     css: {
-      onsenui: app.config.getCdnUrl('onsenui', 'css/onsenui.css', true),
-      onsenuiCssComponents: app.config.getCdnUrl('onsenui', 'css/onsen-css-components.css')
+      onsenui: app.config.getCdnUrl('onsenui', 'css/onsenui.css', forceRemote, true),
+      onsenuiCssComponents: app.config.getCdnUrl('onsenui', 'css/onsen-css-components.css', forceRemote)
     }
   };
 };

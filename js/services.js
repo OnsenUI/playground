@@ -40,7 +40,7 @@ app.services.generateTemplateOutput = function () {
 };
 
 app.services.getJSLibs = function () {
-  var libs = app.services.getRequiredLibs();
+  var libs = app.util.flattenJSLibs(app.services.getRequiredLibs());
   var result = '';
 
   libs.forEach(function (lib) {
@@ -80,7 +80,9 @@ app.services.runProject = function () {
 };
 
 app.services.codepenSubmit = function () {
-  var css = app.config.lib().css;
+  var libs = app.services.getRequiredLibs(true);
+  var cssLibs = libs.onsenui['onsen/css'];
+  var jsLibs = app.util.flattenJSLibs(libs);
 
   var options = {
     title: 'Onsen UI',
@@ -88,8 +90,8 @@ app.services.codepenSubmit = function () {
     html: app.editors.html.getValue(),
     js: app.editors.js.getValue(),
     editors: '101',
-    js_external: app.services.getRequiredLibs().join(';'),
-    css_external: css.onsenui + ';' + css.onsenuiCssComponents,
+    js_external: jsLibs.join(';'),
+    css_external: cssLibs.join(';'),
     js_pre_processor: app.config.codeType
   };
 
@@ -283,8 +285,9 @@ app.services.updateEditors = function (html, js) {
   }
 };
 
-app.services.getRequiredLibs = function () {
-  var libs = app.config.lib()
+app.services.getRequiredLibs = function (forceRemote) {
+  var libs = app.config.lib(forceRemote)
+
   var requiredLibs = {
     'onsenui': {
       'onsen/js': [libs.js.onsenui],
@@ -320,7 +323,7 @@ app.services.getRequiredLibs = function () {
       break;
   }
 
-  return app.util.flattenJSLibs(requiredLibs);
+  return requiredLibs;
 };
 
 app.services.getTranspilerLib = function () {
