@@ -8,10 +8,10 @@
     new Vue({
       el: '#app',
       template: '#main',
-      methods: {
-        alert() {
-          this.$notification.alert('Hello World!');
-        }
+      data() {
+        return {
+          title: 'My app'
+        };
       }
     });
   </script>
@@ -20,11 +20,18 @@
   <template id="main">
     <v-ons-page>
       <v-ons-toolbar>
-        <div class="center">My app</div>
+        <div class="center">{{ title }}</div>
+        <div class="right">
+          <v-ons-toolbar-button>
+            <v-ons-icon icon="ion-navicon, material: md-menu"></v-ons-icon>
+          </v-ons-toolbar-button>
+        </div>
       </v-ons-toolbar>
 
       <p style="text-align: center">
-        <v-ons-button @click="alert">Click</v-ons-button>
+        <v-ons-button @click="$notification.alert('Hello World!')">
+          Click me!
+        </v-ons-button>
       </p>
     </v-ons-page>
   </template>
