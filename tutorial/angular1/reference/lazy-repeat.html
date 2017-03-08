@@ -92,10 +92,12 @@ In order to refresh the list when the data has changed, `refresh` method is expo
 
 ## Calculating the height
 
-In the case where all the items are not the same height it is necessary to define the `calculateItemHeight` function in the `delegate` object.
+`<ons-lazy-repeat>` can dynamically calculate the height of every item once they are rendered, but in order to know how many items it should render beforehand we must provide a hint. By default, `<ons-lazy-repeat>` pre-renders the very first item and takes its height to do the calculations.
+
+However, it is also possible to pass an optional `calculateItemHeight` function in the `delegate` object that gets the element index and returns its approximate height. This can enhance the calculations and allow better scrolling.
 
 ```
-this.delegate = {
+list.delegate = {
   ...
   calculateItemHeight: function(index) {
     return heights[index];
@@ -104,6 +106,5 @@ this.delegate = {
 }
 ```
 
-For lists where every item is the same height this function can be omitted. In this case the height of the first element will be measured and used for every subsequent item.
 -->
 
