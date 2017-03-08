@@ -11,7 +11,6 @@
       data() {
         return {
           name: '',
-          switchOn: true,
           vegetables: ['Apples', 'Bananas', 'Oranges'],
           selectedVegetable: 'Bananas',
           colors: ['Red', 'Green', 'Blue'],
@@ -28,61 +27,30 @@
         <div class="center">Form input</div>
       </v-ons-toolbar>
 
-      <ons-list>
-        <ons-list-header>
+      <v-ons-list>
+        <v-ons-list-header>
           Text input
-        </ons-list-header>
-        <ons-list-item>
+        </v-ons-list-header>
+        <v-ons-list-item>
           <div class="center">
-            <v-ons-input
-              placeholder="Input your name"
-              float
+            <v-ons-input placeholder="Input your name" float
               v-ons-model="name"
-              >
+            >
             </v-ons-input>
           </div>
-        </ons-list-item>
-        <ons-list-item>
+        </v-ons-list-item>
+        <v-ons-list-item>
           <div class="right">
             Hello {{ name || 'anonymous' }}!
           </div>
-        </ons-list-item>
+        </v-ons-list-item>
 
-        <ons-list-header>
-          Switches
-        </ons-list-header>
-        <ons-list-item>
-          <label class="center" for="switch1">
-            Switch ({{ switchOn ? 'on' : 'off' }})
-          </label>
-          <div class="right">
-            <v-ons-switch
-              v-ons-model="switchOn"
-              input-id="switch1"
-            >
-            </v-ons-switch>
-          </div>
-        </ons-list-item>
-        <ons-list-item>
-          <label class="center" for="mySwitch">
-            {{ switchOn ? 'Enabled switch' : 'Disabled switch' }}
-          </label>
-          <div class="right">
-            <v-ons-switch
-              :disabled="!switchOn"
-              input-id="mySwitch"
-            >
-            </v-ons-switch>
-          </div>
-        </ons-list-item>
-
-        <ons-list-header>
+        <v-ons-list-header>
           Radio buttons
-        </ons-list-header>
-        <ons-list-item v-for="(vegetable, $index) in vegetables" tappable>
+        </v-ons-list-header>
+        <v-ons-list-item v-for="(vegetable, $index) in vegetables" :key="vegetable" tappable>
           <label class="left">
-            <v-ons-input
-              type="radio"
+            <v-ons-input type="radio"
               :input-id="'radio-' + $index"
               :value="vegetable"
               v-ons-model=" selectedVegetable"
@@ -92,20 +60,19 @@
           <label :for="'radio-' + $index" class="center">
             {{ vegetable }}
           </label>
-        </ons-list-item>
-        <ons-list-item>
+        </v-ons-list-item>
+        <v-ons-list-item>
           <div class="center">
             I love {{ selectedVegetable }}!
           </div>
-        </ons-list-item>
+        </v-ons-list-item>
 
-        <ons-list-header>
+        <v-ons-list-header>
           Checkboxes - {{checkedColors}}
-        </ons-list-header>
-        <ons-list-item v-for="(color, $index) in colors" tappable>
+        </v-ons-list-header>
+        <v-ons-list-item v-for="(color, $index) in colors" :key="color" tappable>
           <label class="left">
-            <v-ons-input
-              type="checkbox"
+            <v-ons-input type="checkbox"
               :input-id="'checkbox-' + $index"
               :value="color"
               v-ons-model="checkedColors"
@@ -115,9 +82,9 @@
           <label class="center" :for="'checkbox-' + $index">
             {{ color }}
           </label>
-        </ons-list-item>
+        </v-ons-list-item>
 
-      </ons-list>
+      </v-ons-list>
     </v-ons-page>
   </template>
 
