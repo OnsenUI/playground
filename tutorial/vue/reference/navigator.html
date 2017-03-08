@@ -41,7 +41,7 @@
 <body>
   <template id="main">
     <v-ons-navigator :page-stack="pageStack">
-      <div :is="page" v-for="page in pageStack" :page-stack="pageStack"></div>
+      <component :is="page" v-for="page in pageStack" :page-stack="pageStack"></component>
     </v-ons-navigator>
   </template>
 

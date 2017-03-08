@@ -63,12 +63,11 @@
         <div class="center">{{ title }}</div>
       </v-ons-toolbar>
 
-      <v-ons-tabbar
+      <v-ons-tabbar position="auto"
         :tabs="tabs"
         :visible="true"
         :index="activeIndex"
         @update="activeIndex = $event"
-        position="auto"
       >
       </v-ons-tabbar>
     </v-ons-page>
