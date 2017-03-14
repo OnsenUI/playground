@@ -121,6 +121,7 @@ app.modules = {
       'tabbar': 'using tabs',
       'splitter': 'side menu (splitter)',
       'list': 'lists',
+      'lazy-repeat': 'infinite lists',
       'pull-hook': 'pull to refresh',
       'carousel': 'carousel',
       'dialog': 'dialogs',

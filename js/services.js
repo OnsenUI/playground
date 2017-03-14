@@ -163,7 +163,7 @@ app.services.loadModule = function (framework, category, module) {
 
 app.services.generateTutorialPages = function(markdown) {
   return markdown.split(/\n(?=[ \t]*#{2}(?!#))/).map(function (e) {
-    return marked(e);
+    return marked(e) + '<br><br>';
   });
 };
 

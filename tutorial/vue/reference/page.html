@@ -29,7 +29,7 @@
       </v-ons-toolbar>
 
       <p style="text-align: center">
-        <v-ons-button @click="$notification.alert('Hello World!')">
+        <v-ons-button @click="$ons.notification.alert('Hello World!')">
           Click me!
         </v-ons-button>
       </p>
@@ -72,20 +72,28 @@ The `VOnsToolbar` component displays a navigation bar on the top of a `VOnsPage`
 
 ## Defining event handlers
 
-Clickable components such as `VOnsButton` turns the native `click` event into a VM event. Therefore, it can be handy handled with `@click="fn"` or `@click.native="fn"`.
+Clickable components such as `VOnsButton` turns the native `click` event into a VM event. Therefore, it can be conveniently handled with `@click="fn"` or `@click.native="fn"`.
 
 ```
 <v-ons-button @click="fn">Click me!</v-ons-button>
 ```
 
+## The `$ons` object
+
+Onsen UI not only provides custom elements, it also provides an object called `$ons` with a lot of useful functions attached to it.
+
+Enabling or disabling autostyling feature, setting a new global device back button handler, extending animations or getting device orientation events are just a bunch of examples.
+
+`$ons` object is exposed directly in Vue's prototype. Therefore, it can be accessed with `this.$ons` or `Vue.$ons`.
+
 ## Showing a notification
 
-A `$notification` object is exposed directly in Vue's prototype. Therefore, it can be accessed with `this.$notification` or `Vue.$notification`.
-
-Just like in normal Onsen UI apps you can show dialogs using the `$notification` methods:
+Just like in normal Onsen UI apps you can show dialogs using the `$ons.notification` methods:
 
 ```
-this.$notification.alert('Hello world!');
+this.$ons.notification.alert('Hello world!');
+this.$ons.notification.confirm('Are you sure?', {...});
+this.$ons.notification.prompt('How are you?', {...});
 ```
 
 -->

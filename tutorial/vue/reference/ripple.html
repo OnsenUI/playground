@@ -7,12 +7,7 @@
   <script type="text/babel">
     new Vue({
       el: '#app',
-      template: '#main',
-      data() {
-        return {
-          volume: 25
-        };
-      }
+      template: '#main'
     });
   </script>
 </head>
@@ -31,10 +26,8 @@
         </v-ons-ripple>
       </div>
 
-      <v-ons-fab
-        position="bottom right"
-        :style="{backgroundColor: $platform.isIOS() ? '#4282cc' : null}"
-        ripple
+      <v-ons-fab ripple position="bottom right"
+        :style="{ backgroundColor: $ons.platform.isIOS() ? '#4282cc' : null }"
       >
         <v-ons-icon icon="md-face"></v-ons-icon>
       </v-ons-fab>

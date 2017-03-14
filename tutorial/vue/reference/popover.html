@@ -34,7 +34,7 @@
         <div class="center">Popover</div>
         <div class="right">
           <v-ons-toolbar-button @click="showPopover($event, 'down', true)">
-            <v-ons-icon v-if="$platform.isAndroid()" icon="md-more-vert"></v-ons-icon>
+            <v-ons-icon v-if="$ons.platform.isAndroid()" icon="md-more-vert"></v-ons-icon>
             <span v-else> Click me </span>
           </v-ons-toolbar-button>
         </div>
@@ -48,12 +48,12 @@
         </div>
       </div>
 
-      <v-ons-popover
+      <v-ons-popover cancelable
         :visible="popoverVisible"
         :target="popoverTarget"
         :direction="popoverDirection"
         :cover-target="coverTarget"
-        @mask="popoverVisible = false"
+        @update="popoverVisible = $event"
       >
         <p style="text-align: center">Lorem ipsum</p>
       </v-ons-popover>
@@ -70,7 +70,9 @@
 
 The `VOnsPopover` component displays a box next to a target component or element. It can be used to show a tooltip, an info box or even for displaying a menu.
 
-To show or hide a popover the `visible` property is used. To determine which component it should visually point to, the `target` property must be set to either a **Vue component reference ($refs)**, DOM element, DOM query (e.g `'div#id.class'` or **an event**. In the provided example, `$event` is used to display the popover on `$event.target`.
+To show or hide a popover the `visible` property is used. Similar to other components, an `update` event is fired whenever the user interacts with the popover and allow to refresh the value of `visible` prop.
+
+In order to determine which component it should visually point to, the `target` prop must be set to either a **Vue component reference ($refs)**, DOM element, DOM query (e.g `'div#id.class'` or **an event**. In the provided example, `$event` is used to display the popover on `$event.target`.
 
 The popover will automatically alter its style based on the platform. On Android it will be displayed as a Material Design component that can be used as a menu. The prop `coverTarget` is provided in order to optionally show the popover over the original target (only for Material Design).
 
