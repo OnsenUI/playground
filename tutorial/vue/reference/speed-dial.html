@@ -13,11 +13,11 @@
           spdVisible: true,
           spdOpen: true,
           spdStyle: {
-            backgroundColor: this.$platform.isIOS() ? '#4282cc' : null
+            backgroundColor: this.$ons.platform.isIOS() ? '#4282cc' : null
           },
           shareItems: {
-            Twitter: 'md-twitter',
-            Facebook: 'md-facebook',
+            'Twitter': 'md-twitter',
+            'Facebook': 'md-facebook',
             'Google+': 'md-google-plus'
           }
         };
@@ -38,12 +38,10 @@
         <label>Show items <input type="checkbox" v-model="spdOpen" /></label>
       </p>
 
-      <v-ons-speed-dial
-        position="bottom right"
-        direction="up"
+      <v-ons-speed-dial position="bottom right" direction="up"
         :visible="spdVisible"
         :open="spdOpen"
-        :on-click="() => spdOpen = !spdOpen"
+        @update="spdOpen = $event"
       >
         <v-ons-fab :style="spdStyle">
           <v-ons-icon icon="md-face"></v-ons-icon>
@@ -51,7 +49,7 @@
 
         <v-ons-speed-dial-item v-for="(icon, name) in shareItems"
           :style="spdStyle"
-          @click="$notification.confirm(`Share on ${name}?`)"
+          @click="$ons.notification.confirm(`Share on ${name}?`)"
         >
           <v-ons-icon :icon="icon"></v-ons-icon>
         </v-ons-speed-dial-item>

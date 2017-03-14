@@ -33,7 +33,7 @@
       </v-ons-toolbar>
 
       <v-ons-pull-hook
-        @action="loadItem"
+        :action="loadItem"
         @changestate="state = $event.state"
       >
         <span v-show="state === 'initial'"> Pull to refresh </span>
@@ -63,6 +63,6 @@ The `VOnsPullHook` component has three different states: `initial`, `preaction` 
 
 Every time the state changes the, a `changestate` event is fired.
 
-When the component transitions into the `action` state, apart from `changestate` it will also throw `action` event which gets a `done` function as a parameter. Calling this function will cause it to return to the `initial` state.
+Through the `action` prop it is possible to provide a handler that runs when the component reaches "action" state. This handler gets a `done` function as a parameter that must be called when the action is finished, thus returning to the `initial` state.
 
 -->

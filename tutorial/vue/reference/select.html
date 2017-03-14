@@ -31,11 +31,15 @@
       <ons-list>
         <ons-list-item>
           <div class="center">
-            <v-ons-select v-ons-model="selectedItem">
+
+            <v-ons-select style="width: 40%"
+              v-ons-model="selectedItem"
+            >
               <option v-for="item in items" :value="item.value">
                 {{ item.text }}
               </option>
             </v-ons-select>
+
           </div>
         </ons-list-item>
         <ons-list-item>

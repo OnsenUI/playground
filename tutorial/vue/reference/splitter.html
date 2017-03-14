@@ -50,14 +50,14 @@
   <template id="main">
     <v-ons-splitter>
       <v-ons-splitter-side
-        swipeable width="150px" collapse=""
-        v-ons-open="openSide"
-        side="left"
+        swipeable width="150px" collapse="" side="left"
+        :open="openSide"
+        @update="openSide = $event"
       >
         <v-ons-page>
           <v-ons-list>
-            <v-ons-list-header>Menu</v-ons-list-header>
-            <v-ons-list-item v-for="page in pages" tappable modifier="chevron"
+            <v-ons-list-item v-for="page in pages"
+              tappable modifier="chevron"
               @click="currentPage = page; openSide = false"
             >
               <div class="center">{{ page }}</div>
@@ -67,14 +67,14 @@
       </v-ons-splitter-side>
 
       <v-ons-splitter-content>
-        <div :is="currentPage" :toggle-menu="() => openSide = !openSide"></div>
+        <component :is="currentPage" :toggle-menu="() => openSide = !openSide"></component>
       </v-ons-splitter-content>
     </v-ons-splitter>
   </template>
 
   <template id="home">
     <v-ons-page>
-      <custom-toolbar :title="'Home'" :action="toggleMenu"></custom-toolbar>
+      <custom-toolbar title="Home" :action="toggleMenu"></custom-toolbar>
       <p style="text-align: center">
         Welcome home.
       </p>
@@ -83,7 +83,7 @@
 
   <template id="news">
     <v-ons-page>
-      <custom-toolbar :title="'News'" :action="toggleMenu"></custom-toolbar>
+      <custom-toolbar title="News" :action="toggleMenu"></custom-toolbar>
       <p style="text-align: center">
         Some news here.
       </p>
@@ -92,7 +92,7 @@
 
   <template id="settings">
     <v-ons-page>
-      <custom-toolbar :title="'Settings'" :action="toggleMenu"></custom-toolbar>
+      <custom-toolbar title="Settings" :action="toggleMenu"></custom-toolbar>
       <p style="text-align: center">
         Change the settings.
       </p>
@@ -116,7 +116,7 @@
 
 <!-- info
 
-## Side menu
+## Splitter
 
 The `VOnsSplitter` component is used to display a menu next to the main content. It can be configured to either display in column layout or as a swipeable menu.
 
@@ -124,19 +124,21 @@ It is also possible to automatically switch between column layout and a layout w
 
 ## Menu
 
-The menu is defined using the `VOnsSplitterSide` component. This component can either be displayed as a column next to the main content or as a swipeable menu. This behavior is controlled using the `collapse` prop.
+The menu is defined using the `VOnsSplitterSide` component. This component can either be displayed as a column next to the main content or as a swipeable menu. This behavior is controlled by using the `collapse` prop.
 
-To enable opening and closing the menu by swiping the `swipable` prop must be defined. The `side` prop is used to specify on which side of the screen the menu is displayed.
+To enable opening and closing the menu by swiping, the `swipable` prop must be defined. The `side` prop is used to specify on which side of the screen the menu is displayed.
 
-## The `VOnsOpen` directive
+The `open` prop allows to assign a boolean variable to the menu in order to open or close it. This only works when the menu is collapsed, since in column layout it is always visible. An `update` event is fired whenever the user interacts with the menu and allows to synchronize the `open` prop:
 
-A boolean variable can be assigned to the menu in order to open or close it through the `VOnsOpen` directive. This directive only works when the menu is collapsed, since in column layout it is always visible.
+```html
+<v-ons-splitter-side :open="isOpen" @update="isOpen = $event">
+```
 
-In order to open or close the menu from a button, we must pass a method that modifies `VOnsOpen` down to the right place.
+In order to open or close the menu from a button, we must pass a method that modifies `open` prop down to the right place.
 
 ## Main content
 
-The main content of the screen is located inside the `VOnsSplitterContent` component. A `VOnsPage` component should be always be the child of this component.
+The main content of the screen is located inside the `VOnsSplitterContent` component. A `VOnsPage` component should always be the child of this component.
 
 ```html
 <v-ons-splitter>
@@ -150,6 +152,6 @@ The main content of the screen is located inside the `VOnsSplitterContent` compo
 
 In order to change its content, we can simply switch its children with Vue `is` prop or any other way. This also works for `VOnsSplitterSide` component.
 
-If you want to show core transition animations between pages, consider nesting `VOnsNavigator` inside `VOnsSplitterContent`.
+If you want to show core transition animations between pages or need a more complex routing, consider nesting `VOnsNavigator` inside `VOnsSplitterContent`.
 
 -->
