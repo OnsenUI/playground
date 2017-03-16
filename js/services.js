@@ -217,6 +217,18 @@ app.services.loadIssue = function(issue) {
       app.config.framework = 'vanilla';
     }
 
+    switch (app.config.framework) {
+      case 'angular2':
+        app.config.codeType = 'typescript';
+        break;
+      case 'vue':
+      case 'react':
+        app.config.codeType = 'babel';
+        break;
+      default:
+        app.config.codeType = 'javascript';
+    }
+
     // Get code
     var html = matchRegExp('HTML', content, regexCode);
     var js = matchRegExp('JS', content, regexCode);
