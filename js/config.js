@@ -47,7 +47,8 @@ app.config.defaultVersions = {
   react: '15.4.2',
   angular1: '1.5.5',
   angular2: '2.0.0',
-  vue: '2.2.4'
+  vue: '2.2.4',
+  onsenui: '2.2.2'
 };
 
 app.config.versions = {};
