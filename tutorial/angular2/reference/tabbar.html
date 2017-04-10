@@ -28,7 +28,7 @@
     </div>
     `
   })
-  
+
   export class Tab1Component {
     constructor() {
     }
@@ -49,7 +49,7 @@
     </div>
 `
   })
-  
+
   class Tab2Component {
     constructor() {
     }
@@ -69,18 +69,18 @@
     </div>
 `
   })
-  
+
   class Tab3Component {
     constructor() {
     }
   }
-  
+
   @Component({
     selector: 'app',
     template: `
     <ons-tabbar>
-      <div class="tab-bar__content"></div>
-      <div class="tab-bar">
+      <div class="tabbar__content"></div>
+      <div class="tabbar">
         <ons-tab label="Page1" icon="ion-home" [page]="tab1" active></ons-tab>
         <ons-tab label="Page2" icon="ion-ios-browsers" [page]="tab2"></ons-tab>
         <ons-tab label="Page3" icon="ion-ios-search" [page]="tab3"></ons-tab>
