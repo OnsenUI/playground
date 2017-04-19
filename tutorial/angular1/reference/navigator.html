@@ -5,7 +5,16 @@
   <title>Onsen UI App</title>
 
   <script>
-    ons.bootstrap();
+    ons.bootstrap()
+      .controller('Page2Controller', function() {
+        this.init = function(e) {
+          // Ensure the emitter is the current page, not a nested one
+          if (e.target === e.currentTarget) {
+            // Safely access data
+            console.log('init', e.target.data);
+          }
+        };
+      });
   </script>
 </head>
 <body>
@@ -24,7 +33,7 @@
   </ons-template>
 
   <ons-template id="page2.html">
-    <ons-page>
+    <ons-page ng-controller="Page2Controller as page2" ons-init="page2.init($event)">
       <ons-toolbar>
         <div class="left"><ons-back-button>Back</ons-back-button></div>
         <div class="center">{{ myNavigator.topPage.data.title }}</div>
@@ -114,7 +123,8 @@ myNavigator
   });
 ```
 
-`options.data` object will be available in the new page element: `myNavigator.topPage.data`.
+`options.data` object can be safely accessed after the `init` event of the new page. `ons-init` handler can be used to handle this event.
+It is also possible to access this object from scope functions or views with `myNavigator.topPage.data`.
 
 
 ## Going back
