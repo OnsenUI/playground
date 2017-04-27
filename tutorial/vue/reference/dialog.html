@@ -80,15 +80,13 @@
       </v-ons-list>
 
       <v-ons-dialog cancelable
-        :visible="dialogVisible"
-        @update="dialogVisible = $event"
+        :visible.sync="dialogVisible"
       >
         <p style="text-align: center">Lorem ipsum</p>
       </v-ons-dialog>
 
       <v-ons-alert-dialog modifier="rowfooter"
-        :visible="alertDialog1Visible"
-        @update="alertDialog1Visible = $event"
+        :visible.sync="alertDialog1Visible"
       >
         <span slot="title">Title slots</span>
         Lorem ipsum
@@ -104,8 +102,7 @@
           Cancel: () => alertDialog2Visible = false,
           Ok: () => alertDialog2Visible = false
         }"
-        :visible="alertDialog2Visible"
-        @update="alertDialog2Visible = $event"
+        :visible.sync="alertDialog2Visible"
       >
         Lorem ipsum
       </v-ons-alert-dialog>
@@ -127,8 +124,7 @@ To show or hide the dialog the `visible` prop is used.
 
 ```html
 <v-ons-dialog cancelable
-  :visible="show"
-  @update="show = $event"
+  :visible.sync="show"
 >
   Hi!
 
@@ -138,7 +134,7 @@ To show or hide the dialog the `visible` prop is used.
 </v-ons-dialog>
 ```
 
-An `update` event is fired when the user interacts with the component (clicks on the background mask). Use this to update `visible` prop.
+An `update:visible` event is fired when the user interacts with the component (taps the background mask). Use this event to refresh the value of `visible` prop. Vue's `sync` modifier can also be used.
 
 ## Notification methods
 
@@ -177,8 +173,7 @@ $ons.notification.confirm('Are you ready?')
     Cancel: () => isVisible = false,
     Ok: () => isVisible = false
   }"
-  :visible="isVisible"
-  @update="isVisible = $event"
+  :visible.sync="isVisible"
 >
 
   Content here
@@ -189,8 +184,7 @@ For higher control, it is also possible to use slots (can be combined with props
 
 ```html
 <v-ons-alert-dialog modifier="rowfooter"
-  :visible="isVisible"
-  @update="isVisible = $event"
+  :visible.sync="isVisible"
 >
   <span slot="title">Title</span>
 
