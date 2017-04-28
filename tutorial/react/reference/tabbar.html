@@ -6,20 +6,12 @@
 
   <script type="text/babel">
     var MyTab = React.createClass({
-      renderToolbar: function() {
-        return (
-          <Ons.Toolbar>
-            <div className='center'>{this.props.title}</div>
-          </Ons.Toolbar>
-        );
-      },
-
       render: function() {
         return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
+          <Ons.Page>
             <section style={{margin: '16px'}}>
               <p>
-                This is the <strong>{this.props.title}</strong> tab.
+                {this.props.content}.
               </p>
             </section>
           </Ons.Page>
@@ -33,14 +25,22 @@
           index: 0
         }
       },
+      renderToolbar: function() {
+        const titles = ['Home', 'Settings'];
+        return (
+          <Ons.Toolbar>
+            <div className='center'>{titles[this.state.index]}</div>
+          </Ons.Toolbar>
+        );
+      },
       renderTabs: function() {
         return [
           {
-            content: <MyTab title='Home' />,
+            content: <MyTab content="Welcome home" />,
             tab: <Ons.Tab label='Home' icon='md-home' />
           },
           {
-            content: <MyTab title='Settings' />,
+            content: <MyTab content="Change the settings" />,
             tab: <Ons.Tab label='Settings' icon='md-settings' />
           }
         ];
@@ -48,17 +48,20 @@
 
       render: function() {
         return (
-          <Ons.Tabbar
-            index={this.state.index}
-            onPreChange={(event) =>
-              {
-                if (event.index != this.state.index) {
-                  this.setState({index: event.index});
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.Tabbar
+              position='auto'
+              index={this.state.index}
+              onPreChange={(event) =>
+                {
+                  if (event.index != this.state.index) {
+                    this.setState({index: event.index});
+                  }
                 }
               }
-            }
-            renderTabs={this.renderTabs}
-          />
+              renderTabs={this.renderTabs}
+            />
+          </Ons.Page>
         );
       }
     });
