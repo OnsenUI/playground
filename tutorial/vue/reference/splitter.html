@@ -51,8 +51,7 @@
     <v-ons-splitter>
       <v-ons-splitter-side
         swipeable width="150px" collapse="" side="left"
-        :open="openSide"
-        @update="openSide = $event"
+        :open.sync="openSide"
       >
         <v-ons-page>
           <v-ons-list>
@@ -128,10 +127,10 @@ The menu is defined using the `VOnsSplitterSide` component. This component can e
 
 To enable opening and closing the menu by swiping, the `swipable` prop must be defined. The `side` prop is used to specify on which side of the screen the menu is displayed.
 
-The `open` prop allows to assign a boolean variable to the menu in order to open or close it. This only works when the menu is collapsed, since in column layout it is always visible. An `update` event is fired whenever the user interacts with the menu and allows to synchronize the `open` prop:
+The `open` prop allows to assign a boolean variable to the menu in order to open or close it. This only works when the menu is collapsed, since in column layout it is always visible. An `update:open` event is fired whenever the user interacts with the menu and allows to synchronize the `open` prop (`sync` modifier can be used as a shortcut):
 
 ```html
-<v-ons-splitter-side :open="isOpen" @update="isOpen = $event">
+<v-ons-splitter-side :open.sync="isOpen">
 ```
 
 In order to open or close the menu from a button, we must pass a method that modifies `open` prop down to the right place.

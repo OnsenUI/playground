@@ -66,8 +66,7 @@
       <v-ons-tabbar position="auto"
         :tabs="tabs"
         :visible="true"
-        :index="activeIndex"
-        @update="activeIndex = $event"
+        :index.sync="activeIndex"
       >
       </v-ons-tabbar>
     </v-ons-page>
@@ -137,16 +136,12 @@ The mentioned `tabs` prop is the preferred way to provide tabs information to `V
 
 This is a longer version that offers higher control. It can be combined with `tabs` prop by, for example, providing only `VOnsTab`-related information (everything except `page` key) in `tabs` prop and also `slot="pages"` at the same time (the `VOnsTab` will match page's DOM index).
 
-## `:index` and `@update`
+## Synchronizing `:index` prop
 
-The `VOnsTabbar` component implements  an optional `index` prop which is used to specify the page that is currently visible. This component fires `update` events whenever the user taps on a `VOnsTab`. This is useful to synchronize the value of `index` prop:
+The `VOnsTabbar` component implements  an optional `index` prop which is used to specify the page that is currently visible. This component fires `update:index` events whenever the user taps on a `VOnsTab`. This is useful to synchronize the value of `index` prop and can be directly handled by using Vue's `sync` modifier:
 
 ```html
-<v-ons-tabbar
-  :index="tabbarIndex"
-  @update="tabbarIndex = $event"
->
-</v-ons-tabbar>
+<v-ons-tabbar :index.sync="tabbarIndex"></v-ons-tabbar>
 ```
 
 `index` prop is not completely necessary. If you don't need to set an active tab in any other way than tapping, then it would be enough to provide `active` attribute (or key in `tabs` prop) to the desired `VOnsTab` in order to set the initial active tab.
@@ -188,6 +183,6 @@ For example, this can provide fine control to support some Vue's cool features:
 </v-ons-tabbar>
 ```
 
-Notice that preventing the default behavior means that `VOnsTabbar` (prechange, postchange, reactive...) events are not fired.
+Notice that preventing the default behavior means that `VOnsTabbar` events (prechange, postchange, reactive...) are not fired.
 
 -->
