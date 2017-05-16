@@ -114,7 +114,7 @@ app.modules = {
       'range': 'range sliders',
       'select': 'select input',
       'icon': 'icons',
-      // 'card': 'card',
+      'card': 'card',
       'progress': 'progress indicators',
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
