@@ -10,6 +10,7 @@
         return {
           dialogShown: false,
           alertDialogShown: false,
+          toastShown: false,
           items: [
             {
               title: 'Dialog',
@@ -18,6 +19,10 @@
             {
               title: 'Alert dialog',
               fn: this.showAlertDialog
+            },
+            {
+              title: 'Toast',
+              fn: this.handleShow
             },
             {
               title: 'Alert notification',
@@ -49,6 +54,14 @@
 
       hideAlertDialog: function() {
         this.setState({alertDialogShown: false});
+      },
+
+      handleShow: function() {
+        this.setState({toastShown: true});
+      },
+
+      handleDismiss: function() {
+        this.setState({toastShown: false});
       },
 
       renderRow(row) {
@@ -100,6 +113,15 @@
                 </button>
               </div>
             </Ons.AlertDialog>
+
+            <Ons.Toast isOpen={this.state.toastShown}>
+              <div className="message">
+                An error has occurred!
+              </div>
+              <Ons.Button onClick={this.handleDismiss}>
+                Dismiss
+              </Ons.Button>
+            </Ons.Toast>
           </Ons.Page>
         );
       }
@@ -119,7 +141,8 @@
 
 ## Dialogs
 
-There are two components used to show dialogs: `Dialog` and `AlertDialog`. The `Dialog` component is a general dialog where you can put any content while the `AlertDialog` has some default styles that make it easy to show errors, warnings or questions to the user.
+There are three components used to show dialogs: `Dialog`, `AlertDialog` and `Toast`. The `Dialog` component is a general dialog where you can put any content. `AlertDialog` has some default styles that make it easy to show errors, warnings or questions to the user.
+And `Toast` is a message (with optional button) that does not stop the app flow.
 
 To show or hide the dialog the `isOpen` prop is used.
 
@@ -140,6 +163,7 @@ The `ons.notification` object contains some useful methods to easily show alerts
 * `ons.notification.alert(message, options)`
 * `ons.notificaiton.confirm(message, options)`
 * `ons.notification.prompt(message, options)`
+* `ons.notification.toast(message, options)`
 
 They all return a `Promise` object that can be used to handle the input from the user.
 
