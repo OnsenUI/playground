@@ -51,6 +51,14 @@
             Prompt
           </div>
         </v-ons-list-item>
+        <v-ons-list-item
+          tappable
+          @click="$ons.notification.toast('Hello, world!', {timeout: 2000})"
+        >
+          <div class="center">
+            Toast
+          </div>
+        </v-ons-list-item>
 
         <v-ons-list-header>Components</v-ons-list-header>
         <v-ons-list-item tappable
@@ -118,7 +126,8 @@
 
 ## Dialogs
 
-There are two components used to show dialogs: `VOnsDialog` and `VOnsAlertDialog`. The `VOnsDialog` component is a general dialog where you can put any content while the `VOnsAlertDialog` has some default styles that make it easy to show errors, warnings or questions to the user.
+There are three components used to show dialogs: `VOnsDialog`, `VOnsAlertDialog` and `VOnsToast`. The `VOnsDialog` component is a general dialog where you can put any content. The `VOnsAlertDialog` has some default styles that make it easy to show errors, warnings or questions to the user.
+And `VOnsToast` is a message (with optional button) that does not stop the app flow.
 
 To show or hide the dialog the `visible` prop is used.
 
@@ -151,6 +160,10 @@ $ons.notificaiton.confirm(message, options)
 3.
 ```javascript
 $ons.notification.prompt(message, options)
+```
+4.
+```javascript
+$ons.notification.toast(message, options)
 ```
 
 They all return a `Promise` object that can be used to handle the input from the user.

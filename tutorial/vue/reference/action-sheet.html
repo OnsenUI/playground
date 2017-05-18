@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          actionSheetVisible: false
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Action Sheet</div>
+      </v-ons-toolbar>
+
+      <v-ons-button @click="$ons.openActionSheet({buttons:['label1', 'label2', 'label3'], title: 'Lorem ipsum', cancelable: true, destructive: 1})">
+        Dynamic action sheet
+      </v-ons-button>
+
+      <v-ons-button @click="actionSheetVisible = true">
+        Static action sheet
+      </v-ons-button>
+      <div>Static sheet visible? {{actionSheetVisible}}</div>
+
+      <v-ons-action-sheet
+        :visible.sync="actionSheetVisible"
+        cancelable
+        title="Description"
+      >
+        <v-ons-action-sheet-button icon="md-square-o">Label 1</v-ons-action-sheet-button>
+        <v-ons-action-sheet-button icon="md-square-o" modifier="destructive">Label 2</v-ons-action-sheet-button>
+        <v-ons-action-sheet-button icon="md-square-o">Label 3</v-ons-action-sheet-button>
+      </v-ons-action-sheet>
+
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Static action sheet
+
+Onsen UI provides `<v-ons-action-sheet>` and `<v-ons-action-sheet-button>` elements. Use them to create a dialog that slides from the bottom of the screen to give user options.
+
+You can display or cancel the action sheet by changing its `visible` prop value to `true` or `false` respectively.
+
+## Dynamic action sheet
+
+You can also create and open an action sheet dynamically with the method `$ons.openActionSheet`.
+
+This method takes as argument an object where you can define the action sheet's properties (e.g. `id`, `title`) and the buttons inside it.
+
+-->
