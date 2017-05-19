@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Onsen UI App</title>
 
   <script>
-    var showDialog = function(id) {
+    var showDialog = function (id) {
       document
         .getElementById(id)
         .show();
     };
 
-    var hideDialog = function(id) {
+    var hideDialog = function (id) {
       document
         .getElementById(id)
         .hide();
     };
 
-    var fromTemplate = function() {
+    var fromTemplate = function () {
       var dialog = document.getElementById('dialog-3');
 
       if (dialog) {
@@ -25,13 +26,18 @@
       }
       else {
         ons.createDialog('dialog.html')
-          .then(function(dialog) {
+          .then(function (dialog) {
             dialog.show();
           });
       }
-   };
+    };
+
+    function toggleToast() {
+      document.querySelector('ons-toast').toggle();
+    };
   </script>
 </head>
+
 <body>
   <ons-page>
     <ons-toolbar>
@@ -43,6 +49,7 @@
       <ons-list-item tappable onclick="showDialog('dialog-1')">Simple dialog</ons-list-item>
       <ons-list-item tappable onclick="showDialog('dialog-2')">Alert dialog</ons-list-item>
       <ons-list-item tappable onclick="fromTemplate()">From template</ons-list-item>
+      <ons-list-item tappable onclick="toggleToast()">Toggle Toast</ons-list-item>
       <ons-list-header>Notifications</ons-list-header>
       <ons-list-item tappable onclick="ons.notification.alert('Hello, world')">Alert</ons-list-item>
       <ons-list-item tappable onclick="ons.notification.confirm({message: 'Are you ready?'})">Confirmation</ons-list-item>
@@ -54,11 +61,11 @@
     <div style="text-align: center; padding: 10px;">
       <p>
         This is a dialog.
-      <p>
+        <p>
 
-      <p>
-        <ons-button onclick="hideDialog('dialog-1')">Close</ons-button>
-      </p>
+          <p>
+            <ons-button onclick="hideDialog('dialog-1')">Close</ons-button>
+          </p>
     </div>
   </ons-dialog>
 
@@ -78,22 +85,27 @@
       <div style="text-align: center; padding: 10px;">
         <p>
           This dialog was created from a template.
-        <p>
+          <p>
 
-        <p>
-          <ons-button onclick="hideDialog('dialog-3')">Close</ons-button>
-        </p>
+            <p>
+              <ons-button onclick="hideDialog('dialog-3')">Close</ons-button>
+            </p>
       </div>
     </ons-dialog>
   </ons-template>
+
+  <ons-toast>
+    This is an Onsen Toast!<button>Hoge</button>
+  </ons-toast>
 </body>
+
 </html>
 
 <!-- info
 
 ## Dialogs
 
-Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-alert-dialog>` tag that is used to display alert dialogs.
+Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-alert-dialog>` tag that is used to display alert dialogs and an `<ons-toast>` one for toast messages.
 
 ```
 <ons-dialog id="dialog-1">
@@ -101,7 +113,7 @@ Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-
 </ons-dialog>
 ```
 
-The dialog is hidden by default and usually attached as a direct child of the `<body>` tag.
+The dialogs are hidden by default and usually attached as direct childs of the `<body>` tag.
 
 ## Displaying a dialog
 
@@ -154,11 +166,13 @@ Alert dialogs work exactly like normal dialogs but they require some additional 
 
 ## The `cancelable` attribute
 
-Both the `<ons-dialog>` and the `<ons-alert-dialog>` support the `cancelable` attribute. This enables hiding the dialog by tapping outside of it or by pressing the back button on Android devices.
+The `<ons-dialog>`, `<ons-alert-dialog>` and `<ons-toast>` support the `cancelable` attribute. This enables hiding the dialog by tapping outside of it or by pressing the back button on Android devices.
 
+```
 <ons-dialog cancelable>
   This dialog can be cancelled!
 </ons-dialog>
+```
 
 Try adding the `cancelable` attribute to one of the dialogs to see how it works.
 
@@ -169,6 +183,7 @@ Another way to display dialogs is with the `ons.notification` methods:
 * `ons.notification.alert(options)`
 * `ons.notification.confirm(options)`
 * `ons.notification.prompt(options)`
+* `ons.notification.toast(options)`
 
 These methods all return a `Promise`. For the `confirm` it resolves to the index of the button pressed and for the `prompt` it resolves to the user input.
 
