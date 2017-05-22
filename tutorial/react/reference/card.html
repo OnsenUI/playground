@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Card</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.Card>
+              <img src={"https://monaca.io/img/logos/download_image_onsenui_01.png"} alt="Onsen UI" style={{width: '100%'}} />
+              <div className="title right">Awesome framework</div>
+              <div className="content">
+                <Ons.Button><Ons.Icon icon="ion-thumbsup"></Ons.Icon></Ons.Button>
+                <Ons.Button><Ons.Icon icon="ion-share"></Ons.Icon></Ons.Button>
+                <Ons.List>
+                  <Ons.ListHeader>Bindings</Ons.ListHeader>
+                  <Ons.ListItem>Vue</Ons.ListItem>
+                  <Ons.ListItem>Angular</Ons.ListItem>
+                  <Ons.ListItem>React</Ons.ListItem>
+                </Ons.List>
+              </div>
+            </Ons.Card>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Card
+
+Use the `Card` component to get a highlighted box in which you can insert any type of content you wish.
+
+Special classes `title` and `content` allow you to have predefined styles' separation.
+
+-->
