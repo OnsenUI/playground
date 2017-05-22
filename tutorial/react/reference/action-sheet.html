@@ -35,12 +35,7 @@
               <Ons.Button onClick={this.handleClick.bind(this)}>Show dialog</Ons.Button>
             </p>
 
-            <Ons.ActionSheet maskColor='blue' isOpen={this.state.isOpen} animation='default'
-              animationOptions={{
-                duration: 0.6,
-                delay: 0.1,
-                timing: 'ease-in'
-              }}
+            <Ons.ActionSheet isOpen={this.state.isOpen} animation='default'
               onCancel={this.handleCancel.bind(this)}
               isCancelable={true}
               title={'Description'}
