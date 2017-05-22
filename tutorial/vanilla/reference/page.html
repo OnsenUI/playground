@@ -22,7 +22,7 @@
       <div class="center"></div>
       <div class="right">
         <ons-toolbar-button>
-          <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>  
+          <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
         </ons-toolbar-button>
       </div>
     </ons-toolbar>
@@ -71,15 +71,7 @@ In Onsen UI this is achieved using the `<ons-toolbar>` element. It is divided in
 
 ## The `ons` object
 
-Onsen UI not only provides custom elements, it also provides an object called `ons` with a lot of useful functions attached to it.
-
-In this example we are using `ons.ready(fn)` which waits until the page is completely loaded before executing a callback function.
-
-Inside the callback the button is selected using `document.querySelector(selector)` and attach a click handler to it using the `onclick` property.
-
-## Displaying a dialog
-
-Onsen UI also provides functions for displaying dialogs. In this example we are using `ons.notification.alert` to show an alert dialog.
+Onsen UI not only provides custom elements, it also provides an object called `ons` with a lot of useful functions attached to it. In this example we are using `ons.notification.alert` to show an alert dialog.
 
 There are also `confirm` and `prompt` methods available to show other types of dialogs. You can try replacing the click handler with the following code to get another type of dialog:
 
