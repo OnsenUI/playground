@@ -32,7 +32,8 @@ app.modules = {
       'passing_data': 'passing data outside onsen ui'
     },
     'common patterns': {
-      'navigator_tabbar': 'navigator outside tabbar'
+      'navigator_tabbar': 'navigator outside tabbar',
+      'splitter_navigator': 'splitter outside navigator',
     }
   },
   'angular1': {

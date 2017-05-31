@@ -213,6 +213,29 @@
 
 ## Combining Navigator and Tabbar
 
+A common Single-Page App pattern can be achieved by combining the `<ons-navigator>` and `<ons-tabbar>` elements. This way you can have different tabs and provide stacked navigation inside each of them.
+
+In order to do so simply pass a page with the `<ons-tabbar>` element inside as the `[page]` attribute of the `<ons-navigator>` (you can consult their respective reference pages to better understand both):
+
+```
+// component with the navigator
+<ons-navigator [page]="appTabbar"></ons-navigator>
+
+// appTabbar component
+<ons-tabbar position="auto">
+  <ons-tab icon="ion-home" label="Home" [page]="home" active="true"></ons-tab>
+  ...
+</ons-tabbar>
+```
+
 ## Passing data in the Navigator
+
+By doing what's described in the previous page you get an `OnsNavigator` instance in the constructor of the `ons-tab` pages so you can reference the navigator with a variable (e.g. private `_navigator`). You can call its element's methods such as `pushPage()`, in which you can pass a data object as the second argument:
+
+```
+this._navigator.element.pushPage(PageNav1Component, { data: { title: this._navigator.element.topPage.querySelector('ons-input').value } })
+```
+
+Then you can make use of Angular's `OnInit` and `Params` on your target page and retrieve the passed data.
 
 -->

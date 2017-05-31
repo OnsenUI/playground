@@ -160,7 +160,7 @@
             tab: <Ons.Tab key="cards" label="Cards" icon="ion-card" badge="3" />
           },
           {
-            content: <Settings key="settings" navigator={this.props.navigator} />,
+            content: <Settings key="settings" />,
             tab: <Ons.Tab key="settings" label="Settings" icon="ion-ios-cog" />
           }
         ];
@@ -204,6 +204,28 @@
 
 ## Combining Navigator and Tabbar
 
+A common Single-Page App pattern can be achieved by combining the `<Navigator>` and `<Tabbar>` elements. This way you can have different tabs and provide stacked navigation inside each of them.
+
+In order to do so simply pass a component with the `<Tabbar>` element inside as the `initialRoute` prop of the `<Navigator>` (you can consult their respective reference pages to better understand both):
+
+```
+// component with the navigator
+<Ons.Navigator initialRoute={{ component: AppTabbar }} renderPage={this.renderPage} />
+
+// AppTabbar component
+<Ons.Tabbar position='auto' index={0} renderTabs={this.renderTabs.bind(this)} />
+```
+
+Inside the `renderPage` prop function of the `<Navigator>` you need to pass the navigator down in the second argument of `React.createElement`.
+
 ## Passing data in the Navigator
+
+By doing what's described in the previous page you get a navigator prop in the `AppTabbar` component that you can again pass to the tabs where you need it. Like that you can reference the navigator in the tabs with `this.props.navigator`. You can call its methods such as `pushPage()`, in which you can pass props as the second argument:
+
+```
+this.props.navigator.pushPage({ component: PageNav1, props: { title: this.state.nexTitle } });
+```
+
+Then you can get the props on your target page's constructor (or anywhere else) and retrieve the passed data.
 
 -->
