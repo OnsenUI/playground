@@ -30,6 +30,9 @@ app.modules = {
     'community tutorials': {
       'splitter_navigator': 'splitter animations with navigator',
       'passing_data': 'passing data outside onsen ui'
+    },
+    'common patterns': {
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'angular1': {
