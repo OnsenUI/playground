@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+    import {
+      Component,
+      ViewChild,
+      Params,
+      OnInit,
+      OnsNavigator,
+      OnsenModule,
+      NgModule,
+      CUSTOM_ELEMENTS_SCHEMA
+    } from 'angular2-onsenui';
+    import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+    @Component({
+      selector: 'ons-page',
+      template: `
+        <div class="content">
+          <h2>Settings</h2>
+        </div>
+      `
+    })
+    export class SettingsComponent {
+      constructor() { }
+    }
+
+    @Component({
+      selector: 'ons-page',
+      template: `
+        <ons-toolbar>
+          <div class="left">
+            <ons-back-button>Back</ons-back-button>
+          </div>
+        </ons-toolbar>
+
+        <div class="content">
+          <ons-card>
+            <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+            <div class="title">{{ cardTitle }}</div>
+            <div class="content">
+              <div>
+                <ons-button>
+                  <ons-icon icon="ion-thumbsup"></ons-icon>
+                </ons-button>
+                <ons-button>
+                  <ons-icon icon="ion-share"></ons-icon>
+                </ons-button>
+              </div>
+              <ons-list>
+                <ons-list-header>Bindings</ons-list-header>
+                <ons-list-item>Vue</ons-list-item>
+                <ons-list-item>Angular</ons-list-item>
+                <ons-list-item>React</ons-list-item>
+              </ons-list>
+            </div>
+          </ons-card>
+        </div>
+      `
+    })
+    export class PageNav2Component implements OnInit {
+      constructor(private _params: Params) { }
+
+      cardTitle: string = 'Custom Card';
+
+      ngOnInit() { 
+        if (this._params.data && this._params.data.cardTitle)
+          this.cardTitle = this._params.data.cardTitle;
+      }
+    }
+
+    @Component({
+      selector: 'ons-page',
+      template: `
+        <div class="content">
+          <h2>Cards</h2>
+          <ons-list-title>Card List</ons-list-title>
+          <ons-list>
+            <ons-list-item (click)="push($event)">Card One</ons-list-item>
+            <ons-list-item (click)="push($event)">Card Two</ons-list-item>
+            <ons-list-item (click)="push($event)">Card Three</ons-list-item>
+          </ons-list>
+        </div>
+      `
+    })
+    export class CardsComponent {
+      constructor(private _navigator: OnsNavigator) { }
+
+      push(event) {
+        this._navigator.element.pushPage(PageNav2Component, { data: { cardTitle: event.target.textContent } });
+      }
+    }
+
+    @Component({
+      selector: 'ons-page',
+      template: `
+        <ons-toolbar>
+          <div class="left">
+            <ons-back-button>Back</ons-back-button>
+          </div>
+          <div class="center">{{ title }}</div>
+        </ons-toolbar>
+
+        <div class="content">
+          <div style="text-align: center">
+            <h1>Custom Page</h1>
+            <p>
+              <ons-input modifier="underbar" placeholder="Title" float></ons-input>
+            </p>
+            <ons-button (click)="push()">
+              Push Page
+            </ons-button>
+            <ons-button (click)="pop()">
+              Pop Page
+            </ons-button>
+          </div>
+        </div>
+      `
+    })
+    export class PageNav1Component implements OnInit {
+      constructor(private _navigator: OnsNavigator, private _params: Params) { }
+
+      title: string = 'Custom Page';
+
+      ngOnInit() { 
+        if (this._params.data && this._params.data.title)
+          this.title = this._params.data.title;
+      }
+
+      push() {
+        this._navigator.element.pushPage(PageNav1Component, { data: { title: this._navigator.element.topPage.querySelector('ons-input').value } });
+      }
+
+      pop() {
+        this._navigator.element.popPage();
+      }
+    }
+
+    @Component({
+      selector: 'ons-page',
+      template: `
+        <div class="content">
+          <h2>Home</h2>
+          <div style="text-align: center">
+            <br>
+            <ons-button (click)="push()">
+              Push Page
+            </ons-button>
+          </div>
+        </div>
+      `
+    })
+    export class HomeComponent {
+      constructor(private _navigator: OnsNavigator) { }
+
+      push() {
+        this._navigator.element.pushPage(PageNav1Component);
+      }
+    }
+
+    @Component({
+      selector: 'ons-page',
+      template: `
+        <ons-toolbar>
+          <div class="center">Navigator outside Tabbar</div>
+        </ons-toolbar>
+
+        <ons-tabbar position="auto">
+          <ons-tab icon="ion-home" label="Home" [page]="home" active="true"></ons-tab>
+          <ons-tab icon="ion-card" label="Cards" [page]="cards" badge="3"></ons-tab>
+          <ons-tab icon="ion-ios-cog" label="Settings" [page]="settings"></ons-tab>
+        </ons-tabbar>
+      `
+    })
+    class AppTabbar {
+      home = HomeComponent;
+      cards = CardsComponent;
+      settings = SettingsComponent;
+    }
+
+    @Component({
+      selector: 'app',
+      template: `
+        <ons-navigator [page]="appTabbar"></ons-navigator>
+      `
+    })
+    export class AppComponent {
+      appTabbar = AppTabbar
+    }
+
+    @NgModule({
+      imports: [OnsenModule],
+      declarations: [AppComponent, AppTabbar, HomeComponent, PageNav1Component, CardsComponent, PageNav2Component, SettingsComponent],
+      entryComponents: [AppTabbar, HomeComponent, PageNav1Component, CardsComponent, PageNav2Component, SettingsComponent],
+      bootstrap: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    class AppModule { }
+
+    platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- info
+
+## Combining Navigator and Tabbar
+
+## Passing data in the Navigator
+
+-->
