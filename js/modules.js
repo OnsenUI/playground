@@ -158,6 +158,9 @@ app.modules = {
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
       'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   }
 };

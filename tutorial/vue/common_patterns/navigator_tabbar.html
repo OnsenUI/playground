@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const settings = {
+      template: '#settings'
+    };
+  
+    const pageNav2 = {
+      template: '#pageNav2',
+      props: {
+        cardTitle: {
+          type: String,
+          default: 'Custom Card'
+        }
+      }
+    };
+  
+    const cards = {
+      template: '#cards',
+      methods: {
+        pop() {
+          this.pageStack.pop();
+        },
+        push($event) {
+          var cardTitle = $event.target.textContent;
+          var pageToPush = {
+            extends: pageNav2,
+            data() {
+              return {
+                cardTitle: cardTitle
+              }
+            }
+          };
+          this.pageStack.push(pageToPush);
+        }
+      },
+      props: ['pageStack']
+    };
+  
+    const pageNav1 = {
+      template: '#pageNav1',
+      methods: {
+        pop() {
+          this.pageStack.pop();
+        },
+        push() {
+          var title = this.$el.querySelector('ons-input').value;
+          var pageToPush = {
+            extends: pageNav1,
+            data() {
+              return {
+                title: title
+              }
+            }
+          };
+          this.pageStack.push(pageToPush);
+        }
+      },
+      props: {
+        pageStack: Array,
+        title: {
+          type: String,
+          default: 'Custom Page'
+        }
+      }
+    };
+  
+    const home = {
+      template: '#home',
+      methods: {
+        pop() {
+          this.pageStack.pop();
+        },
+        push() {
+          this.pageStack.push(pageNav1);
+        }
+      },
+      props: ['pageStack']
+    };
+
+    const appTabbar = {
+      template: '#appTabbar',
+      data() {
+        return {
+          activeIndex: 0,
+          tabs: [
+            {
+              icon: 'ion-home',
+              label: 'Home',
+              page: home
+            },
+            {
+              icon: 'ion-card',
+              label: 'Cards',
+              page: cards,
+              badge: 3
+            },
+            {
+              icon: 'ion-ios-cog',
+              label: 'Settings',
+              page: settings
+            }
+          ]
+        }
+      },
+      props: ['pageStack']
+    };
+
+    new Vue({
+      el: '#app',
+      template: '#app',
+      data() {
+        return {
+          pageStack: [appTabbar]
+        };
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="app">
+    <v-ons-navigator :page-stack="pageStack">
+      <component v-for="page in pageStack" :is="page" :key="page" :page-stack="pageStack"></component>
+    </v-ons-navigator>
+  </template>
+
+  <template id="appTabbar">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Navigator outside Tabbar</div>
+      </v-ons-toolbar>
+    
+      <v-ons-tabbar position="auto" :tabs="tabs" :index.sync="activeIndex">
+        <template slot="pages">
+          <component v-for="tab in tabs" :is="tab.page" :key="tab.page" :page-stack="pageStack"></component>
+        </template>
+      </v-ons-tabbar>
+    </v-ons-page>
+  </template>
+
+  <template id="home">
+    <v-ons-page>
+      <h2>Home</h2>
+      <div style="text-align: center">
+        <br>
+        <v-ons-button @click="push">
+          Push Page
+        </v-ons-button>
+      </div>
+    </v-ons-page>
+  </template>
+
+  <template id="pageNav1">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="left">
+          <v-ons-back-button>Back</v-ons-back-button>
+        </div>
+        <div class="center">{{ title }}</div>
+      </v-ons-toolbar>
+      <div style="text-align: center">
+        <h1>Custom Page</h1>
+        <p>
+          <v-ons-input modifier="underbar" placeholder="Title" float></v-ons-input>
+        </p>
+        <v-ons-button @click="push">
+          Push Page
+        </v-ons-button>
+        <v-ons-button @click="pop">
+          Pop Page
+        </v-ons-button>
+      </div>
+    </v-ons-page>
+  </template>
+
+  <template id="cards">
+    <v-ons-page>
+      <h2>Cards</h2>
+      <v-ons-list-title>Card List</v-ons-list-title>
+      <v-ons-list>
+        <v-ons-list-item @click="push">Card One</v-ons-list-item>
+        <v-ons-list-item @click="push">Card Two</v-ons-list-item>
+        <v-ons-list-item @click="push">Card Three</v-ons-list-item>
+      </v-ons-list>
+    </v-ons-page>
+  </template>
+
+  <template id="pageNav2">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="left">
+          <v-ons-back-button>Back</v-ons-back-button>
+        </div>
+      </v-ons-toolbar>
+      <v-ons-card>
+        <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+        <div class="title">{{ cardTitle }}</div>
+        <div class="content">
+          <div>
+            <v-ons-button>
+              <v-ons-icon icon="ion-thumbsup"></v-ons-icon>
+            </v-ons-button>
+            <v-ons-button>
+              <v-ons-icon icon="ion-share"></v-ons-icon>
+            </v-ons-button>
+          </div>
+          <v-ons-list>
+            <v-ons-list-header>Bindings</v-ons-list-header>
+            <v-ons-list-item>Vue</v-ons-list-item>
+            <v-ons-list-item>Angular</v-ons-list-item>
+            <v-ons-list-item>React</v-ons-list-item>
+          </v-ons-list>
+        </div>
+      </v-ons-card>
+    </v-ons-page>
+  </template>
+
+  <template id="settings">
+    <v-ons-page>
+      <h2>Settings</h2>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Combining Navigator and Tabbar
+
+## Passing data in the Navigator
+
+-->
