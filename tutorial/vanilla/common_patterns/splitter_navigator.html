@@ -6,6 +6,21 @@
   <title>Onsen UI App</title>
 
   <script>
+    window.fn = {};
+
+    window.fn.open = function () {
+      var menu = document.getElementById('menu');
+      menu.open();
+    };
+
+    window.fn.load = function (page) {
+      var menu = document.getElementById('menu');
+      var myNavigator = document.getElementById('myNavigator');
+
+      menu.close();
+      myNavigator.resetToPage(page, { animation: 'fade' });
+    };
+
     document.addEventListener('init', function (event) {
       if (event.target.id === 'pageNav1') {
         var title = event.target.data && event.target.data.title ? event.target.data.title : 'Custom Page';
@@ -28,22 +43,40 @@
 </head>
 
 <body>
-  <ons-navigator id="myNavigator">
-    <ons-page>
-      <ons-toolbar>
-        <div class="center">Navigator+Tabbar</div>
-      </ons-toolbar>
-
-      <ons-tabbar position="auto">
-        <ons-tab page="home.html" active icon="ion-home" label="Home"></ons-tab>
-        <ons-tab icon="ion-card" label="Cards" badge="3" page="cards.html"></ons-tab>
-        <ons-tab icon="ion-ios-cog" label="Settings" page="settings.html"></ons-tab>
-      </ons-tabbar>
-    </ons-page>
-  </ons-navigator>
+  <ons-splitter>
+    <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
+      <ons-page>
+        <ons-list>
+          <ons-list-item onclick="fn.load('home.html')" tappable>
+            Home
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('cards.html')" tappable>
+            Cards
+          </ons-list-item>
+          <ons-list-item onclick="fn.load('settings.html')" tappable>
+            Settings
+          </ons-list-item>
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content>
+      <ons-navigator id="myNavigator" page="home.html"></ons-navigator>
+    </ons-splitter-content>
+  </ons-splitter>
 
   <ons-template id="home.html">
     <ons-page>
+      <ons-toolbar>
+        <div class="center">
+          Splitter+Navigator
+        </div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
       <h2>Home</h2>
       <div style="text-align: center">
         <br>
@@ -51,6 +84,10 @@
           Push Page
         </ons-button>
       </div>
+
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        Swipe left to open the menu!
+      </p>
     </ons-page>
   </ons-template>
 
@@ -61,6 +98,11 @@
           <ons-back-button>Back</ons-back-button>
         </div>
         <div class="center"></div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
       </ons-toolbar>
 
       <div style="text-align: center">
@@ -75,11 +117,26 @@
           Pop Page
         </ons-button>
       </div>
+
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        Swipe left to open the menu!
+      </p>
     </ons-page>
   </ons-template>
 
   <ons-template id="cards.html">
     <ons-page>
+      <ons-toolbar>
+        <div class="center">
+          Splitter+Navigator
+        </div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
       <h2>Cards</h2>
       <ons-list-title>Card List</ons-list-title>
       <ons-list>
@@ -87,6 +144,10 @@
         <ons-list-item onclick="customPush2(event)">Card Two</ons-list-item>
         <ons-list-item onclick="customPush2(event)">Card Three</ons-list-item>
       </ons-list>
+
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        Swipe left to open the menu!
+      </p>
     </ons-page>
   </ons-template>
 
@@ -95,6 +156,11 @@
       <ons-toolbar>
         <div class="left">
           <ons-back-button>Back</ons-back-button>
+        </div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
         </div>
       </ons-toolbar>
 
@@ -118,12 +184,31 @@
           </ons-list>
         </div>
       </ons-card>
+
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        Swipe left to open the menu!
+      </p>
     </ons-page>
   </ons-template>
 
   <ons-template id="settings.html">
     <ons-page>
+      <ons-toolbar>
+        <div class="center">
+          Splitter+Navigator
+        </div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
       <h2>Settings</h2>
+
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        Swipe left to open the menu!
+      </p>
     </ons-page>
   </ons-template>
 </body>
@@ -132,21 +217,28 @@
 
 <!-- info
 
-## Combining Navigator and Tabbar
+## Combining Splitter and Navigator
 
-A common Single-Page App pattern can be achieved by combining the `<ons-navigator>` and `<ons-tabbar>` elements. This way you can have different tabs and provide stacked navigation inside each of them.
+A common Single-Page App pattern can be achieved by combining the `<ons-splitter>` and `<ons-navigator>` elements. This way you can have a side menu and provide stacked navigation in the main content.
 
-In order to do so simply place the `<ons-tabbar>` element inside the `<ons-navigator>` (you can consult their respective reference pages to better understand both):
+In order to do so simply place the `<ons-navigator>` element inside the `<ons-splitter-content>` and provide the initial page in the `page` attribute (you can consult their respective reference pages to better understand both components):
 
 ```
-<ons-navigator>
-  <ons-page>
-    <ons-tabbar position="auto">
-      <ons-tab page="home.html" active icon="ion-home" label="Home"></ons-tab>
-      ...
-    </ons-tabbar>
-  </ons-page>
-</ons-navigator>
+<ons-splitter-side>
+  ...
+</ons-splitter-side>
+<ons-splitter-content>
+  <ons-navigator id="myNavigator" page="home.html"></ons-navigator>
+</ons-splitter-content>
+```
+
+## Loading pages from the menu
+
+Since there is a navigator "ruling" the splitter's content you can load the intended page by calling one of its methods when one of the items is tapped. In this example we use `resetToPage()`:
+
+```
+var myNavigator = document.getElementById('myNavigator');
+myNavigator.resetToPage(page, { animation: 'fade' });
 ```
 
 ## Passing data in the Navigator
