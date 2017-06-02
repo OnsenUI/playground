@@ -230,7 +230,7 @@ In order to do so simply pass a page with the `<ons-tabbar>` element inside as t
 
 ## Passing data in the Navigator
 
-By doing what's described in the previous page you get an `OnsNavigator` instance in the constructor of the `ons-tab` pages so you can reference the navigator with a variable (e.g. private `_navigator`). You can call its element's methods such as `pushPage()`, in which you can pass a data object as the second argument:
+By doing what's described in the previous page you may inject an `OnsNavigator` instance in the constructor of the `ons-tab` components so you can reference the navigator with a variable (e.g. private `_navigator`). You can call its element's methods such as `pushPage()`, in which you can pass a data object as the second argument:
 
 ```
 this._navigator.element.pushPage(PageNav1Component, { data: { title: this._navigator.element.topPage.querySelector('ons-input').value } })
