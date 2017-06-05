@@ -54,9 +54,8 @@
         return (
           <Ons.ListItem key={row} tappable>
             <label className='left'>
-              <Ons.Input
+              <Ons.Checkbox
                 inputId={`checkbox-${row}`}
-                type='checkbox'
               />
             </label>
             <label htmlFor={`checkbox-${row}`} className='center'>
@@ -70,11 +69,10 @@
         return (
           <Ons.ListItem key={row} tappable>
             <label className='left'>
-              <Ons.Input
+              <Ons.Radio
                 inputId={`radio-${row}`}
                 checked={row === this.state.selectedVegetable}
                 onChange={this.handleVegetableChange.bind(this, row)}
-                type='radio'
               />
             </label>
             <label htmlFor={`radio-${row}`} className='center'>
@@ -88,6 +86,10 @@
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <section style={{textAlign: 'center'}}>
+              <p>
+                <Ons.SearchInput
+                  placeholder='Search' />
+              </p>
               <p>
                 <Ons.Input
                   value={this.state.username}
@@ -140,7 +142,7 @@
 
 ## Form input
 
-Input elements are created using the `Input` component. It works almost exactly the same as a normal `<input>` tag.
+Text inputs are created using the `Input` component. It works almost exactly the same as a normal `<input>` tag.
 
 ```
 <Input
@@ -160,10 +162,18 @@ In Material Design the placeholder can be made to float using the `float` prop.
 
 ## Checkboxes and radio buttons
 
-To display checkboxes and radio buttons the `type` prop is used. It supports several different values of which most will display some kind of text input. However, the `checkbox` and `radio` values will change the appearance of the component.
+`Checkbox` and `Radio` components are also provided in Onsen UI:
 
 ```
-<Input type='checkbox' />
-<Input type='radio' />
+<Checkbox checked={ this.state.checked } />
+<Radio onChange={ this.handleRadioChange.bind(this) } />
+```
+
+## Search inputs
+
+Even though `Input` component can handle `type='search'`, an extra component is provided which implements search input styles:
+
+```
+<SearchInput placeholder='Search something' />
 ```
 -->
