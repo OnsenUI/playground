@@ -28,7 +28,7 @@ app.modules = {
       'ripple': 'ripple effect'
     },
     'community tutorials': {
-      'splitter_navigator': 'splitter animations with navigator',
+      'splitter_anim_navigator': 'splitter animations with navigator',
       'passing_data': 'passing data outside onsen ui'
     },
     'common patterns': {
@@ -133,7 +133,8 @@ app.modules = {
       'ripple': 'ripple effect'
     },
     'common patterns': {
-      'navigator_tabbar': 'navigator outside tabbar'
+      'navigator_tabbar': 'navigator outside tabbar',
+      'splitter_navigator': 'splitter outside navigator'
     }
   },
   'vue': {
@@ -163,7 +164,8 @@ app.modules = {
       'ripple': 'ripple effect'
     },
     'common patterns': {
-      'navigator_tabbar': 'navigator outside tabbar'
+      'navigator_tabbar': 'navigator outside tabbar',
+      'splitter_navigator': 'splitter outside navigator'
     }
   }
 };

@@ -41,7 +41,7 @@
       },
       methods: {
         pop() {
-          this.pageStack.pop();
+          this.$emit('pop');
         },
         push() {
           var title = this.$el.querySelector('ons-input').value;
@@ -53,48 +53,20 @@
               }
             }
           };
-          this.pageStack.push(pageToPush);
+          this.$emit('push', pageToPush);
         }
       },
-      props: ['pageStack']
+      props: ['openMenu']
     };
   
     const home = {
       template: '#home',
       methods: {
         push() {
-          this.pageStack.push(pageNav1);
+          this.$emit('push', pageNav1);
         }
       },
-      props: ['pageStack']
-    };
-
-    const appTabbar = {
-      template: '#appTabbar',
-      data() {
-        return {
-          activeIndex: 0,
-          tabs: [
-            {
-              icon: 'ion-home',
-              label: 'Home',
-              page: home
-            },
-            {
-              icon: 'ion-card',
-              label: 'Cards',
-              page: cards,
-              badge: 3
-            },
-            {
-              icon: 'ion-ios-cog',
-              label: 'Settings',
-              page: settings
-            }
-          ]
-        }
-      },
-      props: ['pageStack']
+      props: ['pageStack', 'openMenu']
     };
 
     new Vue({
@@ -102,35 +74,53 @@
       template: '#app',
       data() {
         return {
-          pageStack: [appTabbar]
-        };
+          openSide: false,
+          menuPages: [
+            { label: 'Home', page: home },
+            { label: 'Cards', page: cards },
+            { label: 'Settings', page: settings }
+          ],
+          pageStack: [home]
+        }
+      },
+      components: {
+        home: home,
+        cards: cards,
+        settings: settings
       }
     });
   </script>
 </head>
 <body>
   <template id="app">
-    <v-ons-navigator :page-stack="pageStack">
-      <component v-for="page in pageStack" :is="page" :key="page" :page-stack="pageStack"></component>
-    </v-ons-navigator>
-  </template>
-
-  <template id="appTabbar">
-    <v-ons-page>
-      <v-ons-toolbar>
-        <div class="center">Navigator+Tabbar</div>
-      </v-ons-toolbar>
-    
-      <v-ons-tabbar position="auto" :tabs="tabs" :index.sync="activeIndex">
-        <template slot="pages">
-          <component v-for="tab in tabs" :is="tab.page" :key="tab.page" :page-stack="pageStack"></component>
-        </template>
-      </v-ons-tabbar>
-    </v-ons-page>
+    <v-ons-splitter>
+      <v-ons-splitter-side swipeable width="220px" collapse="" side="right" :open.sync="openSide">
+        <v-ons-page>
+          <v-ons-list>
+            <v-ons-list-item v-for="menuPage in menuPages" :key="menuPage.label" tappable @click="pageStack = [menuPage.page]; openSide = false">
+              {{ menuPage.label }}
+            </v-ons-list-item>
+          </v-ons-list>
+        </v-ons-page>
+      </v-ons-splitter-side>
+      <v-ons-splitter-content>
+        <v-ons-navigator :page-stack="pageStack">
+          <component v-for="page in pageStack" @push="pageStack.push($event)" @pop="pageStack.pop()" :is="page" :key="page" :open-menu="() => {openSide = true}"></component>
+        </v-ons-navigator>
+      </v-ons-splitter-content>
+    </v-ons-splitter>
   </template>
 
   <template id="home">
     <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Splitter+Navigator</div>
+        <div class="right">
+          <ons-toolbar-button @click="openMenu">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </v-ons-toolbar>
       <h2>Home</h2>
       <div style="text-align: center">
         <br>
@@ -148,6 +138,11 @@
           <v-ons-back-button>Back</v-ons-back-button>
         </div>
         <div class="center">{{ title }}</div>
+        <div class="right">
+          <ons-toolbar-button @click="openMenu">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
       </v-ons-toolbar>
       <div style="text-align: center">
         <h1>Custom Page</h1>
@@ -166,6 +161,14 @@
 
   <template id="cards">
     <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Navigator+Tabbar</div>
+        <div class="right">
+          <ons-toolbar-button @click="openMenu">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </v-ons-toolbar>
       <h2>Cards</h2>
       <v-ons-list-title>Card List</v-ons-list-title>
       <v-ons-list>
