@@ -6,7 +6,8 @@
 
   <script type="text/babel">
     const homePage = {
-      template: '#home'
+      template: '#home',
+      props: ['myProp']
     };
 
     const newsPage = {
@@ -27,7 +28,10 @@
             {
               icon: this.md() ? null : 'ion-home',
               label: 'Home',
-              page: homePage
+              page: homePage,
+              props: {
+                myProp: 'This is a page prop!'
+              }
             },
             {
               icon: this.md() ? null : 'ion-ios-bell',
@@ -75,7 +79,7 @@
   <template id="home">
     <v-ons-page>
       <p style="text-align: center">
-        Welcome home.
+        Welcome home.<br><br>{{ myProp }}
       </p>
     </v-ons-page>
   </template>
@@ -106,11 +110,14 @@
 
 The `VOnsTabbar` component is used to add tab navigation to an app. It is a very common navigation pattern in mobile apps.
 
-The `tabs` prop includes all the necessary information to render `VOnsTab` components and their linked `VOnsPage` components. This prop must be an array of object containing at least one of the next keys: `icon`, `label` or `page`. It can include other optional keys such as `activeIcon`, `badge`, `active`, etc.
+The `tabs` prop includes all the necessary information to render `VOnsTab` components and their linked `VOnsPage` components. This prop must be an array of object containing at least one of the next keys: `icon`, `label` or `page`. It can include other optional keys such as `activeIcon`, `badge`, `active`, etc. A special `props` key can also be provided in order to specify props for the corresponding page.
 
 ```html
 <v-ons-tabbar
-  :tabs="[{ label: 't1', page: p1 }, { label: 't2', page: p2 }]"
+  :tabs="[
+    { label: 't1', page: p1 },
+    { label: 't2', page: p2, props: { aPageProp: 'hello' } }
+  ]"
 >
 </v-ons-tabbar>
 
