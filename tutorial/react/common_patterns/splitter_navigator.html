@@ -242,7 +242,7 @@
 
       loadPage(page) {
         this.hide();
-        this.navigator.resetPage({ component: page, props: { key: page } });
+        this.navigator.resetPage({ component: page, props: { key: page } }, { animation: 'fade' });
       }
 
       renderPage(route, navigator) {
