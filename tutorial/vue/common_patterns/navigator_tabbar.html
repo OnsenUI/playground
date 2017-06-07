@@ -262,7 +262,7 @@ As you can see you need to bind the `page-stack` attribute as a prop to the comp
 
 ## Passing data in the Navigator
 
-By doing what's described in the previous page you get a navigator prop in the tabs' components. You can call its methods such as `pushPage()`. In order to pass data to the pushed page you need to extend it with the data you need before pushing:
+You push a page to the navigator by inserting it in the `pageStack` prop. In order to pass data to the pushed page you need to extend it with the data you need before pushing:
 
 ```
 var title = this.$el.querySelector('ons-input').value;
@@ -277,6 +277,6 @@ var pageToPush = {
 this.pageStack.push(pageToPush);
 ```
 
-Then you can use the data on your target page's.
+Then you can use the data on your target page.
 
 -->

@@ -6,10 +6,30 @@
 
   <script type="text/babel">
     class Settings extends React.Component {
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Splitter+Navigator</div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      }
+
+      showMenu() {
+        this.props.showMenu();
+      }
+
       render() {
         return (
-          <Ons.Page>
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
             <h2>Settings</h2>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
           </Ons.Page>
         );
       }
@@ -20,8 +40,17 @@
         return (
           <Ons.Toolbar>
             <div className='left'><Ons.BackButton>Back</Ons.BackButton></div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
           </Ons.Toolbar>
         );
+      }
+
+      showMenu() {
+        this.props.showMenu();
       }
 
       render() {
@@ -47,19 +76,39 @@
                 </Ons.List>
               </div>
             </Ons.Card>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
           </Ons.Page>
         );
       }
     }
 
     class Cards extends React.Component {
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Splitter+Navigator</div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      }
+
+      showMenu() {
+        this.props.showMenu();
+      }
+
       pushPage(event) {
         this.props.navigator.pushPage({ component: PageNav2, props: { key: 'pageNav2', cardTitle: event.target.textContent } });
       }
 
       render() {
         return (
-          <Ons.Page>
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
             <h2>Cards</h2>
             
             <Ons.ListTitle>Card List</Ons.ListTitle>
@@ -68,6 +117,9 @@
               <Ons.ListItem onClick={this.pushPage.bind(this)}>Card Two</Ons.ListItem>
               <Ons.ListItem onClick={this.pushPage.bind(this)}>Card Three</Ons.ListItem>
             </Ons.List>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
           </Ons.Page>
         );
       }
@@ -87,8 +139,17 @@
           <Ons.Toolbar>
             <div className='left'><Ons.BackButton>Back</Ons.BackButton></div>
             <div className="center">{this.state.title}</div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
           </Ons.Toolbar>
         );
+      }
+
+      showMenu() {
+        this.props.showMenu();
       }
 
       pushPage() {
@@ -114,19 +175,39 @@
                 Pop Page
               </Ons.Button>
             </div>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
           </Ons.Page>
         );
       }
     }
 
     class Home extends React.Component {
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Splitter+Navigator</div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      }
+
+      showMenu() {
+        this.props.showMenu();
+      }
+
       pushPage() {
         this.props.navigator.pushPage({ component: PageNav1, props: { key: 'pageNav1' } });
       }
 
       render() {
         return (
-          <Ons.Page>
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
             <h2>Home</h2>
             <div style={{ textAlign: 'center' }}>
               <br />
@@ -134,57 +215,60 @@
                 Push Page
               </Ons.Button>
             </div>
-          </Ons.Page>
-        );
-      }
-    }
-
-    class AppTabbar extends React.Component {
-      renderToolbar() {
-        return (
-          <Ons.Toolbar>
-            <div className="center">Navigator+Tabbar</div>
-          </Ons.Toolbar>
-        );
-      }
-
-      renderTabs(navigator) {
-        return [
-          {
-            content: <Home key="home" navigator={this.props.navigator} />,
-            tab: <Ons.Tab key="home" label="Home" icon="ion-home" />
-          },
-          {
-            content: <Cards key="cards" navigator={this.props.navigator} />,
-            tab: <Ons.Tab key="cards" label="Cards" icon="ion-card" badge="3" />
-          },
-          {
-            content: <Settings key="settings" />,
-            tab: <Ons.Tab key="settings" label="Settings" icon="ion-ios-cog" />
-          }
-        ];
-      }
-
-      render() {
-        return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
-            <Ons.Tabbar position='auto' index={0} renderTabs={this.renderTabs.bind(this)} />
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
           </Ons.Page>
         );
       }
     }
     
     class App extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          isOpen: false
+        };
+        this.loadPage = this.loadPage.bind(this);
+      }
+
+      hide() {
+        this.setState({ isOpen: false });
+      }
+
+      show() {
+        this.setState({ isOpen: true });
+      }
+
+      loadPage(page) {
+        this.hide();
+        this.navigator.resetPage({ component: page, props: { key: page } });
+      }
+
       renderPage(route, navigator) {
         route.props = route.props || {};
         route.props.navigator = navigator;
+        route.props.showMenu = this.show.bind(this);
 
         return React.createElement(route.component, route.props);
       }
 
       render() {
         return (
-          <Ons.Navigator initialRoute={{ component: AppTabbar, props: {key: 'appTabbar'} }} renderPage={this.renderPage} />
+          <Ons.Splitter>
+            <Ons.SplitterSide side='right' width={220} collapse={true} isSwipeable={true} isOpen={this.state.isOpen} onClose={this.hide.bind(this)} onOpen={this.show.bind(this)}>
+              <Ons.Page>
+                <Ons.List>
+                  <Ons.ListItem key='home' onClick={this.loadPage.bind(this, Home)} tappable>Home</Ons.ListItem>
+                  <Ons.ListItem key='cards' onClick={this.loadPage.bind(this, Cards)} tappable>Cards</Ons.ListItem>
+                  <Ons.ListItem key='settings' onClick={this.loadPage.bind(this, Settings)} tappable>Settings</Ons.ListItem>
+                </Ons.List>
+              </Ons.Page>
+            </Ons.SplitterSide>
+            <Ons.SplitterContent>
+              <Ons.Navigator initialRoute={{ component: Home, props: { key: 'home' } }} renderPage={this.renderPage.bind(this)} ref={(navigator) => { this.navigator = navigator; }} />
+            </Ons.SplitterContent>
+          </Ons.Splitter>
         );
       }
     }
@@ -201,9 +285,9 @@
 
 <!-- info
 
-## Combining Navigator and Tabbar
+## Combining Splitter and Navigator
 
-A common Single-Page App pattern can be achieved by combining the `<Navigator>` and `<Tabbar>` elements. This way you can have different tabs and provide stacked navigation inside each of them.
+A common Single-Page App pattern can be achieved by combining the `<Splitter>` and `<Navigator>` elements. This way you can have a side menu and provide stacked navigation in the main content.
 
 In order to do so simply pass a component with the `<Tabbar>` element inside as the `initialRoute` prop of the `<Navigator>` (you can consult their respective reference pages to better understand both):
 
