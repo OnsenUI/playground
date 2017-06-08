@@ -80,7 +80,13 @@
             { label: 'Cards', page: cards },
             { label: 'Settings', page: settings }
           ],
-          pageStack: [home]
+          pageStack: [home],
+          options: {}
+        }
+      },
+      methods: {
+        setOptions(newOptions) {
+          this.options = newOptions;
         }
       },
       components: {
@@ -97,14 +103,14 @@
       <v-ons-splitter-side swipeable width="220px" collapse="" side="right" :open.sync="openSide">
         <v-ons-page>
           <v-ons-list>
-            <v-ons-list-item v-for="menuPage in menuPages" :key="menuPage.label" tappable @click="pageStack = [menuPage.page]; openSide = false">
+            <v-ons-list-item v-for="menuPage in menuPages" :key="menuPage.label" tappable @click="setOptions({animation: 'fade'}); pageStack = [menuPage.page]; openSide = false">
               {{ menuPage.label }}
             </v-ons-list-item>
           </v-ons-list>
         </v-ons-page>
       </v-ons-splitter-side>
       <v-ons-splitter-content>
-        <v-ons-navigator :page-stack="pageStack">
+        <v-ons-navigator :page-stack="pageStack" :options="options" @postpush="setOptions({})">
           <component v-for="page in pageStack" @push="pageStack.push($event)" @pop="pageStack.pop()" :is="page" :key="page" :open-menu="() => {openSide = true}"></component>
         </v-ons-navigator>
       </v-ons-splitter-content>
@@ -116,9 +122,9 @@
       <v-ons-toolbar>
         <div class="center">Splitter+Navigator</div>
         <div class="right">
-          <ons-toolbar-button @click="openMenu">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
+          <v-ons-toolbar-button @click="openMenu">
+            <v-ons-icon icon="md-menu"></v-ons-icon>
+          </v-ons-toolbar-button>
         </div>
       </v-ons-toolbar>
       <h2>Home</h2>
@@ -142,9 +148,9 @@
         </div>
         <div class="center">{{ title }}</div>
         <div class="right">
-          <ons-toolbar-button @click="openMenu">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
+          <v-ons-toolbar-button @click="openMenu">
+            <v-ons-icon icon="md-menu"></v-ons-icon>
+          </v-ons-toolbar-button>
         </div>
       </v-ons-toolbar>
       <div style="text-align: center">
@@ -170,9 +176,9 @@
       <v-ons-toolbar>
         <div class="center">Navigator+Tabbar</div>
         <div class="right">
-          <ons-toolbar-button @click="openMenu">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
+          <v-ons-toolbar-button @click="openMenu">
+            <v-ons-icon icon="md-menu"></v-ons-icon>
+          </v-ons-toolbar-button>
         </div>
       </v-ons-toolbar>
       <h2>Cards</h2>
@@ -195,9 +201,9 @@
           <v-ons-back-button>Back</v-ons-back-button>
         </div>
         <div class="right">
-          <ons-toolbar-button @click="openMenu">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
+          <v-ons-toolbar-button @click="openMenu">
+            <v-ons-icon icon="md-menu"></v-ons-icon>
+          </v-ons-toolbar-button>
         </div>
       </v-ons-toolbar>
       <v-ons-card>
@@ -231,9 +237,9 @@
       <v-ons-toolbar>
         <div class="center">Navigator+Tabbar</div>
         <div class="right">
-          <ons-toolbar-button @click="openMenu">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
+          <v-ons-toolbar-button @click="openMenu">
+            <v-ons-icon icon="md-menu"></v-ons-icon>
+          </v-ons-toolbar-button>
         </div>
       </v-ons-toolbar>
       <h2>Settings</h2>
@@ -260,7 +266,7 @@ In order to do so simply place the `<v-ons-navigator>` element inside the `<v-on
   ...
 </v-ons-splitter-side>
 <v-ons-splitter-content>
-  <v-ons-navigator :page-stack="pageStack">
+  <v-ons-navigator :page-stack="pageStack" :options="options" @postpush="setOptions({})">
     <component v-for="page in pageStack" @push="pageStack.push($event)" @pop="pageStack.pop()" :is="page" :key="page" :open-menu="() => {openSide = true}"></component>
   </v-ons-navigator>
 </v-ons-splitter-content>
@@ -274,17 +280,18 @@ data() {
       { label: 'Cards', page: cards },
       { label: 'Settings', page: settings }
     ],
-    pageStack: [home]
+    pageStack: [home],
+    options: {}
   };
 }
 ```
 
 ## Loading pages from the menu
 
-Since there is a navigator "ruling" the splitter's content you can load the intended page by resetting the navigator's `pageStack` when one of the items is tapped:
+Since there is a navigator "ruling" the splitter's content you can load the intended page by resetting the navigator's `pageStack` when one of the menu items is tapped:
 
 ```
-<v-ons-list-item v-for="menuPage in menuPages" :key="menuPage.label" tappable @click="pageStack = [menuPage.page]; openSide = false">
+<v-ons-list-item v-for="menuPage in menuPages" :key="menuPage.label" tappable @click="setOptions({animation: 'fade'}); pageStack = [menuPage.page]; openSide = false">
   {{ menuPage.label }}
 </v-ons-list-item>
 ```

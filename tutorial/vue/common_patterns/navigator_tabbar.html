@@ -6,13 +6,11 @@
 
   <script type="text/babel">
     const settings = {
-      template: '#settings',
-      props: ['openMenu']
+      template: '#settings'
     };
   
     const pageNav2 = {
-      template: '#pageNav2',
-      props: ['openMenu']
+      template: '#pageNav2'
     };
   
     const cards = {
@@ -28,10 +26,10 @@
               }
             }
           };
-          this.$emit('push', pageToPush);
+          this.pageStack.push(pageToPush);
         }
       },
-      props: ['openMenu']
+      props: ['pageStack']
     };
   
     const pageNav1 = {
@@ -182,11 +180,6 @@
         <div class="left">
           <v-ons-back-button>Back</v-ons-back-button>
         </div>
-        <div class="right">
-          <ons-toolbar-button @click="openMenu">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
       </v-ons-toolbar>
       <v-ons-card>
         <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
@@ -213,14 +206,6 @@
 
   <template id="settings">
     <v-ons-page>
-      <v-ons-toolbar>
-        <div class="center">Navigator+Tabbar</div>
-        <div class="right">
-          <ons-toolbar-button @click="openMenu">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </v-ons-toolbar>
       <h2>Settings</h2>
     </v-ons-page>
   </template>
