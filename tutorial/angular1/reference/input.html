@@ -39,7 +39,11 @@
       <div class="center">Input</div>
     </ons-toolbar>
 
-    <div style="text-align: center; margin-top: 30px;">
+    <p style="text-align: center; margin-top: 10px">
+      <ons-search-input placeholder="Search"></ons-search-input>
+    </p>
+
+    <div style="text-align: center; margin-top: 30px">
       <p>
         <ons-input id="username" modifier="underbar" placeholder="Username" float ng-model="page.username"></ons-input>
       </p>
@@ -55,7 +59,7 @@
       <ons-list-header>Checkboxes</ons-list-header>
       <ons-list-item tappable>
         <label class="left">
-          <ons-input type="checkbox" input-id="check-1" ng-model="page.apples"></ons-input>
+          <ons-checkbox input-id="check-1" ng-model="page.apples"></ons-checkbox>
         </label>
         <label for="check-1" class="center">
           Apples <span ng-show="page.apples" style="color: red; margin-left: 6px">♥</span>
@@ -63,7 +67,7 @@
       </ons-list-item>
       <ons-list-item tappable>
         <label class="left">
-          <ons-input type="checkbox" input-id="check-2" ng-model="page.bananas"></ons-input>
+          <ons-checkbox input-id="check-2" ng-model="page.bananas"></ons-checkbox>
         </label>
         <label for="check-2" class="center">
           Bananas <span ng-show="page.bananas" style="color: red; margin-left: 6px">♥</span>
@@ -75,7 +79,7 @@
       <ons-list-header>Radio buttons <span ng-style="page.labelStyle"></span></ons-list-header>
       <ons-list-item tappable>
         <label class="left">
-          <ons-input name="color" type="radio" input-id="radio-1" ng-model="page.labelStyle.backgroundColor" value="red"></ons-input>
+          <ons-radio name="color" input-id="radio-1" ng-model="page.labelStyle.backgroundColor" value="red"></ons-radio>
         </label>
         <label for="radio-1" class="center">
           Red
@@ -83,7 +87,7 @@
       </ons-list-item>
       <ons-list-item tappable>
         <label class="left">
-          <ons-input name="color" type="radio" input-id="radio-2" ng-model="page.labelStyle.backgroundColor" value="blue"></ons-input>
+          <ons-radio name="color" input-id="radio-2" ng-model="page.labelStyle.backgroundColor" value="blue"></ons-radio>
         </label>
         <label for="radio-2" class="center">
           Blue
@@ -96,7 +100,7 @@
 
 <!-- info
 
-## Text input
+## Form inputs
 
 In Onsen UI text input is provided by the `<ons-input>` tag. It works exactly like the normal `<input>` tag but with some small differences.
 
@@ -111,7 +115,7 @@ Just like the normal input tag you can use the `type` attribute to define what k
 </ons-input>
 ```
 
-You can also use types like `number` or `date`. Also `checkbox` and `radio` are available but we will take a look at them later.
+You can also use types like `number` or `date`. The only exception are checkboxes and radio buttons, which are implemented in different elements.
 
 ## Floating label
 
@@ -126,6 +130,31 @@ The label is defined with the `placeholder` attribute and to activate the animat
 </ons-input>
 ```
 
+## Checkboxes
+
+Checkboxes are defined using the `<ons-checkbox>` element. The element works almost exactly as when you use a normal `<input type="checkbox">` element.
+
+```
+<ons-checkbox value="something" checked></ons-checkbox>
+```
+
+## Radio buttons
+
+Radio buttons are defined using the `<ons-radio>` element.
+
+```
+<ons-radio checked></ons-radio>
+```
+
+To create a group of radio buttons the `name` attribute is used:
+
+```
+<ons-radio name="group" value="first"></ons-radio>
+<ons-radio name="group" value="second"></ons-radio>
+```
+
+This will enable switching between radio buttons.
+
 ## Inner input element
 
 For normal input elements is possible to define a `<label>` tab with the `for` attribute to link it to an input element.
@@ -137,41 +166,6 @@ Unfortunately this does not work with custom elements like `<ons-label>` so in o
 <ons-input input-id="username"></ons-input>
 ```
 
-## Checkboxes
-
-Checkboxes are defined using the `<ons-input>` element with the `type` attribute set to `checkbox`.
-
-The element works almost exactly as when you use a normal `<input type="checkbox">` element.
-
-```
-<ons-input
-  type="checkbox">
-</ons-input>
-```
-
-## Radio buttons
-
-Radio buttons are also defined using the `<ons-input>` element by setting the `type` attribute to `radio`.
-
-```
-<ons-input
-  type="radio">
-</ons-input>
-```
-
-To create a group of radio buttons the `name` attribute is used:
-
-```
-<ons-input
-  type="radio"
-  name="group">
-</ons-input>
-<ons-input
-  type="radio"
-  name="group">
-</ons-input>
-```
-
-This will enable switching between radio buttons.
+This work with any input in Onsen UI such as checkboxes, radios, etc.
 
 -->
