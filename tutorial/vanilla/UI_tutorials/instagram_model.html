@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI Instagram App</title>
+
+  <script>
+
+    document.addEventListener('init', function(event) {
+      var page = event.target;
+
+      document.querySelector('#tabbar').setAttribute('modifier', null);
+      document.querySelector('#tabbar_notification').setAttribute('modifier', 'top');
+
+      if (page.querySelector("ons-toolbar")) {
+        page.querySelector("ons-toolbar").setAttribute('modifier', null);
+      }
+      
+
+      if (page.id == "home-page") {
+        var stories = document.getElementById('stories');
+
+        stories.delegate = {
+          createItemContent: function(i) {
+            return ons._util.createElement(getStory(i));
+          },
+          countItems: function() {
+            return 9;
+          }
+        };
+
+        stories.refresh();
+      }
+
+      if(page.id == "profile-page"){
+        page.querySelector('#edit_button').setAttribute('modifier', "large");
+      }
+      
+    });
+
+    document.addEventListener('show', function(event) {
+      var page = event.target;
+
+       if (page.id == "search-page") {
+          var channels = document.getElementById('channels');
+
+          channels.delegate = {
+            createItemContent: function(i) {
+              return ons._util.createElement(getStory(i));
+            },
+            countItems: function() {
+              return 9;
+            }
+          };
+
+          stories.refresh();
+
+        }
+    });
+
+    function display(id) {
+
+      document.getElementById("list").style.color="#1f1f21";
+      document.getElementById("grid").style.color="#1f1f21";
+      document.getElementById(id).style.color="#5fb4f4";
+
+      document.getElementById("list_view").style.display="none";
+      document.getElementById("grid_view").style.display="none";
+      document.getElementById(id+"_view").style.display="block";
+   
+    }
+
+    function getStory(i) {
+      return '<ons-list-item class="internal"><div class="story">' +
+                '<div class="thumbnail-header-wraper unread"><img class="thumbnail-header" src="assets/img/profile-image-0' + (i+1) + '.png" onclick="readStory(this)"></div>' +
+                '<p>david_graham</p>' +
+                '</div></ons-list-item>';
+    }
+
+    var like = function(num){
+      if(document.getElementById("button-post-like-"+num).classList.contains("like")) {
+        document.getElementById("button-post-like-"+num).classList.remove("ion-ios-heart","like");
+        document.getElementById("button-post-like-"+num).classList.add("ion-ios-heart-outline");
+      } else {
+        document.getElementById("button-post-like-"+num).classList.remove("ion-ios-heart-outline");
+        document.getElementById("button-post-like-"+num).classList.add("ion-ios-heart","like");
+        document.getElementById("post-like-"+num).style.opacity = 1;
+        
+        setTimeout(function(){ 
+           document.getElementById("post-like-"+num).style.opacity = 0;
+        }, 600);
+      }
+    }
+
+    var readStory = function(event){
+      event.parentNode.classList.remove("unread");
+      event.parentNode.classList.add("read");
+    }
+
+  </script>
+  
+</head>
+<body>
+  <ons-page>
+    <ons-tabbar id="tabbar">
+      <ons-tab icon="ion-home" page="home.html" active>
+      </ons-tab>
+      <ons-tab icon="ion-ios-search" page="search.html">
+      </ons-tab>
+      <ons-tab icon="plus-square-o" page="camera.html">
+      </ons-tab>
+      <ons-tab icon="ion-ios-heart-outline" page="notification.html">
+      </ons-tab>
+      <ons-tab icon="ion-ios-person-outline" page="profile.html"> 
+      </ons-tab>
+    </ons-tabbar>
+  </ons-page>
+
+
+
+  <!-- The Home Page -->
+
+  <ons-template id="home.html">
+    <ons-page class="main_pages" id="home-page">
+    <ons-toolbar>
+      <div class="left">
+          <ons-toolbar-button><ons-icon icon="ion-ios-camera-outline"></ons-icon></ons-toolbar-button>
+      </div>
+      <div class="center">Home Page</div>
+      <div class="right">
+        <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+      
+    <div>
+       <ons-list>
+
+           <ons-list-header class="storries-tab" >
+              <ons-list class="stories-wrapper" modifier="material">
+                <ons-lazy-repeat id="stories"></ons-lazy-repeat>
+              </ons-list>
+           </ons-list-header>
+
+           <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-03.png" >
+                  <div>
+                    <div><b>david_graham</b></div>
+                    <div class="location">Fushimi Inari Shrine, Kyoto</div>
+                  </div>
+                  <div class="corner"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div style="text-align: center;" ondblclick="like(1)"><ons-icon size="150px" id="post-like-1" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-01.jpg"></div>
+               <div class="post-title">
+                 <div>
+                   <ons-toolbar-button onclick="like(1)"><ons-icon id="button-post-like-1" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                 </div>
+                 <div class="corner bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+               <div class="post-bar"><b>david_graham</b> beautiful kyoto #kyoto #fushimiinarishirine </div>
+                <div class="post-bar time">1 HOUR AGO</div>
+           </ons-list-item>
+
+           <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-08.png" >
+                  <div>
+                    <div><b>david_graham</b></div>
+                    <div class="location">Kinkakuji Temple, Kyoto</div>
+                  </div>
+                  <div class="corner"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div style="text-align: center;" ondblclick="like(2)"><ons-icon size="150px" id="post-like-2" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-02.jpg"></div>
+               <div class="post-title">
+                 <div>
+                   <ons-toolbar-button onclick="like(2)"><ons-icon id="button-post-like-2" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                 </div>
+                 <div class="corner bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+               <div class="post-bar"><b>david_graham</b> Golden Temple ^_^ #kyoto #goldentemple</div>
+                <div class="post-bar time">1 HOUR AGO</div>
+           </ons-list-item>
+
+           <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-02.png" >
+                  <div>
+                    <div><b>david_graham</b></div>
+                    <div class="location">Tokyo</div>
+                  </div>
+                  <div class="corner"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div style="text-align: center;" ondblclick="like(3)"><ons-icon size="150px" id="post-like-3" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-03.jpg"></div>
+               <div class="post-title">
+                 <div>
+                   <ons-toolbar-button onclick="like(3)"><ons-icon id="button-post-like-3" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                 </div>
+                 <div class="corner bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+               <div class="post-bar"><b>david_graham</b> The harmony sakura brings #sakura #happy #harmony #love</div>
+                <div class="post-bar time">1 HOUR AGO</div>
+           </ons-list-item>
+
+       </ons-list>   
+    </div>         
+    </ons-page>
+  </ons-template>
+
+
+
+  <!-- The Search Page -->
+
+  <ons-template id="search.html">
+    <ons-page class="main_pages"  id="search-page">
+     <ons-toolbar>
+       <div class="center"><ons-search-input class="search_box"  placeholder="Search"></ons-search-input></div>
+     </ons-toolbar>
+
+     <div>
+       <ons-list>
+
+           <ons-list-header class="storries-tab" >
+              <ons-list class="stories-wrapper" modifier="material">
+                <ons-lazy-repeat id="channels"></ons-lazy-repeat>
+              </ons-list>
+           </ons-list-header>
+
+           <ons-list-item class="search_list_warpper">
+              <ons-list class="search_list">
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-01.png">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-02.png">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-03.png">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-04.png">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-05.png">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-06.png">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-07.png">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-08.png">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/profile-image-09.png">
+                  </div>
+                </ons-list-item>
+
+              </ons-list>
+           </ons-list-item>  
+
+       </ons-list>   
+     </div>  
+    </ons-page>
+  </ons-template>
+
+
+  <!-- The Camera Page -->
+  
+  <ons-template id="camera.html">
+    <ons-page class="main_pages"  id="camera-page">
+      <ons-toolbar>
+        <div class="center" id="toolbar-title">Camera</div>
+      </ons-toolbar>
+      <div class="camera-view"><ons-icon class="camera-icon" icon="ion-android-camera"></ons-icon></div>
+      <div class="camera-button"><ons-icon class="camera-icon" icon="circle-o"></ons-icon></div>
+    </ons-page>
+  </ons-template>
+
+
+
+  <!-- Notification Page -->
+  
+  <ons-template id="notification.html">
+    <ons-page id="notification">
+      <ons-tabbar id="tabbar_notification" position="top" animation="slide">
+        <ons-tab label="Following" page="following-notifications.html"></ons-tab>
+        <ons-tab label="You" page="your-notification.html" active></ons-tab>
+      </ons-tabbar>
+    </ons-page>
+  </ons-template>
+
+
+
+
+ <!--  The Profile Page -->
+  
+  <ons-template id="profile.html">
+    <ons-page class="main_pages"  id="profile-page">
+      <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button><ons-icon icon="ion-person-add"></ons-icon></ons-toolbar-button>
+        </div>
+        <div class="center">david_graham</div>
+        <div class="right">
+          <ons-toolbar-button><ons-icon icon="ion-gear-a"></ons-icon></ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <ons-list>
+
+        <ons-list-item>
+          <div class="profile_wrapper">
+            <div class="profile_image_wrapper">
+              <ons-icon size="24px" icon="ion-ios-plus"></ons-icon>
+              <img src="assets/img/profile-image-08.png">
+            </div>
+            <div class="profile_info_wrapper">
+                <div class="profile_info_numbers">
+                  <div>
+                    <div>10</div>
+                    <div class="profile_info_text">Posts</div>
+                  </div>
+                  <div>
+                    <div>150</div>
+                    <div class="profile_info_text">Followers</div>
+                  </div>
+                  <div>
+                    <div>150</div>
+                    <div class="profile_info_text">Following</div>
+                  </div>
+                </div>
+                <div class="profile_info_button"><ons-button id="edit_button" modifier="large">Edit Your Profile</ons-button></div>
+            </div>
+          </div>
+          <div class="profile_extra_wrapper"><p> David Graham</p></div>
+        </ons-list-item>
+
+        <ons-list-item style="text-align: center; padding: 0;">
+          <div class="profile_button">
+            <ons-icon id="grid" icon="ion-grid" style="color: #5fb4f4" onclick="display('grid')"></ons-icon>
+          </div>
+          <div class="profile_button">
+            <ons-icon id="list" icon="md-format-list-bulleted" onclick="display('list')"></ons-icon>
+          </div>
+          <div class="profile_button">
+            <ons-icon icon="ion-ios-pricetag-outline"></ons-icon>
+          </div>
+          <div class="profile_button">
+            <ons-icon class="bookmark" icon="bookmark-o"></ons-icon>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item class="user_posts_panel">
+
+          <ons-list id="list_view" style="display: none;">
+
+           <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-03.png" >
+                  <div>
+                    <div><b>david_graham</b></div>
+                    <div class="location">Fushimi Inari Shrine, Kyoto</div>
+                  </div>
+                  <div class="corner"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div style="text-align: center;" ondblclick="like(1)"><ons-icon size="150px" id="post-like-1" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-01.jpg"></div>
+               <div class="post-title">
+                 <div>
+                   <ons-toolbar-button onclick="like(1)"><ons-icon id="button-post-like-1" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                 </div>
+                 <div class="corner bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+               <div class="post-bar"><b>david_graham</b> beautiful kyoto #kyoto #fushimiinarishirine </div>
+                <div class="post-bar time">1 HOUR AGO</div>
+           </ons-list-item>
+
+           <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-08.png" >
+                  <div>
+                    <div><b>david_graham</b></div>
+                    <div class="location">Kinkakuji Temple, Kyoto</div>
+                  </div>
+                  <div class="corner"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div style="text-align: center;" ondblclick="like(2)"><ons-icon size="150px" id="post-like-2" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-02.jpg"></div>
+               <div class="post-title">
+                 <div>
+                   <ons-toolbar-button onclick="like(2)"><ons-icon id="button-post-like-2" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                 </div>
+                 <div class="corner bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+               <div class="post-bar"><b>david_graham</b> Golden Temple ^_^ #kyoto #goldentemple</div>
+                <div class="post-bar time">1 HOUR AGO</div>
+           </ons-list-item>
+
+           <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-02.png" >
+                  <div>
+                    <div><b>david_graham</b></div>
+                    <div class="location">Tokyo</div>
+                  </div>
+                  <div class="corner"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div style="text-align: center;" ondblclick="like(3)"><ons-icon size="150px" id="post-like-3" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-03.jpg"></div>
+               <div class="post-title">
+                 <div>
+                   <ons-toolbar-button onclick="like(3)"><ons-icon id="button-post-like-3" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                 </div>
+                 <div class="corner bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+               </div>
+               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+               <div class="post-bar"><b>david_graham</b> The harmony sakura brings #sakura #happy #harmony #love</div>
+                <div class="post-bar time">1 HOUR AGO</div>
+           </ons-list-item>
+
+       </ons-list>   
+
+
+        <ons-list id="grid_view" class="search_list">
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/post-01.jpg">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/post-02.jpg">
+                  </div>
+                </ons-list-item>
+
+                <ons-list-item class="search_internal">
+                  <div class="search_wrapper">
+                    <img class="thumbnail-search" src="assets/img/post-03.jpg">
+                  </div>
+                </ons-list-item>
+         </ons-list>       
+
+        </ons-list-item>
+      </ons-list>
+    </ons-page>
+  </ons-template>
+
+
+
+  <!-- Following Notification Page -->
+
+  <ons-template id="following-notifications.html">
+    <ons-page id="following-notifications">
+      <ons-list>
+        
+          <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-01.png" >
+                  <div>
+                    <b>david_graham</b>, <b>david_graham</b> and 18 others liked <b>david_graham</b>&#39;s post. <span style="opacity: 0.4;">1 hour ago</span>
+                  </div>
+                  <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-01.jpg"></div>
+               </div>
+          </ons-list-item>
+
+          <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-02.png" >
+                  <div>
+                    <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
+                  </div>
+               </div>
+          </ons-list-item>
+
+          <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-03.png" >
+                  <div>
+                    <b>david_graham</b>, <b>david_graham</b> and 18 others liked <b>david_graham</b>&#39;s post. <span style="opacity: 0.4;">1 hour ago</span>
+                  </div>
+                  <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-02.jpg"></div>
+               </div>
+          </ons-list-item>
+
+          <ons-list-item class="post">
+               <div class="post-bar post-title">
+                  <img class="thumbnail" src="assets/img/profile-image-04.png" >
+                  <div>
+                    <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
+                  </div>
+               </div>
+          </ons-list-item>
+
+        </ons-list>
+    </ons-page>
+  </ons-template>
+
+
+
+
+  <ons-template id="your-notification.html">
+    <ons-page id="your-notification">
+       <ons-list>
+        
+          <ons-list-item class="post">
+             <div class="post-bar post-title">
+                <img class="thumbnail" src="assets/img/profile-image-01.png" >
+                <div>
+                  <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
+                </div>
+                <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-01.jpg"></div>
+             </div>
+          </ons-list-item>
+
+          <ons-list-item class="post">
+             <div class="post-bar post-title">
+                <img class="thumbnail" src="assets/img/profile-image-02.png" >
+                <div>
+                  <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
+                </div>
+                <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-02.jpg"></div>
+             </div>
+          </ons-list-item>
+
+          <ons-list-item class="post">
+             <div class="post-bar post-title">
+                <img class="thumbnail" src="assets/img/profile-image-03.png" >
+                <div>
+                  <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
+                </div>
+                <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-03.jpg"></div>
+             </div>
+          </ons-list-item>
+
+        </ons-list>
+    </ons-page>
+  </ons-template>
+
+  <style>
+    .toolbar {
+      background-color: white;
+    }
+
+    .toolbar__title{
+      text-align: center;
+    }
+
+    .tabbar {
+      background-color: white;
+    }
+
+    .main_pages {
+      z-index: 10;
+    }
+
+    :checked + .tabbar__button {
+        color: black;
+    }
+
+    .tabbar__button {
+        color: #bebebe;
+    }
+
+    .storries-tab {
+      padding: 8px 0px;
+      background-color: #f6f6f6;
+    }
+
+    .stories-wrapper{
+        width: 100%;
+        white-space: nowrap;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        background-color: transparent;
+    }
+
+    .stories-wrapper::-webkit-scrollbar { 
+        display: none; 
+    }
+
+    .internal {
+        display: inline;
+        padding: 0px;
+        padding-left: 15px;
+    }
+
+    .internal .list-item__center{
+      display: inline;
+      padding-right: 0px;
+      width: 50px;
+      text-align: justify;
+    }
+
+    .search_list_warpper {
+      text-align: center;
+      padding-left: 0;
+    }
+
+    .search_list_warpper div{
+      padding: 0;
+    }
+
+    .search_list {
+      text-align: center;
+      padding: 0;
+    }
+
+    .search_internal{
+      display: inline;
+      padding: 0px;s
+    }
+
+    .search_internal .list-item__center{
+      display: inline;
+      padding-right: 0px;
+      text-align: justify;
+    }
+
+    .thumbnail-header-wraper{
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      text-align: center;
+      border-radius: 50%;
+    }
+
+    .thumbnail-header {
+      padding: 2px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+
+    .thumbnail-header:active {
+      width: 40px;
+      height: 40px;
+      transition: width 0.1s, height 0.1s;
+    }
+
+    .unread{
+      border: 3px solid #d31010;
+    }
+
+    .read{
+      border: 2px solid #afafaf;
+    }
+
+    .thumbnail {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .thumbnail-search {
+      width: 100%;
+    }
+
+    .search_wrapper{
+      display: inline-table;
+      height: 100%;
+      width: 31.7%;
+      margin-left: 0.25%;
+      margin-right: 0.25%;
+      text-align: justify;
+    }
+    .story {
+      display: inline-table;
+      height: 50px;
+      width: 100%;
+      max-width: 50px;
+      text-align: justify;
+    }
+
+    .story p{
+      width: 100%;
+      max-width: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0;
+      text-transform: none
+    }
+    
+    .post {
+      margin: 0px;
+      padding: 0px;
+      font-size: 14px;
+    }
+    .post .list-item__center{
+      padding-right: 0px;
+    }
+    .post-bar{
+      padding-left: 10px;
+    }
+    .info{
+      margin-bottom: 5px;
+    }
+    .like {
+      color: red;
+    }
+    .post-title {
+      display: inline-flex;
+      margin-bottom: 7px;
+    }
+    .post-image{
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    .corner {
+      right: 0;
+      position: absolute;
+    }
+    .post .location{
+      font-size: 12px;
+    }
+    .bookmark{
+      padding-top: 5px;
+    }
+    .toolbar-button {
+      color: #1f1f21;
+    }
+    .time {
+      font-size: 10px;
+      opacity: 0.7;
+      margin-top: 5px;
+    }
+    .post-like {
+      opacity: 0;
+      width: 100%;
+      position: absolute;
+      top: 25%;
+      color: white;
+      transition: opacity 0.4s;
+    }
+    .search_box {
+      width: 90%;
+      padding-top: 7px;
+    }
+    .search-input {
+      width: 100%;
+      text-align: center;
+      height: 28px;
+    }
+    .profile_wrapper {
+      display: inline-flex;
+      width: 100%;
+    }
+    .profile_image_wrapper {
+      margin-right: 10px;
+      width: 35%;
+      vertical-align: middle;
+      position: relative;
+    }
+    .profile_image_wrapper ons-icon {
+      position: absolute;
+      color: #5fb4f4;
+      background: white;
+      border-radius: 80%;
+      text-align: center;
+      width: 24px;
+      bottom: 0%;
+      right: 0%;
+    }
+    .profile_image_wrapper img {
+      width: 100%;
+      border-radius: 50%;
+      height: auto;
+    }
+    .profile_info_wrapper {
+      width: 100%;
+      text-align: center;
+    }
+    .profile_info_button {
+      margin-top: 5px;
+    }
+    .profile_info_button ons-button {
+      height: 25px;
+      vertical-align: middle;
+      background: transparent;
+      border: 1px solid #e0e0e0;
+      border-radius: 7px;
+      color: black;
+      line-height: 13px;
+     font-size: 14px;
+    }
+    .profile_extra_wrapper p {
+      margin: 5px 0px 0px 0px;
+      font-size: 14px;
+    }
+    .profile_info_numbers {
+      font-size: 14px;
+      display: inline-flex;
+    }
+    .profile_info_numbers div {
+      margin-right: 7%;
+    }
+    .profile_info_text {
+      opacity: 0.5;
+      margin-top: -5px;
+    }
+    .profile_button {
+      width: 25%;
+      font-size: 26px;
+    }
+    .camera-view {
+      width: 100%;
+      height: 60%;
+      text-align: center;
+      background-color: #cacaca;
+      display: table;
+    }
+    .camera-icon {
+      vertical-align: middle !important; 
+      font-size: 100px;
+      opacity: 0.4;
+      display: table-cell;
+    }
+    .camera-button {
+      width: 100%;
+      height: 40%;
+      text-align: center;
+      display: table;
+    }
+    .user_posts_panel {
+      padding: 0;
+    }
+    .user_posts_panel div{
+      padding: 0;
+    }
+  </style>
+</body>
+</html>
+

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI Instagram App</title>
+
+  <script>
+   // Page init event
+
+    var playlist;
+
+    document.addEventListener('init', function(event) {
+      var page = event.target;
+
+      if (page.matches('#browse-page')) {
+
+        // page.querySelector('#push-button').onclick = function() {
+        //   document.querySelector('#navigator').pushPage('playlist.html');
+        // };
+
+      } else if (page.matches('#playlist-page')) {
+        document.querySelector('ons-back-button').setAttribute('modifier', null);
+
+        document.querySelector('#playlist-title').innerHTML = "Playlist " + playlist.split("_")[1];
+
+        page.querySelector('#pop-button').onclick = function() {
+          document.querySelector('#navigator').popPage();
+        };
+
+      }
+    });
+
+    function openPlaylist(id) {
+      playlist = id;
+      document.querySelector('#navigator').pushPage('playlist.html');
+    }
+  </script>
+
+</head>
+<body>
+  <ons-navigator id="navigator" page="browse.html"></ons-navigator>
+
+  <ons-template id="browse.html">
+    <ons-page id="browse-page">
+      <ons-toolbar>
+        <div class="center">BROWSE</div>
+      </ons-toolbar>
+
+      <div class="content" style="text-align: center">
+        <div class="recomended">
+          <h4 style="padding-top: 10px; margin-top: 0;">Recomended Playlists</h4>
+          <ons-list class="recomended_list">
+            <ons-list-item modifier="nodivider" id="playlist_1" class="playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="playlist_title">Playlist 1</div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="playlist_2" class="playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="playlist_title">Playlist 2</div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="playlist_3" class="playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="playlist_title">Playlist 3</div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="playlist_4" class="playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="playlist_title">Playlist 4</div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="playlist_5" class="playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="playlist_title">Playlist 5</div>
+            </ons-list-item>
+          </ons-list>
+        </div>
+        <div class="menu">
+          <ons-list class="menu_list">
+            <ons-list-item class="menu_item" modifier="chevron"><ons-icon icon="line-chart"></ons-icon>  Charts</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron"><ons-icon icon="calendar-o"></ons-icon>  New Releases</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron"><ons-icon icon="ion-radio-waves"></ons-icon>  Podcasts &amp; Videos</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron"><ons-icon icon="ion-disc"></ons-icon>  Discover</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron"><ons-icon icon="ticket"></ons-icon>  Concerts</ons-list-item>
+          </ons-list>
+        </div>
+        <div>
+          <h4 style="padding-top: 10px;">Genre &amp; Mood</h4>
+          <ons-list class="category_list">
+            <ons-list-item modifier="nodivider" id="Category_1" class="category" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                  <ons-icon icon="users"></ons-icon>
+                  <div class="category_title">Party</div>
+                </figure>
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="Category_2" class="category" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                 <ons-icon icon="headphones"></ons-icon>
+                 <div class="category_title">Relax</div>
+                </figure>
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="Category_3" class="category" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                 <ons-icon icon="ion-music-note"></ons-icon>
+                 <div class="category_title">Classical</div>
+                </figure>
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="Category_4" class="category" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                 <figure class="category_thumbnail">
+                  <ons-icon icon="ion-android-microphone"></ons-icon>
+                  <div class="category_title">Pop</div>
+                 </figure>
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="Category_5" class="category" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                 <figure class="category_thumbnail">
+                  <ons-icon icon="smile-o"></ons-icon>
+                  <div class="category_title">Happy</div>
+                 </figure>
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" id="Category_6" class="category" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                 <figure class="category_thumbnail">
+                  <ons-icon icon="bed"></ons-icon>
+                  <div class="category_title">Sleepy</div>
+                 </figure>
+              </div>
+            </ons-list-item>
+          </ons-list>
+        </div>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <ons-template id="playlist.html">
+    <ons-page id="playlist-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button></ons-back-button></div>
+        <div class="right"><ons-toolbar-button><ons-icon icon=""></ons-icon></ons-toolbar-button></div>
+      </ons-toolbar>
+
+      <div class="content" style="text-align: center">
+        <p>This is the second page.</p>
+        <ons-button id="pop-button">Pop page</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <style type="text/css">
+
+  body {
+    background-color: black;
+  }
+
+  .page {
+    color: white;
+  }
+    
+  .page__background {
+    background-color: black;
+  }
+
+  .page__content {
+    top: 0 !important;
+  }
+
+  .toolbar {
+    background-color: rgba(0, 0, 0, 0.39);
+    background-image: linear-gradient(0deg, #000000, #000 40%, transparent 40%);
+  }
+
+  .toolbar__title{
+    color: white;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .playlist {
+    display: table-cell;
+    text-align: center;
+  }
+
+  .playlist_title{
+    text-align: center;
+    color: white;
+    width: 100%;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .thumbnail {
+    width: 120px;
+    height: 120px;
+    display: table;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.42);
+  }
+
+  .thumbnail ons-icon{
+    font-size: 70px;
+    color: rgba(190, 190, 190, 0.74);
+    display: table-cell;
+    vertical-align: middle !important;
+  }
+
+  .recomended_list {
+    background: transparent;
+    overflow: scroll;
+  }
+
+  .recomended_list::-webkit-scrollbar { 
+      display: none; 
+  }
+
+  .recomended {
+    background: linear-gradient(rgb(181, 249, 185),#151715);
+    margin-top: 44px;
+  }
+
+  ons-back-button {
+    color: white !important;
+  }
+
+  .menu_list{
+    background: transparent;
+  }
+
+  .menu_item {
+    color: white;
+    font-size: 12px;
+  }
+
+  .menu_item ons-icon{
+    margin-right: 10px;
+    color: gray;
+    font-size: 16px;
+  }
+
+  .category{
+    text-align: center;
+    display: inline-block;
+    width: 45%;
+  }
+
+  .category_title{
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 10px;
+    font-weight: bold;
+  }
+
+  .category_list{
+    background: transparent;
+    text-align: center;
+  }
+
+  .category_wrapper {
+    width: 120px;
+    height: 120px;
+    background-color: rgba(128, 128, 128, 0.62);
+    max-width: 120px;
+    min-width: 120px;
+  }
+
+  .category_wrapper ons-icon{
+    font-size: 55px;
+    color: white;
+    display: table-cell;
+    padding-top: 10px;
+    line-height: 0.75em;
+    vertical-align: -25%;
+  }
+  .category_thumbnail{
+    display: inline-block;
+    margin: 16px 0px;
+  }
+  </style>                      
+</body>
+</html>
+
