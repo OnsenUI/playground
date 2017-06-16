@@ -31,7 +31,7 @@ app.modules = {
       'splitter_navigator': 'splitter animations with navigator',
       'passing_data': 'passing data outside onsen ui'
     },
-    'UI tutorials': {
+    'user interface tutorials': {
       'instagram_model': 'instagram model',
       'spotify_model': 'spotify model'
     }
