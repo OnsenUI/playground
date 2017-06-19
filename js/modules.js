@@ -33,7 +33,8 @@ app.modules = {
     },
     'common patterns': {
       'navigator_tabbar': 'navigator outside tabbar',
-      'splitter_navigator': 'splitter outside navigator'
+      'splitter_navigator': 'splitter outside navigator',
+      'kitchensink': 'kitchensink example'
     }
   },
   'angular1': {
