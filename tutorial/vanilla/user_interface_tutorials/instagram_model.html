@@ -118,6 +118,7 @@
 
 
 
+
   <!-- The Home Page -->
 
   <template id="home.html">
@@ -135,7 +136,7 @@
     <div>
        <ons-list>
 
-           <ons-list-header class="storries-tab" >
+           <ons-list-header class="stories-tab" >
               <ons-list class="stories-list" modifier="material">
                 <ons-lazy-repeat id="stories"></ons-lazy-repeat>
               </ons-list>
@@ -214,7 +215,7 @@
     </div> 
 
      <style type="text/css">
-      .storries-tab {
+      .stories-tab {
         padding: 8px 0px;
         background-color: #f6f6f6;
       }
@@ -283,6 +284,14 @@
         transition: width 0.1s, height 0.1s;
       }
 
+      .unread{
+        border: 3px solid #d31010;
+      }
+
+      .read{
+        border: 2px solid #afafaf;
+      }
+
       .post {
         margin: 0px;
         padding: 0px;
@@ -345,10 +354,18 @@
       .like {
         color: red;
       }
+
+      .thumbnail {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
     </style>
 
     </ons-page>
   </template>
+
 
 
 
@@ -363,7 +380,7 @@
      <div>
        <ons-list>
 
-           <ons-list-header class="storries-tab" >
+           <ons-list-header class="stories-tab" >
               <ons-list class="stories-list" modifier="material">
                 <ons-lazy-repeat id="channels"></ons-lazy-repeat>
               </ons-list>
@@ -372,57 +389,57 @@
            <ons-list-item class="search_list_warpper">
               <ons-list class="search_list">
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-01.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-01.png">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-02.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-02.png">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-03.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-03.png">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-04.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-04.png">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-05.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-05.png">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-06.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-06.png">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-07.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-07.png">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-08.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-08.png">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
+                <ons-list-item class="search_list_item">
                   <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/profile-image-09.png">
+                    <img class="search_thumbnail" src="assets/img/profile-image-09.png">
                   </div>
                 </ons-list-item>
 
@@ -431,8 +448,139 @@
 
        </ons-list>   
      </div>  
+
+    <style type="text/css">
+      .stories-tab {
+        padding: 8px 0px;
+        background-color: #f6f6f6;
+      }
+
+      .stories-list{
+          width: 100%;
+          white-space: nowrap;
+          overflow-y: hidden;
+          overflow-x: scroll;
+          background-color: transparent;
+      }
+
+      .stories-list::-webkit-scrollbar { 
+          display: none; 
+      }
+
+      .stories-list-item {
+          display: inline;
+          padding: 0px;
+          padding-left: 15px;
+      }
+
+      .stories-list-item .list-item__center{
+        display: inline;
+        padding-right: 0px;
+        width: 50px;
+        text-align: justify;
+      }
+
+      .story {
+        display: inline-table;
+        height: 50px;
+        width: 100%;
+        max-width: 50px;
+        text-align: justify;
+      }
+
+      .story p{
+        width: 100%;
+        max-width: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
+        text-transform: none
+      }
+
+      .story-thumbnail-wraper{
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+        border-radius: 50%;
+      }
+
+      .story-thumbnail {
+        padding: 2px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        vertical-align: middle;
+      }
+
+      .story-thumbnail:active {
+        width: 40px;
+        height: 40px;
+        transition: width 0.1s, height 0.1s;
+      }
+
+      .unread{
+        border: 3px solid #d31010;
+      }
+
+      .read{
+        border: 2px solid #afafaf;
+      }
+
+      .search_list_warpper {
+        text-align: center;
+        padding-left: 0;
+      }
+
+      .search_list_warpper div{
+        padding: 0;
+      }
+
+      .search_list {
+        text-align: center;
+        padding: 0;
+      }
+
+      .search_list_item {
+        display: inline;
+        padding: 0px;s
+      }
+
+      .search_list_item .list-item__center {
+        display: inline;
+        padding-right: 0px;
+        text-align: justify;
+      }
+
+      .search_wrapper {
+        display: inline-table;
+        height: 100%;
+        width: 31.7%;
+        margin-left: 0.25%;
+        margin-right: 0.25%;
+        text-align: justify;
+      } 
+
+      .search_box {
+        width: 90%;
+        padding-top: 7px;
+      }
+
+      .search-input {
+        width: 100%;
+        text-align: center;
+        height: 28px;
+      }
+
+      .search_thumbnail {
+        width: 100%;
+      }
+    </style>
+
     </ons-page>
   </template>
+
+
 
 
   <!-- The Camera Page -->
@@ -444,8 +592,33 @@
       </ons-toolbar>
       <div class="camera-view"><ons-icon class="camera-icon" icon="ion-android-camera"></ons-icon></div>
       <div class="camera-button"><ons-icon class="camera-icon" icon="circle-o"></ons-icon></div>
+
+      <style type="text/css">
+        .camera-view {
+          width: 100%;
+          height: 60%;
+          text-align: center;
+          background-color: #cacaca;
+          display: table;
+        }
+
+        .camera-icon {
+          vertical-align: middle !important; 
+          font-size: 100px;
+          opacity: 0.4;
+          display: table-cell;
+        }
+
+        .camera-button {
+          width: 100%;
+          height: 40%;
+          text-align: center;
+          display: table;
+        }
+      </style>
     </ons-page>
   </template>
+
 
 
 
@@ -463,7 +636,7 @@
 
 
 
- <!--  The Profile Page -->
+  <!--  The Profile Page -->
   
   <template id="profile.html">
     <ons-page class="main_pages"  id="profile-page">
@@ -597,52 +770,235 @@
        </ons-list>   
 
 
-        <ons-list id="grid_view" class="search_list">
+        <ons-list id="grid_view" class="posts_grid_list">
 
-                <ons-list-item class="search_internal">
-                  <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/post-01.jpg">
+                <ons-list-item class="posts_grid_list_item">
+                  <div class="posts_grid_wrapper">
+                    <img class="posts_grid_thumbnail" src="assets/img/post-01.jpg">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
-                  <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/post-02.jpg">
+                <ons-list-item class="posts_grid_list_item">
+                  <div class="posts_grid_wrapper">
+                    <img class="posts_grid_thumbnail" src="assets/img/post-02.jpg">
                   </div>
                 </ons-list-item>
 
-                <ons-list-item class="search_internal">
-                  <div class="search_wrapper">
-                    <img class="thumbnail-search" src="assets/img/post-03.jpg">
+                <ons-list-item class="posts_grid_list_item">
+                  <div class="posts_grid_wrapper">
+                    <img class="posts_grid_thumbnail" src="assets/img/post-03.jpg">
                   </div>
                 </ons-list-item>
          </ons-list>       
 
         </ons-list-item>
       </ons-list>
+
+     <style type="text/css">
+       .profile_wrapper {
+          display: inline-flex;
+          width: 100%;
+        }
+
+        .profile_image_wrapper {
+          margin-right: 10px;
+          width: 35%;
+          vertical-align: middle;
+          position: relative;
+        }
+
+        .profile_image_wrapper ons-icon {
+          position: absolute;
+          color: #5fb4f4;
+          background: white;
+          border-radius: 80%;
+          text-align: center;
+          width: 24px;
+          bottom: 0%;
+          right: 0%;
+        }
+
+        .profile_image_wrapper img {
+          width: 100%;
+          border-radius: 50%;
+          height: auto;
+        }
+
+        .profile_info_wrapper {
+          width: 100%;
+          text-align: center;
+        }
+
+        .profile_extra_wrapper p {
+          margin: 5px 0px 0px 0px;
+          font-size: 14px;
+        }
+
+        .profile_info_numbers {
+          font-size: 14px;
+          display: inline-flex;
+        }
+
+        .profile_info_numbers div {
+          margin-right: 7%;
+        }
+
+        .profile_info_text {
+          opacity: 0.5;
+          margin-top: -5px;
+        }
+
+        .profile_info_button {
+          margin-top: 5px;
+        }
+
+        .profile_info_button ons-button {
+          height: 25px;
+          vertical-align: middle;
+          background: transparent;
+          border: 1px solid #e0e0e0;
+          border-radius: 7px;
+          color: black;
+          line-height: 13px;
+         font-size: 14px;
+        }
+
+        .profile_button {
+          width: 25%;
+          font-size: 26px;
+        }
+
+        .user_posts_panel {
+          padding: 0;
+        }
+
+        .user_posts_panel div{
+          padding: 0;
+        }
+
+        .post {
+          margin: 0px;
+          padding: 0px;
+          font-size: 14px;
+        }
+
+        .post .list-item__center{
+          padding-right: 0px;
+        }
+
+        .post-caption{
+          padding-left: 10px !important;
+        }
+
+        .post-like-info{
+          margin-bottom: 5px;
+          padding-left: 10px !important;
+        }
+
+        .post-bar {
+          display: inline-flex;
+          margin-bottom: 7px;
+          padding-left: 10px !important;
+        }
+
+        .post-image{
+          width: 100%;
+          margin-bottom: 5px;
+        }
+
+        .post .location{
+          font-size: 12px;
+        }
+
+        .post-time {
+          font-size: 10px;
+          opacity: 0.7;
+          margin-top: 5px;
+          padding-left: 10px !important;
+        }
+
+        .post-like {
+          opacity: 0;
+          width: 100%;
+          position: absolute;
+          top: 25%;
+          color: white;
+          transition: opacity 0.4s;
+        }
+
+        .corner-button {
+          right: 0;
+          position: absolute;
+        }
+
+        .bookmark{
+          padding-top: 5px;
+        }
+
+        .like {
+          color: red;
+        }
+
+        .thumbnail {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        .posts_grid_list {
+          text-align: center;
+          padding: 0;
+        }
+
+        .posts_grid_list_item {
+          display: inline;
+          padding: 0px;s
+        }
+
+        .posts_grid_list_item .list-item__center {
+          display: inline;
+          padding-right: 0px;
+          text-align: justify;
+        }
+
+        .posts_grid_wrapper {
+          display: inline-table;
+          height: 100%;
+          width: 31.7%;
+          margin-left: 0.25%;
+          margin-right: 0.25%;
+          text-align: justify;
+        } 
+
+        .posts_grid_thumbnail {
+          width: 100%;
+        }
+     </style> 
     </ons-page>
   </template>
 
 
 
+  
   <!-- Following Notification Page -->
 
   <template id="following-notifications.html">
     <ons-page id="following-notifications">
       <ons-list>
         
-          <ons-list-item class="post">
-               <div class="post-bar">
+          <ons-list-item class="notification-post">
+               <div class="notification-bar">
                   <img class="thumbnail" src="assets/img/profile-image-01.png" >
                   <div>
                     <b>david_graham</b>, <b>david_graham</b> and 18 others liked <b>david_graham</b>&#39;s post. <span style="opacity: 0.4;">1 hour ago</span>
                   </div>
-                  <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-01.jpg"></div>
+                  <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-01.jpg"></div>
                </div>
           </ons-list-item>
 
-          <ons-list-item class="post">
-               <div class="post-bar">
+          <ons-list-item class="notification-post">
+               <div class="notification-bar">
                   <img class="thumbnail" src="assets/img/profile-image-02.png" >
                   <div>
                     <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
@@ -650,18 +1006,18 @@
                </div>
           </ons-list-item>
 
-          <ons-list-item class="post">
-               <div class="post-bar">
+          <ons-list-item class="notification-post">
+               <div class="notification-bar">
                   <img class="thumbnail" src="assets/img/profile-image-03.png" >
                   <div>
                     <b>david_graham</b>, <b>david_graham</b> and 18 others liked <b>david_graham</b>&#39;s post. <span style="opacity: 0.4;">1 hour ago</span>
                   </div>
-                  <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-02.jpg"></div>
+                  <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-02.jpg"></div>
                </div>
           </ons-list-item>
 
-          <ons-list-item class="post">
-               <div class="post-bar">
+          <ons-list-item class="notification-post">
+               <div class="notification-bar">
                   <img class="thumbnail" src="assets/img/profile-image-04.png" >
                   <div>
                     <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
@@ -670,47 +1026,116 @@
           </ons-list-item>
 
         </ons-list>
+
+       <style type="text/css">
+
+         .notification-post {
+            margin: 0px;
+            padding: 0px;
+            font-size: 14px;
+          }
+
+          .notification .list-item__center{
+            padding-right: 0px;
+          }
+
+          .notification-bar {
+            display: inline-flex;
+            margin-bottom: 7px;
+            padding-left: 10px !important;
+          }
+
+          .thumbnail {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+
+          .notification_thumbnail_wrapper {
+            margin-right: 10px; 
+            width: 50px;
+          }
+          .notification_thumbnail {
+            width: 100%;
+          }
+       </style> 
     </ons-page>
   </template>
 
 
 
 
+  <!-- User's Notification Page -->
+
   <template id="your-notification.html">
     <ons-page id="your-notification">
        <ons-list>
         
-          <ons-list-item class="post">
-             <div class="post-bar">
+          <ons-list-item class="notification-post">
+             <div class="notification-bar">
                 <img class="thumbnail" src="assets/img/profile-image-01.png" >
                 <div>
                   <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
                 </div>
-                <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-01.jpg"></div>
+                <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-01.jpg"></div>
              </div>
           </ons-list-item>
 
-          <ons-list-item class="post">
-             <div class="post-bar">
+          <ons-list-item class="notification-post">
+             <div class="notification-bar">
                 <img class="thumbnail" src="assets/img/profile-image-02.png" >
                 <div>
                   <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
                 </div>
-                <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-02.jpg"></div>
+                <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-02.jpg"></div>
              </div>
           </ons-list-item>
 
-          <ons-list-item class="post">
-             <div class="post-bar">
+          <ons-list-item class="notification-post">
+             <div class="notification-bar">
                 <img class="thumbnail" src="assets/img/profile-image-03.png" >
                 <div>
                   <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
                 </div>
-                <div style="margin-right: 10px; width: 50px;"><img class="thumbnail-search" src="assets/img/post-03.jpg"></div>
+                <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-03.jpg"></div>
              </div>
           </ons-list-item>
 
         </ons-list>
+
+        <style type="text/css">
+         .notification-post {
+            margin: 0px;
+            padding: 0px;
+            font-size: 14px;
+          }
+
+          .notification .list-item__center{
+            padding-right: 0px;
+          }
+
+          .notification-bar {
+            display: inline-flex;
+            margin-bottom: 7px;
+            padding-left: 10px !important;
+          }
+
+          .thumbnail {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+
+          .notification_thumbnail_wrapper {
+            margin-right: 10px; 
+            width: 50px;
+          }
+          .notification_thumbnail {
+            width: 100%;
+          }
+       </style> 
     </ons-page>
   </template>
 
@@ -738,158 +1163,9 @@
     .toolbar__title{
       text-align: center;
     }    
-
-    .search_list_warpper {
-      text-align: center;
-      padding-left: 0;
-    }
-
-    .search_list_warpper div{
-      padding: 0;
-    }
-
-    .search_list {
-      text-align: center;
-      padding: 0;
-    }
-
-    .search_internal{
-      display: inline;
-      padding: 0px;s
-    }
-
-    .search_internal .list-item__center{
-      display: inline;
-      padding-right: 0px;
-      text-align: justify;
-    }  
-
-    .unread{
-      border: 3px solid #d31010;
-    }
-
-    .read{
-      border: 2px solid #afafaf;
-    }
-
-    .thumbnail {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    .thumbnail-search {
-      width: 100%;
-    }
-
-    .search_wrapper{
-      display: inline-table;
-      height: 100%;
-      width: 31.7%;
-      margin-left: 0.25%;
-      margin-right: 0.25%;
-      text-align: justify;
-    }  
-    
+ 
     .toolbar-button {
       color: #1f1f21;
-    }
-
-    .search_box {
-      width: 90%;
-      padding-top: 7px;
-    }
-    .search-input {
-      width: 100%;
-      text-align: center;
-      height: 28px;
-    }
-    .profile_wrapper {
-      display: inline-flex;
-      width: 100%;
-    }
-    .profile_image_wrapper {
-      margin-right: 10px;
-      width: 35%;
-      vertical-align: middle;
-      position: relative;
-    }
-    .profile_image_wrapper ons-icon {
-      position: absolute;
-      color: #5fb4f4;
-      background: white;
-      border-radius: 80%;
-      text-align: center;
-      width: 24px;
-      bottom: 0%;
-      right: 0%;
-    }
-    .profile_image_wrapper img {
-      width: 100%;
-      border-radius: 50%;
-      height: auto;
-    }
-    .profile_info_wrapper {
-      width: 100%;
-      text-align: center;
-    }
-    .profile_info_button {
-      margin-top: 5px;
-    }
-    .profile_info_button ons-button {
-      height: 25px;
-      vertical-align: middle;
-      background: transparent;
-      border: 1px solid #e0e0e0;
-      border-radius: 7px;
-      color: black;
-      line-height: 13px;
-     font-size: 14px;
-    }
-    .profile_extra_wrapper p {
-      margin: 5px 0px 0px 0px;
-      font-size: 14px;
-    }
-    .profile_info_numbers {
-      font-size: 14px;
-      display: inline-flex;
-    }
-    .profile_info_numbers div {
-      margin-right: 7%;
-    }
-    .profile_info_text {
-      opacity: 0.5;
-      margin-top: -5px;
-    }
-    .profile_button {
-      width: 25%;
-      font-size: 26px;
-    }
-    .camera-view {
-      width: 100%;
-      height: 60%;
-      text-align: center;
-      background-color: #cacaca;
-      display: table;
-    }
-    .camera-icon {
-      vertical-align: middle !important; 
-      font-size: 100px;
-      opacity: 0.4;
-      display: table-cell;
-    }
-    .camera-button {
-      width: 100%;
-      height: 40%;
-      text-align: center;
-      display: table;
-    }
-    .user_posts_panel {
-      padding: 0;
-    }
-    .user_posts_panel div{
-      padding: 0;
     }
   </style>
 </body>
