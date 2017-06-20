@@ -702,6 +702,196 @@
     </ons-page>
   </template>
 
+  <template id="carousel.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+
+      <ons-carousel id="carousel" fullscreen swipeable auto-scroll overscrollable initial-index="0">
+        <ons-carousel-item class="carousel-item" style="background-color: gray">
+          <div class="color-tag">Gray</div>
+        </ons-carousel-item>
+        <ons-carousel-item class="carousel-item" style="background-color: #085078">
+          <div class="color-tag">Blue</div>
+        </ons-carousel-item>
+        <ons-carousel-item class="carousel-item" style="background-color: #373B44">
+          <div class="color-tag">Dark</div>
+        </ons-carousel-item>
+        <ons-carousel-item class="carousel-item" style="background-color: #D38312">
+          <div class="color-tag">Orange</div>
+        </ons-carousel-item>
+      </ons-carousel>
+
+      <div class="dots">
+        <span id="dot0" class="dot" onclick="fn.swipe(this)">
+          &#9679;
+        </span>
+        <span id="dot1" class="dot" onclick="fn.swipe(this)">
+          &#9675;
+        </span>
+        <span id="dot2" class="dot" onclick="fn.swipe(this)">
+          &#9675;
+        </span>
+        <span id="dot3" class="dot" onclick="fn.swipe(this)">
+          &#9675;
+        </span>
+      </div>
+
+      <script>
+        document.getElementById('appNavigator').topPage.onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+          const carousel = document.getElementById('carousel');
+          carousel.addEventListener('postchange', function () {
+            var index = carousel.getActiveIndex();
+            const dots = document.querySelectorAll('.dot');
+            for (i = 0; i < dots.length; i++) {
+              dots[i].innerHTML = dots[i].id === 'dot' + index ? '&#9679;' : '&#9675;';
+            }
+          });
+          window.fn.swipe = function (target) {
+            carousel.setActiveIndex(Number(target.id.slice(-1)));
+          }
+        }
+      </script>
+
+      <style scoped>
+        .carousel-item {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+
+        .color-tag {
+          color: #fff;
+          font-size: 48px;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        .dots {
+          text-align: center;
+          font-size: 30px;
+          color: #fff;
+          position: absolute;
+          bottom: 40px;
+          left: 0;
+          right: 0;
+        }
+
+        .dots>span {
+          cursor: pointer;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <template id="loadMore.html">
+    <!-- Load more items on scroll bottom -->
+    <ons-page on-infinite-scroll="fn.loadMore">
+      <p class="intro">
+        Useful for loading more items when the scroll reaches the bottom of the page, typically after an asynchronous API call.<br><br>
+      </p>
+
+      <ons-list id="list-node"></ons-list>
+
+      <div class="after-list">
+        <ons-icon icon="fa-spinner" size="26px" spin></ons-icon>
+      </div>
+
+      <script>
+        ons.ready(function () {
+          var listNode = document.getElementById('list-node');
+          var createListItem = function (i) {
+            return ons.createElement(`<ons-list-item>Item #${i}</ons-list-item>`);
+          }
+          for (let i = 0; i < 30; i++) {
+            listNode.appendChild(createListItem(i));
+          }
+          window.fn.loadMore = function (done) {
+            setTimeout(() => {
+              const listLength = listNode.children.length;
+              for (let i = 0; i < 10; i++) {
+                listNode.appendChild(createListItem(listLength + i));
+              }
+              done();
+            }, 600)
+          }
+        })
+      </script>
+
+      <style scoped>
+        .after-list {
+          margin: 20px;
+          text-align: center;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <template id="lazyRepeat.html">
+    <!-- Lazy load thousands of items -->
+    <ons-page>
+      <p class="intro">
+        Automatically unloads items that are not visible and loads new ones. Useful when the list contains thousands of items.<br><br>
+      </p>
+
+      <ons-list>
+        <ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
+      </ons-list>
+
+      <script>
+        ons.ready(function () {
+          var infiniteList = document.getElementById('infinite-list');
+
+          infiniteList.delegate = {
+            createItemContent: function (i) {
+              return ons.createElement(`<ons-list-item>Item #${i}</ons-list-item>`);
+            },
+            countItems: function () {
+              return 3000;
+            }
+          };
+
+          infiniteList.refresh();
+        })
+      </script>
+
+      <style scoped>
+        .intro {
+          text-align: center;
+          padding: 0 20px;
+          margin-top: 40px;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <template id="infiniteScroll.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+
+      <ons-tabbar position="auto">
+        <ons-tab label="Load More" page="loadMore.html"></ons-tab>
+        <ons-tab label="Lazy Repeat" page="lazyRepeat.html" active></ons-tab>
+      </ons-tabbar>
+
+      <script>
+        document.getElementById('appNavigator').topPage.onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+        }
+      </script>
+    </ons-page>
+  </template>
+
   <style>
     ons-splitter-side[animation=overlay] {
       border-left: 1px solid #bbb;
