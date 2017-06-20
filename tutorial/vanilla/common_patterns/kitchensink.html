@@ -220,249 +220,6 @@
     </ons-page>
   </template>
 
-  <template id="pullHook.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-back-button>Home</ons-back-button>
-        </div>
-        <div class="center"></div>
-      </ons-toolbar>
-
-      <ons-pull-hook id="pull-hook" threshold-height="120px">
-        <ons-icon id="pull-hook-icon" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
-      </ons-pull-hook>
-
-      <ons-list id="kitten-list">
-        <ons-list-header>Pull to refresh</ons-list-header>
-      </ons-list>
-
-      <script scoped>
-        document.getElementById('appNavigator').topPage.onInit = function () {
-          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
-          var pullHook = document.getElementById('pull-hook');
-          var icon = document.getElementById('pull-hook-icon');
-          pullHook.addEventListener('changestate', function (event) {
-            switch (event.state) {
-              case 'initial':
-                icon.setAttribute('icon', 'fa-arrow-down');
-                icon.removeAttribute('rotate');
-                icon.removeAttribute('spin');
-                break;
-              case 'preaction':
-                icon.setAttribute('icon', 'fa-arrow-down');
-                icon.setAttribute('rotate', '180');
-                icon.removeAttribute('spin');
-                break;
-              case 'action':
-                icon.setAttribute('icon', 'fa-spinner');
-                icon.removeAttribute('rotate');
-                icon.setAttribute('spin', true);
-                break;
-            }
-          });
-          var getRandomName = function () {
-            const names = ['Oscar', 'Max', 'Tiger', 'Sam', 'Misty', 'Simba', 'Coco', 'Chloe', 'Lucy', 'Missy'];
-            return names[Math.floor(Math.random() * names.length)];
-          };
-          var getRandomUrl = function () {
-            const width = 40 + Math.floor(20 * Math.random());
-            const height = 40 + Math.floor(20 * Math.random());
-            return `https://placekitten.com/g/${width}/${height}`;
-          };
-          var getRandomKitten = function () {
-            return {
-              name: getRandomName(),
-              url: getRandomUrl()
-            };
-          };
-          var getRandomData = function () {
-            const data = [];
-            for (let i = 0; i < 8; i++) {
-              data.push(getRandomKitten());
-            }
-            return data;
-          };
-          var createKitten = function (kitten) {
-            return ons.createElement(`
-                <ons-list-item>
-                  <div class="left">
-                    <img class="list-item__thumbnail" src="${kitten.url}">
-                  </div>
-                  <div class="center">${kitten.name}</div>
-                </ons-list-item>
-              `
-            );
-          };
-          var kittens = getRandomData();
-          for (i = 0; i < kittens.length; i++) {
-            var kitten = createKitten(kittens[i]);
-            document.getElementById('kitten-list').appendChild(kitten);
-          };
-          pullHook.onAction = function (done) {
-            setTimeout(() => {
-              document.getElementById('kitten-list').appendChild(createKitten(getRandomKitten()));
-              done();
-            }, 400);
-          }
-        };
-      </script>
-
-      <style scoped>
-        .pull-hook-content {
-          color: #666;
-          transition: transform .25s ease-in-out;
-        }
-      </style>
-    </ons-page>
-  </template>
-
-  <template id="dialogs.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-back-button>Home</ons-back-button>
-        </div>
-        <div class="center"></div>
-      </ons-toolbar>
-
-      <ons-list-title>Notifications</ons-list-title>
-      <ons-list modifier="inset">
-        <ons-list-item tappable modifier="longdivider" onclick="ons.notification.alert('Hello, world!')">
-          <div class="center">
-            Alert
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="ons.notification.confirm('Are you ready?')">
-          <div class="center">
-            Simple Confirmation
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="ons.notification.prompt('What is your name?')">
-          <div class="center">
-            Prompt
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="ons.notification.toast('Hi there!', { buttonLabel: 'Dismiss', timeout: 1500 })">
-          <div class="center">
-            Toast
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="ons.openActionSheet({ buttons: ['Label 1', 'Label 2', 'Label 3', 'Cancel'], destructive: 2, cancelable: true })">
-          <div class="center">
-            Action/Bottom Sheet
-          </div>
-        </ons-list-item>
-      </ons-list>
-
-      <ons-list-title>Components</ons-list-title>
-      <ons-list modifier="inset">
-        <ons-list-item tappable modifier="longdivider" onclick="showDialog('lorem-dialog')">
-          <div class="center">
-            Simple Dialog
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="showDialog('watHmmSure-dialog')">
-          <div class="center">
-            Alert Dialog
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="toastVisible = true">
-          <div class="center">
-            Toast (top)
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="showModal">
-          <div class="center">
-            Modal
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="popoverVisible = true">
-          <div class="center">
-            Popover - MD Menu
-          </div>
-        </ons-list-item>
-        <ons-list-item tappable modifier="longdivider" onclick="actionSheetVisible = true">
-          <div class="center">
-            Action/Bottom Sheet
-          </div>
-        </ons-list-item>
-      </ons-list>
-
-      <!-- Components -->
-      <ons-dialog id="lorem-dialog" cancelable>
-        <!-- Optional page. This could contain a Navigator as well. -->
-        <ons-page>
-          <ons-toolbar>
-            <div class="center">Simple Dialog</div>
-          </ons-toolbar>
-          <p style="text-align: center">Lorem ipsum dolor</p>
-          <p style="text-align: center">
-            <ons-button modifier="light" onclick="dialogVisible = false">Close</ons-button>
-          </p>
-        </ons-page>
-      </ons-dialog>
-
-      <ons-alert-dialog id="watHmmSure-dialog" cancelable :modifier="ons.platform.isAndroid() ? '' : 'rowfooter'" :title="'Hey!!'"
-        :footer="{
-        'Wat': () => alertDialogVisible = false,
-        'Hmm': () => alertDialogVisible = false,
-        'Sure': () => alertDialogVisible = false
-      }">
-        Lorem ipsum
-        <ons-icon icon="fa-commenting-o"></ons-icon>
-      </ons-alert-dialog>
-
-      <ons-toast animation="fall">Supercalifragilisticexpialidocious<button onclick="toastVisible = false">No way</button></ons-toast>
-
-      <ons-modal onclick="modalVisible = false">
-        <p style="text-align: center">
-          Loading
-          <ons-icon icon="fa-spinner" spin></ons-icon>
-          <br><br> Click or wait
-        </p>
-      </ons-modal>
-
-      <ons-popover cancelable direction="down" cover-target target="#info-button">
-        <ons-list>
-          <ons-list-item tappable v-for="label in ['Call history', 'Import/export', 'New contact', 'Settings']" onclick="popoverVisible = false"
-            :key="label" :modifier="ons.platform.isAndroid() ? 'nodivider' : 'longdivider'">
-            <div class="center">{{ label }}</div>
-          </ons-list-item>
-        </ons-list>
-      </ons-popover>
-
-      <ons-action-sheet cancelable>
-        <ons-action-sheet-button onclick="actionSheetVisible = false" icon="md-square-o">Action 1</ons-action-sheet-button>
-        <ons-action-sheet-button onclick="actionSheetVisible = false" icon="md-square-o">Action 2</ons-action-sheet-button>
-        <ons-action-sheet-button onclick="actionSheetVisible = false" modifier="destructive" icon="md-square-o">Action 3</ons-action-sheet-button>
-        <ons-action-sheet-button onclick="actionSheetVisible = false" icon="md-square-o">Cancel</ons-action-sheet-button>
-      </ons-action-sheet>
-
-      <script>
-        document.getElementById('appNavigator').topPage.onInit = function () {
-          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
-          window.fn.showDialog = function (id) {
-            document.getElementById(id).show();
-          };
-          if (!ons.platform.isAndroid()) {
-            document.getElementById('watHmmSure-dialog').setAttribute('modifier', 'rowfooter');
-          }
-        }
-      </script>
-
-      <style scoped>
-        #lorem-dialog .dialog-container {
-          height: 200px;
-        }
-
-        ons-list-title {
-          margin-top: 20px;
-        }
-      </style>
-    </ons-page>
-  </template>
-
   <template id="forms.html">
     <ons-page>
 
@@ -599,6 +356,279 @@
           {{ animation }}
         </ons-list-item>
       </ons-list>
+    </ons-page>
+  </template>
+
+  <template id="pullHook.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+
+      <ons-pull-hook id="pull-hook" threshold-height="120px">
+        <ons-icon id="pull-hook-icon" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
+      </ons-pull-hook>
+
+      <ons-list id="kitten-list">
+        <ons-list-header>Pull to refresh</ons-list-header>
+      </ons-list>
+
+      <script scoped>
+        document.getElementById('appNavigator').topPage.onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+          var pullHook = document.getElementById('pull-hook');
+          var icon = document.getElementById('pull-hook-icon');
+          pullHook.addEventListener('changestate', function (event) {
+            switch (event.state) {
+              case 'initial':
+                icon.setAttribute('icon', 'fa-arrow-down');
+                icon.removeAttribute('rotate');
+                icon.removeAttribute('spin');
+                break;
+              case 'preaction':
+                icon.setAttribute('icon', 'fa-arrow-down');
+                icon.setAttribute('rotate', '180');
+                icon.removeAttribute('spin');
+                break;
+              case 'action':
+                icon.setAttribute('icon', 'fa-spinner');
+                icon.removeAttribute('rotate');
+                icon.setAttribute('spin', true);
+                break;
+            }
+          });
+          var getRandomName = function () {
+            const names = ['Oscar', 'Max', 'Tiger', 'Sam', 'Misty', 'Simba', 'Coco', 'Chloe', 'Lucy', 'Missy'];
+            return names[Math.floor(Math.random() * names.length)];
+          };
+          var getRandomUrl = function () {
+            const width = 40 + Math.floor(20 * Math.random());
+            const height = 40 + Math.floor(20 * Math.random());
+            return `https://placekitten.com/g/${width}/${height}`;
+          };
+          var getRandomKitten = function () {
+            return {
+              name: getRandomName(),
+              url: getRandomUrl()
+            };
+          };
+          var getRandomData = function () {
+            const data = [];
+            for (let i = 0; i < 8; i++) {
+              data.push(getRandomKitten());
+            }
+            return data;
+          };
+          var createKitten = function (kitten) {
+            return ons.createElement(`
+                <ons-list-item>
+                  <div class="left">
+                    <img class="list-item__thumbnail" src="${kitten.url}">
+                  </div>
+                  <div class="center">${kitten.name}</div>
+                </ons-list-item>
+              `
+            );
+          };
+          var kittens = getRandomData();
+          for (i = 0; i < kittens.length; i++) {
+            var kitten = createKitten(kittens[i]);
+            document.getElementById('kitten-list').appendChild(kitten);
+          };
+          pullHook.onAction = function (done) {
+            setTimeout(() => {
+              document.getElementById('kitten-list').appendChild(createKitten(getRandomKitten()));
+              done();
+            }, 400);
+          }
+        };
+      </script>
+
+      <style scoped>
+        .pull-hook-content {
+          color: #666;
+          transition: transform .25s ease-in-out;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <template id="dialogs.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+        <div class="right">
+          <ons-toolbar-button id="info-button" onclick="fn.showDialog('popover-dialog')"></ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <ons-list-title>Notifications</ons-list-title>
+      <ons-list modifier="inset">
+        <ons-list-item tappable modifier="longdivider" onclick="ons.notification.alert('Hello, world!')">
+          <div class="center">
+            Alert
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="ons.notification.confirm('Are you ready?')">
+          <div class="center">
+            Simple Confirmation
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="ons.notification.prompt('What is your name?')">
+          <div class="center">
+            Prompt
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="ons.notification.toast('Hi there!', { buttonLabel: 'Dismiss', timeout: 1500 })">
+          <div class="center">
+            Toast
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="ons.openActionSheet({ buttons: ['Label 1', 'Label 2', 'Label 3', 'Cancel'], destructive: 2, cancelable: true })">
+          <div class="center">
+            Action/Bottom Sheet
+          </div>
+        </ons-list-item>
+      </ons-list>
+
+      <ons-list-title>Components</ons-list-title>
+      <ons-list modifier="inset">
+        <ons-list-item tappable modifier="longdivider" onclick="fn.showDialog('lorem-dialog')">
+          <div class="center">
+            Simple Dialog
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="fn.showDialog('watHmmSure-dialog')">
+          <div class="center">
+            Alert Dialog
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="fn.showDialog('toast-dialog')">
+          <div class="center">
+            Toast (top)
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="fn.showDialog('modal-dialog')">
+          <div class="center">
+            Modal
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="fn.showDialog('popover-dialog')">
+          <div class="center">
+            Popover - MD Menu
+          </div>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider" onclick="fn.showDialog('action-sheet-dialog')">
+          <div class="center">
+            Action/Bottom Sheet
+          </div>
+        </ons-list-item>
+      </ons-list>
+
+      <!-- Components -->
+      <ons-dialog id="lorem-dialog" cancelable>
+        <!-- Optional page. This could contain a Navigator as well. -->
+        <ons-page>
+          <ons-toolbar>
+            <div class="center">Simple Dialog</div>
+          </ons-toolbar>
+          <p style="text-align: center">Lorem ipsum dolor</p>
+          <p style="text-align: center">
+            <ons-button modifier="light" onclick="fn.hideDialog('lorem-dialog')">Close</ons-button>
+          </p>
+        </ons-page>
+      </ons-dialog>
+
+      <ons-alert-dialog id="watHmmSure-dialog" cancelable>
+        <div class="alert-dialog-title">Hey!!</div>
+        <div class="alert-dialog-content">
+          Lorem ipsum
+          <ons-icon icon="fa-commenting-o"></ons-icon>
+        </div>
+        <div class="alert-dialog-footer">
+          <button class="alert-dialog-button" onclick="fn.hideDialog('watHmmSure-dialog')">Wat</button>
+          <button class="alert-dialog-button" onclick="fn.hideDialog('watHmmSure-dialog')">Hmm</button>
+          <button class="alert-dialog-button" onclick="fn.hideDialog('watHmmSure-dialog')">Sure</button>
+        </div>
+      </ons-alert-dialog>
+
+      <ons-toast id="toast-dialog" animation="fall">Supercalifragilisticexpialidocious<button onclick="fn.hideDialog('toast-dialog')">No way</button></ons-toast>
+
+      <ons-modal id="modal-dialog" onclick="fn.hideDialog('modal-dialog')">
+        <p style="text-align: center">
+          Loading
+          <ons-icon icon="fa-spinner" spin></ons-icon>
+          <br><br> Click or wait
+        </p>
+      </ons-modal>
+
+      <ons-popover id="popover-dialog" cancelable direction="down" cover-target target="#info-button">
+        <ons-list id="popover-list">
+          <ons-list-item tappable onclick="fn.hideDialog('popover-dialog')">
+            <div class="center">Call history</div>
+          </ons-list-item>
+          <ons-list-item tappable onclick="fn.hideDialog('popover-dialog')">
+            <div class="center">Import/export</div>
+          </ons-list-item>
+          <ons-list-item tappable onclick="fn.hideDialog('popover-dialog')">
+            <div class="center">New contact</div>
+          </ons-list-item>
+          <ons-list-item tappable onclick="fn.hideDialog('popover-dialog')">
+            <div class="center">Settings</div>
+          </ons-list-item>
+        </ons-list>
+      </ons-popover>
+
+      <ons-action-sheet id="action-sheet-dialog" cancelable>
+        <ons-action-sheet-button onclick="fn.hideDialog('action-sheet-dialog')" icon="md-square-o">Action 1</ons-action-sheet-button>
+        <ons-action-sheet-button onclick="fn.hideDialog('action-sheet-dialog')" icon="md-square-o">Action 2</ons-action-sheet-button>
+        <ons-action-sheet-button onclick="fn.hideDialog('action-sheet-dialog')" modifier="destructive" icon="md-square-o">Action 3</ons-action-sheet-button>
+        <ons-action-sheet-button onclick="fn.hideDialog('action-sheet-dialog')" icon="md-square-o">Cancel</ons-action-sheet-button>
+      </ons-action-sheet>
+
+      <script>
+        document.getElementById('appNavigator').topPage.onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+          var toolbarButton = ons.platform.isAndroid() ? ons.createElement(`<ons-icon icon="md-more-vert"></ons-icon>`) : ons.createElement(`<span>More</span>`);
+          var infoButton = document.getElementById('info-button');
+          infoButton.appendChild(toolbarButton);
+          var timeoutID = 0;
+          window.fn.showDialog = function (id) {
+            var elem = document.getElementById(id);
+            if (id === 'popover-dialog') {
+              elem.show(infoButton);
+            } else {
+              elem.show();
+              if (id === 'modal-dialog') {
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(() => fn.hideDialog(id), 2000);
+              }
+            }
+          };
+          window.fn.hideDialog = function (id) {
+            document.getElementById(id).hide();
+          };
+          if (!ons.platform.isAndroid()) {
+            document.getElementById('watHmmSure-dialog').setAttribute('modifier', 'rowfooter');
+          }
+        }
+      </script>
+
+      <style scoped>
+        #lorem-dialog .dialog-container {
+          height: 200px;
+        }
+
+        ons-list-title {
+          margin-top: 20px;
+        }
+      </style>
     </ons-page>
   </template>
 
