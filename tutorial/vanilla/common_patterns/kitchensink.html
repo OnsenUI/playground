@@ -686,7 +686,7 @@
         document.getElementById('appNavigator').topPage.onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
           if (!ons.platform.isAndroid()) {
-            const fabStyle = document.getElementsByClassName('spdStyle');
+            const fabStyle = document.querySelectorAll('.spdStyle');
             for (i = 0; i < fabStyle.length; i++) {
               fabStyle[i].style.backgroundColor = '#4282cc';
             }
@@ -889,6 +889,118 @@
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
         }
       </script>
+    </ons-page>
+  </template>
+
+  <template id="progress.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+
+      <ons-progress-bar id="progress-value" class="progressStyle" value="0"></ons-progress-bar>
+
+      <section style="margin: 40px 16px">
+        <p id="progress-status">
+          Progress: 0%
+        </p>
+
+        <p>
+          <ons-progress-bar class="progressStyle" value="20"></ons-progress-bar>
+        </p>
+
+        <p>
+          <ons-progress-bar class="progressStyle" value="40" secondary-value="80"></ons-progress-bar>
+        </p>
+
+        <p>
+          <ons-progress-bar class="progressStyle" indeterminate></ons-progress-bar>
+        </p>
+
+        <div style="text-align: center; margin: 40px; color: #666">
+          <p>
+            <ons-progress-circular class="progressStyle" value="20"></ons-progress-circular>
+            <ons-progress-circular class="progressStyle" value="40" secondary-value="80"></ons-progress-circular>
+            <ons-progress-circular class="progressStyle" indeterminate></ons-progress-circular>
+          </p>
+
+          <p>
+            <ons-icon icon="ion-load-a" spin size="30px"></ons-icon>
+            <ons-icon icon="ion-load-b" spin size="30px"></ons-icon>
+            <ons-icon icon="ion-load-c" spin size="30px"></ons-icon>
+            <ons-icon icon="ion-load-d" spin size="30px"></ons-icon>
+          </p>
+
+          <p>
+            <ons-icon icon="fa-spinner" spin size="26px"></ons-icon>
+            <ons-icon icon="circle-o-notch" spin size="26px"></ons-icon>
+          </p>
+
+          <p>
+            <ons-icon icon="md-spinner" spin size="30px"></ons-icon>
+          </p>
+        </div>
+
+        <p>
+          <ons-button modifier="large">
+            <ons-icon icon="ion-load-c" spin size="26px"></ons-icon>
+          </ons-button>
+          <br><br>
+          <ons-button modifier="large" disabled>
+            <ons-icon icon="ion-load-c" spin size="26px"></ons-icon>
+          </ons-button>
+        </p>
+      </section>
+
+      <script>
+        document.getElementById('appNavigator').topPage.onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+          if (!ons.platform.isAndroid()) {
+            const progressStyle = document.querySelectorAll('.progressStyle');
+            for (i = 0; i < progressStyle.length; i++) {
+              progressStyle[i].hasAttribute('modifier') ?
+                progressStyle[i].setAttribute('modifier', progressStyle[i].getAttribute('modifier') + ' ios') :
+                progressStyle[i].setAttribute('modifier', 'ios');
+            }
+          }
+          var progressStatus = document.getElementById('progress-status');
+          var progressValue = document.getElementById('progress-value');
+          var intervalID = 0;
+          intervalID = setInterval(() => {
+            if (progressValue.value === 100) {
+              clearInterval(intervalID);
+              return;
+            }
+            progressValue.value++;
+            progressStatus.innerHTML = `Progress: ${progressValue.value}%`;
+          }, 40);
+        }
+      </script>
+
+      <style>
+        /* 'ios' modifier */
+
+        .progress-bar--ios__primary,
+        .progress-bar--ios.progress-bar--indeterminate::before,
+        .progress-bar--ios.progress-bar--indeterminate::after {
+          background-color: #4282cc
+        }
+
+        .progress-bar--ios__secondary {
+          background-color: #87b6eb;
+        }
+
+        .progress-circular--ios__primary {
+          stroke: #4282cc
+        }
+
+        .progress-circular--ios__secondary {
+          stroke: #87b6eb;
+        }
+      </style>
     </ons-page>
   </template>
 
