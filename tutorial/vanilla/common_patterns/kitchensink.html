@@ -20,8 +20,12 @@
       window.open(url, '_blank');
     };
 
-    window.fn.pushPage = function (page) {
-      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+    window.fn.pushPage = function (page, anim) {
+      if (anim) {
+        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+      } else {
+        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+      }
     };
 
     ons.ready(function () {
@@ -459,8 +463,29 @@
       </ons-toolbar>
       <ons-list>
         <ons-list-header>Transitions</ons-list-header>
-        <ons-list-item v-for="animation in animations" :key="animation" modifier="chevron" onclick="transition(animation)">
-          {{ animation }}
+        <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'none'}, 'none')">
+          none
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'default'}, 'default')">
+          default
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'slide-ios'}, 'slide-ios')">
+          slide-ios
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'slide-md'}, 'slide-md')">
+          slide-md
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'lift-ios'}, 'lift-ios')">
+          lift-ios
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'lift-md'}, 'lift-md')">
+          lift-md
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'fade-ios'}, 'fade-ios')">
+          fade-ios
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'fade-md'}, 'fade-md')">
+          fade-md
         </ons-list-item>
       </ons-list>
     </ons-page>
@@ -1120,6 +1145,25 @@
           stroke: #87b6eb;
         }
       </style>
+    </ons-page>
+  </template>
+
+  <template id="transition.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Animations</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+      <p style="text-align: center">
+        Use the VOnsBackButton
+      </p>
+      <script>
+        document.getElementById('appNavigator').topPage.onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+        }
+      </script>
     </ons-page>
   </template>
 
