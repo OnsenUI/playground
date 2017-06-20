@@ -38,14 +38,6 @@
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
         <ons-splitter-content>
           <ons-page>
-            <ons-toolbar>
-              <div class="center">Home</div>
-              <div class="right">
-                <ons-toolbar-button onclick="fn.toggleMenu()">
-                  <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-                </ons-toolbar-button>
-              </div>
-            </ons-toolbar>
             <ons-tabbar id="appTabbar" position="auto">
               <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
               <ons-tab label="Forms" icon="ion-edit" page="forms.html"></ons-tab>
@@ -171,6 +163,14 @@
 
   <template id="home.html">
     <ons-page>
+      <ons-toolbar>
+        <div class="center">Home</div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.toggleMenu()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
       <p class="intro">
         This is a kitchen sink example that shows off the components of Onsen UI.<br><br>
       </p>
@@ -222,36 +222,35 @@
 
   <template id="forms.html">
     <ons-page>
-
+      <ons-toolbar>
+        <div class="center">Forms</div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.toggleMenu()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
       <ons-list>
         <ons-list-header>Text input</ons-list-header>
-        <ons-list-item :modifier="ons.platform.isAndroid() ? 'nodivider' : ''">
+        <ons-list-item class="input-items">
           <div class="left">
             <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
           </div>
           <label class="center">
-          <ons-input float maxlength="20"
-            placeholder="Name"
-            ons-model="name"
-          >
-          </ons-input>
+          <ons-input id="name-input" float maxlength="20" placeholder="Name"></ons-input>
         </label>
         </ons-list-item>
-        <ons-list-item :modifier="ons.platform.isAndroid() ? 'nodivider' : ''">
+        <ons-list-item class="input-items">
           <div class="left">
             <ons-icon icon="fa-question-circle-o" class="list-item__icon"></ons-icon>
           </div>
           <label class="center">
-          <ons-input type="search" maxlength="20"
-            placeholder="Search"
-            ons-model="name"
-          >
-          </ons-input>
+          <ons-search-input id="search-input" maxlength="20" placeholder="Search"></ons-input>
         </label>
         </ons-list-item>
         <ons-list-item>
           <div class="right right-label">
-            Hello {{ name || 'anonymous' }}!
+            <span id="name-display">Hello anonymous!</span>
             <ons-icon icon="fa-hand-spock-o" size="lg" class="right-icon"></ons-icon>
           </div>
         </ons-list-item>
@@ -259,71 +258,91 @@
         <ons-list-header>Switches</ons-list-header>
         <ons-list-item>
           <label class="center" for="switch1">
-          Switch ({{ switchOn ? 'on' : 'off' }})
-        </label>
+            Switch<span id="switch-status">&nbsp;(on)</span>
+          </label>
           <div class="right">
-            <ons-switch input-id="switch1" ons-model="switchOn">
-            </ons-switch>
+            <ons-switch id="model-switch" input-id="switch1" checked="true"></ons-switch>
           </div>
         </ons-list-item>
         <ons-list-item>
-          <label class="center" for="switch2">
-          {{ switchOn ? 'Enabled switch' : 'Disabled switch' }}
-        </label>
+          <label id="enabled-label" class="center" for="switch2">
+            Enabled switch
+          </label>
           <div class="right">
-            <ons-switch input-id="switch2" :disabled="!switchOn">
-            </ons-switch>
+            <ons-switch id="disabled-switch" id="disabled-switch" input-id="switch2"></ons-switch>
           </div>
         </ons-list-item>
 
         <ons-list-header>Select</ons-list-header>
         <ons-list-item>
           <div class="center">
-            <ons-select style="width: 120px" ons-model="selectedItem">
-              <option v-for="item in items" :value="item.value">
-                {{ item.text }}
+            <ons-select id="select-input" style="width: 120px">
+              <option value="Vue">
+                Vue
+              </option>
+              <option value="React">
+                React
+              </option>
+              <option value="Angular">
+                Angular
               </option>
             </ons-select>
 
           </div>
           <div class="right right-label">
-            <s v-show="selectedItem !== 'Vue'">{{ selectedItem }}</s> Vue is awesome!
+            <s id="strike-platform" style="display: none"></s> Vue is awesome!
           </div>
         </ons-list-item>
 
         <ons-list-header>Radio buttons</ons-list-header>
-        <ons-list-item v-for="(vegetable, $index) in vegetables" :key="vegetable" tappable :modifier="($index === vegetables.length - 1) ? 'longdivider' : ''">
+        <ons-list-item tappable>
           <label class="left">
-          <ons-input type="radio"
-            :input-id="'radio-' + $index"
-            :value="vegetable"
-            ons-model=" selectedVegetable"
-          >
-          </ons-input>
-        </label>
-          <label :for="'radio-' + $index" class="center">
-          {{ vegetable }}
-        </label>
+            <ons-radio class="radio-fruit" input-id="radio-0" value="Apples"></ons-input>
+          </label>
+          <label for="radio-0" class="center">Apples</label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-radio class="radio-fruit" input-id="radio-1" value="Bananas" checked></ons-input>
+          </label>
+          <label for="radio-1" class="center">Bananas</label>
+        </ons-list-item>
+        <ons-list-item tappable modifier="longdivider">
+          <label class="left">
+            <ons-radio class="radio-fruit" input-id="radio-2" value="Oranges"></ons-input>
+          </label>
+          <label for="radio-2" class="center">Oranges</label>
         </ons-list-item>
         <ons-list-item>
-          <div class="center">
-            I love {{ selectedVegetable }}!
+          <div id="fruit-love" class="center">
+            I love Bananas!
           </div>
         </ons-list-item>
 
-        <ons-list-header>Checkboxes - {{checkedColors}}</ons-list-header>
-        <ons-list-item v-for="(color, $index) in colors" :key="color" tappable>
+        <ons-list-header>Checkboxes - <span id="checkboxes-header">Green,Blue</span></ons-list-header>
+        <ons-list-item tappable>
           <label class="left">
-          <ons-input type="checkbox"
-            :input-id="'checkbox-' + $index"
-            :value="color"
-            ons-model="checkedColors"
-          >
-          </ons-input>
-        </label>
-          <label class="center" :for="'checkbox-' + $index">
-          {{ color }}
-        </label>
+            <ons-checkbox class="checkbox-color" input-id="checkbox-0" value="Red"></ons-input>
+          </label>
+          <label class="center" for="checkbox-0">
+            Red
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-1" value="Green" checked></ons-input>
+          </label>
+          <label class="center" for="checkbox-1">
+            Green
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-2" value="Blue" checked></ons-input>
+          </label>
+          <label class="center" for="checkbox-2">
+            Blue
+          </label>
         </ons-list-item>
 
         <ons-list-header>Range slider</ons-list-header>
@@ -334,22 +353,110 @@
               <ons-icon icon="md-volume-down"></ons-icon>
             </ons-col>
             <ons-col>
-
-              <ons-range ons-model.number="volume" style="width: 100%;"></ons-range>
-
+              <ons-range id="range-slider" value="25" style="width: 100%;"></ons-range>
             </ons-col>
             <ons-col width="40px" style="text-align: center; line-height: 31px;">
               <ons-icon icon="md-volume-up"></ons-icon>
             </ons-col>
           </ons-row>
-          Volume: {{ volume }} <span v-show="volume > 80">&nbsp;(careful, that's loud)</span>
+          Volume:<span id="volume-value">&nbsp;25</span> <span id="careful-message" style="display: none">&nbsp;(careful, that's loud)</span>
         </ons-list-item>
       </ons-list>
+
+      <script>
+        ons.ready(function () {
+          if (ons.platform.isAndroid()) {
+            const inputItems = document.querySelectorAll('.input-items');
+            for (i = 0; i < inputItems.length; i++) {
+              inputItems[i].hasAttribute('modifier') ?
+                inputItems[i].setAttribute('modifier', inputItems[i].getAttribute('modifier') + ' nodivider') :
+                inputItems[i].setAttribute('modifier', 'nodivider');
+            }
+          }
+          var nameInput = document.getElementById('name-input');
+          var searchInput = document.getElementById('search-input');
+          var updateInputs = function (event) {
+            nameInput.value = event.target.value;
+            searchInput.value = event.target.value;
+            document.getElementById('name-display').innerHTML = event.target.value !== '' ? `Hello ${event.target.value}!` : 'Hello anonymous!';
+          }
+          nameInput.addEventListener('input', updateInputs);
+          searchInput.addEventListener('input', updateInputs);
+          document.getElementById('model-switch').addEventListener('change', function (event) {
+            if (event.value) {
+              document.getElementById('switch-status').innerHTML = `&nbsp;(on)`;
+              document.getElementById('enabled-label').innerHTML = `Enabled switch`;
+              document.getElementById('disabled-switch').disabled = false;
+            } else {
+              document.getElementById('switch-status').innerHTML = `&nbsp;(off)`;
+              document.getElementById('enabled-label').innerHTML = `Disabled switch`;
+              document.getElementById('disabled-switch').disabled = true;
+            }
+          });
+          document.getElementById('select-input').addEventListener('change', function (event) {
+            if (event.target.value === 'Vue') {
+              document.getElementById('strike-platform').style.display = 'none';
+              document.getElementById('strike-platform').innerHTML = '';
+            } else {
+              document.getElementById('strike-platform').style.display = 'inline-block';
+              document.getElementById('strike-platform').innerHTML = `${event.target.value}&nbsp;`;
+            }
+          });
+          var currentFruitId = 'radio-1';
+          document.querySelectorAll('.radio-fruit').forEach(function (radio) {
+            radio.addEventListener('change', function (event) {
+              if (event.target.id !== currentFruitId) {
+                document.getElementById('fruit-love').innerHTML = `I love ${event.target.value}!`;
+                document.getElementById(currentFruitId).checked = false;
+                currentFruitId = event.target.id;
+              }
+            })
+          });
+          var currentColors = ['Green', 'Blue'];
+          document.querySelectorAll('.checkbox-color').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function (event) {
+              if (!currentColors.includes(event.target.value)) {
+                currentColors.push(event.target.value);
+              } else {
+                var index = currentColors.indexOf(event.target.value);
+                currentColors.splice(index, 1);
+              }
+              document.getElementById('checkboxes-header').innerHTML = currentColors;
+            })
+          });
+          document.getElementById('range-slider').addEventListener('input', function (event) {
+            document.getElementById('volume-value').innerHTML = `&nbsp;${event.target.value}`;
+            if (event.target.value > 80) {
+              document.getElementById('careful-message').style.display = 'inline-block';
+            } else {
+              document.getElementById('careful-message').style.display = 'none';
+            }
+          })
+        })
+      </script>
+
+      <style scoped>
+        .right-icon {
+          margin-left: 10px;
+        }
+
+        .right-label {
+          color: #666;
+        }
+      </style>
     </ons-page>
   </template>
 
   <template id="animations.html">
     <ons-page>
+      <ons-toolbar>
+        <div class="center">Animations</div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.toggleMenu()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
       <ons-list>
         <ons-list-header>Transitions</ons-list-header>
         <ons-list-item v-for="animation in animations" :key="animation" modifier="chevron" onclick="transition(animation)">
@@ -434,8 +541,8 @@
             );
           };
           var kittens = getRandomData();
-          for (i = 0; i < kittens.length; i++) {
-            var kitten = createKitten(kittens[i]);
+          for (kitty of kittens) {
+            var kitten = createKitten(kitty);
             document.getElementById('kitten-list').appendChild(kitten);
           };
           pullHook.onAction = function (done) {
@@ -570,16 +677,16 @@
 
       <ons-popover id="popover-dialog" cancelable direction="down" cover-target target="#info-button">
         <ons-list id="popover-list">
-          <ons-list-item tappable onclick="fn.hideDialog('popover-dialog')">
+          <ons-list-item class="more-options" tappable onclick="fn.hideDialog('popover-dialog')">
             <div class="center">Call history</div>
           </ons-list-item>
-          <ons-list-item tappable onclick="fn.hideDialog('popover-dialog')">
+          <ons-list-item class="more-options" tappable onclick="fn.hideDialog('popover-dialog')">
             <div class="center">Import/export</div>
           </ons-list-item>
-          <ons-list-item tappable onclick="fn.hideDialog('popover-dialog')">
+          <ons-list-item class="more-options" tappable onclick="fn.hideDialog('popover-dialog')">
             <div class="center">New contact</div>
           </ons-list-item>
-          <ons-list-item tappable onclick="fn.hideDialog('popover-dialog')">
+          <ons-list-item class="more-options" tappable onclick="fn.hideDialog('popover-dialog')">
             <div class="center">Settings</div>
           </ons-list-item>
         </ons-list>
@@ -614,8 +721,20 @@
           window.fn.hideDialog = function (id) {
             document.getElementById(id).hide();
           };
+          const moreOptions = document.querySelectorAll('.more-options');
           if (!ons.platform.isAndroid()) {
             document.getElementById('watHmmSure-dialog').setAttribute('modifier', 'rowfooter');
+            for (option of moreOptions) {
+              option.hasAttribute('modifier') ?
+                option.setAttribute('modifier', option.getAttribute('modifier') + ' longdivider') :
+                option.setAttribute('modifier', 'longdivider');
+            }
+          } else {
+            for (option of moreOptions) {
+              option.hasAttribute('modifier') ?
+                option.setAttribute('modifier', option.getAttribute('modifier') + ' nodivider') :
+                option.setAttribute('modifier', 'nodivider');
+            }
           }
         }
       </script>
@@ -687,8 +806,8 @@
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
           if (!ons.platform.isAndroid()) {
             const fabStyle = document.querySelectorAll('.spdStyle');
-            for (i = 0; i < fabStyle.length; i++) {
-              fabStyle[i].style.backgroundColor = '#4282cc';
+            for (fab of fabStyle) {
+              fab.style.backgroundColor = '#4282cc';
             }
           }
         }
@@ -748,8 +867,8 @@
           carousel.addEventListener('postchange', function () {
             var index = carousel.getActiveIndex();
             const dots = document.querySelectorAll('.dot');
-            for (i = 0; i < dots.length; i++) {
-              dots[i].innerHTML = dots[i].id === 'dot' + index ? '&#9679;' : '&#9675;';
+            for (dot of dots) {
+              dot.innerHTML = dot.id === 'dot' + index ? '&#9679;' : '&#9675;';
             }
           });
           window.fn.swipe = function (target) {
@@ -960,10 +1079,10 @@
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
           if (!ons.platform.isAndroid()) {
             const progressStyle = document.querySelectorAll('.progressStyle');
-            for (i = 0; i < progressStyle.length; i++) {
-              progressStyle[i].hasAttribute('modifier') ?
-                progressStyle[i].setAttribute('modifier', progressStyle[i].getAttribute('modifier') + ' ios') :
-                progressStyle[i].setAttribute('modifier', 'ios');
+            for (progress of progressStyle) {
+              progress.hasAttribute('modifier') ?
+                progress.setAttribute('modifier', progress.getAttribute('modifier') + ' ios') :
+                progress.setAttribute('modifier', 'ios');
             }
           }
           var progressStatus = document.getElementById('progress-status');
