@@ -376,7 +376,7 @@
         <ons-list-header>Pull to refresh</ons-list-header>
       </ons-list>
 
-      <script scoped>
+      <script>
         document.getElementById('appNavigator').topPage.onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
           var pullHook = document.getElementById('pull-hook');
@@ -627,6 +627,76 @@
 
         ons-list-title {
           margin-top: 20px;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <template id="buttons.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+
+      <section style="margin: 16px">
+        <ons-button class="button-margin">Normal</ons-button>
+        <ons-button modifier="quiet" class="button-margin">Quiet</ons-button>
+        <ons-button modifier="outline" class="button-margin">Outline</ons-button>
+        <ons-button modifier="cta" class="button-margin">Call to action</ons-button>
+        <ons-button modifier="light" class="button-margin">Light</ons-button>
+        <ons-button modifier="large" class="button-margin">Large</ons-button>
+      </section>
+
+      <section style="margin: 16px">
+        <ons-button class="button-margin" disabled>Normal</ons-button>
+        <ons-button modifier="quiet" class="button-margin" disabled>Quiet</ons-button>
+        <ons-button modifier="outline" class="button-margin" disabled>Outline</ons-button>
+        <ons-button modifier="cta" class="button-margin" disabled>Call to action</ons-button>
+        <ons-button modifier="light" class="button-margin" disabled>Light</ons-button>
+        <ons-button modifier="large" class="button-margin" disabled>Large</ons-button>
+      </section>
+
+      <ons-fab class="spdStyle" position="top right">
+        <ons-icon icon="md-face"></ons-icon>
+      </ons-fab>
+
+      <ons-fab class="spdStyle" position="bottom left" disabled>
+        <ons-icon icon="md-car"></ons-icon>
+      </ons-fab>
+
+      <ons-speed-dial position="bottom right" direction="up" :open.sync="spdOpen">
+        <ons-fab class="spdStyle">
+          <ons-icon icon="md-share"></ons-icon>
+        </ons-fab>
+        <ons-speed-dial-item class="spdStyle" onclick="ons.notification.confirm(`Share on Twitter?`)">
+          <ons-icon icon="md-twitter"></ons-icon>
+        </ons-speed-dial-item>
+        <ons-speed-dial-item class="spdStyle" onclick="ons.notification.confirm(`Share on Facebook?`)">
+          <ons-icon icon="md-facebook"></ons-icon>
+        </ons-speed-dial-item>
+        <ons-speed-dial-item class="spdStyle" onclick="ons.notification.confirm(`Share on Google+`)">
+          <ons-icon icon="md-google-plus"></ons-icon>
+        </ons-speed-dial-item>
+      </ons-speed-dial>
+
+      <script>
+        document.getElementById('appNavigator').topPage.onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+          if (!ons.platform.isAndroid()) {
+            const fabStyle = document.getElementsByClassName('spdStyle');
+            for (i = 0; i < fabStyle.length; i++) {
+              fabStyle[i].style.backgroundColor = '#4282cc';
+            }
+          }
+        }
+      </script>
+
+      <style scoped>
+        .button-margin {
+          margin: 6px 0;
         }
       </style>
     </ons-page>
