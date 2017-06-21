@@ -27,14 +27,14 @@ app.modules = {
       'speed-dial': 'speed dial',
       'ripple': 'ripple effect'
     },
+    'common patterns': {
+      'kitchensink': 'kitchensink example',
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
+    },
     'community tutorials': {
       'splitter_anim_navigator': 'splitter animations with navigator',
       'passing_data': 'passing data outside onsen ui'
-    },
-    'common patterns': {
-      'navigator_tabbar': 'navigator outside tabbar',
-      'splitter_navigator': 'splitter outside navigator',
-      'kitchensink': 'kitchensink example'
     }
   },
   'angular1': {
@@ -70,8 +70,8 @@ app.modules = {
       'ripple': 'ripple effect'
     },
     'common patterns': {
-      'navigator_tabbar': 'navigator outside tabbar',
-      'splitter_navigator': 'splitter outside navigator'
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'angular2': {
@@ -100,8 +100,8 @@ app.modules = {
       'ripple': 'ripple effect'
     },
     'common patterns': {
-      'navigator_tabbar': 'navigator outside tabbar',
-      'splitter_navigator': 'splitter outside navigator'
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'react': {
@@ -134,8 +134,8 @@ app.modules = {
       'ripple': 'ripple effect'
     },
     'common patterns': {
-      'navigator_tabbar': 'navigator outside tabbar',
-      'splitter_navigator': 'splitter outside navigator'
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'vue': {
@@ -165,8 +165,8 @@ app.modules = {
       'ripple': 'ripple effect'
     },
     'common patterns': {
-      'navigator_tabbar': 'navigator outside tabbar',
-      'splitter_navigator': 'splitter outside navigator'
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   }
 };
