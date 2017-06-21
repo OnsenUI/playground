@@ -145,7 +145,7 @@
         </ons-list-item>
       </ons-list>
 
-      <style scoped>
+      <style>
         .profile-pic {
           width: 200px;
           background-color: #fff;
@@ -205,7 +205,7 @@
         <div class="content">Linear progress, circular progress and spinners.</div>
       </ons-card>
 
-      <style scoped>
+      <style>
         .intro {
           text-align: center;
           padding: 0 20px;
@@ -440,7 +440,7 @@
         })
       </script>
 
-      <style scoped>
+      <style>
         .right-icon {
           margin-left: 10px;
         }
@@ -580,7 +580,7 @@
         };
       </script>
 
-      <style scoped>
+      <style>
         .pull-hook-content {
           color: #666;
           transition: transform .25s ease-in-out;
@@ -590,7 +590,7 @@
   </template>
 
   <template id="dialogs.html">
-    <ons-page>
+    <ons-page id="dialogs-page">
       <ons-toolbar>
         <div class="left">
           <ons-back-button>Home</ons-back-button>
@@ -731,6 +731,9 @@
           var toolbarButton = ons.platform.isAndroid() ? ons.createElement(`<ons-icon icon="md-more-vert"></ons-icon>`) : ons.createElement(`<span>More</span>`);
           var infoButton = document.getElementById('info-button');
           infoButton.appendChild(toolbarButton);
+          var toastDialog = document.getElementById('toast-dialog');
+          toastDialog.parentNode.removeChild(toastDialog);
+          document.getElementById('dialogs-page').appendChild(toastDialog);
           var timeoutID = 0;
           window.fn.showDialog = function (id) {
             var elem = document.getElementById(id);
@@ -762,10 +765,15 @@
                 option.setAttribute('modifier', 'nodivider');
             }
           }
+        };
+        document.getElementById('appNavigator').topPage.onDestroy = function () {
+          var toastDialog = document.getElementById('toast-dialog');
+          toastDialog.parentNode.removeChild(toastDialog);
+          document.querySelector('#dialogs-page .page__content').appendChild(toastDialog);
         }
       </script>
 
-      <style scoped>
+      <style>
         #lorem-dialog .dialog-container {
           height: 200px;
         }
@@ -839,7 +847,7 @@
         }
       </script>
 
-      <style scoped>
+      <style>
         .button-margin {
           margin: 6px 0;
         }
@@ -903,7 +911,7 @@
         }
       </script>
 
-      <style scoped>
+      <style>
         .carousel-item {
           display: flex;
           justify-content: space-around;
@@ -968,7 +976,7 @@
         })
       </script>
 
-      <style scoped>
+      <style>
         .after-list {
           margin: 20px;
           text-align: center;
@@ -1005,7 +1013,7 @@
         })
       </script>
 
-      <style scoped>
+      <style>
         .intro {
           text-align: center;
           padding: 0 20px;
