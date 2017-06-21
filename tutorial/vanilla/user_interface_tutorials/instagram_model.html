@@ -6,16 +6,14 @@
 
   <script>
 
+    /* 
+    *  This event listener will populate the story list on the home page when the page is initialized.
+    *  It uses the <ons-;azy-repeat> deleagte method to do so.
+    */
+
     document.addEventListener('init', function(event) {
+
       var page = event.target;
-
-      document.querySelector('#tabbar').setAttribute('modifier', null);
-      document.querySelector('#tabbar_notification').setAttribute('modifier', 'top');
-
-      if (page.querySelector("ons-toolbar")) {
-        page.querySelector("ons-toolbar").setAttribute('modifier', null);
-      }
-      
 
       if (page.id == "home-page") {
         var stories = document.getElementById('stories');
@@ -32,34 +30,35 @@
         stories.refresh();
       }
 
-      if(page.id == "profile-page"){
-        page.querySelector('#edit_button').setAttribute('modifier', "large");
-      }
-      
     });
+
+    //The show event listener does the same thing as the one above but on the search page when it's shown.
 
     document.addEventListener('show', function(event) {
       var page = event.target;
 
-       if (page.id == "search-page") {
-          var channels = document.getElementById('channels');
+      if (page.id == "search-page") {
+        var channels = document.getElementById('channels');
 
-          channels.delegate = {
-            createItemContent: function(i) {
-              return ons._util.createElement(getStory(i));
-            },
-            countItems: function() {
-              return 9;
-            }
-          };
+        channels.delegate = {
+          createItemContent: function(i) {
+            return ons._util.createElement(getStory(i));
+          },
+          countItems: function() {
+            return 9;
+          }
+        };
 
-          stories.refresh();
-
-        }
+        stories.refresh();
+      }
     });
 
-    function display(id) {
+    /* 
+    * This function is used to toggle the grid/list display of the posts in the profile page as well as 
+    * change the color of the buttons to show which is the current view.
+    */
 
+    function display(id) {
       document.getElementById("list").style.color="#1f1f21";
       document.getElementById("grid").style.color="#1f1f21";
       document.getElementById(id).style.color="#5fb4f4";
@@ -67,38 +66,43 @@
       document.getElementById("list_view").style.display="none";
       document.getElementById("grid_view").style.display="none";
       document.getElementById(id+"_view").style.display="block";
-   
     }
+
+    //The getStory function is used to create the list items to be used as stories by the upper two events for populating the story list. 
 
     function getStory(i) {
       return '<ons-list-item class="stories-list-item"><div class="story">' +
-                '<div class="story-thumbnail-wraper unread"><img class="story-thumbnail" src="assets/img/profile-image-0' + (i+1) + '.png" onclick="readStory(this)"></div>' +
-                '<p>david_graham</p>' +
-                '</div></ons-list-item>';
+              '<div class="story-thumbnail-wraper unread"><img class="story-thumbnail" src="assets/img/profile-image-0' + (i+1) + '.png" onclick="readStory(this)"></div>' +
+              '<p>david_graham</p>' +
+              '</div></ons-list-item>';
     }
 
-    var like = function(num){
-      if(document.getElementById("button-post-like-"+num).classList.contains("like")) {
+    //The Like function is used to make the white heart appear in front of the picture as well as make the like button into a red heart and vice versa.
+
+    var like = function(num) {
+      if (document.getElementById("button-post-like-"+num).classList.contains("like")) {
         document.getElementById("button-post-like-"+num).classList.remove("ion-ios-heart","like");
         document.getElementById("button-post-like-"+num).classList.add("ion-ios-heart-outline");
       } else {
         document.getElementById("button-post-like-"+num).classList.remove("ion-ios-heart-outline");
         document.getElementById("button-post-like-"+num).classList.add("ion-ios-heart","like");
         document.getElementById("post-like-"+num).style.opacity = 1;
-        
-        setTimeout(function(){ 
-           document.getElementById("post-like-"+num).style.opacity = 0;
+
+        setTimeout(function(){
+          document.getElementById("post-like-"+num).style.opacity = 0;
         }, 600);
       }
     }
 
-    var readStory = function(event){
+    //The readStory function is used to change the read circle around a new story into grey after tapping on the new storry (thus reading it)
+
+    var readStory = function(event) {
       event.parentNode.classList.remove("unread");
       event.parentNode.classList.add("read");
     }
 
   </script>
-  
+
 </head>
 <body>
   <ons-page>
@@ -111,7 +115,7 @@
       </ons-tab>
       <ons-tab icon="ion-ios-heart-outline" page="notification.html">
       </ons-tab>
-      <ons-tab icon="ion-ios-person-outline" page="profile.html"> 
+      <ons-tab icon="ion-ios-person-outline" page="profile.html">
       </ons-tab>
     </ons-tabbar>
   </ons-page>
@@ -123,245 +127,263 @@
 
   <template id="home.html">
     <ons-page class="main_pages" id="home-page">
-    <ons-toolbar>
-      <div class="left">
+      <ons-toolbar>
+        <div class="left">
           <ons-toolbar-button><ons-icon icon="ion-ios-camera-outline"></ons-icon></ons-toolbar-button>
+        </div>
+        <div class="center">Home Page</div>
+        <div class="right">
+          <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <div>
+        <ons-list>
+
+          <!-- The header contains the story list that will be populated on initialization of this page using the <ons-lazy-repeat> -->
+
+          <ons-list-header class="stories-tab" >
+            <ons-list class="stories-list" modifier="material">
+              <ons-lazy-repeat id="stories"></ons-lazy-repeat>
+            </ons-list>
+          </ons-list-header>
+
+          <!-- The following three <ons-list-item> elements each contain a single post which is separated into 5 parts. The User info of the post, the picture, the buttons bar, the information who liked the post, the comments and the time passed since the user posted the picture -->
+
+          <ons-list-item class="post">
+            <div class="post-bar">
+              <img class="thumbnail" src="assets/img/profile-image-03.png" >
+              <div>
+                <div><b>david_graham</b></div>
+                <div class="location">Fushimi Inari Shrine, Kyoto</div>
+              </div>
+              <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+            </div>
+            <div style="text-align: center;" ondblclick="like(1)">
+              <ons-icon size="150px" id="post-like-1" class="post-like" icon="ion-ios-heart"></ons-icon>
+              <img class="post-image" src="assets/img/post-01.jpg">
+            </div>
+            <div class="post-buttons">
+              <div>
+                <ons-toolbar-button onclick="like(1)"><ons-icon id="button-post-like-1" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+              </div>
+              <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+            </div>
+            <div class="post-like-info"><b>someone_one</b> and 24 other liked this.</div>
+            <div class="post-caption"><b>david_graham</b> beautiful kyoto #kyoto #fushimiinarishirine </div>
+            <div class="post-time">1 HOUR AGO</div>
+          </ons-list-item>
+
+          <ons-list-item class="post">
+            <div class="post-bar">
+              <img class="thumbnail" src="assets/img/profile-image-08.png">
+              <div>
+                <div><b>david_graham</b></div>
+                <div class="location">Kinkakuji Temple, Kyoto</div>
+              </div>
+              <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+            </div>
+            <div style="text-align: center;" ondblclick="like(2)">
+              <ons-icon size="150px" id="post-like-2" class="post-like" icon="ion-ios-heart"></ons-icon>
+              <img class="post-image" src="assets/img/post-02.jpg">
+            </div>
+            <div class="post-buttons">
+              <div>
+                <ons-toolbar-button onclick="like(2)"><ons-icon id="button-post-like-2" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+              </div>
+              <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+            </div>
+            <div class="post-like-info"><b>someone_one</b> and 24 other liked this.</div>
+            <div class="post-caption"><b>david_graham</b> Golden Temple ^_^ #kyoto #goldentemple</div>
+            <div class="post-time">1 HOUR AGO</div>
+          </ons-list-item>
+
+          <ons-list-item class="post">
+            <div class="post-bar">
+              <img class="thumbnail" src="assets/img/profile-image-02.png" >
+              <div>
+                <div><b>david_graham</b></div>
+                <div class="location">Tokyo</div>
+              </div>
+              <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+            </div>
+            <div style="text-align: center;" ondblclick="like(3)">
+              <ons-icon size="150px" id="post-like-3" class="post-like" icon="ion-ios-heart"></ons-icon>
+              <img class="post-image" src="assets/img/post-03.jpg">
+            </div>
+            <div class="post-buttons">
+              <div>
+                <ons-toolbar-button onclick="like(3)"><ons-icon id="button-post-like-3" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+              </div>
+              <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+            </div>
+            <div class="post-like-info"><b>someone_one</b> and 24 other liked this.</div>
+            <div class="post-caption"><b>david_graham</b> The harmony sakura brings #sakura #happy #harmony #love</div>
+            <div class="post-time">1 HOUR AGO</div>
+          </ons-list-item>
+
+        </ons-list>
       </div>
-      <div class="center">Home Page</div>
-      <div class="right">
-        <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
-      </div>
-    </ons-toolbar>
-      
-    <div>
-       <ons-list>
 
-           <ons-list-header class="stories-tab" >
-              <ons-list class="stories-list" modifier="material">
-                <ons-lazy-repeat id="stories"></ons-lazy-repeat>
-              </ons-list>
-           </ons-list-header>
+      <style type="text/css">
+        .stories-tab {
+          padding: 8px 0px;
+          background-color: #f6f6f6;
+        }
 
-           <ons-list-item class="post">
-               <div class="post-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-03.png" >
-                  <div>
-                    <div><b>david_graham</b></div>
-                    <div class="location">Fushimi Inari Shrine, Kyoto</div>
-                  </div>
-                  <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div style="text-align: center;" ondblclick="like(1)"><ons-icon size="150px" id="post-like-1" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-01.jpg"></div>
-               <div class="post-bar">
-                 <div>
-                   <ons-toolbar-button onclick="like(1)"><ons-icon id="button-post-like-1" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
-                 </div>
-                 <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div class="post-like-info"><b>someone_one</b> and 24 other liked this.</div>
-               <div class="post-caption"><b>david_graham</b> beautiful kyoto #kyoto #fushimiinarishirine </div>
-                <div class="post-time">1 HOUR AGO</div>
-           </ons-list-item>
-
-           <ons-list-item class="post">
-               <div class="post-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-08.png" >
-                  <div>
-                    <div><b>david_graham</b></div>
-                    <div class="location">Kinkakuji Temple, Kyoto</div>
-                  </div>
-                  <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div style="text-align: center;" ondblclick="like(2)"><ons-icon size="150px" id="post-like-2" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-02.jpg"></div>
-               <div class="post-bar">
-                 <div>
-                   <ons-toolbar-button onclick="like(2)"><ons-icon id="button-post-like-2" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
-                 </div>
-                 <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div class="post-like-info"><b>someone_one</b> and 24 other liked this.</div>
-               <div class="post-caption"><b>david_graham</b> Golden Temple ^_^ #kyoto #goldentemple</div>
-                <div class="ppost-time">1 HOUR AGO</div>
-           </ons-list-item>
-
-           <ons-list-item class="post">
-               <div class="post-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-02.png" >
-                  <div>
-                    <div><b>david_graham</b></div>
-                    <div class="location">Tokyo</div>
-                  </div>
-                  <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div style="text-align: center;" ondblclick="like(3)"><ons-icon size="150px" id="post-like-3" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-03.jpg"></div>
-               <div class="post-bar">
-                 <div>
-                   <ons-toolbar-button onclick="like(3)"><ons-icon id="button-post-like-3" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
-                 </div>
-                 <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div class="post-like-info"><b>someone_one</b> and 24 other liked this.</div>
-               <div class="post-caption"><b>david_graham</b> The harmony sakura brings #sakura #happy #harmony #love</div>
-                <div class="post-time">1 HOUR AGO</div>
-           </ons-list-item>
-
-       </ons-list>   
-    </div> 
-
-     <style type="text/css">
-      .stories-tab {
-        padding: 8px 0px;
-        background-color: #f6f6f6;
-      }
-
-      .stories-list{
+        .stories-list {
           width: 100%;
           white-space: nowrap;
           overflow-y: hidden;
           overflow-x: scroll;
           background-color: transparent;
-      }
+        }
 
-      .stories-list::-webkit-scrollbar { 
-          display: none; 
-      }
+        .stories-list::-webkit-scrollbar {
+          display: none;
+        }
 
-      .stories-list-item {
+        .stories-list-item {
           display: inline;
           padding: 0px;
           padding-left: 15px;
-      }
+        }
 
-      .stories-list-item .list-item__center{
-        display: inline;
-        padding-right: 0px;
-        width: 50px;
-        text-align: justify;
-      }
+        .stories-list-item .list-item__center {
+          display: inline;
+          padding-right: 0px;
+          width: 50px;
+          text-align: justify;
+        }
 
-      .story {
-        display: inline-table;
-        height: 50px;
-        width: 100%;
-        max-width: 50px;
-        text-align: justify;
-      }
+        .story {
+          display: inline-table;
+          height: 50px;
+          width: 100%;
+          max-width: 50px;
+          text-align: justify;
+        }
 
-      .story p{
-        width: 100%;
-        max-width: 50px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 0;
-        text-transform: none
-      }
+        .story p {
+          width: 100%;
+          max-width: 50px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin: 0;
+          text-transform: none
+        }
 
-      .story-thumbnail-wraper{
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        text-align: center;
-        border-radius: 50%;
-      }
+        .story-thumbnail-wraper {
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+          text-align: center;
+          border-radius: 50%;
+        }
 
-      .story-thumbnail {
-        padding: 2px;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        vertical-align: middle;
-      }
+        .story-thumbnail {
+          padding: 2px;
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          vertical-align: middle;
+        }
 
-      .story-thumbnail:active {
-        width: 40px;
-        height: 40px;
-        transition: width 0.1s, height 0.1s;
-      }
+        .story-thumbnail:active {
+          width: 40px;
+          height: 40px;
+          transition: width 0.1s, height 0.1s;
+        }
 
-      .unread{
-        border: 3px solid #d31010;
-      }
+        .unread {
+          border: 3px solid #d31010;
+        }
 
-      .read{
-        border: 2px solid #afafaf;
-      }
+        .read {
+          border: 2px solid #afafaf;
+        }
 
-      .post {
-        margin: 0px;
-        padding: 0px;
-        font-size: 14px;
-      }
+        .post {
+          margin: 0px;
+          padding: 0px;
+          font-size: 14px;
+        }
 
-      .post .list-item__center{
-        padding-right: 0px;
-      }
+        .post .list-item__center {
+          padding-right: 0px;
+        }
 
-      .post-caption{
-        padding-left: 10px !important;
-      }
+        .post-caption {
+          padding-left: 10px !important;
+        }
 
-      .post-like-info{
-        margin-bottom: 5px;
-        padding-left: 10px !important;
-      }
+        .post-like-info {
+          margin-bottom: 5px;
+          padding-left: 10px !important;
+        }
 
-      .post-bar {
-        display: inline-flex;
-        margin-bottom: 7px;
-        padding-left: 10px !important;
-      }
+        .post-bar {
+          display: inline-flex;
+          margin-bottom: 7px;
+          padding-left: 10px !important;
+        }
 
-      .post-image{
-        width: 100%;
-        margin-bottom: 5px;
-      }
+        .post-buttons {
+          display: inline-flex;
+          margin-bottom: 7px;
+        }
 
-      .post .location{
-        font-size: 12px;
-      }
+        .post-image {
+          width: 100%;
+          margin-bottom: 5px;
+        }
 
-      .post-time {
-        font-size: 10px;
-        opacity: 0.7;
-        margin-top: 5px;
-        padding-left: 10px !important;
-      }
+        .post .location {
+          font-size: 12px;
+        }
 
-      .post-like {
-        opacity: 0;
-        width: 100%;
-        position: absolute;
-        top: 25%;
-        color: white;
-        transition: opacity 0.4s;
-      }
+        .post-time {
+          font-size: 10px;
+          opacity: 0.7;
+          margin-top: 5px;
+          padding-left: 10px !important;
+        }
 
-      .corner-button {
-        right: 0;
-        position: absolute;
-      }
+        .post-like {
+          opacity: 0;
+          width: 100%;
+          position: absolute;
+          top: 25%;
+          color: white;
+          transition: opacity 0.4s;
+        }
 
-      .bookmark{
-        padding-top: 5px;
-      }
+        .corner-button {
+          right: 0;
+          position: absolute;
+        }
 
-      .like {
-        color: red;
-      }
+        .bookmark {
+          padding-top: 5px;
+        }
 
-      .thumbnail {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        margin-right: 10px;
-      }
-    </style>
+        .like {
+          color: red;
+        }
+
+        .thumbnail {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+      </style>
 
     </ons-page>
   </template>
@@ -373,209 +395,218 @@
 
   <template id="search.html">
     <ons-page class="main_pages"  id="search-page">
-     <ons-toolbar>
-       <div class="center"><ons-search-input class="search_box"  placeholder="Search"></ons-search-input></div>
-     </ons-toolbar>
+      <ons-toolbar>
+        <div class="center"><ons-search-input class="search_box"  placeholder="Search"></ons-search-input></div>
+      </ons-toolbar>
 
-     <div>
-       <ons-list>
+      <div>
+        <ons-list>
 
-           <ons-list-header class="stories-tab" >
-              <ons-list class="stories-list" modifier="material">
-                <ons-lazy-repeat id="channels"></ons-lazy-repeat>
-              </ons-list>
-           </ons-list-header>
+          <!-- Same as the home page, the header is populated with stories when this page is displayed -->
 
-           <ons-list-item class="search_list_warpper">
-              <ons-list class="search_list">
+          <ons-list-header class="stories-tab" >
+            <ons-list class="stories-list" modifier="material">
+              <ons-lazy-repeat id="channels"></ons-lazy-repeat>
+            </ons-list>
+          </ons-list-header>
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-01.png">
-                  </div>
-                </ons-list-item>
+          <ons-list-item class="search_list_warpper">
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-02.png">
-                  </div>
-                </ons-list-item>
+            <!-- This list-item contains another <ons-list> used to dispaly picture (the search results) in grid view -->
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-03.png">
-                  </div>
-                </ons-list-item>
+            <ons-list class="search_list">
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-04.png">
-                  </div>
-                </ons-list-item>
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-01.png">
+                </div>
+              </ons-list-item>
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-05.png">
-                  </div>
-                </ons-list-item>
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-02.png">
+                </div>
+              </ons-list-item>
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-06.png">
-                  </div>
-                </ons-list-item>
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-03.png">
+                </div>
+              </ons-list-item>
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-07.png">
-                  </div>
-                </ons-list-item>
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-04.png">
+                </div>
+              </ons-list-item>
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-08.png">
-                  </div>
-                </ons-list-item>
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-05.png">
+                </div>
+              </ons-list-item>
 
-                <ons-list-item class="search_list_item">
-                  <div class="search_wrapper">
-                    <img class="search_thumbnail" src="assets/img/profile-image-09.png">
-                  </div>
-                </ons-list-item>
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-06.png">
+                </div>
+              </ons-list-item>
 
-              </ons-list>
-           </ons-list-item>  
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-07.png">
+                </div>
+              </ons-list-item>
 
-       </ons-list>   
-     </div>  
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-08.png">
+                </div>
+              </ons-list-item>
 
-    <style type="text/css">
-      .stories-tab {
-        padding: 8px 0px;
-        background-color: #f6f6f6;
-      }
+              <ons-list-item class="search_list_item">
+                <div class="search_wrapper">
+                  <img class="search_thumbnail" src="assets/img/profile-image-09.png">
+                </div>
+              </ons-list-item>
 
-      .stories-list{
+            </ons-list>
+          </ons-list-item>
+
+        </ons-list>
+      </div>
+
+      <style type="text/css">
+        .stories-tab {
+          padding: 8px 0px;
+          background-color: #f6f6f6;
+        }
+
+        .stories-list {
           width: 100%;
           white-space: nowrap;
           overflow-y: hidden;
           overflow-x: scroll;
           background-color: transparent;
-      }
+        }
 
-      .stories-list::-webkit-scrollbar { 
-          display: none; 
-      }
+        .stories-list::-webkit-scrollbar {
+          display: none;
+        }
 
-      .stories-list-item {
+        .stories-list-item {
           display: inline;
           padding: 0px;
           padding-left: 15px;
-      }
+        }
 
-      .stories-list-item .list-item__center{
-        display: inline;
-        padding-right: 0px;
-        width: 50px;
-        text-align: justify;
-      }
+        .stories-list-item .list-item__center {
+          display: inline;
+          padding-right: 0px;
+          width: 50px;
+          text-align: justify;
+        }
 
-      .story {
-        display: inline-table;
-        height: 50px;
-        width: 100%;
-        max-width: 50px;
-        text-align: justify;
-      }
+        .story {
+          display: inline-table;
+          height: 50px;
+          width: 100%;
+          max-width: 50px;
+          text-align: justify;
+        }
 
-      .story p{
-        width: 100%;
-        max-width: 50px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 0;
-        text-transform: none
-      }
+        .story p {
+          width: 100%;
+          max-width: 50px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin: 0;
+          text-transform: none
+        }
 
-      .story-thumbnail-wraper{
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-        text-align: center;
-        border-radius: 50%;
-      }
+        .story-thumbnail-wraper {
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+          text-align: center;
+          border-radius: 50%;
+        }
 
-      .story-thumbnail {
-        padding: 2px;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        vertical-align: middle;
-      }
+        .story-thumbnail {
+          padding: 2px;
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          vertical-align: middle;
+        }
 
-      .story-thumbnail:active {
-        width: 40px;
-        height: 40px;
-        transition: width 0.1s, height 0.1s;
-      }
+        .story-thumbnail:active {
+          width: 40px;
+          height: 40px;
+          transition: width 0.1s, height 0.1s;
+        }
 
-      .unread{
-        border: 3px solid #d31010;
-      }
+        .unread {
+          border: 3px solid #d31010;
+        }
 
-      .read{
-        border: 2px solid #afafaf;
-      }
+        .read {
+          border: 2px solid #afafaf;
+        }
 
-      .search_list_warpper {
-        text-align: center;
-        padding-left: 0;
-      }
+        .search_list_warpper {
+          text-align: center;
+          padding-left: 0;
+        }
 
-      .search_list_warpper div{
-        padding: 0;
-      }
+        .search_list_warpper div {
+          padding: 0;
+        }
 
-      .search_list {
-        text-align: center;
-        padding: 0;
-      }
+        .search_list {
+          text-align: center;
+          padding: 0;
+        }
 
-      .search_list_item {
-        display: inline;
-        padding: 0px;s
-      }
+        .search_list_item {
+          display: inline;
+          padding: 0px;s
+        }
 
-      .search_list_item .list-item__center {
-        display: inline;
-        padding-right: 0px;
-        text-align: justify;
-      }
+        .search_list_item .list-item__center {
+          display: inline;
+          padding-right: 0px;
+          text-align: justify;
+        }
 
-      .search_wrapper {
-        display: inline-table;
-        height: 100%;
-        width: 31.7%;
-        margin-left: 0.25%;
-        margin-right: 0.25%;
-        text-align: justify;
-      } 
+        .search_wrapper {
+          display: inline-table;
+          height: 100%;
+          width: 31.7%;
+          margin-left: 0.25%;
+          margin-right: 0.25%;
+          text-align: justify;
+        }
 
-      .search_box {
-        width: 90%;
-        padding-top: 7px;
-      }
+        .search_box {
+          width: 90%;
+          padding-top: 7px;
+        }
 
-      .search-input {
-        width: 100%;
-        text-align: center;
-        height: 28px;
-      }
+        .toolbar--material__center .search_box {
+          padding-top: 14px;
+        }
 
-      .search_thumbnail {
-        width: 100%;
-      }
-    </style>
+        .search-input {
+          width: 100%;
+          text-align: center;
+          height: 28px;
+        }
+
+        .search_thumbnail {
+          width: 100%;
+        }
+      </style>
 
     </ons-page>
   </template>
@@ -584,7 +615,7 @@
 
 
   <!-- The Camera Page -->
-  
+
   <template id="camera.html">
     <ons-page class="main_pages"  id="camera-page">
       <ons-toolbar>
@@ -603,7 +634,7 @@
         }
 
         .camera-icon {
-          vertical-align: middle !important; 
+          vertical-align: middle !important;
           font-size: 100px;
           opacity: 0.4;
           display: table-cell;
@@ -616,6 +647,7 @@
           display: table;
         }
       </style>
+
     </ons-page>
   </template>
 
@@ -623,7 +655,7 @@
 
 
   <!-- Notification Page -->
-  
+
   <template id="notification.html">
     <ons-page id="notification">
       <ons-tabbar id="tabbar_notification" position="top" animation="slide">
@@ -637,12 +669,12 @@
 
 
   <!--  The Profile Page -->
-  
+
   <template id="profile.html">
     <ons-page class="main_pages"  id="profile-page">
       <ons-toolbar>
         <div class="left">
-            <ons-toolbar-button><ons-icon icon="ion-person-add"></ons-icon></ons-toolbar-button>
+          <ons-toolbar-button><ons-icon icon="ion-person-add"></ons-icon></ons-toolbar-button>
         </div>
         <div class="center">david_graham</div>
         <div class="right">
@@ -650,7 +682,11 @@
         </div>
       </ons-toolbar>
 
+      <!-- The content of the profile page is also organized into a list, because it is easy to structure it this way -->
+
       <ons-list>
+
+        <!-- The first list item contains the user's profile picture on the left, and info about the number of posts, following and followed users on the right side of the screen -->
 
         <ons-list-item>
           <div class="profile_wrapper">
@@ -659,25 +695,27 @@
               <img src="assets/img/profile-image-08.png">
             </div>
             <div class="profile_info_wrapper">
-                <div class="profile_info_numbers">
-                  <div>
-                    <div>10</div>
-                    <div class="profile_info_text">Posts</div>
-                  </div>
-                  <div>
-                    <div>150</div>
-                    <div class="profile_info_text">Followers</div>
-                  </div>
-                  <div>
-                    <div>150</div>
-                    <div class="profile_info_text">Following</div>
-                  </div>
+              <div class="profile_info_numbers">
+                <div>
+                  <div>3</div>
+                  <div class="profile_info_text">Posts</div>
                 </div>
-                <div class="profile_info_button"><ons-button id="edit_button" modifier="large">Edit Your Profile</ons-button></div>
+                <div>
+                  <div>150</div>
+                  <div class="profile_info_text">Followers</div>
+                </div>
+                <div>
+                  <div>150</div>
+                  <div class="profile_info_text">Following</div>
+                </div>
+              </div>
+              <div class="profile_info_button_wrapper"><ons-button class="profile_info_button" id="edit_button" modifier="large">Edit Your Profile</ons-button></div>
             </div>
           </div>
           <div class="profile_extra_wrapper"><p> David Graham</p></div>
         </ons-list-item>
+
+        <!-- The next list item contains the buttons bar! Since we don'T want any pressing effect, the buttons are implemented as simple icons instead -->
 
         <ons-list-item style="text-align: center; padding: 0;">
           <div class="profile_button">
@@ -694,108 +732,121 @@
           </div>
         </ons-list-item>
 
+        <!-- The last list item contains the post. It contains two separate lists.-->
+
         <ons-list-item class="user_posts_panel">
+
+          <!-- The first list displays the posts in the same way as the home page, thus the code is the same as in the home page. This list is hidden when you start the app. -->
 
           <ons-list id="list_view" style="display: none;">
 
-           <ons-list-item class="post">
-               <div class="post-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-03.png" >
-                  <div>
-                    <div><b>david_graham</b></div>
-                    <div class="location">Fushimi Inari Shrine, Kyoto</div>
-                  </div>
-                  <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div style="text-align: center;" ondblclick="like('01')"><ons-icon size="150px" id="post-like-01" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-01.jpg"></div>
-               <div class="post-bar">
-                 <div>
-                   <ons-toolbar-button onclick="like('01')"><ons-icon id="button-post-like-01" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
-                 </div>
-                 <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
-               <div class="post-bar"><b>david_graham</b> beautiful kyoto #kyoto #fushimiinarishirine </div>
-                <div class="post-bar time">1 HOUR AGO</div>
-           </ons-list-item>
+            <ons-list-item class="post">
+              <div class="post-bar">
+                <img class="thumbnail" src="assets/img/profile-image-03.png" >
+                <div>
+                  <div><b>david_graham</b></div>
+                  <div class="location">Fushimi Inari Shrine, Kyoto</div>
+                </div>
+                <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+              </div>
+              <div style="text-align: center;" ondblclick="like('01')">
+                <ons-icon size="150px" id="post-like-01" class="post-like" icon="ion-ios-heart"></ons-icon>
+                <img class="post-image" src="assets/img/post-01.jpg">
+              </div>
+              <div class="post-buttons">
+                <div>
+                  <ons-toolbar-button onclick="like('01')"><ons-icon id="button-post-like-01" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                  <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                  <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                </div>
+                <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+              </div>
+              <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+              <div class="post-bar"><b>david_graham</b> beautiful kyoto #kyoto #fushimiinarishirine </div>
+              <div class="post-bar time">1 HOUR AGO</div>
+            </ons-list-item>
 
-           <ons-list-item class="post">
-               <div class="post-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-08.png" >
-                  <div>
-                    <div><b>david_graham</b></div>
-                    <div class="location">Kinkakuji Temple, Kyoto</div>
-                  </div>
-                  <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div style="text-align: center;" ondblclick="like('02')"><ons-icon size="150px" id="post-like-02" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-02.jpg"></div>
-               <div class="post-bar">
-                 <div>
-                   <ons-toolbar-button onclick="like('02')"><ons-icon id="button-post-like-02" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
-                 </div>
-                 <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
-               <div class="post-bar"><b>david_graham</b> Golden Temple ^_^ #kyoto #goldentemple</div>
-                <div class="post-bar time">1 HOUR AGO</div>
-           </ons-list-item>
+            <ons-list-item class="post">
+              <div class="post-bar">
+                <img class="thumbnail" src="assets/img/profile-image-08.png" >
+                <div>
+                  <div><b>david_graham</b></div>
+                  <div class="location">Kinkakuji Temple, Kyoto</div>
+                </div>
+                <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+              </div>
+              <div style="text-align: center;" ondblclick="like('02')">
+                <ons-icon size="150px" id="post-like-02" class="post-like" icon="ion-ios-heart"></ons-icon>
+                <img class="post-image" src="assets/img/post-02.jpg">
+              </div>
+              <div class="post-buttons">
+                <div>
+                  <ons-toolbar-button onclick="like('02')"><ons-icon id="button-post-like-02" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                  <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                  <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                </div>
+                <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+              </div>
+              <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+              <div class="post-bar"><b>david_graham</b> Golden Temple ^_^ #kyoto #goldentemple</div>
+              <div class="post-bar time">1 HOUR AGO</div>
+            </ons-list-item>
 
-           <ons-list-item class="post">
-               <div class="post-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-02.png" >
-                  <div>
-                    <div><b>david_graham</b></div>
-                    <div class="location">Tokyo</div>
-                  </div>
-                  <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div style="text-align: center;" ondblclick="like('03')"><ons-icon size="150px" id="post-like-03" class="post-like" icon="ion-ios-heart"></ons-icon><img class="post-image" src="assets/img/post-03.jpg"></div>
-               <div class="post-bar">
-                 <div>
-                   <ons-toolbar-button onclick="like('03')"><ons-icon id="button-post-like-03" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
-                   <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
-                 </div>
-                 <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
-               </div>
-               <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
-               <div class="post-bar"><b>david_graham</b> The harmony sakura brings #sakura #happy #harmony #love</div>
-                <div class="post-bar time">1 HOUR AGO</div>
-           </ons-list-item>
+            <ons-list-item class="post">
+              <div class="post-bar">
+                <img class="thumbnail" src="assets/img/profile-image-02.png" >
+                <div>
+                  <div><b>david_graham</b></div>
+                  <div class="location">Tokyo</div>
+                </div>
+                <div class="corner-button"><ons-toolbar-button><ons-icon icon="ion-android-more-horizontal"></ons-icon></ons-toolbar-button></div>
+              </div>
+              <div style="text-align: center;" ondblclick="like('03')">
+                <ons-icon size="150px" id="post-like-03" class="post-like" icon="ion-ios-heart"></ons-icon>
+                <img class="post-image" src="assets/img/post-03.jpg">
+              </div>
+              <div class="post-buttons">
+                <div>
+                  <ons-toolbar-button onclick="like('03')"><ons-icon id="button-post-like-03" icon="ion-ios-heart-outline"></ons-icon></ons-toolbar-button>
+                  <ons-toolbar-button><ons-icon icon="ion-ios-chatbubble-outline"></ons-icon></ons-toolbar-button>
+                  <ons-toolbar-button><ons-icon icon="ion-ios-paperplane-outline"></ons-icon></ons-toolbar-button>
+                </div>
+                <div class="corner-button bookmark"><ons-toolbar-button><ons-icon icon="bookmark-o"></ons-icon></ons-toolbar-button></div>
+              </div>
+              <div class="post-bar info"><b>someone_one</b> and 24 other liked this.</div>
+              <div class="post-bar"><b>david_graham</b> The harmony sakura brings #sakura #happy #harmony #love</div>
+              <div class="post-bar time">1 HOUR AGO</div>
+            </ons-list-item>
 
-       </ons-list>   
+          </ons-list>
 
+          <!-- This list displays the posts in grid view, same as in the search page. This list is not hidden when you start the app. -->
 
-        <ons-list id="grid_view" class="posts_grid_list">
+          <ons-list id="grid_view" class="posts_grid_list">
+            <ons-list-item class="posts_grid_list_item">
+              <div class="posts_grid_wrapper">
+                <img class="posts_grid_thumbnail" src="assets/img/post-01.jpg">
+              </div>
+            </ons-list-item>
 
-                <ons-list-item class="posts_grid_list_item">
-                  <div class="posts_grid_wrapper">
-                    <img class="posts_grid_thumbnail" src="assets/img/post-01.jpg">
-                  </div>
-                </ons-list-item>
+            <ons-list-item class="posts_grid_list_item">
+              <div class="posts_grid_wrapper">
+                <img class="posts_grid_thumbnail" src="assets/img/post-02.jpg">
+              </div>
+            </ons-list-item>
 
-                <ons-list-item class="posts_grid_list_item">
-                  <div class="posts_grid_wrapper">
-                    <img class="posts_grid_thumbnail" src="assets/img/post-02.jpg">
-                  </div>
-                </ons-list-item>
-
-                <ons-list-item class="posts_grid_list_item">
-                  <div class="posts_grid_wrapper">
-                    <img class="posts_grid_thumbnail" src="assets/img/post-03.jpg">
-                  </div>
-                </ons-list-item>
-         </ons-list>       
+            <ons-list-item class="posts_grid_list_item">
+              <div class="posts_grid_wrapper">
+                <img class="posts_grid_thumbnail" src="assets/img/post-03.jpg">
+              </div>
+            </ons-list-item>
+          </ons-list>
 
         </ons-list-item>
       </ons-list>
 
-     <style type="text/css">
-       .profile_wrapper {
+      <style type="text/css">
+        .profile_wrapper {
           display: inline-flex;
           width: 100%;
         }
@@ -848,11 +899,11 @@
           margin-top: -5px;
         }
 
-        .profile_info_button {
+        .profile_info_button_wrapper {
           margin-top: 5px;
         }
 
-        .profile_info_button ons-button {
+        .profile_info_button {
           height: 25px;
           vertical-align: middle;
           background: transparent;
@@ -860,7 +911,12 @@
           border-radius: 7px;
           color: black;
           line-height: 13px;
-         font-size: 14px;
+          font-size: 14px;
+        }
+
+        .profile_info_button.button--material {
+          min-height: 25px;
+          line-height: 25px !important;
         }
 
         .profile_button {
@@ -872,7 +928,7 @@
           padding: 0;
         }
 
-        .user_posts_panel div{
+        .user_posts_panel div {
           padding: 0;
         }
 
@@ -882,15 +938,15 @@
           font-size: 14px;
         }
 
-        .post .list-item__center{
+        .post .list-item__center {
           padding-right: 0px;
         }
 
-        .post-caption{
+        .post-caption {
           padding-left: 10px !important;
         }
 
-        .post-like-info{
+        .post-like-info {
           margin-bottom: 5px;
           padding-left: 10px !important;
         }
@@ -901,12 +957,17 @@
           padding-left: 10px !important;
         }
 
-        .post-image{
+        .post-buttons {
+          display: inline-flex;
+          margin-bottom: 7px;
+        }
+
+        .post-image {
           width: 100%;
           margin-bottom: 5px;
         }
 
-        .post .location{
+        .post .location {
           font-size: 12px;
         }
 
@@ -969,97 +1030,103 @@
           margin-left: 0.25%;
           margin-right: 0.25%;
           text-align: justify;
-        } 
+        }
 
         .posts_grid_thumbnail {
           width: 100%;
         }
-     </style> 
+      </style>
+
     </ons-page>
   </template>
 
 
 
-  
+
   <!-- Following Notification Page -->
 
   <template id="following-notifications.html">
     <ons-page id="following-notifications">
       <ons-list>
-        
-          <ons-list-item class="notification-post">
-               <div class="notification-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-01.png" >
-                  <div>
-                    <b>david_graham</b>, <b>david_graham</b> and 18 others liked <b>david_graham</b>&#39;s post. <span style="opacity: 0.4;">1 hour ago</span>
-                  </div>
-                  <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-01.jpg"></div>
-               </div>
-          </ons-list-item>
 
-          <ons-list-item class="notification-post">
-               <div class="notification-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-02.png" >
-                  <div>
-                    <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
-                  </div>
-               </div>
-          </ons-list-item>
+        <!-- This item is a template for a notification informing the user about other users liking a post of a followed user. -->
 
-          <ons-list-item class="notification-post">
-               <div class="notification-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-03.png" >
-                  <div>
-                    <b>david_graham</b>, <b>david_graham</b> and 18 others liked <b>david_graham</b>&#39;s post. <span style="opacity: 0.4;">1 hour ago</span>
-                  </div>
-                  <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-02.jpg"></div>
-               </div>
-          </ons-list-item>
+        <ons-list-item class="notification-post">
+          <div class="notification-bar">
+            <img class="thumbnail" src="assets/img/profile-image-01.png" >
+            <div>
+              <b>david_graham</b>, <b>david_graham</b> and 18 others liked <b>david_graham</b>&#39;s post. <span style="opacity: 0.4;">1 hour ago</span>
+            </div>
+            <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-01.jpg"></div>
+          </div>
+        </ons-list-item>
 
-          <ons-list-item class="notification-post">
-               <div class="notification-bar">
-                  <img class="thumbnail" src="assets/img/profile-image-04.png" >
-                  <div>
-                    <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
-                  </div>
-               </div>
-          </ons-list-item>
+        <!-- This item is a template for a notification informing the user about other users that some followed user started to follow. -->
 
-        </ons-list>
+        <ons-list-item class="notification-post">
+          <div class="notification-bar">
+            <img class="thumbnail" src="assets/img/profile-image-02.png" >
+            <div>
+              <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
+            </div>
+          </div>
+        </ons-list-item>
 
-       <style type="text/css">
+        <ons-list-item class="notification-post">
+          <div class="notification-bar">
+            <img class="thumbnail" src="assets/img/profile-image-03.png" >
+            <div>
+              <b>david_graham</b>, <b>david_graham</b> and 18 others liked <b>david_graham</b>&#39;s post. <span style="opacity: 0.4;">1 hour ago</span>
+            </div>
+            <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-02.jpg"></div>
+          </div>
+        </ons-list-item>
 
-         .notification-post {
-            margin: 0px;
-            padding: 0px;
-            font-size: 14px;
-          }
+        <ons-list-item class="notification-post">
+          <div class="notification-bar">
+            <img class="thumbnail" src="assets/img/profile-image-04.png" >
+            <div>
+              <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
+            </div>
+          </div>
+        </ons-list-item>
 
-          .notification .list-item__center{
-            padding-right: 0px;
-          }
+      </ons-list>
 
-          .notification-bar {
-            display: inline-flex;
-            margin-bottom: 7px;
-            padding-left: 10px !important;
-          }
+      <style type="text/css">
 
-          .thumbnail {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-          }
+        .notification-post {
+          margin: 0px;
+          padding: 0px;
+          font-size: 14px;
+        }
 
-          .notification_thumbnail_wrapper {
-            margin-right: 10px; 
-            width: 50px;
-          }
-          .notification_thumbnail {
-            width: 100%;
-          }
-       </style> 
+        .notification .list-item__center {
+          padding-right: 0px;
+        }
+
+        .notification-bar {
+          display: inline-flex;
+          margin-bottom: 7px;
+          padding-left: 10px !important;
+        }
+
+        .thumbnail {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        .notification_thumbnail_wrapper {
+          margin-right: 10px;
+          width: 50px;
+        }
+        .notification_thumbnail {
+          width: 100%;
+        }
+      </style>
+
     </ons-page>
   </template>
 
@@ -1070,72 +1137,75 @@
 
   <template id="your-notification.html">
     <ons-page id="your-notification">
-       <ons-list>
-        
-          <ons-list-item class="notification-post">
-             <div class="notification-bar">
-                <img class="thumbnail" src="assets/img/profile-image-01.png" >
-                <div>
-                  <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
-                </div>
-                <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-01.jpg"></div>
-             </div>
-          </ons-list-item>
+      <ons-list>
 
-          <ons-list-item class="notification-post">
-             <div class="notification-bar">
-                <img class="thumbnail" src="assets/img/profile-image-02.png" >
-                <div>
-                  <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
-                </div>
-                <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-02.jpg"></div>
-             </div>
-          </ons-list-item>
+        <!-- The items in this list are a template for a notification informing the user about who liked his posts. -->
 
-          <ons-list-item class="notification-post">
-             <div class="notification-bar">
-                <img class="thumbnail" src="assets/img/profile-image-03.png" >
-                <div>
-                  <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
-                </div>
-                <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-03.jpg"></div>
-             </div>
-          </ons-list-item>
+        <ons-list-item class="notification-post">
+          <div class="notification-bar">
+            <img class="thumbnail" src="assets/img/profile-image-01.png" >
+            <div>
+              <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
+            </div>
+            <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-01.jpg"></div>
+          </div>
+        </ons-list-item>
 
-        </ons-list>
+        <ons-list-item class="notification-post">
+          <div class="notification-bar">
+            <img class="thumbnail" src="assets/img/profile-image-02.png" >
+            <div>
+              <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
+            </div>
+            <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-02.jpg"></div>
+          </div>
+        </ons-list-item>
 
-        <style type="text/css">
-         .notification-post {
-            margin: 0px;
-            padding: 0px;
-            font-size: 14px;
-          }
+        <ons-list-item class="notification-post">
+          <div class="notification-bar">
+            <img class="thumbnail" src="assets/img/profile-image-03.png" >
+            <div>
+              <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
+            </div>
+            <div class="notification_thumbnail_wrapper"><img class="notification_thumbnail" src="assets/img/post-03.jpg"></div>
+          </div>
+        </ons-list-item>
 
-          .notification .list-item__center{
-            padding-right: 0px;
-          }
+      </ons-list>
 
-          .notification-bar {
-            display: inline-flex;
-            margin-bottom: 7px;
-            padding-left: 10px !important;
-          }
+      <style type="text/css">
+        .notification-post {
+          margin: 0px;
+          padding: 0px;
+          font-size: 14px;
+        }
 
-          .thumbnail {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-          }
+        .notification .list-item__center {
+          padding-right: 0px;
+        }
 
-          .notification_thumbnail_wrapper {
-            margin-right: 10px; 
-            width: 50px;
-          }
-          .notification_thumbnail {
-            width: 100%;
-          }
-       </style> 
+        .notification-bar {
+          display: inline-flex;
+          margin-bottom: 7px;
+          padding-left: 10px !important;
+        }
+
+        .thumbnail {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        .notification_thumbnail_wrapper {
+          margin-right: 10px;
+          width: 50px;
+        }
+        .notification_thumbnail {
+          width: 100%;
+        }
+      </style>
+
     </ons-page>
   </template>
 
@@ -1160,14 +1230,68 @@
       background-color: white;
     }
 
-    .toolbar__title{
+    .toolbar__title {
       text-align: center;
-    }    
- 
+      color: #1f1f21;
+    }
+
     .toolbar-button {
       color: #1f1f21;
     }
   </style>
+
 </body>
 </html>
+
+<!-- info 
+
+## Making a Photo Sharing application
+
+If you want to create a Photo sharing app, by using Onsen UI you can make an app that can compete with the current top Photo Sharing Apps. For this purpose, we decided in this tutorial, to make a user interface template that has a similar interface as the famous "Instagram" application.
+
+The Onsen UI components that are used in this template are the following:
+
+ - `ons-tabbar` - the main component used to make the structure of the template
+ - `ons-toolbar` - for creating the toolbars on different pages of the app with specific buttons 
+ - `ons-toolbar-button` - used for almost all the buttons on the app in combination with `ons-icon` to give the simple button look as in the original "Instagram" app
+ - `ons-list` - used for structuring the content in almost every page, since the content consists of posts or images
+ - `ons-lazy-repeat` - for populating the list of stories
+
+## The structure of the template
+
+The template consists of 5 pages in the same order:
+
+ - **The home page** - for displaying posts and stories from users 
+ - **The search page** - for searching specific content
+ - **The camera page** - for adding new posts
+ - **The notification page** - for displaying notification about recent activity concerning the user's posts and the activity of other users in general
+ - **The profile page** - for displaying the information about the user's profile
+
+## The Home Page
+
+The home page consists of two main parts, besides the toolbar that consists of a title and two `ons-toolbar-button` elements that will be used to ease the access to two features of the app. 
+
+The first part is the stories of other users placed in the header of the `ons-list` and represented as a separate horizontal `ons-list` where each `ons-list-item` contains an image with a red border that turns gray after being clicked. The list is populated using `ons-lazy-repeat` to demonstrate the ease of populating a list with a variant number of elements.
+
+The second part is the posts by users, each post represented as a single `ons-list-item` consisted of a set of `div` blocks. Inside those blocks are the pictures being posted as well as the extra information that comes with it.
+
+## The Search Page
+
+This page has an `ons-toolbar` containing an `ons-search-input` for the main purpose of this page - searching for specific content. It also contains a list of stories, implemented just like in the main page as well as a picture grid where the results of the search should be presented.
+
+## The Camera Page
+
+As this is simply a user interface template that doesn't implement the actual camera function and it's just a simple view of the Camera page.
+
+## The Notification Page
+
+This page contains a second `ons-toolbar` that is positioned on the top of the page. The page has two `ons-tab`'s for dividing the notifications into two groups: notifications concerning your posts and notifications about the activity of other users in general. Each group is presented in an `ons-list` in their respected tab.
+
+## The Profile page
+
+This page shows the user profile page and info about the number of following and followed users, after which follows a bar of icons and a grid or list of the user's posted pictures. In this template, the view between grid or a list can be toggled by tapping on the respective icons, contained in the bar below the profile information.
+
+
+
+-->
 
