@@ -226,7 +226,7 @@
   </template>
 
   <template id="forms.html">
-    <ons-page>
+    <ons-page id="forms-page">
       <ons-toolbar>
         <div class="center">Forms</div>
         <div class="right">
@@ -369,7 +369,7 @@
       </ons-list>
 
       <script>
-        ons.ready(function () {
+        document.getElementById('forms-page').onInit = function () {
           if (ons.platform.isAndroid()) {
             const inputItems = document.querySelectorAll('.input-items');
             for (i = 0; i < inputItems.length; i++) {
@@ -437,7 +437,7 @@
               document.getElementById('careful-message').style.display = 'none';
             }
           })
-        })
+        }
       </script>
 
       <style>
@@ -944,7 +944,7 @@
 
   <template id="loadMore.html">
     <!-- Load more items on scroll bottom -->
-    <ons-page on-infinite-scroll="fn.loadMore">
+    <ons-page id="load-more-page" on-infinite-scroll="fn.loadMore">
       <p class="intro">
         Useful for loading more items when the scroll reaches the bottom of the page, typically after an asynchronous API call.<br><br>
       </p>
@@ -956,7 +956,7 @@
       </div>
 
       <script>
-        ons.ready(function () {
+        document.getElementById('load-more-page').onInit = function () {
           var listNode = document.getElementById('list-node');
           var createListItem = function (i) {
             return ons.createElement(`<ons-list-item>Item #${i}</ons-list-item>`);
@@ -973,7 +973,7 @@
               done();
             }, 600)
           }
-        })
+        }
       </script>
 
       <style>
@@ -985,9 +985,9 @@
     </ons-page>
   </template>
 
-  <template id="lazyRepeat.html">
+  <ons-template id="lazyRepeat.html">
     <!-- Lazy load thousands of items -->
-    <ons-page>
+    <ons-page id="lazy-repeat-page">
       <p class="intro">
         Automatically unloads items that are not visible and loads new ones. Useful when the list contains thousands of items.<br><br>
       </p>
@@ -997,7 +997,7 @@
       </ons-list>
 
       <script>
-        ons.ready(function () {
+        document.getElementById('lazy-repeat-page').onInit = function () {
           var infiniteList = document.getElementById('infinite-list');
 
           infiniteList.delegate = {
@@ -1010,7 +1010,7 @@
           };
 
           infiniteList.refresh();
-        })
+        }
       </script>
 
       <style>
@@ -1021,7 +1021,7 @@
         }
       </style>
     </ons-page>
-  </template>
+  </ons-template>
 
   <template id="infiniteScroll.html">
     <ons-page>
