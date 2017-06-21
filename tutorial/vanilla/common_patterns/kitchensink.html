@@ -287,7 +287,7 @@
 
           </div>
           <div class="right right-label">
-            <s id="strike-platform" style="display: none"></s> Vue is awesome!
+            <span id="awesome-platform">Vue&nbsp;</span>is awesome!
           </div>
         </ons-list-item>
 
@@ -391,13 +391,7 @@
             }
           });
           document.getElementById('select-input').addEventListener('change', function (event) {
-            if (event.target.value === 'Vue') {
-              document.getElementById('strike-platform').style.display = 'none';
-              document.getElementById('strike-platform').innerHTML = '';
-            } else {
-              document.getElementById('strike-platform').style.display = 'inline-block';
-              document.getElementById('strike-platform').innerHTML = `${event.target.value}&nbsp;`;
-            }
+            document.getElementById('awesome-platform').innerHTML = `${event.target.value}&nbsp;`;
           });
           var currentFruitId = 'radio-1';
           document.querySelectorAll('.radio-fruit').forEach(function (radio) {
