@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI Twitter App</title>
+
+  <script>
+  </script>
+
+</head>
+
+<body>
+  <ons-page>
+    <ons-tabbar id="tabbar">
+      <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
+      <ons-tab label="Explore" icon="ion-search" page="explore.html"></ons-tab>
+      <ons-tab label="Notifications" icon="ion-ios-bell" page="notifications.html"></ons-tab>
+      <ons-tab label="Messages" icon="ion-email" page="messages.html"></ons-tab>
+      <ons-tab label="Me" icon="ion-person" page="me.html"></ons-tab>
+    </ons-tabbar>
+  </ons-page>
+
+  <!-- Home Page -->
+  <template id="home.html">
+    <ons-page id="home-page">
+      <ons-toolbar id="home-toolbar">
+        <div class="left">
+          <ons-toolbar-button>
+            <ons-icon icon="ion-person-add"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          <ons-toolbar-button>
+            <ons-icon icon="ion-social-twitter"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="right">
+          <ons-toolbar-button>
+            <ons-icon icon="ion-compose"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <style type="text/css">
+        #home-toolbar ons-toolbar-button {
+          color: #00aced;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- Explore Page -->
+  <template id="explore.html">
+    <ons-page>
+      <style type="text/css">
+
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- Notifications Page -->
+  <template id="notifications.html">
+    <ons-page>
+      <style type="text/css">
+
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- Messages Page -->
+  <template id="messages.html">
+    <ons-page>
+      <style type="text/css">
+
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- Me Page -->
+  <template id="me.html">
+    <ons-page>
+      <style type="text/css">
+
+      </style>
+    </ons-page>
+  </template>
+
+</body>
+
+</html>

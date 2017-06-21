@@ -33,7 +33,8 @@ app.modules = {
     },
     'user interface tutorials': {
       'instagram_model': 'instagram model',
-      'spotify_model': 'spotify model'
+      'spotify_model': 'spotify model',
+      'twitter_model': 'twitter model'
     }
   },
   'angular1': {
