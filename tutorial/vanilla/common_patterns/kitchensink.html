@@ -43,6 +43,14 @@
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
         <ons-splitter-content>
           <ons-page>
+            <ons-toolbar>
+              <div class="center">Kitchensink</div>
+              <div class="right">
+                <ons-toolbar-button onclick="fn.toggleMenu()">
+                  <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                </ons-toolbar-button>
+              </div>
+            </ons-toolbar>
             <ons-tabbar id="appTabbar" position="auto">
               <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
               <ons-tab label="Forms" icon="ion-edit" page="forms.html"></ons-tab>
@@ -168,14 +176,6 @@
 
   <template id="home.html">
     <ons-page>
-      <ons-toolbar>
-        <div class="center">Home</div>
-        <div class="right">
-          <ons-toolbar-button onclick="fn.toggleMenu()">
-            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
       <p class="intro">
         This is a kitchen sink example that shows off the components of Onsen UI.<br><br>
       </p>
@@ -227,14 +227,6 @@
 
   <template id="forms.html">
     <ons-page id="forms-page">
-      <ons-toolbar>
-        <div class="center">Forms</div>
-        <div class="right">
-          <ons-toolbar-button onclick="fn.toggleMenu()">
-            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
       <ons-list>
         <ons-list-header>Text input</ons-list-header>
         <ons-list-item class="input-items">
@@ -295,7 +287,7 @@
 
           </div>
           <div class="right right-label">
-            <s id="strike-platform" style="display: none"></s> Vue is awesome!
+            <span id="awesome-platform">Vue&nbsp;</span>is awesome!
           </div>
         </ons-list-item>
 
@@ -399,13 +391,7 @@
             }
           });
           document.getElementById('select-input').addEventListener('change', function (event) {
-            if (event.target.value === 'Vue') {
-              document.getElementById('strike-platform').style.display = 'none';
-              document.getElementById('strike-platform').innerHTML = '';
-            } else {
-              document.getElementById('strike-platform').style.display = 'inline-block';
-              document.getElementById('strike-platform').innerHTML = `${event.target.value}&nbsp;`;
-            }
+            document.getElementById('awesome-platform').innerHTML = `${event.target.value}&nbsp;`;
           });
           var currentFruitId = 'radio-1';
           document.querySelectorAll('.radio-fruit').forEach(function (radio) {
@@ -454,14 +440,6 @@
 
   <template id="animations.html">
     <ons-page>
-      <ons-toolbar>
-        <div class="center">Animations</div>
-        <div class="right">
-          <ons-toolbar-button onclick="fn.toggleMenu()">
-            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
       <ons-list>
         <ons-list-header>Transitions</ons-list-header>
         <ons-list-item modifier="chevron" onclick="fn.pushPage({'id': 'transition.html', 'title': 'none'}, 'none')">
