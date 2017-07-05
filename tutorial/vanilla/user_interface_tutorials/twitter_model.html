@@ -13,7 +13,7 @@
 
 <body>
   <ons-splitter id="appSplitter">
-    <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px"></ons-splitter-side>
+    <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px" animation="push"></ons-splitter-side>
     <ons-splitter-content>
       <ons-page>
         <ons-tabbar id="appTabbar" position="auto">
@@ -28,9 +28,101 @@
 
   <!-- Sidemenu Page -->
   <template id="sidemenu.html">
-    <ons-page>
-      <style type="text/css">
+    <ons-page id="sidemenu-page">
+      <ons-toolbar id="sidemenu-toolbar">
+        <div class="header-part">
+          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
+            <img style="height: 40px; width: 40px" class="profile-thumbnail" src="http://placekitten.com/g/70/70">
+          </ons-button>
+          <ons-button modifier="quiet">
+            <ons-icon icon="ion-ios-more-outline, material: ion-android-more-horizontal" size="40px"></ons-icon>
+          </ons-button>
+        </div>
+        <div class="header-part"><b>Ugly Kitty</b></div>
+        <div class="header-part subheader" style="margin-top: 2px">@uKitty</div>
+        <div class="header-part subheader" style="margin-top: 8px">
+          <span><b>10k</b>&nbsp;following</span>
+          <span style="margin-left: 10px"><b>0</b>&nbsp;followers</span>
+        </div>
+      </ons-toolbar>
+      <ons-list id="middle-menu">
+        <ons-list-item modifier="nodivider" tappable>
+          <div class="left">
+            <ons-icon icon="ion-person"></ons-icon>
+          </div>
+          <div class="center">
+            Profile
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider" tappable>
+          <div class="left">
+            <ons-icon icon="ion-ios-list-outline, material: ion-android-list"></ons-icon>
+          </div>
+          <div class="center">
+            Lists
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider" tappable>
+          <div class="left">
+            <ons-icon icon="ion-flash"></ons-icon>
+          </div>
+          <div class="center">
+            Moments
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="nodivider" tappable>
+          Settings and privacy
+        </ons-list-item>
+        <ons-list-item modifier="nodivider" tappable>
+          Help Center
+        </ons-list-item>
+      </ons-list>
+      <ons-bottom-toolbar id="bottom-toolbar">
+        <ons-button modifier="quiet">
+          <ons-icon icon="moon-o"></ons-icon>
+        </ons-button>
+        <ons-button modifier="quiet" style="float: right">
+          <ons-icon icon="qrcode"></ons-icon>
+        </ons-button>
+      </ons-bottom-toolbar>
 
+      <style type="text/css">
+        #sidemenu-toolbar {
+          display: block;
+          height: 130px;
+          padding: 0px 15px;
+        }
+
+        #sidemenu-toolbar .left,
+        #sidemenu-toolbar .center,
+        #sidemenu-toolbar .right {
+          display: none;
+        }
+
+        .header-part {
+          width: 100%;
+        }
+
+        .header-part ons-button:first-child {
+          padding: 4px 0 0 4px;
+        }
+
+        .header-part ons-button:last-child {
+          float: right;
+          margin-right: 5px;
+        }
+
+        .header-part.subheader {
+          font-size: 12px;
+        }
+
+        #middle-menu {
+          margin-top: 85px;
+        }
+
+        #bottom-toolbar ons-button {
+          margin: auto 15px;
+        }
       </style>
     </ons-page>
   </template>
@@ -344,8 +436,8 @@
 
   <!-- Notifications Page -->
   <template id="notifications.html">
-    <ons-page>
-      <ons-toolbar id="explore-toolbar">
+    <ons-page id="notifications-page">
+      <ons-toolbar>
         <div class="left">
           <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
             <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
@@ -374,13 +466,17 @@
         }
 
         .notifs-bar {
-          height: 
+          height: 45px;
+        }
+
+        .notifs-bar .button-bar {
+          height: 27px;
           width: 100%;
         }
 
         .notifs-bar ons-button {
-          background-color: #00aced;
-          border-radius: 30px 0px 0px 30px;
+          font-size: 14px;
+          line-height: inherit;
           text-align: center;
           width: 50%;
         }
@@ -398,50 +494,136 @@
 
   <!-- All notifications Page -->
   <template id="all.html">
-    <ons-page>
-
+    <ons-page id="all-page">
       <ons-list>
-        <ons-list-item modifier="longdivider">
-          <div class="notifs-bar button-bar">
-            <ons-button>All</ons-button>
-            <ons-button onclick="document.getElementById('hidden-tabbar').setActiveTab(1)">Mentions</ons-button>
+        <ons-list-item modifier="longdivider" class="notifs-bar">
+          <div class="button-bar">
+            <ons-button id="all-all-button"><b>All</b></ons-button>
+            <ons-button id="all-mentions-button" modifier="outline" onclick="document.getElementById('hidden-tabbar').setActiveTab(1)"><b>Mentions</b></ons-button>
           </div>
         </ons-list-item>
-        <ons-list-item modifier="longdivider">
+        <ons-list-item class="all-notifs" modifier="longdivider">
           <div class="left">
-            <ons-icon icon="ion-social-twitter"></ons-icon>
+            <ons-icon icon="ion-social-twitter" size="25px"></ons-icon>
           </div>
           <div class="center">
             It's your Twitter anniversary! Celebrate with a special Tweet created just for you
           </div>
         </ons-list-item>
+        <ons-list-item class="all-notifs" modifier="longdivider">
+          <div class="left">
+            <ons-icon icon="ion-person" size="25px"></ons-icon>
+          </div>
+          <div class="center">
+            <div class="notif-thumbnails">
+              <img src="http://placekitten.com/g/50/50">
+              <img src="http://placekitten.com/g/60/60">
+            </div>
+            <b>Cute Kitty 2</b>&nbsp;and&nbsp;<b>Cute Kitty 3</b>&nbsp;followed you
+          </div>
+        </ons-list-item>
+        <ons-list-item class="all-notifs" modifier="longdivider">
+          <div class="left">
+            <ons-icon icon="ion-social-twitter" size="25px"></ons-icon>
+          </div>
+          <div class="center">
+            <div class="notif-thumbnails">
+              <img src="http://placekitten.com/g/40/40">
+              <img src="http://placekitten.com/g/50/50">
+            </div>
+            <b>Cute Kitty</b>&nbsp;and&nbsp;<b>Cute Kitty 2</b>followed&nbsp;<b>Cute Kitty 3</b>
+          </div>
+        </ons-list-item>
+        <ons-list-item class="all-notifs" modifier="longdivider">
+          <div class="left">
+            <ons-icon icon="ion-heart" size="25px" style="color: red"></ons-icon>
+          </div>
+          <div class="center">
+            <div class="notif-thumbnails">
+              <img src="http://placekitten.com/g/40/40">
+            </div>
+            <b>Cute Kitty</b>&nbsp;liked your Tweet
+            <br>
+            <span style="margin-top: 5px" class="list-item__subtitle">"I love kittens :3"</span>
+          </div>
+        </ons-list-item>
       </ons-list>
 
       <style type="text/css">
+        #all-page {
+          font-size: 14px;
+        }
 
+        #all-all-button {
+          background-color: #00aced;
+        }
+
+        #all-mentions-button {
+          border-color: #00aced;
+          color: #00aced;
+        }
+
+        .all-notifs .left {
+          align-items: baseline;
+          width: 25%;
+        }
+
+        .all-notifs .center {
+          width: 100%;
+        }
+
+        .all-notifs .left ons-icon {
+          color: #00aced;
+          margin-left: auto;
+        }
+
+        .notif-thumbnails {
+          width: 100%;
+        }
+
+        .notif-thumbnails img {
+          border-radius: 50%;
+          height: 28px;
+          width: 28px;
+        }
       </style>
     </ons-page>
   </template>
 
   <!-- Mentions Page -->
   <template id="mentions.html">
-    <ons-page>
-      <div class="notifs-bar button-bar">
-        <ons-button onclick="document.getElementById('hidden-tabbar').setActiveTab(0)">All</ons-button>
-        <ons-button>Mentions</ons-button>
-      </div>
+    <ons-page id="mentions-page">
+      <ons-list>
+        <ons-list-item modifier="longdivider" class="notifs-bar">
+          <div class="button-bar">
+            <ons-button id="mentions-all-button" modifier="outline" onclick="document.getElementById('hidden-tabbar').setActiveTab(0)"><b>All</b></ons-button>
+            <ons-button id="mentions-mentions-button"><b>Mentions</b></ons-button>
+          </div>
+        </ons-list-item>
+      </ons-list>
 
       <p>Mentions</p>
 
       <style type="text/css">
+        #mentions-page {
+          font-size: 14px;
+        }
 
+        #mentions-all-button {
+          border-color: #00aced;
+          color: #00aced;
+        }
+
+        #mentions-mentions-button {
+          background-color: #00aced;
+        }
       </style>
     </ons-page>
   </template>
 
   <!-- Messages Page -->
   <template id="messages.html">
-    <ons-page>
+    <ons-page id="messages-page">
       <style type="text/css">
 
       </style>
@@ -462,13 +644,22 @@
       background-color: #f5f8fa !important;
     }
 
-    ons-toolbar .left,
-    ons-toolbar .right {
+    #home-page ons-toolbar .left,
+    #home-page ons-toolbar .right,
+    #explore-page ons-toolbar .left,
+    #explore-page ons-toolbar .right,
+    #notifications-page ons-toolbar .left,
+    #notifications-page ons-toolbar .right,
+    #messages-page ons-toolbar .left,
+    #messages-page ons-toolbar .right {
       max-width: 15%;
       text-align: center;
     }
 
-    ons-toolbar .center {
+    #home-page ons-toolbar .center,
+    #explore-page ons-toolbar .center,
+    #notifications-page ons-toolbar .center,
+    #messages-page ons-toolbar .center {
       width: 90%;
     }
 
