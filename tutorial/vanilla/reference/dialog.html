@@ -34,7 +34,7 @@
 
     function toggleToast() {
       document.querySelector('ons-toast').toggle();
-    };
+    }
   </script>
 </head>
 
@@ -54,6 +54,7 @@
       <ons-list-item tappable onclick="ons.notification.alert('Hello, world')">Alert</ons-list-item>
       <ons-list-item tappable onclick="ons.notification.confirm({message: 'Are you ready?'})">Confirmation</ons-list-item>
       <ons-list-item tappable onclick="ons.notification.prompt({message: 'What is your name?'})">Prompt</ons-list-item>
+      <ons-list-item tappable onclick="ons.notification.toast({message: 'Enjoy Onsen UI', timeout: 2000})">Toast</ons-list-item>
     </ons-list>
   </ons-page>
 
