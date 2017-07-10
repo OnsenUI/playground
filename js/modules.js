@@ -34,7 +34,8 @@ app.modules = {
     'user interface tutorials': {
       'instagram_model': 'instagram model',
       'spotify_model': 'spotify model',
-      'twitter_model': 'twitter model'
+      'twitter_model': 'twitter model',
+      'netflix_model': 'netflix model'
     }
   },
   'angular1': {
