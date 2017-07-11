@@ -16,12 +16,17 @@
     <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px"></ons-splitter-side>
     <ons-splitter-content>
       <ons-page>
-        <ons-tabbar id="appTabbar">
+        <ons-tabbar id="appTabbar" position="auto">
           <ons-tab icon="ion-home" page="home.html" active></ons-tab>
           <ons-tab icon="ion-search" page="explore.html"></ons-tab>
           <ons-tab icon="ion-ios-bell" page="notifications.html"></ons-tab>
           <ons-tab icon="ion-email" page="messages.html"></ons-tab>
         </ons-tabbar>
+        <ons-if platform="android">
+          <ons-fab style="background-color: #00aced" position="bottom right">
+            <ons-icon icon="ion-compose"></ons-icon>
+          </ons-fab>
+        </ons-if>
       </ons-page>
     </ons-splitter-content>
   </ons-splitter>
@@ -179,8 +184,7 @@
         }
 
         #sidemenu-toolbar-md {
-          background-color: #00aced;
-          color: white;
+          background-color: white;
           display: block;
           height: 110px;
           padding: 0px 15px;
@@ -191,7 +195,7 @@
         }
 
         #sidemenu-page .page__content.page--material__content {
-          top: 110px;
+          top: 111px;
         }
 
         #sidemenu-page .page__background {
@@ -407,6 +411,10 @@
             </ons-row>
           </div>
         </ons-list-item>
+
+        <div style="text-align: center; margin-bottom: 30px">
+          <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+        </div>
       </ons-list>
 
       <style type="text/css">
@@ -415,7 +423,8 @@
           color: #00aced;
         }
 
-        #home-page ons-list-item .left {
+        #home-page ons-list-item .left,
+        #mentions-page ons-list-item .left {
           display: block;
         }
 
@@ -478,7 +487,7 @@
         </div>
         <div class="right">
           <ons-toolbar-button>
-            <ons-icon icon="ion-person-add, material:"></ons-icon>
+            <ons-icon icon="ion-ios-personadd-outline"></ons-icon>
           </ons-toolbar-button>
         </div>
       </ons-toolbar>
@@ -577,6 +586,10 @@
           width: 100%;
         }
 
+        .notifs-bar.list-item--material .button-bar {
+          align-items: flex-end;
+        }
+
         .notifs-bar ons-button {
           font-size: 14px;
           line-height: inherit;
@@ -659,7 +672,7 @@
             </div>
             <b>Cute Kitty</b>&nbsp;liked your Tweet
             <br>
-            <span style="margin-top: 5px" class="list-item__subtitle">"I love kittens :3"</span>
+            <span style="margin-top: 5px" class="list-item__subtitle">I love kittens :3</span>
           </div>
         </ons-list-item>
       </ons-list>
@@ -688,13 +701,17 @@
           width: 25%;
         }
 
-        .all-notifs .center {
-          width: 100%;
+        .all-notifs .left.list-item--material__left {
+          padding: 14px 12px;
         }
 
         .all-notifs .left ons-icon {
           color: #00aced;
           margin-left: auto;
+        }
+
+        .all-notifs .center {
+          width: 100%;
         }
 
         .notif-thumbnails {
@@ -728,7 +745,7 @@
       </ons-list>
 
       <ons-list>
-        <ons-list-item modifier="longdivider">
+        <ons-list-item modifier="longdivider" style="border-top: 1px solid #eee">
           <div class="left">
             <img class="list-item__thumbnail" src="http://placekitten.com/g/80/80">
           </div>
@@ -759,17 +776,17 @@
             <ons-row class="option-buttons">
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">8</span>
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">1</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">16</span>
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">3</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">24</span>
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">5</span>
                 </ons-button>
               </ons-col>
               <ons-col>
@@ -812,17 +829,17 @@
             <ons-row class="option-buttons">
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">16</span>
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">3</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">32</span>
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">5</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">48</span>
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">7</span>
                 </ons-button>
               </ons-col>
               <ons-col>
@@ -834,9 +851,15 @@
           </div>
         </ons-list-item>
 
-        <div style="text-align: center">
-          <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
-        </div>
+        <ons-if platform="ios other">
+          <div style="text-align: center; margin-bottom: 10px">
+            <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+          </div>
+        </ons-if>
+
+        <ons-if platform="android">
+          <div style="text-align: center; margin-bottom: 45px">&#8231;</div>
+        </ons-if>
       </ons-list>
 
       <style type="text/css">
@@ -930,6 +953,11 @@
 
     .tabbar--material {
       background-color: white;
+      margin-top: 56px;
+    }
+
+    .tabbar--material__content.tabbar--top__content {
+      top: 0;
     }
 
     .tabbar ons-tab.active ons-icon {
@@ -971,6 +999,22 @@
     #notifications-page ons-toolbar .center,
     #messages-page ons-toolbar .center {
       width: 90%;
+    }
+
+    #home-page .page--material__content,
+    #explore-page .page--material__content {
+      margin-top: 44px !important;
+      top: 0;
+    }
+
+    #notifications-page .page--material__content {
+      margin-top: 24px !important;
+      top: 0;
+    }
+
+    #messages-page .page--material__content {
+      margin-top: 108px !important;
+      top: 0;
     }
 
     .profile-thumbnail {
