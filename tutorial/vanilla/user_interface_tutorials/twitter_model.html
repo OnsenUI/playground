@@ -16,6 +16,19 @@
     <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px"></ons-splitter-side>
     <ons-splitter-content>
       <ons-page>
+        <ons-toolbar id="general-toolbar">
+          <div class="left">
+            <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
+              <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
+            </ons-button>
+          </div>
+          <div id="toolbar-center" class="center"></div>
+          <div id="toolbar-right" class="right">
+            <ons-toolbar-button>
+              <ons-icon id="toolbar-icon" icon="ion-compose, material:"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        </ons-toolbar>
         <ons-tabbar id="appTabbar" position="auto">
           <ons-tab icon="ion-home" page="home.html" active></ons-tab>
           <ons-tab icon="ion-search" page="explore.html"></ons-tab>
@@ -167,14 +180,6 @@
         </ons-bottom-toolbar>
       </ons-if>
 
-      <script>
-        document.getElementById('sidemenu-page').onInit = function () {
-          if (!ons.platform.isAndroid()) {
-            document.getElementById('sidemenu-page').classList.add('page-with-bottom-toolbar');
-          };
-        };
-      </script>
-
       <style type="text/css">
         #sidemenu-toolbar {
           background-color: white;
@@ -227,26 +232,20 @@
           margin: auto 15px;
         }
       </style>
+
+      <script>
+        document.getElementById('sidemenu-page').onInit = function () {
+          if (!ons.platform.isAndroid()) {
+            document.getElementById('sidemenu-page').classList.add('page-with-bottom-toolbar');
+          };
+        };
+      </script>
     </ons-page>
   </template>
 
   <!-- Home Page -->
   <template id="home.html">
     <ons-page id="home-page">
-      <ons-toolbar id="home-toolbar">
-        <div class="left">
-          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
-            <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-        </div>
-        <div class="center">Home</div>
-        <div class="right">
-          <ons-toolbar-button>
-            <ons-icon icon="ion-compose, material:"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
-
       <ons-pull-hook>
         <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
       </ons-pull-hook>
@@ -418,11 +417,6 @@
       </ons-list>
 
       <style type="text/css">
-        #home-toolbar ons-toolbar-button:not(.toolbar-button--material),
-        #tabbar .tabbar__button:not(.tabbar__button--material) {
-          color: #00aced;
-        }
-
         #home-page ons-list-item .left,
         #mentions-page ons-list-item .left {
           display: block;
@@ -476,22 +470,6 @@
   <!-- Explore Page -->
   <template id="explore.html">
     <ons-page id="explore-page">
-      <ons-toolbar id="explore-toolbar">
-        <div class="left">
-          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
-            <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-        </div>
-        <div class="center">
-          <ons-search-input id="search-bar" placeholder="Search Twitter"></ons-search-input>
-        </div>
-        <div class="right">
-          <ons-toolbar-button>
-            <ons-icon icon="ion-ios-personadd-outline"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
-
       <ons-pull-hook>
         <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
       </ons-pull-hook>
@@ -526,19 +504,6 @@
       </ons-list>
 
       <style type="text/css">
-        #explore-toolbar .toolbar--material__right {
-          display: none;
-        }
-
-        #search-bar {
-          margin-top: 8px;
-          width: inherit;
-        }
-
-        #search-bar input {
-          background-color: #f5f8fa;
-        }
-
         .trend-list-item .list-item__center {
           margin: 10px auto;
         }
@@ -549,20 +514,6 @@
   <!-- Notifications Page -->
   <template id="notifications.html">
     <ons-page id="notifications-page">
-      <ons-toolbar>
-        <div class="left">
-          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
-            <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-        </div>
-        <div class="center">Notifications</div>
-        <div class="right">
-          <ons-toolbar-button>
-            <ons-icon icon="ion-ios-gear-outline, material:"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
-
       <ons-tabbar id="hidden-tabbar" position="top">
         <ons-tab page="all.html" active></ons-tab>
         <ons-tab page="mentions.html"></ons-tab>
@@ -587,7 +538,7 @@
         }
 
         .notifs-bar.list-item--material .button-bar {
-          align-items: flex-end;
+          align-items: center;
         }
 
         .notifs-bar ons-button {
@@ -614,6 +565,7 @@
       <ons-pull-hook>
         <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
       </ons-pull-hook>
+
       <ons-list>
         <ons-list-item modifier="longdivider" class="notifs-bar">
           <div class="button-bar">
@@ -730,7 +682,6 @@
   <!-- Mentions Page -->
   <template id="mentions.html">
     <ons-page id="mentions-page">
-
       <ons-pull-hook>
         <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
       </ons-pull-hook>
@@ -882,19 +833,9 @@
   <!-- Messages Page -->
   <template id="messages.html">
     <ons-page id="messages-page">
-      <ons-toolbar modifier="noshadow">
-        <div class="left">
-          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
-            <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-        </div>
-        <div class="center">Messages</div>
-        <div class="right">
-          <ons-toolbar-button>
-            <ons-icon icon="plus-square-o, material:"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
+      <ons-pull-hook>
+        <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+      </ons-pull-hook>
 
       <ons-list id="message-list">
         <ons-list-item modifier="longdivider">
@@ -953,11 +894,6 @@
 
     .tabbar--material {
       background-color: white;
-      margin-top: 56px;
-    }
-
-    .tabbar--material__content.tabbar--top__content {
-      top: 0;
     }
 
     .tabbar ons-tab.active ons-icon {
@@ -968,53 +904,31 @@
       color: #657786;
     }
 
-    #home-page ons-toolbar,
-    #explore-page ons-toolbar,
-    #notifications-page ons-toolbar,
-    #messages-page ons-toolbar {
+    .toolbar--material {
       background-color: white;
     }
 
-    #home-page ons-toolbar .toolbar--material__center,
-    #explore-page ons-toolbar .toolbar--material__center,
-    #notifications-page ons-toolbar .toolbar--material__center,
-    #messages-page ons-toolbar .toolbar--material__center {
+    .toolbar--material__center {
       color: black;
     }
 
-    #home-page ons-toolbar .left,
-    #home-page ons-toolbar .right,
-    #explore-page ons-toolbar .left,
-    #explore-page ons-toolbar .right,
-    #notifications-page ons-toolbar .left,
-    #notifications-page ons-toolbar .right,
-    #messages-page ons-toolbar .left,
-    #messages-page ons-toolbar .right {
+    #general-toolbar .left,
+    #general-toolbar .right {
       max-width: 15%;
       text-align: center;
     }
 
-    #home-page ons-toolbar .center,
-    #explore-page ons-toolbar .center,
-    #notifications-page ons-toolbar .center,
-    #messages-page ons-toolbar .center {
+    #general-toolbar .center {
       width: 90%;
     }
 
-    #home-page .page--material__content,
-    #explore-page .page--material__content {
-      margin-top: 44px !important;
-      top: 0;
+    #general-toolbar ons-toolbar-button:not(.toolbar-button--material),
+    #tabbar .tabbar__button:not(.tabbar__button--material) {
+      color: #00aced;
     }
 
-    #notifications-page .page--material__content {
-      margin-top: 24px !important;
-      top: 0;
-    }
-
-    #messages-page .page--material__content {
-      margin-top: 108px !important;
-      top: 0;
+    #toolbar-right.toolbar--material__right {
+      display: none;
     }
 
     .profile-thumbnail {
@@ -1031,12 +945,43 @@
     .list-item--material__thumbnail {
       border-radius: 6px;
     }
+
+    #search-bar {
+      margin-top: 6px;
+      width: inherit;
+    }
+
+    #search-bar input {
+      background-color: #f5f8fa;
+    }
   </style>
 
-  <script>
+  <script type="text/javascript">
     ons.ready(function () {
       let sidemenu = document.getElementById('sidemenu');
       ons.platform.isAndroid() ? sidemenu.setAttribute('animation', 'overlay') : sidemenu.setAttribute('animation', 'push');
+      const toolbarContent = document.getElementById('toolbar-center');
+      const toolbarIcon = document.getElementById('toolbar-icon');
+      document.getElementById('appTabbar').addEventListener('postchange', function (event) {
+        switch (event.tabItem.page) {
+          case 'home.html':
+            toolbarContent.innerHTML = `Home`;
+            toolbarIcon.setAttribute('icon', 'ion-compose, material:');
+            break;
+          case 'explore.html':
+            toolbarContent.innerHTML = `<ons-search-input id="search-bar" placeholder="Search Twitter"></ons-search-input>`;
+            toolbarIcon.setAttribute('icon', 'ion-ios-personadd-outline');
+            break;
+          case 'notifications.html':
+            toolbarContent.innerHTML = `Notifications`;
+            toolbarIcon.setAttribute('icon', 'ion-ios-gear-outline, material:');
+            break;
+          case 'messages.html':
+            toolbarContent.innerHTML = `Messages`;
+            toolbarIcon.setAttribute('icon', 'plus-square-o, material:');
+            break;
+        }
+      })
     })
   </script>
 
