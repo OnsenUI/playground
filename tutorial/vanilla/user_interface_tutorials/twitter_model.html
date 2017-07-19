@@ -13,15 +13,33 @@
 
 <body>
   <ons-splitter id="appSplitter">
-    <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px" animation="push"></ons-splitter-side>
+    <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px"></ons-splitter-side>
     <ons-splitter-content>
       <ons-page>
+        <ons-toolbar id="general-toolbar">
+          <div class="left">
+            <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
+              <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
+            </ons-button>
+          </div>
+          <div id="toolbar-center" class="center"></div>
+          <div id="toolbar-right" class="right">
+            <ons-toolbar-button>
+              <ons-icon id="toolbar-icon" icon="ion-compose, material:"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        </ons-toolbar>
         <ons-tabbar id="appTabbar" position="auto">
           <ons-tab icon="ion-home" page="home.html" active></ons-tab>
           <ons-tab icon="ion-search" page="explore.html"></ons-tab>
           <ons-tab icon="ion-ios-bell" page="notifications.html"></ons-tab>
           <ons-tab icon="ion-email" page="messages.html"></ons-tab>
         </ons-tabbar>
+        <ons-if platform="android">
+          <ons-fab style="background-color: #00aced" position="bottom right">
+            <ons-icon icon="ion-compose"></ons-icon>
+          </ons-fab>
+        </ons-if>
       </ons-page>
     </ons-splitter-content>
   </ons-splitter>
@@ -29,64 +47,138 @@
   <!-- Sidemenu Page -->
   <template id="sidemenu.html">
     <ons-page id="sidemenu-page">
-      <div id="sidemenu-toolbar">
-        <div class="header-part">
-          <ons-button modifier="quiet">
-            <img style="height: 40px; width: 40px" class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-          <ons-button modifier="quiet">
-            <ons-icon icon="ion-ios-more-outline, material: ion-android-more-horizontal" size="40px"></ons-icon>
-          </ons-button>
+      <ons-if platform="ios other">
+        <div id="sidemenu-toolbar">
+          <div class="header-part">
+            <ons-button modifier="quiet">
+              <img style="height: 40px; width: 40px" class="profile-thumbnail" src="http://placekitten.com/g/70/70">
+            </ons-button>
+            <ons-button modifier="quiet">
+              <ons-icon icon="ion-ios-more-outline" size="40px"></ons-icon>
+            </ons-button>
+          </div>
+          <div class="header-part"><b>Ugly Kitty</b></div>
+          <div class="header-part subheader" style="margin-top: 2px">@uKitty</div>
+          <div class="header-part subheader" style="margin-top: 8px">
+            <span><b>10k</b>&nbsp;following</span>
+            <span style="margin-left: 10px"><b>0</b>&nbsp;followers</span>
+          </div>
         </div>
-        <div class="header-part"><b>Ugly Kitty</b></div>
-        <div class="header-part subheader" style="margin-top: 2px">@uKitty</div>
-        <div class="header-part subheader" style="margin-top: 8px">
-          <span><b>10k</b>&nbsp;following</span>
-          <span style="margin-left: 10px"><b>0</b>&nbsp;followers</span>
+      </ons-if>
+      <ons-if platform="android">
+        <div id="sidemenu-toolbar-md">
+          <div class="header-part">
+            <ons-button modifier="quiet">
+              <img style="height: 40px; width: 40px" class="profile-thumbnail" src="http://placekitten.com/g/70/70">
+            </ons-button>
+          </div>
+          <div class="header-part">Ugly Kitty</div>
+          <div class="header-part subheader" style="margin-top: 2px">@uKitty</div>
         </div>
-      </div>
+      </ons-if>
       <div class="content">
         <ons-list id="middle-menu">
-          <ons-list-item modifier="nodivider" tappable>
-            <div class="left">
-              <ons-icon icon="ion-person"></ons-icon>
-            </div>
-            <div class="center">
-              Profile
-            </div>
-          </ons-list-item>
-          <ons-list-item modifier="nodivider" tappable>
-            <div class="left">
-              <ons-icon icon="ion-ios-list-outline, material: ion-android-list"></ons-icon>
-            </div>
-            <div class="center">
-              Lists
-            </div>
-          </ons-list-item>
-          <ons-list-item modifier="longdivider" tappable>
-            <div class="left">
-              <ons-icon icon="ion-flash"></ons-icon>
-            </div>
-            <div class="center">
-              Moments
-            </div>
-          </ons-list-item>
-          <ons-list-item modifier="nodivider" tappable>
-            Settings and privacy
-          </ons-list-item>
-          <ons-list-item modifier="nodivider" tappable>
-            Help Center
-          </ons-list-item>
+          <ons-if platform="ios other">
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-person"></ons-icon>
+              </div>
+              <div class="center">
+                Profile
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-ios-list-outline"></ons-icon>
+              </div>
+              <div class="center">
+                Lists
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="longdivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-flash"></ons-icon>
+              </div>
+              <div class="center">
+                Moments
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Settings and privacy
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Help Center
+            </ons-list-item>
+          </ons-if>
+          <ons-if platform="android">
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-person"></ons-icon>
+              </div>
+              <div class="center">
+                Profile
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-android-bookmark"></ons-icon>
+              </div>
+              <div class="center">
+                Highlights
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-flash"></ons-icon>
+              </div>
+              <div class="center">
+                Moments
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-android-list"></ons-icon>
+              </div>
+              <div class="center">
+                Lists
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="longdivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-person-add"></ons-icon>
+              </div>
+              <div class="center">
+                Connect
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Night mode
+              <div class="right">
+                <ons-switch></ons-switch>
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              QR code
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Settings and privacy
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Help Centre
+            </ons-list-item>
+          </ons-if>
         </ons-list>
       </div>
-      <ons-bottom-toolbar id="bottom-toolbar">
-        <ons-button modifier="quiet">
-          <ons-icon icon="moon-o"></ons-icon>
-        </ons-button>
-        <ons-button modifier="quiet" style="float: right">
-          <ons-icon icon="qrcode"></ons-icon>
-        </ons-button>
-      </ons-bottom-toolbar>
+      <ons-if platform="ios other">
+        <ons-bottom-toolbar id="bottom-toolbar">
+          <ons-button modifier="quiet">
+            <ons-icon icon="moon-o"></ons-icon>
+          </ons-button>
+          <ons-button modifier="quiet" style="float: right">
+            <ons-icon icon="qrcode"></ons-icon>
+          </ons-button>
+        </ons-bottom-toolbar>
+      </ons-if>
 
       <style type="text/css">
         #sidemenu-toolbar {
@@ -96,14 +188,19 @@
           padding: 0px 15px;
         }
 
-        #sidemenu-toolbar .left,
-        #sidemenu-toolbar .center,
-        #sidemenu-toolbar .right {
-          display: none;
+        #sidemenu-toolbar-md {
+          background-color: white;
+          display: block;
+          height: 110px;
+          padding: 0px 15px;
         }
 
-        #sidemenu-page .content {
+        #sidemenu-page .page__content:not(.page--material__content) {
           top: 130px;
+        }
+
+        #sidemenu-page .page__content.page--material__content {
+          top: 111px;
         }
 
         #sidemenu-page .page__background {
@@ -118,7 +215,7 @@
           padding: 4px 0 0 4px;
         }
 
-        .header-part ons-button:last-child {
+        #sidemenu-toolbar .header-part ons-button:last-child {
           float: right;
           margin-right: 5px;
         }
@@ -135,26 +232,20 @@
           margin: auto 15px;
         }
       </style>
+
+      <script>
+        document.getElementById('sidemenu-page').onInit = function () {
+          if (!ons.platform.isAndroid()) {
+            document.getElementById('sidemenu-page').classList.add('page-with-bottom-toolbar');
+          };
+        };
+      </script>
     </ons-page>
   </template>
 
   <!-- Home Page -->
   <template id="home.html">
     <ons-page id="home-page">
-      <ons-toolbar id="home-toolbar">
-        <div class="left">
-          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
-            <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-        </div>
-        <div class="center">Home</div>
-        <div class="right">
-          <ons-toolbar-button>
-            <ons-icon icon="ion-compose"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
-
       <ons-pull-hook>
         <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
       </ons-pull-hook>
@@ -298,17 +389,17 @@
             <ons-row class="option-buttons">
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">4</span>
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">3</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">8</span>
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">6</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">12</span>
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">9</span>
                 </ons-button>
               </ons-col>
               <ons-col>
@@ -319,15 +410,15 @@
             </ons-row>
           </div>
         </ons-list-item>
+
+        <div style="text-align: center; margin-bottom: 30px">
+          <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+        </div>
       </ons-list>
 
       <style type="text/css">
-        #home-toolbar ons-toolbar-button:not(.toolbar-button--material),
-        #tabbar .tabbar__button:not(.tabbar__button--material) {
-          color: #00aced;
-        }
-
-        #home-page ons-list-item .left {
+        #home-page ons-list-item .left,
+        #mentions-page ons-list-item .left {
           display: block;
         }
 
@@ -379,22 +470,6 @@
   <!-- Explore Page -->
   <template id="explore.html">
     <ons-page id="explore-page">
-      <ons-toolbar id="explore-toolbar">
-        <div class="left">
-          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
-            <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-        </div>
-        <div class="center">
-          <ons-search-input id="search-bar" placeholder="Search Twitter"></ons-search-input>
-        </div>
-        <div class="right">
-          <ons-toolbar-button>
-            <ons-icon icon="ion-person-add, material:ion-android-person-add"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
-
       <ons-pull-hook>
         <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
       </ons-pull-hook>
@@ -429,15 +504,6 @@
       </ons-list>
 
       <style type="text/css">
-        #search-bar {
-          margin-top: 8px;
-          width: inherit;
-        }
-
-        #search-bar input {
-          background-color: #f5f8fa;
-        }
-
         .trend-list-item .list-item__center {
           margin: 10px auto;
         }
@@ -448,20 +514,6 @@
   <!-- Notifications Page -->
   <template id="notifications.html">
     <ons-page id="notifications-page">
-      <ons-toolbar>
-        <div class="left">
-          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
-            <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-        </div>
-        <div class="center">Notifications</div>
-        <div class="right">
-          <ons-toolbar-button>
-            <ons-icon icon="ion-ios-gear-outline, material:ion-android-settings"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
-
       <ons-tabbar id="hidden-tabbar" position="top">
         <ons-tab page="all.html" active></ons-tab>
         <ons-tab page="mentions.html"></ons-tab>
@@ -483,6 +535,10 @@
         .notifs-bar .button-bar {
           height: 27px;
           width: 100%;
+        }
+
+        .notifs-bar.list-item--material .button-bar {
+          align-items: center;
         }
 
         .notifs-bar ons-button {
@@ -509,6 +565,7 @@
       <ons-pull-hook>
         <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
       </ons-pull-hook>
+
       <ons-list>
         <ons-list-item modifier="longdivider" class="notifs-bar">
           <div class="button-bar">
@@ -567,7 +624,7 @@
             </div>
             <b>Cute Kitty</b>&nbsp;liked your Tweet
             <br>
-            <span style="margin-top: 5px" class="list-item__subtitle">"I love kittens :3"</span>
+            <span style="margin-top: 5px" class="list-item__subtitle">I love kittens :3</span>
           </div>
         </ons-list-item>
       </ons-list>
@@ -596,13 +653,17 @@
           width: 25%;
         }
 
-        .all-notifs .center {
-          width: 100%;
+        .all-notifs .left.list-item--material__left {
+          padding: 14px 12px;
         }
 
         .all-notifs .left ons-icon {
           color: #00aced;
           margin-left: auto;
+        }
+
+        .all-notifs .center {
+          width: 100%;
         }
 
         .notif-thumbnails {
@@ -621,7 +682,6 @@
   <!-- Mentions Page -->
   <template id="mentions.html">
     <ons-page id="mentions-page">
-
       <ons-pull-hook>
         <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
       </ons-pull-hook>
@@ -636,7 +696,7 @@
       </ons-list>
 
       <ons-list>
-        <ons-list-item modifier="longdivider">
+        <ons-list-item modifier="longdivider" style="border-top: 1px solid #eee">
           <div class="left">
             <img class="list-item__thumbnail" src="http://placekitten.com/g/80/80">
           </div>
@@ -667,17 +727,17 @@
             <ons-row class="option-buttons">
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">8</span>
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">1</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">16</span>
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">3</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">24</span>
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">5</span>
                 </ons-button>
               </ons-col>
               <ons-col>
@@ -720,17 +780,17 @@
             <ons-row class="option-buttons">
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">16</span>
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">3</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">32</span>
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">5</span>
                 </ons-button>
               </ons-col>
               <ons-col>
                 <ons-button modifier="quiet">
-                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">48</span>
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">7</span>
                 </ons-button>
               </ons-col>
               <ons-col>
@@ -742,9 +802,15 @@
           </div>
         </ons-list-item>
 
-        <div style="text-align: center">
-          <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
-        </div>
+        <ons-if platform="ios other">
+          <div style="text-align: center; margin-bottom: 10px">
+            <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+          </div>
+        </ons-if>
+
+        <ons-if platform="android">
+          <div style="text-align: center; margin-bottom: 45px">&#8231;</div>
+        </ons-if>
       </ons-list>
 
       <style type="text/css">
@@ -767,19 +833,9 @@
   <!-- Messages Page -->
   <template id="messages.html">
     <ons-page id="messages-page">
-      <ons-toolbar modifier="noshadow">
-        <div class="left">
-          <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
-            <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
-          </ons-button>
-        </div>
-        <div class="center">Messages</div>
-        <div class="right">
-          <ons-toolbar-button>
-            <ons-icon icon="plus-square-o"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-      </ons-toolbar>
+      <ons-pull-hook>
+        <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+      </ons-pull-hook>
 
       <ons-list id="message-list">
         <ons-list-item modifier="longdivider">
@@ -831,37 +887,48 @@
     </ons-page>
   </template>
 
-  <!-- Me Page -->
-  <template id="me.html">
-    <ons-page>
-      <style type="text/css">
-
-      </style>
-    </ons-page>
-  </template>
-
   <style lang="text/css">
     ons-page .page__background {
       background-color: #f5f8fa;
     }
 
-    #home-page ons-toolbar .left,
-    #home-page ons-toolbar .right,
-    #explore-page ons-toolbar .left,
-    #explore-page ons-toolbar .right,
-    #notifications-page ons-toolbar .left,
-    #notifications-page ons-toolbar .right,
-    #messages-page ons-toolbar .left,
-    #messages-page ons-toolbar .right {
+    .tabbar--material {
+      background-color: white;
+    }
+
+    .tabbar ons-tab.active ons-icon {
+      color: #00aced;
+    }
+
+    .tabbar--material ons-tab:not(.active) ons-icon {
+      color: #657786;
+    }
+
+    .toolbar--material {
+      background-color: white;
+    }
+
+    .toolbar--material__center {
+      color: black;
+    }
+
+    #general-toolbar .left,
+    #general-toolbar .right {
       max-width: 15%;
       text-align: center;
     }
 
-    #home-page ons-toolbar .center,
-    #explore-page ons-toolbar .center,
-    #notifications-page ons-toolbar .center,
-    #messages-page ons-toolbar .center {
+    #general-toolbar .center {
       width: 90%;
+    }
+
+    #general-toolbar ons-toolbar-button:not(.toolbar-button--material),
+    #tabbar .tabbar__button:not(.tabbar__button--material) {
+      color: #00aced;
+    }
+
+    #toolbar-right.toolbar--material__right {
+      display: none;
     }
 
     .profile-thumbnail {
@@ -871,10 +938,52 @@
       width: 28px;
     }
 
-    .list-item__thumbnail {
+    .list-item__thumbnail:not(.list-item--material__thumbnail) {
       border-radius: 50%;
     }
+
+    .list-item--material__thumbnail {
+      border-radius: 6px;
+    }
+
+    #search-bar {
+      margin-top: 6px;
+      width: inherit;
+    }
+
+    #search-bar input {
+      background-color: #f5f8fa;
+    }
   </style>
+
+  <script type="text/javascript">
+    ons.ready(function () {
+      let sidemenu = document.getElementById('sidemenu');
+      ons.platform.isAndroid() ? sidemenu.setAttribute('animation', 'overlay') : sidemenu.setAttribute('animation', 'push');
+      const toolbarContent = document.getElementById('toolbar-center');
+      const toolbarIcon = document.getElementById('toolbar-icon');
+      document.getElementById('appTabbar').addEventListener('postchange', function (event) {
+        switch (event.tabItem.page) {
+          case 'home.html':
+            toolbarContent.innerHTML = `Home`;
+            toolbarIcon.setAttribute('icon', 'ion-compose, material:');
+            break;
+          case 'explore.html':
+            toolbarContent.innerHTML = `<ons-search-input id="search-bar" placeholder="Search Twitter"></ons-search-input>`;
+            toolbarIcon.setAttribute('icon', 'ion-ios-personadd-outline');
+            break;
+          case 'notifications.html':
+            toolbarContent.innerHTML = `Notifications`;
+            toolbarIcon.setAttribute('icon', 'ion-ios-gear-outline, material:');
+            break;
+          case 'messages.html':
+            toolbarContent.innerHTML = `Messages`;
+            toolbarIcon.setAttribute('icon', 'plus-square-o, material:');
+            break;
+        }
+      })
+    })
+  </script>
 
 </body>
 
