@@ -73,39 +73,39 @@
 
   <template id="browse.html">
     <ons-page id="browse-page">
-      <ons-toolbar>
+      <ons-toolbar modifier="transparent">
         <div class="blur"></div>
         <div class="center">BROWSE</div>
       </ons-toolbar>
 
       <div class="content" style="text-align: center">
         <div class="recomended">
-          <h4 style="padding-top: 10px; margin-top: 0;">Recomended Playlists</h4>
-          <ons-list class="recomended_list">
-            <ons-list-item modifier="nodivider" id="playlist_1" class="recomended_playlist" onclick="openPlaylist(this.id)">
+          <h4>Recomended Playlists</h4>
+          <ons-carousel auto-refresh swipeable overscrollable item-width="130px" class="recomended_list">
+            <ons-carousel-item modifier="nodivider" id="playlist_1" class="recomended_playlist" onclick="openPlaylist(this.id)">
               <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
               <div class="recomended_playlist_title" id="playlist_1_name">Playlist 1</div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="playlist_2" class="recomended_playlist" onclick="openPlaylist(this.id)">
+            </ons-carousel-item>
+            <ons-carousel-item modifier="nodivider" id="playlist_2" class="recomended_playlist" onclick="openPlaylist(this.id)">
               <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
               <div class="recomended_playlist_title" id="playlist_2_name">Playlist 2</div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="playlist_3" class="recomended_playlist" onclick="openPlaylist(this.id)">
+            </ons-carousel-item>
+            <ons-carousel-item modifier="nodivider" id="playlist_3" class="recomended_playlist" onclick="openPlaylist(this.id)">
               <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
               <div class="recomended_playlist_title" id="playlist_3_name">Playlist 3</div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="playlist_4" class="recomended_playlist" onclick="openPlaylist(this.id)">
+            </ons-carousel-item>
+            <ons-carousel-item modifier="nodivider" id="playlist_4" class="recomended_playlist" onclick="openPlaylist(this.id)">
               <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
               <div class="recomended_playlist_title" id="playlist_4_name">Playlist 4</div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="playlist_5" class="recomended_playlist" onclick="openPlaylist(this.id)">
+            </ons-carousel-item>
+            <ons-carousel-item modifier="nodivider" id="playlist_5" class="recomended_playlist" onclick="openPlaylist(this.id)">
               <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
               <div class="recomended_playlist_title" id="playlist_5_name">Playlist 5</div>
-            </ons-list-item>
-          </ons-list>
+            </ons-carousel-item>
+          </ons-carousel>
         </div>
 
-        <div class="menu">
+        <div>
           <ons-list class="menu_list">
             <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="line-chart"></ons-icon>  Charts</ons-list-item>
             <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="calendar-o"></ons-icon>  New Releases</ons-list-item>
@@ -117,69 +117,69 @@
 
         <div>
           <h4 style="padding-top: 10px;">Genre &amp; Mood</h4>
-          <ons-list class="category_list">
-            <ons-list-item modifier="nodivider" id="Category_1" class="category" onclick="openPlaylist(this.id)">
+          <ons-row class="category">
+            <ons-col modifier="nodivider" id="Category_1" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
                   <ons-icon icon="users"></ons-icon>
                   <div class="category_title" id="Category_1_name">Party</div>
                 </figure>
               </div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="Category_2" class="category" onclick="openPlaylist(this.id)">
+            </ons-col>
+            <ons-col modifier="nodivider" id="Category_2" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
                   <ons-icon icon="headphones"></ons-icon>
                   <div class="category_title" id="Category_2_name">Relax</div>
                 </figure>
               </div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="Category_3" class="category" onclick="openPlaylist(this.id)">
+            </ons-col>
+          </ons-row>
+          <ons-row class="category">  
+            <ons-col modifier="nodivider" id="Category_3" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
                   <ons-icon icon="ion-music-note"></ons-icon>
                   <div class="category_title" id="Category_3_name">Classical</div>
                 </figure>
               </div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="Category_4" class="category" onclick="openPlaylist(this.id)">
+            </ons-col>
+            <ons-col modifier="nodivider" id="Category_4" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
                   <ons-icon icon="ion-android-microphone"></ons-icon>
                   <div class="category_title" id="Category_4_name">Pop</div>
                 </figure>
               </div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="Category_5" class="category" onclick="openPlaylist(this.id)">
+            </ons-col>
+          </ons-row>
+          <ons-row class="category">    
+            <ons-col modifier="nodivider" id="Category_5" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
                   <ons-icon icon="smile-o"></ons-icon>
                   <div class="category_title" id="Category_5_name">Happy</div>
                 </figure>
               </div>
-            </ons-list-item>
-            <ons-list-item modifier="nodivider" id="Category_6" class="category" onclick="openPlaylist(this.id)">
+            </ons-col>
+            <ons-col modifier="nodivider" id="Category_6" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
                   <ons-icon icon="bed"></ons-icon>
                   <div class="category_title" id="Category_6_name">Sleepy</div>
                 </figure>
               </div>
-            </ons-list-item>
-          </ons-list>
+            </ons-col>
+          </ons-row>
         </div>
       </div>
 
       <style type="text/css">
         .recomended_playlist {
-          display: table-cell;
-          text-align: center;
+          padding-left: 10px;
         }
 
         .recomended_playlist_title {
-          text-align: center;
-          color: white;
-          width: 100%;
           font-size: 12px;
           font-weight: bold;
         }
@@ -188,7 +188,6 @@
           width: 120px;
           height: 120px;
           display: table;
-          text-align: center;
           background-color: rgba(0, 0, 0, 0.42);
         }
 
@@ -200,17 +199,12 @@
         }
 
         .recomended_list {
-          background: transparent;
-          overflow: scroll;
-        }
-
-        .recomended_list::-webkit-scrollbar { 
-          display: none; 
+          height: 150px;
         }
 
         .recomended {
           background: linear-gradient(rgb(208, 247, 211),#151715);
-          margin-top: 44px;
+          padding-top: 44px;
         }
 
         .menu_list {
@@ -229,41 +223,31 @@
         }
 
         .category {
-          text-align: center;
-          display: inline-block;
-          width: 43%;
-          padding: 0;
-        }
-
-        .category_title {
-          color: white;
-          font-size: 12px;
-          font-weight: bold;
-          padding-top: 10px;
-        }
-
-        .category_list {
-          background: transparent;
-          text-align: center;
+          margin: 20px 0px;
+          padding: 0px 30px;
         }
 
         .category_wrapper {
-          width: 100%;
+          width: 120px;
+          margin: auto;
           background-color: rgba(128, 128, 128, 0.62);
         }
 
         .category_wrapper ons-icon {
           font-size: 55px;
-          color: white;
-          display: table-cell;
           padding-top: 10px;
           line-height: 0.75em;
-          vertical-align: -25%;
         }
 
         .category_thumbnail {
           display: inline-block;
           margin: 16px 0px;
+        }
+
+        .category_title {
+          font-size: 12px;
+          font-weight: bold;
+          padding-top: 10px;
         }
       </style>
 
@@ -275,12 +259,11 @@
 
   <template id="playlist.html">
     <ons-page id="playlist-page">
-      <ons-toolbar>
+      <ons-toolbar modifier="transparent">
         <div class="left"><ons-back-button></ons-back-button></div>
         <div class="right">
           <ons-toolbar-button>
-            <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-            <ons-if platform="ios"><ons-icon style="color: white" icon="ion-more"></ons-icon></ons-if>
+            <ons-icon style="color: white" icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
           </ons-toolbar-button>
         </div>
       </ons-toolbar>
@@ -290,8 +273,8 @@
           <ons-carousel class="carousel" swipeable auto-scroll id="carousel">
             <ons-carousel-item>
               <div>
-                <figure class="playlist_thumbnail">
-                  <img src="assets/img/profile-image-05.png">
+                <figure>
+                  <img class="playlist_thumbnail" src="assets/img/profile-image-05.png">
                   <div class="playlist_title" id="playlist_title">Classical</div>
                 </figure>
                 <div>
@@ -319,8 +302,8 @@
             <ons-carousel-cover>
               <div class="cover-label center">
                 <ul>
-                  <li><div id="dot1" class="circle circle_current"></div></li>
-                  <li><div id="dot2" class="circle"></div></li>
+                  <li><div id="dot1" class="circle circle_current">&#x25cf;</div></li>
+                  <li><div id="dot2" class="circle">&#x25cf;</div></li>
                 </ul>
               </div>
             </ons-carousel-cover>
@@ -337,103 +320,93 @@
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 01</div>
-              <div class="track_title">Unknown Artist - Track 01</div>
+            <div class="center">
+              <div class="list-item__title">Track 01</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 01</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 02</div>
-              <div class="track_title">Unknown Artist - Track 02</div>
+            <div class="center">
+              <div class="list-item__title">Track 02</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 02</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 03</div>
-              <div class="track_title">Unknown Artist - Track 03</div>
+            <div class="center">
+              <div class="list-item__title">Track 03</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 03</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 04</div>
-              <div class="track_title">Unknown Artist - Track 04</div>
+            <div class="center">
+              <div class="list-item__title">Track 04</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 04</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 05</div>
-              <div class="track_title">Unknown Artist - Track 05</div>
+            <div class="center">
+              <div class="list-item__title">Track 05</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 05</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 06</div>
-              <div class="track_title">Unknown Artist - Track 06</div>
+            <div class="center">
+              <div class="list-item__title">Track 06</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 06</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 07</div>
-              <div class="track_title">Unknown Artist - Track 07</div>
+            <div class="center">
+              <div class="list-item__title">Track 07</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 07</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 08</div>
-              <div class="track_title">Unknown Artist - Track 08</div>
+            <div class="center">
+              <div class="list-item__title">Track 08</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 08</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 09</div>
-              <div class="track_title">Unknown Artist - Track 09</div>
+            <div class="center">
+              <div class="list-item__title">Track 09</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 09</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
           <ons-list-item class="track" tappable>
-            <div class="center track_name">
-              <div>Track 10</div>
-              <div class="track_title">Unknown Artist - Track 10</div>
+            <div class="center">
+              <div class="list-item__title">Track 10</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 10</div>
             </div>
             <div class="right">
-              <ons-if platform="android"><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-if>
-              <ons-if platform="ios"><ons-icon icon="ion-ios-more"></ons-icon></ons-if>
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
             </div>
           </ons-list-item>
         </ons-list>  
@@ -454,29 +427,12 @@
           height: 285px;
         }
 
-        .circle {
-          border-radius: 50%;
-          width: 5px;
-          height: 5px;
-          background: #ccc;
-          display: table-cell;
-        }
-
-        .circle_current {
-          background: #fff;
-        }
-
         .playlist_thumbnail {
-          margin-bottom: 8px;
-        }
-
-        .playlist_thumbnail img {
           width: 50%;
           max-width: 145px;
         }
 
         .playlist_title {
-          color: white;
           font-size: 20px;
           font-weight: bold;
           padding-top: 5px;
@@ -496,11 +452,11 @@
           padding: 2px 0px;
           font-weight: bold;
           margin-bottom: 5px;
+          margin-top: -8px;
         }
 
         .playlist_description {
           margin: 15px 30px;
-          text-align: center;
           font-size: 15px;
         }
 
@@ -530,6 +486,16 @@
           display: inline;
         }
 
+        .circle {
+          font-size: 15px;
+          display: table-cell;
+          color: #999;
+        }
+
+        .circle_current {
+          color: #fff;
+        }
+
         .shuffle {
           background-color: #38d786;
           padding: 3px 40px;
@@ -540,23 +506,16 @@
         }
 
         .track_list {
-          margin-top: -16px;
           font-size: 14px;
           background: transparent;
-          color: white;
         }
 
         .track_offline {
-          padding-top: 16px;
           color: white;
         }
 
         .track {
           color: white;
-        }
-
-        .track_name {
-           display: block;
         }
 
         .track_title {
@@ -582,7 +541,7 @@
 
   <template id="play.html">
     <ons-page id="play-page">
-      <ons-toolbar>
+      <ons-toolbar modifier="transparent">
         <div class="left"><ons-toolbar-button id="back_button"><ons-icon style="color: white" icon="angle-down"></ons-icon></ons-toolbar-button></div>
         <div class="center" style="margin-top: -5px;">
           <div style="font-size: 8px; height: 15px; color: #999;">PLAYING FROM ALBUM</div>
@@ -592,7 +551,7 @@
       </ons-toolbar>
 
       <div class="play_wrapper">
-        <div style="margin: 60px auto 20px; width: 85%">
+        <div style="margin: 20px auto 20px; width: 85%">
           <img style="width: 100%;" src="assets/img/profile-image-05.png">
         </div>
         <ons-row>
@@ -605,24 +564,24 @@
         </ons-row>
         <ons-row>
           <ons-col  width="50px" class="duration_info">0:45</ons-col>
-          <ons-col style="padding-top: 7px;"><ons-progress-bar value="17"></ons-progress-bar></ons-range></ons-col>
+          <ons-col style="padding-top: 7px;"><ons-progress-bar value="17"></ons-progress-bar></ons-col>
           <ons-col  width="50px" class="duration_info">4:35</ons-col>
         </ons-row>
         <ons-row style="margin-top: 20px; line-height: 60px;">
           <ons-col>
-            <ons-icon class="play_button" icon="random"></ons-icon>
+            <ons-icon class="player_button" icon="random"></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-icon class="play_button" size="25px" icon="step-backward" tappable></ons-icon>
+            <ons-icon class="player_button" size="25px" icon="step-backward" tappable></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-icon class="play_button" size="60px" icon="pause-circle-o" id="play_icon_big" onclick="play_toggle(this.id)"></ons-icon>
+            <ons-icon class="player_button" size="60px" icon="pause-circle-o" id="play_icon_big" onclick="play_toggle(this.id)"></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-icon class="play_button" size="25px" icon="step-forward"></ons-icon>
+            <ons-icon class="player_button" size="25px" icon="step-forward"></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-icon class="play_button" icon="repeat"></ons-icon>
+            <ons-icon class="player_button" icon="repeat"></ons-icon>
           </ons-col>
         </ons-row>
       </div>
@@ -630,10 +589,9 @@
       <style type="text/css">
         .play_wrapper {
           text-align: center;
-          width: 100%;
           height: 100%;
-          position: absolute;
           background: linear-gradient(rgba(254, 221, 166, 0.42),rgba(73, 64, 49, 0.49));
+          padding-top: 44px;
         }
 
         .progress-bar__primary {
@@ -654,15 +612,11 @@
           color: #999
         }
 
-        .toolbar--material__center {
-          line-height: 44px;
-        }
-
         .toolbar-button {
           color: white;
         }
 
-        .play_button:active {
+        .player_button:active {
           color: gray;
         }
       </style>
@@ -671,13 +625,9 @@
   </template>
 
   <style type="text/css">
-
-    body {
-      background-color: black;
-    }
-
     .page {
       color: white;
+      background-color: black;
     }
       
     .page__background {
@@ -688,10 +638,13 @@
       top: 0 !important;
     }
 
+    .page--material__content > div:first-child {
+      padding-top: 56px;
+    }
+
     .toolbar {
       background-color: rgba(0, 0, 0, 0.39);
       background-image: linear-gradient(0deg, #000000, #000 40%, transparent 40%);
-      height: 44px;
     }
 
     .toolbar__title{
@@ -704,16 +657,15 @@
     .blur {
       background-color: rgb(0, 0, 0);
       width: 200%;
-      height: 44px;
+      height: 100%;
       z-index: 1;
       position: absolute; 
       -webkit-filter: blur(20px);
       filter: blur(20px);     
     }
 
-    ons-back-button {
-      color: white !important;
-      line-height: 44px !important;
+    .back-button {
+      color: white;
     }
 
     :checked + .switch__toggle{
@@ -724,18 +676,6 @@
     .switch__toggle{
       background-color: #464646;
       box-shadow: inset 0 0 0 2px #636363;
-    }
-
-    ons-toolbar-button {
-      line-height: 44px !important;
-    }
-
-    .left {
-      line-height: 44px;
-    }
-
-    .right {
-      line-height: 44px;
     }
   </style>
 </body>
@@ -748,12 +688,11 @@
 If you are a music lover and want to create a music app, so you can share music with the world, then you can easily create a music app by using Onsen UI.
 
 The Onsen UI components used in this template are the following:
- - `ons-list` - for listing playlist and tracks
- - `ons-carousel` - for displaying playlist info in several pages
+ - `ons-list` - for listing tracks and displaying the solitter menu options
+ - `ons-carousel` - for displaying playlists and playlist's info in several pages
  - `ons-row` and `ons-col` - for easy structuring the page
  - `ons-toast` - for minimized notification that a track is playing
  - `ons-toolbar`- for creating the toolbar along with `ons-toolbar-button`
- - `ons-if` - for different display on android and iOS devices
 
 This template consists of three pages:
  - The Browsing Page
@@ -762,13 +701,13 @@ This template consists of three pages:
 
 ## The Browsing Page
 
-The Browsing page consists of multiple lists displaying recommended playlist, genres, and moods as well as additional options for discovering new playlists. By tapping on one of the recommended playlists or genres/moods, the Playlist page will open. 
+The Browsing page consists of a `ons-carousel` on the top, displaying the recommended playlist as a horizontally scrollable list. Below it, there is a `ons-list` of options for discovering new playlists, followed by a combination of `ons-row` and `ons-col` elements that easily structure the page to display a grid of genres and moods. By tapping on one of the recommended playlists or genres/moods, the Playlist page will open. 
 
 **Note:** The additional options' functionality will not be implemented since they lead to a page with similar structure to the browsing page with just different categorization of the playlists.
 
 ## The Playlist Page
 
-This page consists of two parts. The first part is the playlist's information displayed using the `ons-carousel` in two carousels, the first one showing the thumbnail of the playlist, the author's name and the number of followers, while the second displays some description about the playlist, its creation day and duration. The second part of the page is the list of the playlist's tracks. 
+This page consists of two parts. The first part is the playlist's information displayed using the `ons-carousel` in two carousels, the first one showing the thumbnail of the playlist, the author's name and the number of followers, while the second displays some description about the playlist, its creation day and duration. The second part of the page is the `ons-list` of the playlist's tracks. 
 Additionally, the page has a toast notification that shows the name of the track currently playing. The notification appears after clicking the "Shuffle play" button. By tapping on the notification, the Play Screen opens.
 
 ## The Play Screen
