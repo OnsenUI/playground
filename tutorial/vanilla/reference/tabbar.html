@@ -15,7 +15,7 @@
     </ons-tab>
   </ons-tabbar>
 
-  <ons-template id="tab1.html">
+  <template id="tab1.html">
     <ons-page>
       <ons-toolbar>
         <div class="center">Tab 1</div>
@@ -25,9 +25,9 @@
         This is the first page.
       </p>
     </ons-page>
-  </ons-template>
+  </template>
 
-  <ons-template id="tab2.html">
+  <template id="tab2.html">
     <ons-page>
       <ons-toolbar>
         <div class="center">Tab 2</div>
@@ -37,7 +37,7 @@
         This is the second page.
       </p>
     </ons-page>
-  </ons-template>
+  </template>
 </body>
 </html>
 
@@ -92,14 +92,14 @@ Just like the label, the icon can also be added as a child of the `<ons-tab>` el
 
 Binding pages to the tabs works very similar to the `<ons-navigator>`.
 
-The content of the pages is defined using the `<ons-template>` element:
+The content of the pages is defined using a `<template>` element:
 
 ```
-<ons-template id="tab1.html">
+<template id="tab1.html">
   <ons-page>
     ...
   </ons-page>
-</ons-template>
+</template>
 ```
 
 and in order to bind a template to a specific tab the `page` attribute is used on the `<ons-tab>` element:

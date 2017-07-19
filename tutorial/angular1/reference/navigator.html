@@ -6,12 +6,15 @@
 
   <script>
     ons.bootstrap()
-      .controller('Page2Controller', function() {
+      .controller('Page2Controller', function($scope) {
+        console.log('controller', $scope.myNavigator.topPage.data);
+
         this.init = function(e) {
           // Ensure the emitter is the current page, not a nested one
           if (e.target === e.currentTarget) {
+            var page = e.target;
             // Safely access data
-            console.log('init', e.target.data);
+            console.log('init event', page.data);
           }
         };
       });
