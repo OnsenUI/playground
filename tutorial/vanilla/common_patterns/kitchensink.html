@@ -32,17 +32,23 @@
     ons.ready(function () {
       const sidemenu = document.getElementById('appSplitter');
       ons.platform.isAndroid() ? sidemenu.right.setAttribute('animation', 'overlay') : sidemenu.right.setAttribute('animation', 'reveal');
-    })
+
+      document.querySelector('#tabbar-page').addEventListener('postchange', function(event) {
+        if (event.target.matches('#appTabbar')) {
+          event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+        }
+      });
+    });
   </script>
 </head>
 
 <body>
-  <ons-navigator id="appNavigator" swipeable>
+  <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
     <ons-page>
       <ons-splitter id="appSplitter">
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
         <ons-splitter-content>
-          <ons-page>
+          <ons-page id="tabbar-page">
             <ons-toolbar>
               <div class="center">Home</div>
               <div class="right">
