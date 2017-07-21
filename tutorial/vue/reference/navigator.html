@@ -11,19 +11,19 @@
     };
 
     const page2 = {
+      key: 'page2',
       template: '#page2',
-      props: ['pageStack'],
       components: { customToolbar }
     };
 
     const page1 = {
+      key: 'page1',
       template: '#page1',
       methods: {
         push() {
-          this.pageStack.push(page2);
+          this.$emit('push-page', page2);
         }
       },
-      props: ['pageStack'],
       components: { customToolbar }
     };
 
@@ -40,9 +40,10 @@
 </head>
 <body>
   <template id="main">
-    <v-ons-navigator swipeable :page-stack="pageStack">
-      <component :is="page" v-for="page in pageStack" :page-stack="pageStack"></component>
-    </v-ons-navigator>
+    <v-ons-navigator swipeable
+      :page-stack="pageStack"
+      @push-page="pageStack.push($event)"
+    ></v-ons-navigator>
   </template>
 
   <template id="page1">
@@ -105,8 +106,8 @@ In order to push a new page from the current one (sibling pages), pages must hav
 
 ```html
 <v-ons-navigator :page-stack="pageStack"
-  @pushPage="pageStack.push($event)"
-  @replacePage="pageStack.pop(); pageStack.push($event)"
+  @push-page="pageStack.push($event)"
+  @replace-page="pageStack.pop(); pageStack.push($event)"
 ></v-ons-navigator>
 ```
 
@@ -114,7 +115,7 @@ In order to push a new page from the current one (sibling pages), pages must hav
 
 ```js
 // import newPage from ...
-this.$emit('pushPage', newPage);
+this.$emit('push-page', newPage);
 ```
 
 Optionally, `v-for` directive can be used to iterate over the array and provide direct children. This way, it is possible to pass down extra props to the pages if necessary. This is useful, for example, if we want to pass the page stack down to every page instead of using custom events.
