@@ -54,6 +54,7 @@
       render: function() {
         return (
           <Ons.Navigator
+            swipeable
             renderPage={this.renderPage}
             initialRoute={{
               title: 'First page',
@@ -119,5 +120,7 @@ It is also possible to customize the duration, delay and timing function of the 
   animationOptions={{duration: 0.2, timing: 'ease-in'}}
 />
 ```
+
+For iOS' "swipe to pop" feature, add the `swipeable` prop. Note that this behavior is automatically removed on Android platforms unless `swipeable={'force'}` is specified.
 
 -->

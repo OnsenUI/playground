@@ -32,19 +32,25 @@
     ons.ready(function () {
       const sidemenu = document.getElementById('appSplitter');
       ons.platform.isAndroid() ? sidemenu.right.setAttribute('animation', 'overlay') : sidemenu.right.setAttribute('animation', 'reveal');
-    })
+
+      document.querySelector('#tabbar-page').addEventListener('postchange', function(event) {
+        if (event.target.matches('#appTabbar')) {
+          event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+        }
+      });
+    });
   </script>
 </head>
 
 <body>
-  <ons-navigator id="appNavigator">
+  <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
     <ons-page>
       <ons-splitter id="appSplitter">
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
         <ons-splitter-content>
-          <ons-page>
+          <ons-page id="tabbar-page">
             <ons-toolbar>
-              <div class="center">Kitchensink</div>
+              <div class="center">Home</div>
               <div class="right">
                 <ons-toolbar-button onclick="fn.toggleMenu()">
                   <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
@@ -266,7 +272,7 @@
             Enabled switch
           </label>
           <div class="right">
-            <ons-switch id="disabled-switch" id="disabled-switch" input-id="switch2"></ons-switch>
+            <ons-switch id="disabled-switch" input-id="switch2"></ons-switch>
           </div>
         </ons-list-item>
 

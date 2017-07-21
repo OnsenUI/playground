@@ -45,7 +45,7 @@
 </head>
 <body>
 <ons-navigator id="myNavigator" page="homePage"></ons-navigator>
-<ons-template id="homePage">
+<template id="homePage">
   <ons-page>
     <ons-toolbar>
     <div class="center">Passing Data Example</div>
@@ -55,9 +55,9 @@
     <ons-tab page="page2.html" label="Page 2"></ons-tab>
     </ons-tabbar>
   </ons-page>
-</ons-template>
+</template>
 
-<ons-template id="page1.html">
+<template id="page1.html">
   <ons-page id="myPage1Id">
     <div style="text-align: center;">
       <p>Go to Page 2, in order to load the data between pages</p>
@@ -68,8 +68,8 @@
       <ons-button onclick="fn.loadPage('page3.html','Static Example Data')">Open a Page in a Navigator</ons-button>
     </div>
   </ons-page>
-</ons-template>
-<ons-template id="page2.html">
+</template>
+<template id="page2.html">
   <ons-page id="myPage2Id">
     <div style="text-align: center;">
       <p>This data was diplayed on page show:</p>
@@ -78,15 +78,15 @@
       <div id="myData2"></div>
     </div>
   </ons-page>
-</ons-template>
-<ons-template id="page3.html">
+</template>
+<template id="page3.html">
   <ons-page id="myPage3Id">
     <div style="text-align: center;">
       <p>This data was diplayed on page show:</p>
       <div id="myData3"></div>
     </div>
   </ons-page>
-</ons-template>
+</template>
 <ons-popover direction="down" id="popover">
   <div style="text-align: center;">
     <p>This data was passed:</p>
@@ -121,7 +121,7 @@ The default page to be displayed is declared in the `page` attribute and is curr
 `Page1.html` contains the fields we will be referencing to pass data.
 
 ```html
-<ons-template id="page1.html">
+<template id="page1.html">
   <ons-page id="myPage1Id">
     <div style="text-align: center;">
       <p>Go to Page 2, in order to load the data between pages</p>
@@ -132,7 +132,7 @@ The default page to be displayed is declared in the `page` attribute and is curr
       <ons-button onclick="fn.loadPage('page3.html','Static Example Data')">Open a Page in a Navigator</ons-button>
     </div>
   </ons-page>
-</ons-template>
+</template>
 ```
 
 In page1, we have setup 3 ways to pass data:
