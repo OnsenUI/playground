@@ -24,6 +24,10 @@
       <div class="center">Input</div>
     </ons-toolbar>
 
+    <p style="text-align: center; margin-top: 10px;">
+      <ons-search-input placeholder="Search"></ons-search-input>
+    </p>
+
     <div style="text-align: center; margin-top: 30px;">
       <p>
         <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
@@ -40,7 +44,7 @@
       <ons-list-header>Checkboxes</ons-list-header>
       <ons-list-item tappable>
         <label class="left">
-          <ons-input type="checkbox" input-id="check-1"></ons-input>
+          <ons-checkbox input-id="check-1"></ons-checkbox>
         </label>
         <label for="check-1" class="center">
           Apple
@@ -48,7 +52,7 @@
       </ons-list-item>
       <ons-list-item tappable>
         <label class="left">
-          <ons-input type="checkbox" input-id="check-2"></ons-input>
+          <ons-checkbox input-id="check-2"></ons-checkbox>
         </label>
         <label for="check-2" class="center">
           Banana
@@ -60,7 +64,7 @@
       <ons-list-header>Radio buttons</ons-list-header>
       <ons-list-item tappable>
         <label class="left">
-          <ons-input name="color" type="radio" input-id="radio-1" checked></ons-input>
+          <ons-radio name="color" input-id="radio-1" checked></ons-radio>
         </label>
         <label for="radio-1" class="center">
           Red
@@ -68,7 +72,7 @@
       </ons-list-item>
       <ons-list-item tappable>
         <label class="left">
-          <ons-input name="color" type="radio" input-id="radio-2"></ons-input>
+          <ons-radio name="color" input-id="radio-2"></ons-radio>
         </label>
         <label for="radio-2" class="center">
           Blue
@@ -81,7 +85,7 @@
 
 <!-- info
 
-## Text input
+## Form inputs
 
 In Onsen UI text input is provided by the `<ons-input>` tag. It works exactly like the normal `<input>` tag but with some small differences.
 
@@ -96,7 +100,7 @@ Just like the normal input tag you can use the `type` attribute to define what k
 </ons-input>
 ```
 
-You can also use types like `number` or `date`. Also `checkbox` and `radio` are available but we will take a look at them later.
+You can also use types like `number` or `date`. The only exception are checkboxes and radio buttons, which are implemented in different elements.
 
 ## Floating label
 
@@ -104,12 +108,47 @@ For Android devices the input will displayed as a Material Design input element.
 
 The label is defined with the `placeholder` attribute and to activate the animation the `float` attribute is required.
 
-```
+```html
 <ons-input
   placeholder="Username"
   float>
 </ons-input>
 ```
+
+## Search input
+
+Even though `ons-input` supports `type="search"`, Onsen UI provides an extra element `ons-search-input` that styles the input as a real search bar:
+
+```html
+<ons-search-input placeholder="Search something"></ons-search-input>
+```
+
+As usual, any attribute for `<input>` element works for the search input (except `type` which is fixed to `search`).
+
+## Checkboxes
+
+Checkboxes are defined using the `<ons-checkbox>` element. The element works almost exactly as when you use a normal `<input type="checkbox">` element.
+
+```
+<ons-checkbox value="something" checked></ons-checkbox>
+```
+
+## Radio buttons
+
+Radio buttons are defined using the `<ons-radio>` element.
+
+```
+<ons-radio checked></ons-radio>
+```
+
+To create a group of radio buttons the `name` attribute is used:
+
+```
+<ons-radio name="group" value="first"></ons-radio>
+<ons-radio name="group" value="second"></ons-radio>
+```
+
+This will enable switching between radio buttons.
 
 ## Inner input element
 
@@ -122,41 +161,6 @@ Unfortunately this does not work with custom elements like `<ons-label>` so in o
 <ons-input input-id="username"></ons-input>
 ```
 
-## Checkboxes
-
-Checkboxes are defined using the `<ons-input>` element with the `type` attribute set to `checkbox`.
-
-The element works almost exactly as when you use a normal `<input type="checkbox">` element.
-
-```
-<ons-input
-  type="checkbox">
-</ons-input>
-```
-
-## Radio buttons
-
-Radio buttons are also defined using the `<ons-input>` element by setting the `type` attribute to `radio`.
-
-```
-<ons-input
-  type="radio">
-</ons-input>
-```
-
-To create a group of radio buttons the `name` attribute is used:
-
-```
-<ons-input
-  type="radio"
-  name="group">
-</ons-input>
-<ons-input
-  type="radio"
-  name="group">
-</ons-input>
-```
-
-This will enable switching between radio buttons.
+This work with any input in Onsen UI such as checkboxes, radios, etc.
 
 -->
