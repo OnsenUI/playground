@@ -107,11 +107,11 @@
 
         <div>
           <ons-list class="menu_list">
-            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="line-chart"></ons-icon>  Charts</ons-list-item>
-            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="calendar-o"></ons-icon>  New Releases</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="fa-line-chart"></ons-icon>  Charts</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="fa-calendar-o"></ons-icon>  New Releases</ons-list-item>
             <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="ion-radio-waves"></ons-icon>  Podcasts &amp; Videos</ons-list-item>
             <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="ion-disc"></ons-icon>  Discover</ons-list-item>
-            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="ticket"></ons-icon>  Concerts</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="fa-ticket"></ons-icon>  Concerts</ons-list-item>
           </ons-list>
         </div>
 
@@ -121,7 +121,7 @@
             <ons-col modifier="nodivider" id="Category_1" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
-                  <ons-icon icon="users"></ons-icon>
+                  <ons-icon icon="fa-users"></ons-icon>
                   <div class="category_title" id="Category_1_name">Party</div>
                 </figure>
               </div>
@@ -129,7 +129,7 @@
             <ons-col modifier="nodivider" id="Category_2" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
-                  <ons-icon icon="headphones"></ons-icon>
+                  <ons-icon icon="fa-headphones"></ons-icon>
                   <div class="category_title" id="Category_2_name">Relax</div>
                 </figure>
               </div>
@@ -157,7 +157,7 @@
             <ons-col modifier="nodivider" id="Category_5" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
-                  <ons-icon icon="smile-o"></ons-icon>
+                  <ons-icon icon="fa-smile-o"></ons-icon>
                   <div class="category_title" id="Category_5_name">Happy</div>
                 </figure>
               </div>
@@ -165,7 +165,7 @@
             <ons-col modifier="nodivider" id="Category_6" onclick="openPlaylist(this.id)">
               <div class="category_wrapper">
                 <figure class="category_thumbnail">
-                  <ons-icon icon="bed"></ons-icon>
+                  <ons-icon icon="fa-bed"></ons-icon>
                   <div class="category_title" id="Category_6_name">Sleepy</div>
                 </figure>
               </div>
@@ -228,7 +228,8 @@
         }
 
         .category_wrapper {
-          width: 120px;
+          max-width: 120px;
+          width: 90%;
           margin: auto;
           background-color: rgba(128, 128, 128, 0.62);
         }
@@ -290,12 +291,12 @@
                 </div>
                 <div>
                   <div style="font-size: 14px; margin-bottom: 10px;">Created by</div>
-                  <div><ons-icon icon="user-circle" size="20px" style="margin-bottom: 10px;"></ons-icon></div>
+                  <div><ons-icon icon="fa-user-circle" size="20px" style="margin-bottom: 10px;"></ons-icon></div>
                   <div class="playlist_username">Unknown</div>
                 </div>
                 <div style="font-size: 14px">
-                  <div style="left: 25px; bottom: 45px; position: absolute;"><ons-icon icon="calendar-plus-o"></ons-icon> 2017/06/20</div>
-                  <div style="right: 25px; bottom: 45px; position: absolute;"><ons-icon icon="clock-o"></ons-icon> 30 min</div>
+                  <div style="left: 25px; bottom: 45px; position: absolute;"><ons-icon icon="fa-calendar-plus-o"></ons-icon> 2017/06/20</div>
+                  <div style="right: 25px; bottom: 45px; position: absolute;"><ons-icon icon="fa-clock-o"></ons-icon> 30 min</div>
                 </div>
               </div>  
             </ons-carousel-item>
@@ -310,7 +311,7 @@
           </ons-carousel>
         </div>
 
-        <div><ons-button class="shuffle" onclick="shuffle_play()"><ons-icon style="margin-right: 5px;" icon="play"></ons-icon> SHUFFLE PLAY!</ons-button></div>
+        <div><ons-button class="shuffle" onclick="shuffle_play()"><ons-icon style="margin-right: 5px;" icon="fa-play"></ons-icon> SHUFFLE PLAY!</ons-button></div>
         
         <ons-list class="track_list">
           <ons-list-item class="track_offline">
@@ -413,8 +414,8 @@
       </div>
 
       <ons-toast>
-        <div onclick="openPlayScreen()"><ons-icon size="20px" style="margin-right: 10px" icon="angle-up"></ons-icon> Unknown Artist - Track 01 </div>
-        <button><ons-icon id="play_icon" size="20px" style="color: white;" icon="play-circle-o" onclick="play_toggle(this.id)"></ons-icon></button>
+        <div onclick="openPlayScreen()"><ons-icon size="20px" style="margin-right: 10px" icon="fa-angle-up"></ons-icon> Unknown Artist - Track 01 </div>
+        <button><ons-icon id="play_icon" size="20px" style="color: white;" icon="fa-play-circle-o" onclick="play_toggle(this.id)"></ons-icon></button>
       </ons-toast>
 
       <style type="text/css">
@@ -542,12 +543,12 @@
   <template id="play.html">
     <ons-page id="play-page">
       <ons-toolbar modifier="transparent">
-        <div class="left"><ons-toolbar-button id="back_button"><ons-icon style="color: white" icon="angle-down"></ons-icon></ons-toolbar-button></div>
+        <div class="left"><ons-toolbar-button id="back_button"><ons-icon style="color: white" icon="fa-angle-down"></ons-icon></ons-toolbar-button></div>
         <div class="center" style="margin-top: -5px;">
           <div style="font-size: 8px; height: 15px; color: #999;">PLAYING FROM ALBUM</div>
           <div style="font-size: 12px;" id="from_playlist">Playlist 01</div>
         </div>
-        <div class="right"><ons-toolbar-button><ons-icon style="color: white" icon="bars"></ons-icon></ons-toolbar-button></div>
+        <div class="right"><ons-toolbar-button><ons-icon style="color: white" icon="fa-bars"></ons-icon></ons-toolbar-button></div>
       </ons-toolbar>
 
       <div class="play_wrapper">
@@ -569,19 +570,19 @@
         </ons-row>
         <ons-row style="margin-top: 20px; line-height: 60px;">
           <ons-col>
-            <ons-icon class="player_button" icon="random"></ons-icon>
+            <ons-icon class="player_button" icon="fa-random"></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-icon class="player_button" size="25px" icon="step-backward" tappable></ons-icon>
+            <ons-icon class="player_button" size="25px" icon="fa-step-backward" tappable></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-icon class="player_button" size="60px" icon="pause-circle-o" id="play_icon_big" onclick="play_toggle(this.id)"></ons-icon>
+            <ons-icon class="player_button" size="60px" icon="fa-pause-circle-o" id="play_icon_big" onclick="play_toggle(this.id)"></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-icon class="player_button" size="25px" icon="step-forward"></ons-icon>
+            <ons-icon class="player_button" size="25px" icon="fa-step-forward"></ons-icon>
           </ons-col>
           <ons-col>
-            <ons-icon class="player_button" icon="repeat"></ons-icon>
+            <ons-icon class="player_button" icon="fa-repeat"></ons-icon>
           </ons-col>
         </ons-row>
       </div>
@@ -665,7 +666,7 @@
     }
 
     .back-button {
-      color: white;
+      fill: white;
     }
 
     :checked + .switch__toggle{

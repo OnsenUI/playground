@@ -52,7 +52,7 @@
         <div class="center" style="color: red">LOGIN PAGE</div>
         <div class="right">
           <ons-if platform="android">
-            <ons-toolbar-button><ons-icon icon="pencil"></ons-icon></ons-toolbar-button>
+            <ons-toolbar-button><ons-icon icon="fa-pencil"></ons-icon></ons-toolbar-button>
             <ons-toolbar-button><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-toolbar-button>
           </ons-if>
         </div>
@@ -62,27 +62,27 @@
 
       <ons-row class="user_cover"> 
         <ons-col onclick="openHome()">
-          <div class="user_thumbnail" style="background-color: #dd6218"><ons-icon icon="beer"></ons-icon></div>
+          <div class="user_thumbnail" style="background-color: #dd6218"><ons-icon icon="fa-beer"></ons-icon></div>
           <div class="username" id="user_2_name">David</div>
         </ons-col>  
         <ons-col onclick="openHome()">
-          <div class="user_thumbnail" style="background-color: #00a899"><ons-icon icon="heart"></ons-icon></div>
+          <div class="user_thumbnail" style="background-color: #00a899"><ons-icon icon="fa-heart"></ons-icon></div>
           <div class="username" id="user_2_name">Marta</div>
         </ons-col>
       </ons-row>  
       <ons-row class="user_cover">
         <ons-col onclick="openHome()">
-          <div class="user_thumbnail" style="background-color: #e3aa05"><ons-icon icon="headphones"></ons-icon></div>
+          <div class="user_thumbnail" style="background-color: #e3aa05"><ons-icon icon="fa-headphones"></ons-icon></div>
           <div class="username" id="user_2_name">Mark</div>
         </ons-col>
         <ons-col onclick="openHome()">
-          <div class="user_thumbnail" style="background-color: #94b052"><ons-icon icon="gamepad"></ons-icon></div>
+          <div class="user_thumbnail" style="background-color: #94b052"><ons-icon icon="fa-gamepad"></ons-icon></div>
           <div class="username" id="username_4">Kevin</div>
         </ons-col>
       </ons-row>  
       <ons-row class="user_cover">  
         <ons-col>
-          <div class="user_thumbnail"><ons-icon icon="plus-circle"></ons-icon></div>
+          <div class="user_thumbnail"><ons-icon icon="fa-plus-circle"></ons-icon></div>
           <div class="username" id="username_5">Add Profile</div>
         </ons-col>
       </ons-row>
@@ -166,10 +166,10 @@
   <template id="home.html">
     <ons-page id="home">
       <ons-toolbar>
-        <div class="left"><ons-toolbar-button id="menu_button"><ons-icon icon="bars"></ons-icon></ons-toolbar-button></div>
+        <div class="left"><ons-toolbar-button id="menu_button"><ons-icon icon="fa-bars"></ons-icon></ons-toolbar-button></div>
         <div class="center" style="color: red">HOME PAGE</div>
         <div class="right">
-          <ons-toolbar-button><ons-icon icon="search"></ons-icon></ons-toolbar-button>
+          <ons-toolbar-button><ons-icon icon="fa-search"></ons-icon></ons-toolbar-button>
           <ons-if platform="android"><ons-toolbar-button><ons-icon icon="ion-android-more-vertical"></ons-icon></ons-toolbar-button></ons-if>
         </div>
       </ons-toolbar>
@@ -321,7 +321,7 @@
           <ons-if platform="android">
             <ons-toolbar-button><ons-icon icon="md-cast"></ons-icon></ons-toolbar-button>
             <ons-toolbar-button><ons-icon icon="md-share"></ons-icon></ons-toolbar-button>
-            <ons-toolbar-button><ons-icon icon="search"></ons-icon></ons-toolbar-button>
+            <ons-toolbar-button><ons-icon icon="fa-search"></ons-icon></ons-toolbar-button>
           </ons-if>
           <ons-if platform="ios">
             <ons-toolbar-button onclick="goBack()"><ons-icon style="opacity: 0.7; color: black" icon="ion-ios-close"></ons-icon></ons-toolbar-button>
@@ -330,7 +330,7 @@
       </ons-toolbar>
 
       <div class="trailer">
-        <ons-icon icon="play-circle"></ons-icon>
+        <ons-icon icon="fa-play-circle"></ons-icon>
         <img src="assets/img/onsenui-roadmap.jpg">
       </div>
 
@@ -338,11 +338,11 @@
         <h2 id="movie_title"></h2>
         <ons-row class="movie_general_info">
           <ons-col class="stars">
-            <ons-icon style="color: red" icon="star"></ons-icon>
-            <ons-icon style="color: red" icon="star"></ons-icon>
-            <ons-icon style="color: red" icon="star"></ons-icon>
-            <ons-icon style="color: red" icon="star"></ons-icon>
-            <ons-icon style="color: gray" icon="star"></ons-icon>
+            <ons-icon style="color: red" icon="fa-star"></ons-icon>
+            <ons-icon style="color: red" icon="fa-star"></ons-icon>
+            <ons-icon style="color: red" icon="fa-star"></ons-icon>
+            <ons-icon style="color: red" icon="fa-star"></ons-icon>
+            <ons-icon style="color: gray" icon="fa-star"></ons-icon>
           </ons-col>
           <ons-col>2016</ons-col>
           <ons-col>TV-14</ons-col>
@@ -479,6 +479,10 @@
     }
 
     .toolbar-button {
+      color: white;
+    }
+
+    .list-item {
       color: white;
     }
   </style>
