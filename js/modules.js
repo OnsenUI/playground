@@ -27,8 +27,13 @@ app.modules = {
       'speed-dial': 'speed dial',
       'ripple': 'ripple effect'
     },
+    'common patterns': {
+      'kitchensink': 'kitchensink example',
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
+    },
     'community tutorials': {
-      'splitter_navigator': 'splitter animations with navigator',
+      'splitter_anim_navigator': 'splitter animations with navigator',
       'passing_data': 'passing data outside onsen ui'
     },
     'user interface tutorials': {
@@ -69,6 +74,10 @@ app.modules = {
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
       'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'angular2': {
@@ -95,6 +104,10 @@ app.modules = {
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
       'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'react': {
@@ -125,6 +138,10 @@ app.modules = {
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
       'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'vue': {
@@ -152,6 +169,10 @@ app.modules = {
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
       'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   }
 };

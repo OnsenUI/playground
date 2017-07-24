@@ -81,7 +81,7 @@
     </div>
   </ons-alert-dialog>
 
-  <ons-template id="dialog.html">
+  <template id="dialog.html">
     <ons-dialog id="dialog-3">
       <div style="text-align: center; padding: 10px;">
         <p>
@@ -93,7 +93,7 @@
             </p>
       </div>
     </ons-dialog>
-  </ons-template>
+  </template>
 
   <ons-toast>
     This is an Onsen Toast!<button>Hoge</button>
@@ -133,11 +133,11 @@ It is hidden with the `hide(options)` method.
 Another way to use dialogs is with the `ons.createDialog(template)` utility function. The dialog needs to be defined as a template and the function returns a `Promise` that resolves to the dialog element.
 
 ```
-<ons-template id="dialog.html">
+<template id="dialog.html">
   <ons-dialog>
     This dialog is defined as a template.
   </ons-dialog>
-</ons-template>
+</template>
 ```
 
 ```

@@ -11,19 +11,19 @@
     };
 
     const page2 = {
+      key: 'page2',
       template: '#page2',
-      props: ['pageStack'],
       components: { customToolbar }
     };
 
     const page1 = {
+      key: 'page1',
       template: '#page1',
       methods: {
         push() {
-          this.pageStack.push(page2);
+          this.$emit('push-page', page2);
         }
       },
-      props: ['pageStack'],
       components: { customToolbar }
     };
 
@@ -40,9 +40,10 @@
 </head>
 <body>
   <template id="main">
-    <v-ons-navigator :page-stack="pageStack">
-      <component :is="page" v-for="page in pageStack" :page-stack="pageStack"></component>
-    </v-ons-navigator>
+    <v-ons-navigator swipeable
+      :page-stack="pageStack"
+      @push-page="pageStack.push($event)"
+    ></v-ons-navigator>
   </template>
 
   <template id="page1">
@@ -57,7 +58,7 @@
 
   <template id="page2">
     <v-ons-page>
-      <custom-toolbar :back-label="'Page 1'">Page 2</custom-toolbar>
+      <custom-toolbar back-label="Page 1">Page 2</custom-toolbar>
       <p style="text-align: center">This is the second page</p>
     </v-ons-page>
   </template>
@@ -91,27 +92,55 @@ An array of `VOnsPage` components must be passed as a prop to `VOnsNavigator`.
 <v-ons-navigator :page-stack="[p1, p2, p3]"></v-ons-navigator>
 ```
 
-Optionally, `v-for` directive can be used to iterate over the array and provide direct children. This way, it is possible to pass down extra props to the pages if necessary. This is useful, for example, if we want to pass the page stack down to every page in case we don't use Vuex.
+Whenever the page stack is modified, `VOnsNavigator` will perform the corresponding transition. Pushing or popping multiple pages at once is allowed, although only 1 animation will be performed.
+
+Any action will throw corresponding `prepush`, `postpush`, `prepop` and `postpop` events.
+
+## Modifying the stack
+
+The page stack can be modified from any place where the array is accessible either by calling array methods (`push`, `pop`, `splice`...) or assigning a new value (`pageStack = [...pageStack, newPage]`). This "pageStack" can be created at any component level but it must be passed to `v-ons-navigator` as a prop.
+
+For example, if there is a `VOnsSplitter` as a parent component of `VOnsNavigator` that also needs to modify the stack, the splitter will create the array and then pass it to the child navigator. This way, both components (parent splitter and child navigator) will be able to modify the stack.
+
+In order to push a new page from the current one (sibling pages), pages must have access to the stack array as well. There are many ways to achieve this sort of component communication in Vue. First one, we can define custom actions as event listeners:
+
+```html
+<v-ons-navigator :page-stack="pageStack"
+  @push-page="pageStack.push($event)"
+  @replace-page="pageStack.pop(); pageStack.push($event)"
+></v-ons-navigator>
+```
+
+`VOnsNavigator` sets custom listeners (i.e. anything except `@prepush`, `@postpush`, `@prepop` and `@postpop`) directly to its child pages. This way, you can name your events however you like and do any action you want. With the previous example, we can push a new page from any existing page as follows:
+
+```js
+// import newPage from ...
+this.$emit('push-page', newPage);
+```
+
+Optionally, `v-for` directive can be used to iterate over the array and provide direct children. This way, it is possible to pass down extra props to the pages if necessary. This is useful, for example, if we want to pass the page stack down to every page instead of using custom events.
 
 ```html
 <v-ons-navigator :page-stack="pageStack">
-  <component :v-for="page in pageStack" :is="page" :page-stack="pageStack" :extra-prop=""></component>
+  <component :v-for="page in pageStack" :is="page"
+    :page-stack="pageStack"
+    :extra-prop=""
+    @customEvent=""
+  ></component>
 </v-ons-navigator>
 ```
 
-Whenever the page stack is modified, `VOnsNavigator` will perform the corresponding transition. Pushing or popping multiple pages at once is allowed, although only 1 animation will be performed.
-
-`VOnsNavigator` exposes an `isReady()` method which returns a promise that resolves when the animation is finished.
+If our pages implement `pageStack` prop, it will now be possible to run `this.pageStack.push(newPage)`, for example. Note that passing `pageStack` prop to `VOnsNavigator` is still mandatory since it will be used by the `VOnsBackButton` component.
 
 ## The back button
 
-The `VOnsBackButton` component can be used to put a back button in the navigation bar. By default, this component automatically finds its parent `VOnsNavigator` component and pops a page when pressed. However, this default behavior can be overriden by running `event.preventDefault` in a click handler (or using Vue's `.prevent` shorthand modifier):
+The `VOnsBackButton` component can be used to display a back button in the navigation bar. By default, this component automatically finds its parent `VOnsNavigator` component and pops a page when pressed. However, this default behavior can be overriden by running `event.preventDefault` in a click handler (or using Vue's `.prevent` shorthand modifier):
 
 ```html
 <v-ons-back-button @click.prevent="pageStack.splice(1, pageStack.length - 1)"></v-ons-back-button>
 ```
 
-The previous code resets the pageStack to its first page instance instead of popping 1 single page.
+The previous code resets the pageStack to its first page instance instead of popping 1 single page. It assumes `pageStack` variable exists in the current context.
 
 ## Customizing the animation
 
@@ -128,5 +157,7 @@ It is also possible to customize the duration, delay and timing function of the 
 >
 </v-ons-navigator>
 ```
+
+For iOS' "swipe to pop" feature, add the `swipeable` prop. Note that this behavior is automatically removed on Android platforms unless `swipeable="force"` is specified.
 
 -->
