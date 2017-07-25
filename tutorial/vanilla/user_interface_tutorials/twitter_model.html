@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI Twitter App</title>
+
+  <script>
+
+  </script>
+
+</head>
+
+<body>
+  <ons-splitter id="appSplitter">
+    <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="left" collapse="" width="260px"></ons-splitter-side>
+    <ons-splitter-content>
+      <ons-page>
+        <ons-toolbar id="general-toolbar">
+          <div class="left">
+            <ons-button modifier="quiet" onclick="document.getElementById('sidemenu').open()">
+              <img class="profile-thumbnail" src="http://placekitten.com/g/70/70">
+            </ons-button>
+          </div>
+          <div id="toolbar-center" class="center"></div>
+          <div id="toolbar-right" class="right">
+            <ons-toolbar-button>
+              <ons-icon id="toolbar-icon" icon="ion-compose, material:"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        </ons-toolbar>
+        <ons-tabbar id="appTabbar" position="auto">
+          <ons-tab icon="ion-home" page="home.html" active></ons-tab>
+          <ons-tab icon="ion-search" page="explore.html"></ons-tab>
+          <ons-tab icon="ion-ios-bell" page="notifications.html"></ons-tab>
+          <ons-tab icon="ion-email" page="messages.html"></ons-tab>
+        </ons-tabbar>
+        <ons-if platform="android">
+          <ons-fab style="background-color: #00aced" position="bottom right">
+            <ons-icon icon="ion-compose"></ons-icon>
+          </ons-fab>
+        </ons-if>
+      </ons-page>
+    </ons-splitter-content>
+  </ons-splitter>
+
+  <!-- Sidemenu Page -->
+  <template id="sidemenu.html">
+    <ons-page id="sidemenu-page">
+      <ons-if platform="ios other">
+        <div id="sidemenu-toolbar">
+          <div class="header-part">
+            <ons-button modifier="quiet">
+              <img style="height: 40px; width: 40px" class="profile-thumbnail" src="http://placekitten.com/g/70/70">
+            </ons-button>
+            <ons-button modifier="quiet">
+              <ons-icon icon="ion-ios-more-outline" size="40px"></ons-icon>
+            </ons-button>
+          </div>
+          <div class="header-part"><b>Ugly Kitty</b></div>
+          <div class="header-part subheader" style="margin-top: 2px">@uKitty</div>
+          <div class="header-part subheader" style="margin-top: 8px">
+            <span><b>10k</b>&nbsp;following</span>
+            <span style="margin-left: 10px"><b>0</b>&nbsp;followers</span>
+          </div>
+        </div>
+      </ons-if>
+      <ons-if platform="android">
+        <div id="sidemenu-toolbar-md">
+          <div class="header-part">
+            <ons-button modifier="quiet">
+              <img style="height: 40px; width: 40px" class="profile-thumbnail" src="http://placekitten.com/g/70/70">
+            </ons-button>
+          </div>
+          <div class="header-part">Ugly Kitty</div>
+          <div class="header-part subheader" style="margin-top: 2px">@uKitty</div>
+        </div>
+      </ons-if>
+      <div class="content">
+        <ons-list id="middle-menu">
+          <ons-if platform="ios other">
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-person"></ons-icon>
+              </div>
+              <div class="center">
+                Profile
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-ios-list-outline"></ons-icon>
+              </div>
+              <div class="center">
+                Lists
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="longdivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-flash"></ons-icon>
+              </div>
+              <div class="center">
+                Moments
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Settings and privacy
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Help Center
+            </ons-list-item>
+          </ons-if>
+          <ons-if platform="android">
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-person"></ons-icon>
+              </div>
+              <div class="center">
+                Profile
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-android-bookmark"></ons-icon>
+              </div>
+              <div class="center">
+                Highlights
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-flash"></ons-icon>
+              </div>
+              <div class="center">
+                Moments
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-android-list"></ons-icon>
+              </div>
+              <div class="center">
+                Lists
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="longdivider" tappable>
+              <div class="left">
+                <ons-icon icon="ion-person-add"></ons-icon>
+              </div>
+              <div class="center">
+                Connect
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Night mode
+              <div class="right">
+                <ons-switch></ons-switch>
+              </div>
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              QR code
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Settings and privacy
+            </ons-list-item>
+            <ons-list-item modifier="nodivider" tappable>
+              Help Centre
+            </ons-list-item>
+          </ons-if>
+        </ons-list>
+      </div>
+      <ons-if platform="ios other">
+        <ons-bottom-toolbar id="bottom-toolbar">
+          <ons-button modifier="quiet">
+            <ons-icon icon="moon-o"></ons-icon>
+          </ons-button>
+          <ons-button modifier="quiet" style="float: right">
+            <ons-icon icon="qrcode"></ons-icon>
+          </ons-button>
+        </ons-bottom-toolbar>
+      </ons-if>
+
+      <style type="text/css">
+        #sidemenu-toolbar {
+          background-color: white;
+          display: block;
+          height: 130px;
+          padding: 0px 15px;
+        }
+
+        #sidemenu-toolbar-md {
+          background-color: white;
+          display: block;
+          height: 110px;
+          padding: 0px 15px;
+        }
+
+        #sidemenu-page .page__content:not(.page--material__content) {
+          top: 130px;
+        }
+
+        #sidemenu-page .page__content.page--material__content {
+          top: 111px;
+        }
+
+        #sidemenu-page .page__background {
+          display: none;
+        }
+
+        .header-part {
+          width: 100%;
+        }
+
+        .header-part ons-button:first-child {
+          padding: 4px 0 0 4px;
+        }
+
+        #sidemenu-toolbar .header-part ons-button:last-child {
+          float: right;
+          margin-right: 5px;
+        }
+
+        .header-part.subheader {
+          font-size: 12px;
+        }
+
+        #middle-menu {
+          background-image: none;
+        }
+
+        #bottom-toolbar ons-button {
+          margin: auto 15px;
+        }
+      </style>
+
+      <script>
+        document.getElementById('sidemenu-page').onInit = function () {
+          if (!ons.platform.isAndroid()) {
+            document.getElementById('sidemenu-page').classList.add('page-with-bottom-toolbar');
+          };
+        };
+      </script>
+    </ons-page>
+  </template>
+
+  <!-- Home Page -->
+  <template id="home.html">
+    <ons-page id="home-page">
+      <ons-pull-hook>
+        <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+      </ons-pull-hook>
+
+      <ons-list>
+        <ons-list-item modifier="longdivider">
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/40/40">
+          </div>
+          <div class="center">
+            <div class="tweet-header">
+              <span class="list-item__title"><b>Cute Kitty</b></span>
+              <span class="list-item__subtitle">@cKitty&nbsp;&#8231;&nbsp;1d</span>
+              <ons-button class="option-arrow" modifier="quiet" onclick="ons.openActionSheet({
+                cancelable: true,
+                buttons: [
+                  'Share Tweet via...',
+                  'Add to Moment',
+                  'I don\'t like this Tweet',
+                  'Report Tweet',
+                  {
+                    label: 'Cancel',
+                    icon: 'md-close'
+                  }
+                ]
+              })">
+                <ons-icon icon="ion-arrow-down-b"></ons-icon>
+              </ons-button>
+            </div>
+            <span class="list-item__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+            <ons-row class="option-buttons">
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">1</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">2</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">3</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-email"></ons-icon>
+                </ons-button>
+              </ons-col>
+            </ons-row>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider">
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/50/50">
+          </div>
+          <div class="center">
+            <div class="tweet-header">
+              <span class="list-item__title"><b>Cute Kitty 2</b></span>
+              <span class="list-item__subtitle"><span class="username">@cKitty2</span>&nbsp;&#8231;&nbsp;2d</span>
+              <ons-button class="option-arrow" modifier="quiet" onclick="ons.openActionSheet({
+                cancelable: true,
+                buttons: [
+                  'Share Tweet via...',
+                  'Add to Moment',
+                  'I don\'t like this Tweet',
+                  'Unfollow @cKitty2',
+                  'Mute @cKitty2',
+                  'Block @cKitty2',
+                  'Report Tweet',
+                  {
+                    label: 'Cancel',
+                    icon: 'md-close'
+                  }
+                ]
+              })">
+                <ons-icon icon="ion-arrow-down-b"></ons-icon>
+              </ons-button>
+            </div>
+            <span class="list-item__content">
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              <img src="http://placekitten.com/g/200/200" alt="PostImage">
+            </span>
+            <ons-row class="option-buttons">
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">2</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">4</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">6</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-email"></ons-icon>
+                </ons-button>
+              </ons-col>
+            </ons-row>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider">
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/60/60">
+          </div>
+          <div class="center">
+            <div class="tweet-header">
+              <span class="list-item__title"><b>Cute Kitty 3</b></span>
+              <span class="list-item__subtitle"><span class="username">@cKitty3</span>&nbsp;&#8231;&nbsp;3d</span>
+              <ons-button class="option-arrow" modifier="quiet" onclick="ons.openActionSheet({
+                cancelable: true,
+                buttons: [
+                  'Share Tweet via...',
+                  'Add to Moment',
+                  'I don\'t like this Tweet',
+                  'Unfollow @cKitty3',
+                  'Mute @cKitty3',
+                  'Block @cKitty3',
+                  'Report Tweet',
+                  {
+                    label: 'Cancel',
+                    icon: 'md-close'
+                  }
+                ]
+              })">
+                <ons-icon icon="ion-arrow-down-b"></ons-icon>
+              </ons-button>
+            </div>
+            <span class="list-item__content">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
+            <ons-row class="option-buttons">
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">3</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">6</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">9</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-email"></ons-icon>
+                </ons-button>
+              </ons-col>
+            </ons-row>
+          </div>
+        </ons-list-item>
+
+        <div style="text-align: center; margin-bottom: 30px">
+          <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+        </div>
+      </ons-list>
+
+      <style type="text/css">
+        #home-page ons-list-item .left,
+        #mentions-page ons-list-item .left {
+          display: block;
+        }
+
+        .tweet-header {
+          width: 100%;
+        }
+
+        #home-page ons-list-item .list-item__title {
+          align-self: inherit;
+          flex-basis: inherit;
+          float: left;
+          font-size: 14px;
+          margin-right: 5%;
+        }
+
+        #home-page ons-list-item .list-item__subtitle {
+          align-self: inherit;
+          flex-basis: inherit;
+          order: initial;
+        }
+
+        #home-page ons-list-item .list-item__content {
+          font-size: 14px;
+        }
+
+        #home-page ons-list-item .list-item__content img {
+          margin-top: 5%;
+        }
+
+        .option-arrow {
+          color: #657786;
+          display: flex;
+          float: right;
+        }
+
+        .option-buttons ons-button {
+          color: #657786;
+          font-size: 18px;
+        }
+
+        .reaction-no {
+          font-size: 12px;
+          margin-left: 3px;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- Explore Page -->
+  <template id="explore.html">
+    <ons-page id="explore-page">
+      <ons-pull-hook>
+        <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+      </ons-pull-hook>
+
+      <ons-list>
+        <ons-list-item modifier="longdivider"><b>Trends for you</b></ons-list-item>
+        <ons-list-item modifier="longdivider" class="trend-list-item">
+          <div class="list-item__title">Cute Kitties</div>
+          <br>
+          <div class="list-item__subtitle">12K Tweets</div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider" class="trend-list-item">
+          <div class="list-item__title">Cute Puppies</div>
+          <br>
+          <div class="list-item__subtitle">100K Tweets</div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider" class="trend-list-item">
+          <div class="list-item__title">Cute Babies</div>
+          <br>
+          <div class="list-item__subtitle">10M Tweets</div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider" class="trend-list-item">
+          <div class="list-item__title">Cute Piglets</div>
+          <br>
+          <div class="list-item__subtitle">5K Tweets</div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider" class="trend-list-item">
+          <div class="list-item__title">Cute Rhinos</div>
+          <br>
+          <div class="list-item__subtitle">10 Tweets</div>
+        </ons-list-item>
+      </ons-list>
+
+      <style type="text/css">
+        .trend-list-item .list-item__center {
+          margin: 10px auto;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- Notifications Page -->
+  <template id="notifications.html">
+    <ons-page id="notifications-page">
+      <ons-tabbar id="hidden-tabbar" position="top">
+        <ons-tab page="all.html" active></ons-tab>
+        <ons-tab page="mentions.html"></ons-tab>
+      </ons-tabbar>
+
+      <style type="text/css">
+        #hidden-tabbar .tabbar__content {
+          top: 0px;
+        }
+
+        #hidden-tabbar .tabbar {
+          display: none;
+        }
+
+        .notifs-bar {
+          height: 45px;
+        }
+
+        .notifs-bar .button-bar {
+          height: 27px;
+          width: 100%;
+        }
+
+        .notifs-bar.list-item--material .button-bar {
+          align-items: center;
+        }
+
+        .notifs-bar ons-button {
+          font-size: 14px;
+          line-height: inherit;
+          text-align: center;
+          width: 50%;
+        }
+
+        .notifs-bar ons-button:first-child {
+          border-radius: 30px 0px 0px 30px;
+        }
+
+        .notifs-bar ons-button:last-child {
+          border-radius: 0px 30px 30px 0px;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- All notifications Page -->
+  <template id="all.html">
+    <ons-page id="all-page">
+      <ons-pull-hook>
+        <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+      </ons-pull-hook>
+
+      <ons-list>
+        <ons-list-item modifier="longdivider" class="notifs-bar">
+          <div class="button-bar">
+            <ons-button id="all-all-button"><b>All</b></ons-button>
+            <ons-button id="all-mentions-button" modifier="outline" onclick="document.getElementById('hidden-tabbar').setActiveTab(1)"><b>Mentions</b></ons-button>
+          </div>
+        </ons-list-item>
+        <ons-list-item class="all-notifs" modifier="longdivider">
+          <div class="left">
+            <ons-icon icon="ion-social-twitter" size="25px"></ons-icon>
+          </div>
+          <div class="center">
+            It's your Twitter anniversary! Celebrate with a special Tweet created just for you
+          </div>
+        </ons-list-item>
+        <ons-list-item class="all-notifs" modifier="longdivider">
+          <div class="left">
+            <ons-icon icon="ion-person" size="25px"></ons-icon>
+          </div>
+          <div class="center">
+            <div class="notif-thumbnails">
+              <img src="http://placekitten.com/g/50/50">
+              <img src="http://placekitten.com/g/60/60">
+              <ons-button class="option-arrow" modifier="quiet" onclick="document.getElementById('sheet').show()">
+                <ons-icon icon="ion-arrow-down-b"></ons-icon>
+              </ons-button>
+            </div>
+            <b>Cute Kitty 2</b>&nbsp;and&nbsp;<b>Cute Kitty 3</b>&nbsp;followed you
+          </div>
+        </ons-list-item>
+        <ons-list-item class="all-notifs" modifier="longdivider">
+          <div class="left">
+            <ons-icon icon="ion-social-twitter" size="25px"></ons-icon>
+          </div>
+          <div class="center">
+            <div class="notif-thumbnails">
+              <img src="http://placekitten.com/g/40/40">
+              <img src="http://placekitten.com/g/50/50">
+              <ons-button class="option-arrow" modifier="quiet" onclick="document.getElementById('sheet').show()">
+                <ons-icon icon="ion-arrow-down-b"></ons-icon>
+              </ons-button>
+            </div>
+            <b>Cute Kitty</b>&nbsp;and&nbsp;<b>Cute Kitty 2</b>followed&nbsp;<b>Cute Kitty 3</b>
+          </div>
+        </ons-list-item>
+        <ons-list-item class="all-notifs" modifier="longdivider">
+          <div class="left">
+            <ons-icon icon="ion-heart" size="25px" style="color: red"></ons-icon>
+          </div>
+          <div class="center">
+            <div class="notif-thumbnails">
+              <img src="http://placekitten.com/g/40/40">
+              <ons-button class="option-arrow" modifier="quiet" onclick="document.getElementById('sheet').show()">
+                <ons-icon icon="ion-arrow-down-b"></ons-icon>
+              </ons-button>
+            </div>
+            <b>Cute Kitty</b>&nbsp;liked your Tweet
+            <br>
+            <span style="margin-top: 5px" class="list-item__subtitle">I love kittens :3</span>
+          </div>
+        </ons-list-item>
+      </ons-list>
+
+      <ons-action-sheet id="sheet" cancelable>
+        <ons-action-sheet-button onclick="document.getElementById('sheet').hide(); ons.notification.toast({message: 'OK. You won\'t see recommendations like this as much.', timeout: 2000})">See less often</ons-action-sheet-button>
+        <ons-action-sheet-button icon="md-close" onclick="document.getElementById('sheet').hide()">Cancel</ons-action-sheet-button>
+      </ons-action-sheet>
+
+      <style type="text/css">
+        #all-page {
+          font-size: 14px;
+        }
+
+        #all-all-button {
+          background-color: #00aced;
+        }
+
+        #all-mentions-button {
+          border-color: #00aced;
+          color: #00aced;
+        }
+
+        .all-notifs .left {
+          align-items: baseline;
+          width: 25%;
+        }
+
+        .all-notifs .left.list-item--material__left {
+          padding: 14px 12px;
+        }
+
+        .all-notifs .left ons-icon {
+          color: #00aced;
+          margin-left: auto;
+        }
+
+        .all-notifs .center {
+          width: 100%;
+        }
+
+        .notif-thumbnails {
+          width: 100%;
+        }
+
+        .notif-thumbnails img {
+          border-radius: 50%;
+          height: 28px;
+          width: 28px;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- Mentions Page -->
+  <template id="mentions.html">
+    <ons-page id="mentions-page">
+      <ons-pull-hook>
+        <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+      </ons-pull-hook>
+
+      <ons-list>
+        <ons-list-item modifier="longdivider" class="notifs-bar">
+          <div class="button-bar">
+            <ons-button id="mentions-all-button" modifier="outline" onclick="document.getElementById('hidden-tabbar').setActiveTab(0)"><b>All</b></ons-button>
+            <ons-button id="mentions-mentions-button"><b>Mentions</b></ons-button>
+          </div>
+        </ons-list-item>
+      </ons-list>
+
+      <ons-list>
+        <ons-list-item modifier="longdivider" style="border-top: 1px solid #eee">
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/80/80">
+          </div>
+          <div class="center">
+            <div class="tweet-header">
+              <span class="list-item__title"><b>Cute Kitty</b></span>
+              <span class="list-item__subtitle">@cKitty&nbsp;&#8231;&nbsp;1d</span>
+              <ons-button class="option-arrow" modifier="quiet" onclick="ons.openActionSheet({
+                cancelable: true,
+                buttons: [
+                  'Share Tweet via...',
+                  'Add to Moment',
+                  'Unfollow @cKitty',
+                  'Mute @cKitty',
+                  'Mute this conversation',
+                  'Block @cKitty',
+                  'Report Tweet',
+                  {
+                    label: 'Cancel',
+                    icon: 'md-close'
+                  }
+                ]
+              })">
+                <ons-icon icon="ion-arrow-down-b"></ons-icon>
+              </ons-button>
+            </div>
+            <span class="list-item__content">Sed ut perspiciatis&nbsp;<span style="color: #00aced">@uKitty</span></span>
+            <ons-row class="option-buttons">
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">1</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">3</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">5</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-email"></ons-icon>
+                </ons-button>
+              </ons-col>
+            </ons-row>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider">
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/90/90">
+          </div>
+          <div class="center">
+            <div class="tweet-header">
+              <span class="list-item__title"><b>Cute Kitty 2</b></span>
+              <span class="list-item__subtitle"><span class="username">@cKitty2</span>&nbsp;&#8231;&nbsp;2d</span>
+              <ons-button class="option-arrow" modifier="quiet" onclick="ons.openActionSheet({
+                cancelable: true,
+                buttons: [
+                  'Share Tweet via...',
+                  'Add to Moment',
+                  'Unfollow @cKitty2',
+                  'Mute @cKitty2',
+                  'Mute this conversation',
+                  'Block @cKitty2',
+                  'Report Tweet',
+                  {
+                    label: 'Cancel',
+                    icon: 'md-close'
+                  }
+                ]
+              })">
+                <ons-icon icon="ion-arrow-down-b"></ons-icon>
+              </ons-button>
+            </div>
+            <span class="list-item__content"><span style="color: #00aced">@uKitty</span>&nbsp;Excepteur sint occaecat cupidatat
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+            <ons-row class="option-buttons">
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-reply"></ons-icon><span class="reaction-no">3</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="retweet"></ons-icon><span class="reaction-no">5</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-heart"></ons-icon><span class="reaction-no">7</span>
+                </ons-button>
+              </ons-col>
+              <ons-col>
+                <ons-button modifier="quiet">
+                  <ons-icon icon="ion-email"></ons-icon>
+                </ons-button>
+              </ons-col>
+            </ons-row>
+          </div>
+        </ons-list-item>
+
+        <ons-if platform="ios other">
+          <div style="text-align: center; margin-bottom: 10px">
+            <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+          </div>
+        </ons-if>
+
+        <ons-if platform="android">
+          <div style="text-align: center; margin-bottom: 45px">&#8231;</div>
+        </ons-if>
+      </ons-list>
+
+      <style type="text/css">
+        #mentions-page {
+          font-size: 14px;
+        }
+
+        #mentions-all-button {
+          border-color: #00aced;
+          color: #00aced;
+        }
+
+        #mentions-mentions-button {
+          background-color: #00aced;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <!-- Messages Page -->
+  <template id="messages.html">
+    <ons-page id="messages-page">
+      <ons-pull-hook>
+        <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+      </ons-pull-hook>
+
+      <ons-list id="message-list">
+        <ons-list-item modifier="longdivider">
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/40/40">
+          </div>
+          <div class="center">
+            <div class="tweet-header">
+              <span class="list-item__title"><b>Cute Kitty</b></span>
+              <span class="list-item__subtitle">@cKitty</span>
+              <span class="option-arrow" modifier="quiet">2h</span>
+            </div>
+            <span class="list-item__content">You: Weeeeee, can't wait :D</span>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider">
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/50/50">
+          </div>
+          <div class="center">
+            <div class="tweet-header">
+              <span class="list-item__title"><b>Cute Kitty 2</b></span>
+              <span class="list-item__subtitle">@cKitty2</span>
+              <span class="option-arrow" modifier="quiet">4h</span>
+            </div>
+            <span class="list-item__content">You: Weeeeee, can't wait :D</span>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="longdivider">
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/60/60">
+          </div>
+          <div class="center">
+            <div class="tweet-header">
+              <span class="list-item__title"><b>Cute Kitty 3</b></span>
+              <span class="list-item__subtitle">@cKitty3</span>
+              <span class="option-arrow" modifier="quiet">6h</span>
+            </div>
+            <span class="list-item__content">You: Weeeeee, can't wait :D</span>
+          </div>
+        </ons-list-item>
+      </ons-list>
+
+      <style type="text/css">
+        #message-list {
+          font-size: 14px;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+  <style lang="text/css">
+    ons-page .page__background {
+      background-color: #f5f8fa;
+    }
+
+    .tabbar--material {
+      background-color: white;
+    }
+
+    .tabbar ons-tab.active ons-icon {
+      color: #00aced;
+    }
+
+    .tabbar--material ons-tab:not(.active) ons-icon {
+      color: #657786;
+    }
+
+    .toolbar--material {
+      background-color: white;
+    }
+
+    .toolbar--material__center {
+      color: black;
+    }
+
+    #general-toolbar .left,
+    #general-toolbar .right {
+      max-width: 15%;
+      text-align: center;
+    }
+
+    #general-toolbar .center {
+      width: 90%;
+    }
+
+    #general-toolbar ons-toolbar-button:not(.toolbar-button--material),
+    #tabbar .tabbar__button:not(.tabbar__button--material) {
+      color: #00aced;
+    }
+
+    #toolbar-right.toolbar--material__right {
+      display: none;
+    }
+
+    .profile-thumbnail {
+      border-radius: 50%;
+      height: 28px;
+      margin-top: 5px;
+      width: 28px;
+    }
+
+    .list-item__thumbnail:not(.list-item--material__thumbnail) {
+      border-radius: 50%;
+    }
+
+    .list-item--material__thumbnail {
+      border-radius: 6px;
+    }
+
+    #search-bar {
+      margin-top: 6px;
+      width: inherit;
+    }
+
+    #search-bar input {
+      background-color: #f5f8fa;
+    }
+  </style>
+
+  <script type="text/javascript">
+    ons.ready(function () {
+      let sidemenu = document.getElementById('sidemenu');
+      ons.platform.isAndroid() ? sidemenu.setAttribute('animation', 'overlay') : sidemenu.setAttribute('animation', 'push');
+      const toolbarContent = document.getElementById('toolbar-center');
+      const toolbarIcon = document.getElementById('toolbar-icon');
+      document.getElementById('appTabbar').addEventListener('postchange', function (event) {
+        switch (event.tabItem.page) {
+          case 'home.html':
+            toolbarContent.innerHTML = `Home`;
+            toolbarIcon.setAttribute('icon', 'ion-compose, material:');
+            break;
+          case 'explore.html':
+            toolbarContent.innerHTML = `<ons-search-input id="search-bar" placeholder="Search Twitter"></ons-search-input>`;
+            toolbarIcon.setAttribute('icon', 'ion-ios-personadd-outline');
+            break;
+          case 'notifications.html':
+            toolbarContent.innerHTML = `Notifications`;
+            toolbarIcon.setAttribute('icon', 'ion-ios-gear-outline, material:');
+            break;
+          case 'messages.html':
+            toolbarContent.innerHTML = `Messages`;
+            toolbarIcon.setAttribute('icon', 'plus-square-o, material:');
+            break;
+        }
+      })
+    })
+  </script>
+
+</body>
+
+</html>

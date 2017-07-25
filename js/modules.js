@@ -35,6 +35,12 @@ app.modules = {
     'community tutorials': {
       'splitter_anim_navigator': 'splitter animations with navigator',
       'passing_data': 'passing data outside onsen ui'
+    },
+    'user interface tutorials': {
+      'instagram_model': 'instagram model',
+      'spotify_model': 'spotify model',
+      'twitter_model': 'twitter model',
+      'netflix_model': 'netflix model'
     }
   },
   'angular1': {
