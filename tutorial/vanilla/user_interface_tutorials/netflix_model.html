@@ -26,7 +26,7 @@
       } else if (page.id === 'movie_details') {
         page.querySelector('#movie_title').innerHTML = page.data.title;
       }
-    });  
+    });
 
     function openMovieDetails(id) {
       document.querySelector('#myNavigator').pushPage('movie_details.html', {data: {title: id}});
@@ -36,8 +36,10 @@
       document.querySelector('#myNavigator').pushPage('home_splitter.html');
     }
     function goBack() {
-      document.querySelector('#myNavigator').popPage();
-    }    
+      document.querySelector('#menu').close().then(function() {
+        document.querySelector('#myNavigator').popPage()
+      });
+    }
   </script>
 </head>
 <body>
