@@ -5,15 +5,9 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    const customToolbar = {
-      template: '#custom-toolbar',
-      props: ['backLabel']
-    };
-
     const page2 = {
       key: 'page2',
-      template: '#page2',
-      components: { customToolbar }
+      template: '#page2'
     };
 
     const page1 = {
@@ -23,8 +17,7 @@
         push() {
           this.$emit('push-page', page2);
         }
-      },
-      components: { customToolbar }
+      }
     };
 
     new Vue({
@@ -48,7 +41,9 @@
 
   <template id="page1">
     <v-ons-page>
-      <custom-toolbar>Page 1</custom-toolbar>
+      <v-ons-toolbar>
+        <div class="center">Page 1</div>
+      </v-ons-toolbar>
       <p style="text-align: center">
         This is the first page
         <v-ons-button @click="push">Push Page 2</v-ons-button>
@@ -58,18 +53,14 @@
 
   <template id="page2">
     <v-ons-page>
-      <custom-toolbar back-label="Page 1">Page 2</custom-toolbar>
+      <v-ons-toolbar>
+        <div class="left">
+          <v-ons-back-button>Page 1</v-ons-back-button>
+        </div>
+        <div class="center">Page 2</div>
+      </v-ons-toolbar>
       <p style="text-align: center">This is the second page</p>
     </v-ons-page>
-  </template>
-
-  <template id="custom-toolbar">
-    <v-ons-toolbar>
-      <div class="left">
-        <v-ons-back-button>{{ backLabel }}</v-ons-back-button>
-      </div>
-      <div class="center"><slot></slot></div>
-    </v-ons-toolbar>
   </template>
 
   <div id="app"></div>
