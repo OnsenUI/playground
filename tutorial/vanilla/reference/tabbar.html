@@ -5,22 +5,28 @@
   <title>Onsen UI App</title>
 
   <script>
+    document.addEventListener('postchange', function(event) {
+      document.querySelector('ons-toolbar .center')
+        .innerHTML = event.tabItem.getAttribute('label');
+    });
   </script>
 </head>
 <body>
-  <ons-tabbar>
-    <ons-tab label="Tab 1" page="tab1.html" active>
-    </ons-tab>
-    <ons-tab label="Tab 2" page="tab2.html">
-    </ons-tab>
-  </ons-tabbar>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Tab 1</div>
+    </ons-toolbar>
+
+    <ons-tabbar position="auto">
+      <ons-tab page="tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
+      </ons-tab>
+      <ons-tab page="tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face">
+      </ons-tab>
+    </ons-tabbar>
+  </ons-page>
 
   <template id="tab1.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="center">Tab 1</div>
-      </ons-toolbar>
-
+    <ons-page id="Tab1">
       <p style="text-align: center;">
         This is the first page.
       </p>
@@ -28,11 +34,7 @@
   </template>
 
   <template id="tab2.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="center">Tab 2</div>
-      </ons-toolbar>
-
+    <ons-page id="Tab2">
       <p style="text-align: center;">
         This is the second page.
       </p>
@@ -60,31 +62,20 @@ The `active` attribute is used to define the tab which should be open by default
 
 ## The `<ons-tab>` element
 
-To add a label to the tab the `label` attribute is used. You can also define a label as a child of the `<ons-tab>`:
+A tab accepts multiple attriutes to change its style and behavior, i.e. `page`, `label` or `icon`.
 
-```
-<ons-tab>
-  <div class="tab-bar__label">
-    Tab 1
-  </div>
-</ons-tab>
-```
+Alternatively, the content can be directly provided as `ons-tab` children:
 
-### Icons
-
-You can add an icon with the `icon` attribute. It accepts the same values as the `<ons-icon>` element.
-
-```
-<ons-tab icon="md-face"></ons-tab>
-```
-
-Just like the label, the icon can also be added as a child of the `<ons-tab>` element:
-
-```
-<ons-tab>
-  <div class="tab-bar__icon">
-    <ons-icon icon="md-face"></ons-icon>
-  </div>
+```html
+<ons-tab page="...">
+  <input type="radio" style="display: none">
+  <button class="tabbar__button">
+    <div class="tabbar__icon">
+      <ons-icon icon="my-icon"></ons-icon>
+    </div>
+    <div class="tabbar__label">My Label</div>
+    <div class="tabbar__badge notification">99</div>
+  </button>
 </ons-tab>
 ```
 
