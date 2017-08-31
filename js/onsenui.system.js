@@ -5,7 +5,7 @@ var angular2onsenui = '';
 if (window._isLocalDev) {
   angular2onsenui = '../../OnsenUI/bindings/angular2';
 } else if (window._onsNightlyBuild) {
-  angular2onsenui = 'https://crossorigin.me/https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/artifacts/0/$CIRCLE_ARTIFACTS/angula2-onsenui';
+  angular2onsenui = 'https://crossorigin.me/https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/artifacts/0/$CIRCLE_ARTIFACTS/angular2-onsenui';
 } else {
   angular2onsenui = 'https://unpkg.com/angular2-onsenui' + (window._onsAngular2LibVersion ? ('@' + window._onsAngular2LibVersion) : '');
 }
