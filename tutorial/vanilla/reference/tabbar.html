@@ -5,7 +5,7 @@
   <title>Onsen UI App</title>
 
   <script>
-    document.addEventListener('postchange', function(event) {
+    document.addEventListener('prechange', function(event) {
       document.querySelector('ons-toolbar .center')
         .innerHTML = event.tabItem.getAttribute('label');
     });
@@ -17,7 +17,7 @@
       <div class="center">Tab 1</div>
     </ons-toolbar>
 
-    <ons-tabbar position="auto">
+    <ons-tabbar swipeable position="auto">
       <ons-tab page="tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
       </ons-tab>
       <ons-tab page="tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face">
@@ -58,7 +58,7 @@ Tabs are added using `<ons-tab>` which is a child of `<ons-tabbar>`:
 </ons-tabbar>
 ```
 
-The `active` attribute is used to define the tab which should be open by default. If not `active` attribute exists the page will be blank so make sure to add this.
+The `active` attribute is used to define the tab which should be open by default. If this attribute is not provided, the first page will be activated by default.
 
 ## The `<ons-tab>` element
 
@@ -78,6 +78,8 @@ Alternatively, the content can be directly provided as `ons-tab` children:
   </button>
 </ons-tab>
 ```
+
+Every tab has, by default, the same width. 50% with two tabs, 25% with four tabs and so on. To allow tabs grow depending on their content (i.e. shorter/ longer labels), use the `autogrow` modifier. Optionally, `max-width` CSS property can be specified to set the width of the tab (for each tab).
 
 ## Adding pages
 
@@ -102,20 +104,18 @@ and in order to bind a template to a specific tab the `page` attribute is used o
 </ons-tab>
 ```
 
-## Animations
+## Swipes and Animations
 
-You can change the animation with the `animation` attribute.
+has default, the tab bar will slide from one page to another on tab click. Use `animation="none"` attribute to have an instant change.
 
-Available values are:
+`swipeable` attribute can be used to enable this functionality. It can be toggled to allow or prevent swipes at different moments of the app.
 
-* `fade`
-* `slide`
-* `none`
-
-You can try changing the animation by setting the attribute:
+These attributes can be combined to have a tab bar with instant changes that can also be swiped:
 
 ```
-<ons-tabbar animation="slide">
+<ons-tabbar swipeable animation="none">...</ons-tabbar>
 ```
+
+For iOS, `tab-border` attribute can be included to show a tab border that updates position during swipe (this is always default on Android).
 
 -->
