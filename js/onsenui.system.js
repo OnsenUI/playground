@@ -19,7 +19,7 @@ System.registerDynamic('onsenui', [], false, function(require, exports, module) 
 
 System.config({
   map: {
-    'ngx-onsenui': ngxonsenui + '/dist/bundles/ngx-onsenui.umd.js' + (window._onsNightlyBuild ? '?branch=master&filter=successful' : ''),
+    'ngx-onsenui': ngxonsenui + '/bundles/ngx-onsenui.umd.js' + (window._onsNightlyBuild ? '?branch=master&filter=successful' : ''),
     '@angular/core': `https://unpkg.com/@angular/core@${libVersion}/bundles/core.umd.min.js`,
     '@angular/compiler': `https://unpkg.com/@angular/compiler@${libVersion}/bundles/compiler.umd.min.js`,
     '@angular/common': `https://unpkg.com/@angular/common@${libVersion}/bundles/common.umd.min.js`,
