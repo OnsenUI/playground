@@ -41,12 +41,12 @@ app.config.getCdnUrl = function(lib, path, forceRemote, skipNightly) {
   return url;
 };
 
-app.config.ownLibs = ['onsenui', 'react-onsenui', 'ngx-onsenui', 'vue-onsenui'];
+app.config.ownLibs = ['onsenui', 'react-onsenui', 'angular2-onsenui', 'vue-onsenui'];
 app.config.extLibs = ['react', 'angular1', 'angular2', 'vue'];
 app.config.defaultVersions = {
   react: '15.4.2',
   angular1: '1.5.5',
-  angular2: '4.3.6',
+  angular2: '2.0.0',
   vue: '2.4.1'
 };
 
@@ -82,10 +82,10 @@ app.config.lib = function(forceRemote) {
       // Vue
       vue: `https://cdnjs.cloudflare.com/ajax/libs/vue/${app.config.versions.vue}/vue.js`,
       vueOnsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js', forceRemote),
-      // Angular 2+
-      zone: `https://unpkg.com/zone.js@0.8.17/dist/zone.min.js`,
-      corejs: `https://unpkg.com/core-js@2.5.1/client/core.min.js`,
-      systemjs: `https://unpkg.com/systemjs@0.19.46/dist/system.js` // 0.20.18 caused `Fetch error: 404 Not Found`
+      // Angular 2
+      zone: `https://unpkg.com/zone.js@0.6.21/dist/zone.min.js`,
+      corejs: `https://unpkg.com/core-js@2.4.1/client/core.min.js`,
+      systemjs: `https://unpkg.com/systemjs@0.19.37/dist/system.js`
     },
     css: {
       onsenui: app.config.getCdnUrl('onsenui', 'css/onsenui.css', forceRemote, true),
@@ -96,6 +96,6 @@ app.config.lib = function(forceRemote) {
 
 app.config.transpilerLib = {
   'babel': "https://unpkg.com/babel-standalone@6.24.0/babel.min.js",
-  'typescript': "https://cdnjs.cloudflare.com/ajax/libs/typescript/2.5.2/typescript.min.js"
+  'typescript': "https://cdnjs.cloudflare.com/ajax/libs/typescript/2.2.0/typescript.min.js"
 };
 

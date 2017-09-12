@@ -9,10 +9,10 @@
       Component,
       OnsenModule,
       NgModule,
+      onsNotification,
       CUSTOM_ELEMENTS_SCHEMA
-    } from 'ngx-onsenui';
+    } from 'angular2-onsenui';
     import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-    import * as ons from 'onsenui';
 
     @Component({
       selector: 'app',
@@ -38,7 +38,7 @@
       title:string = 'My app';
 
       alert() {
-        ons.notification.alert('Hello, world!');
+        onsNotification.alert('Hello, world!');
       }
     }
 
@@ -64,6 +64,6 @@
 
 Please refer to [ons-page element Reference](https://onsen.io/v2/docs/angular2/ons-page.html) for more details.
 
-For additional resources, please also see  [Guide for Angular 2+](https://onsen.io/v2/docs/guide/angular2).
+For additional resources, please also see  [Guide for Angular 2](https://onsen.io/v2/docs/guide/angular2).
 
 -->

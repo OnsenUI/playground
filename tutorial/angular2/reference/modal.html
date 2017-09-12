@@ -6,6 +6,7 @@
   <script type="text/typescript">
   import {
     Component,
+    ModalFactory,
     AfterViewInit,
     Params,
     OnInit,
@@ -13,8 +14,24 @@
     OnsenModule,
     NgModule,
     CUSTOM_ELEMENTS_SCHEMA
-  } from 'ngx-onsenui';
+  } from 'angular2-onsenui';
   import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Component({
+    template: `
+      <ons-modal #modal>
+        <p>{{message}}</p>
+        <p><span (click)="modal.hide()" style="text-decoration: underline; cursor: pointer;">Click</span> to hide this modal.</p>
+      </ons-modal>
+    `
+  })
+  class MyModalComponent {
+    message = '';
+
+    constructor(params: Params) {
+      this.message = <string>params.at('message');
+    }
+  }
 
   @Component({
     selector: 'app',
@@ -26,27 +43,44 @@
       <div class="content">
         <div style="text-align: center;">
           <br>
-          <ons-button (click)="modal.show()">show</ons-button>
+          <ons-button (click)="show()">show</ons-button>
         </div>
       </div>
     </ons-page>
-
-    <!-- must be located just under outermost box such as body element -->
-    <ons-modal #modal>
-      <p>This is just an example.</p>
-      <p><span (click)="modal.hide()" style="text-decoration: underline; cursor: pointer;">Click</span> to hide this modal.</p>
-    </ons-modal>
     `
   })
-  export class AppComponent {
-    constructor() {
+  export class AppComponent implements OnInit, OnDestroy {
+    private _modal: any;
+    private _destroyModal: Function;
+
+    constructor(private _modalFactory: ModalFactory) {
+    }
+
+    ngOnInit() {
+      this._modalFactory
+        .createModal(MyModalComponent, {message: 'This is just an example.'})
+        .then(({modal, destroy}) => {
+          this._modal = modal;
+          this._destroyModal = destroy;
+        });
+    }
+
+    show() {
+      if (this._modal) {
+        this._modal.show();
+      }
+    }
+
+    ngOnDestroy() {
+      this._destroyModal();
     }
   }
 
   @NgModule({
     imports: [OnsenModule],
-    declarations: [AppComponent],
+    declarations: [AppComponent, MyModalComponent],
     bootstrap: [AppComponent],
+    entryComponents: [MyModalComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
   })
   class AppModule { }

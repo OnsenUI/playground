@@ -485,8 +485,8 @@ app.services.generateAngular2Globals = function () {
     <script>
       window._isLocalDev = ${app.config.local};
       window._onsNightlyBuild = ${app.config.nightly};
-      window._ngxOnsLibVersion = '${app.config.versions['ngx-onsenui'] || ''}';
-      window._ngxLibVersion = '${app.config.versions.angular2}'
+      window._onsAngular2LibVersion = '${app.config.versions['angular2-onsenui'] || ''}';
+      window._angular2LibVersion = '${app.config.versions.angular2}'
     </script>
   `;
 }

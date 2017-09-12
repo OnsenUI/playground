@@ -11,30 +11,30 @@
     OnsenModule,
     NgModule,
     CUSTOM_ELEMENTS_SCHEMA
-  } from 'ngx-onsenui';
-  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+  } from 'angular2-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
   import { FormsModule } from '@angular/forms';
-  
+
   @Component({
     selector: 'app',
     template: `
-    <ons-page>
-      <ons-toolbar>
-        <div class="center">Select</div>
-      </ons-toolbar>
-      <div class="background"></div>
-      <div class="content">
-        <div style="margin: 10px">
-          <p>Choose which select input you want to see:<p>
-          <ons-select [(ngModel)]="selectedModifier" [attr.modifier]="selectedModifier">
-            <option *ngFor="let modifier of modifiers" [value]="modifier.value">
-              {{ modifier.label }}
-            </option>
-          </ons-select>
-          <p>Modifier <strong>{{ selectedModifier }}</strong> looks great.</p>
+      <ons-page>
+        <ons-toolbar>
+          <div class="center">Select Example</div>
+        </ons-toolbar>
+        <div class="background"></div>
+        <div class="content">
+          <div style="margin: 10px">
+            <p>Choose which select input you want to see:<p>
+            <ons-select id="choose-sel" [(ngModel)]="selectedModifier" ngDefaultControl (ngModelChange)="editSelects($event)">
+              <option *ngFor="let modifier of modifiers" [value]="modifier.value">
+                {{ modifier.label }}
+              </option>
+            </ons-select>
+            <p>Modifier <strong>{{ selectedModifier }}</strong> looks great.</p>
+          </div>
         </div>
-      </div>
-    </ons-page>
+      </ons-page>
     `
   })
   export class AppComponent {
@@ -44,10 +44,17 @@
       {value: 'material', label: 'Material'},
       {value: 'underbar', label: 'Underbar'}
     ];
-  
+
     constructor() { }
+
+    editSelects(event) {
+      document.getElementById('choose-sel').removeAttribute('modifier');
+      if (event == 'material' || event == 'underbar') {
+        document.getElementById('choose-sel').setAttribute('modifier', event);
+      }
+    }
   }
-  
+
   @NgModule({
     imports: [OnsenModule, FormsModule],
     declarations: [AppComponent],
@@ -55,9 +62,9 @@
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
   })
   class AppModule { }
-  
+
   platformBrowserDynamic().bootstrapModule(AppModule);
-  
+
   </script>
 
 </head>

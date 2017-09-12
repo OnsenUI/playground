@@ -9,7 +9,7 @@
     OnsenModule,
     NgModule,
     CUSTOM_ELEMENTS_SCHEMA
-  } from 'ngx-onsenui';
+  } from 'angular2-onsenui';
   import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
   @Component({
@@ -22,7 +22,7 @@
       <div class="background"></div>
       <div class="content">
         <div style="padding: 10px">
-          <div><ons-input placeholder="Type here" [(value)]="target"></ons-input></div>
+          <div><ons-input placeholder="Type here" [(value)]="target" (input)="target = $event.target.value"></ons-input></div>
 
           <p>Text: {{target}}</p>
         </div>
