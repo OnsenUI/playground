@@ -93,6 +93,7 @@ app.modules = {
       'dialog': 'dialogs',
       'popover': 'popover',
       'modal': 'modal',
+      'action-sheet': 'action sheet',
       'input': 'form input',
       'switch': 'switches',
       'button': 'buttons',
