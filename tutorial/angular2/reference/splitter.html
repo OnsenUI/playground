@@ -6,16 +6,36 @@
   <script type="text/typescript">
   import {
     Component,
+    Injectable,
+    ViewChild,
     OnsenModule,
     NgModule,
     CUSTOM_ELEMENTS_SCHEMA
   } from 'ngx-onsenui';
+  import {Subject} from 'rxjs/Rx';
   import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Injectable()
+  export class MenuService {
+    subject = new Subject<boolean>();
+    constructor() { }
+    get menu$(): Observable<boolean> {
+      return this.subject.asObservable();
+    }
+    open() {
+      this.subject.next(true);
+    }
+  }
 
   @Component({
     selector: 'ons-page',
     template: `
       <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button (click)="openMenu()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
         <div class="center">Content Page</div> 
       </ons-toolbar>
       <div class="content">
@@ -24,6 +44,10 @@
     `
   })
   class ContentPageComponent {
+    constructor(private menuService: MenuService) { }
+    openMenu() {
+      this.menuService.open();
+    }
   }
 
   @Component({
@@ -44,17 +68,22 @@
   @Component({
     selector: 'app',
     template: `
-    <ons-splitter>
-      <ons-splitter-side [page]="sidePage" side="left" width="200px" style="border-right: 1px solid #ccc">
+    <ons-splitter #splitter>
+      <ons-splitter-side [page]="sidePage" collapse side="left" width="200px" style="border-right: 1px solid #ccc">
       </ons-splitter-side>
 
       <ons-splitter-content [page]="contentPage">
       </ons-splitter-content>
+    </ons-splitter>
     `
   })
   export class AppComponent {
     sidePage = SidePageComponent;
     contentPage = ContentPageComponent;
+    @ViewChild('splitter') splitter;
+    constructor(private menuService: MenuService) {
+      this.menuService.menu$.subscribe(() => this.splitter.nativeElement.side.open());
+    }
   }
 
   @NgModule({
@@ -62,6 +91,7 @@
     declarations: [AppComponent, SidePageComponent, ContentPageComponent],
     bootstrap: [AppComponent],
     entryComponents: [SidePageComponent, ContentPageComponent],
+    providers: [MenuService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
   })
   class AppModule { }
