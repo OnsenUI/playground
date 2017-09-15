@@ -12,18 +12,17 @@
     NgModule,
     CUSTOM_ELEMENTS_SCHEMA
   } from 'ngx-onsenui';
-  import {Subject} from 'rxjs/Rx';
+  import {Observable, Subject} from 'rxjs/Rx';
   import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
   @Injectable()
   export class MenuService {
-    subject = new Subject<boolean>();
-    constructor() { }
-    get menu$(): Observable<boolean> {
+    subject = new Subject();
+    get menu$(): Observable<any> {
       return this.subject.asObservable();
     }
     open() {
-      this.subject.next(true);
+      this.subject.next();
     }
   }
 
@@ -38,9 +37,9 @@
         </div>
         <div class="center">Content Page</div> 
       </ons-toolbar>
-      <div class="content">
-        
-      </div>
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        Swipe right to open the menu!
+      </p>
     `
   })
   class ContentPageComponent {
@@ -69,7 +68,7 @@
     selector: 'app',
     template: `
     <ons-splitter #splitter>
-      <ons-splitter-side [page]="sidePage" collapse side="left" width="200px" style="border-right: 1px solid #ccc">
+      <ons-splitter-side [page]="sidePage" side="left" width="220px" collapse swipeable>
       </ons-splitter-side>
 
       <ons-splitter-content [page]="contentPage">
