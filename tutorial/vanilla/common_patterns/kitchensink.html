@@ -57,7 +57,7 @@
                 </ons-toolbar-button>
               </div>
             </ons-toolbar>
-            <ons-tabbar id="appTabbar" position="auto">
+            <ons-tabbar swipeable id="appTabbar" position="auto">
               <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
               <ons-tab label="Forms" icon="ion-edit" page="forms.html"></ons-tab>
               <ons-tab label="Animations" icon="ion-film-marker" page="animations.html"></ons-tab>
@@ -796,25 +796,25 @@
         <ons-button modifier="large" class="button-margin" disabled>Large</ons-button>
       </section>
 
-      <ons-fab class="spdStyle" position="top right">
+      <ons-fab position="top right">
         <ons-icon icon="md-face"></ons-icon>
       </ons-fab>
 
-      <ons-fab class="spdStyle" position="bottom left" disabled>
+      <ons-fab position="bottom left" disabled>
         <ons-icon icon="md-car"></ons-icon>
       </ons-fab>
 
       <ons-speed-dial position="bottom right" direction="up" :open.sync="spdOpen">
-        <ons-fab class="spdStyle">
+        <ons-fab>
           <ons-icon icon="md-share"></ons-icon>
         </ons-fab>
-        <ons-speed-dial-item class="spdStyle" onclick="ons.notification.confirm(`Share on Twitter?`)">
+        <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Twitter?`)">
           <ons-icon icon="md-twitter"></ons-icon>
         </ons-speed-dial-item>
-        <ons-speed-dial-item class="spdStyle" onclick="ons.notification.confirm(`Share on Facebook?`)">
+        <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Facebook?`)">
           <ons-icon icon="md-facebook"></ons-icon>
         </ons-speed-dial-item>
-        <ons-speed-dial-item class="spdStyle" onclick="ons.notification.confirm(`Share on Google+`)">
+        <ons-speed-dial-item onclick="ons.notification.confirm(`Share on Google+`)">
           <ons-icon icon="md-google-plus"></ons-icon>
         </ons-speed-dial-item>
       </ons-speed-dial>
@@ -822,12 +822,6 @@
       <script>
         document.getElementById('appNavigator').topPage.onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
-          if (!ons.platform.isAndroid()) {
-            const fabStyle = document.querySelectorAll('.spdStyle');
-            for (fab of fabStyle) {
-              fab.style.backgroundColor = '#4282cc';
-            }
-          }
         }
       </script>
 
