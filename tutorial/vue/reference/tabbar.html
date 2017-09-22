@@ -31,18 +31,21 @@
               page: homePage,
               props: {
                 myProp: 'This is a page prop!'
-              }
+              },
+              key: "homePage"
             },
             {
               icon: this.md() ? null : 'ion-ios-bell',
               label: 'News',
               page: newsPage,
-              badge: 7
+              badge: 7,
+              key: "newsPage"
             },
             {
               icon: this.md() ? null : 'ion-ios-settings',
               label: 'Settings',
-              page: settingsPage
+              page: settingsPage,
+              key: "settingsPage"
             }
           ]
         };
