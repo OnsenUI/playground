@@ -9,9 +9,7 @@
       render: function() {
         return (
           <Ons.Page>
-            {this.props.active
-              ? <h2>{this.props.title}</h2>
-              : null}
+            <h2>{this.props.title}</h2>
             <Ons.Button onClick={this.props.logIndexes}>Log current button index</Ons.Button>
           </Ons.Page>
         );
@@ -22,10 +20,8 @@
       render: function() {
         return (
           <Ons.Page>
-            {this.props.active
-              ? <h2>{this.props.title}</h2>
-              : null}
-            <Ons.Button onClick={this.props.changeTab}>Chang tab via tabbar</Ons.Button>
+            <h2>{this.props.title}</h2>
+            <Ons.Button onClick={this.props.changeTab}>Change tab via tabbar</Ons.Button>
             <Ons.Button onClick={this.props.changeButton}>Change tab via segment</Ons.Button>
             <Ons.Button onClick={this.props.logIndexes}>Log current button index</Ons.Button>
           </Ons.Page>
@@ -39,25 +35,35 @@
           segmentIndex: 0,
           tabbarIndex: 0
         };
+
+        this.logIndexes = this.logIndexes.bind(this);
+        this.renderTabs = this.renderTabs.bind(this);
+      },
+
+      logIndexes: function() {
+        console.log('segment index:', this.state.segmentIndex, 'tabbar index:', this.state.tabbarIndex);
       },
 
       renderTabs: function(activeIndex, tabbar) {
         return [
           {
-            content: <HomePage key="page1" changeTab={() => { this.setState({ tabbarIndex: 1 }); }}
-              changeButton={() => { this.setState({ segmentIndex: 1 }); }}
-              logIndexes={() => { console.log('active button index', activeIndex); console.log('active tab index', this.state.tabbarIndex) }}
-              title="Page1" active={activeIndex == 0} tabbar={tabbar} />,
+            content: <HomePage key="page1" title="Page1" active={activeIndex == 0} tabbar={tabbar}
+              logIndexes={this.logIndexes}
+              changeTab={() => this.setState({ tabbarIndex: 1 })}
+              changeButton={() => this.setState({ segmentIndex: 1 })}
+            />,
             tab: <Ons.Tab key="page1" />
           },
           {
-            content: <TabPage key="page2" logIndexes={() => { console.log('active button index', activeIndex); console.log('active tab index', this.state.tabbarIndex) }}
-              title="Page2" active={activeIndex == 1} tabbar={tabbar} />,
+            content: <TabPage key="page2" title="Page2" active={activeIndex == 1} tabbar={tabbar}
+              logIndexes={this.logIndexes}
+            />,
             tab: <Ons.Tab key="page2" />
           },
           {
-            content: <TabPage key="page3" logIndexes={() => { console.log('active button index', activeIndex); console.log('active tab index', this.state.tabbarIndex) }}
-              title="Page3" active={activeIndex == 2} tabbar={tabbar} />,
+            content: <TabPage key="page3" title="Page3" active={activeIndex == 2} tabbar={tabbar}
+              logIndexes={this.logIndexes}
+            />,
             tab: <Ons.Tab key="page3" />
           }
         ];
@@ -67,7 +73,7 @@
         return (
           <Ons.Toolbar>
             <div className="center">
-              <Ons.Segment index={this.state.segmentIndex} onPostChange={(event) => this.setState({ segmentIndex: event.index })} tabbarId="tabbar" style={{ width: '180px' }}>
+          <Ons.Segment index={this.state.segmentIndex} onPostChange={() => this.setState({ segmentIndex: event.index})} tabbarId="tabbar" style={{ width: '180px' }}>
                 <button>Page 1</button>
                 <button>Page 2</button>
                 <button>Page 3</button>
@@ -79,22 +85,11 @@
 
       render: function() {
         return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
-
-            {/* Comment <Ons.Tabbar> out to see this one */}
-            <Ons.Segment index={1} style={{ width: '180px', margin: '10px 20px' }}>
-              <button>Label 1</button>
-              <button>Label 2</button>
-              <button>Label 3</button>
-            </Ons.Segment>
-
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
             <Ons.Tabbar
               id="tabbar"
               index={this.state.tabbarIndex}
-              onPostChange={(event) => {
-                this.setState({ tabbarIndex: event.index });
-                console.log('postchange event', event);
-              }}
+              onPreChange={(event) => this.setState({ tabbarIndex: event.index })}
               renderTabs={this.renderTabs}
             />
           </Ons.Page>
@@ -122,7 +117,7 @@ It may be useful for example for filtering lists or especially for connecting to
 
 ## Connecting to `<Tabbar>`
 
-Sometimes you may want a segment instead of the normal tabs in your tabbar. 
+Sometimes you may want a segment instead of the normal tabs in your tabbar.
 
 You can connect `<Segment>` and `<Tabbar>` by providing the ID of the `<Tabbar>` you want to control as the `tabbarId` prop of `<Segment>`.
 
