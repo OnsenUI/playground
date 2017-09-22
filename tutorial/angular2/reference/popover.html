@@ -6,7 +6,6 @@
   <script type="text/typescript">
   import {
     Component,
-    PopoverFactory,
     ViewChild,
     OnInit,
     OnDestroy,
@@ -14,37 +13,8 @@
     OnsenModule,
     NgModule,
     CUSTOM_ELEMENTS_SCHEMA
-  } from 'angular2-onsenui';
+  } from 'ngx-onsenui';
   import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-
-  @Component({
-    template: `
-      <ons-popover direction="up down" cancelable #popover (prehide)="onPreHide($event)">
-        <div style="text-align: center; opacity: 0.7;">
-          <p>{{message}}</p>
-          <p><ons-button (click)="popover.hide()" modifier="light">Hide</ons-button></p>
-        </div>
-      </ons-popover>
-    `
-  })
-  class MyPopoverComponent implements OnInit {
-
-    @ViewChild('popover') _popover: any;
-
-    message = '';
-
-    constructor(params: Params) {
-      this.message = <string>params.at('msg');
-    }
-
-    ngOnInit() {
-      console.log('popover:', this._popover.nativeElement);
-    }
-
-    onPreHide(event) {
-      // event.cancel(); // cancel hiding popover
-    }
-  }
 
   @Component({
     selector: 'app',
@@ -56,43 +26,32 @@
       <div class="background"></div>
       <div class="content">
         <div style="text-align: center; margin: 10px">
-          <ons-button (click)="show(button)" #button>show Popover</ons-button>
+          <ons-button (click)="popover.show(button)" #button>show Popover</ons-button>
         </div>
       </div>
     </ons-page>
+
+    <!-- must be located just under an outermost box such as body element -->
+    <ons-popover direction="up down" cancelable #popover (prehide)="onPreHide($event)">
+      <div style="text-align: center; opacity: 0.7;">
+        <p>This is popover.</p>
+        <p><ons-button (click)="popover.hide()" modifier="light">Hide</ons-button></p>
+      </div>
+    </ons-popover>
     `
   })
-  export class AppComponent implements OnInit, OnDestroy {
-    private _popover: any;
-    private _destroyPopover: Function;
+  export class AppComponent {
+    constructor() { }
 
-    constructor(private _popoverFactory: PopoverFactory) { }
-
-    show(button) {
-      if (this._popover) {
-        this._popover.show(button);
-      }
-    }
-
-    ngOnInit() {
-      this._popoverFactory
-        .createPopover(MyPopoverComponent, {msg: 'This is popover.'})
-        .then(({popover, destroy}) => {
-          this._popover = popover;
-          this._destroyPopover = destroy;
-        });
-    }
-
-    ngOnDestroy() {
-      this._destroyPopover();
+    onPreHide(event) {
+      // event.cancel(); // cancel hiding popover
     }
   }
 
   @NgModule({
     imports: [OnsenModule],
-    declarations: [AppComponent, MyPopoverComponent],
+    declarations: [AppComponent],
     bootstrap: [AppComponent],
-    entryComponents: [MyPopoverComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
   })
   class AppModule { }

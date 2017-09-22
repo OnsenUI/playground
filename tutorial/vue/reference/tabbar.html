@@ -31,18 +31,21 @@
               page: homePage,
               props: {
                 myProp: 'This is a page prop!'
-              }
+              },
+              key: "homePage"
             },
             {
               icon: this.md() ? null : 'ion-ios-bell',
               label: 'News',
               page: newsPage,
-              badge: 7
+              badge: 7,
+              key: "newsPage"
             },
             {
               icon: this.md() ? null : 'ion-ios-settings',
               label: 'Settings',
-              page: settingsPage
+              page: settingsPage,
+              key: "settingsPage"
             }
           ]
         };
@@ -67,7 +70,7 @@
         <div class="center">{{ title }}</div>
       </v-ons-toolbar>
 
-      <v-ons-tabbar position="auto"
+      <v-ons-tabbar swipeable position="auto"
         :tabs="tabs"
         :visible="true"
         :index.sync="activeIndex"
@@ -163,6 +166,22 @@ The `VOnsTabbar` component implements  an optional `index` prop which is used to
 - `activeIcon`: allows to change the icon when the tab becomes active.
 - `active`: Whether the tab should be displayed as active or not. This is not necessary when using `index` prop.
 
+Every tab has, by default, the same width. 50% with two tabs, 25% with four tabs and so on. To allow tabs grow depending on their content (i.e. shorter/ longer labels), use the `autogrow` modifier in `v-ons-tabbar` component. Optionally, `max-width` CSS property can be specified to set the width of the tab (for each `v-ons-tab`).
+
+## Swipes and Animations
+
+By default, the tab bar will slide from one page to another on tab click. Use `animation="none"` attribute to have an instant change.
+
+`swipeable` attribute can be used to enable this functionality. It can be toggled to allow or prevent swipes at different moments of the app.
+
+These attributes can be combined to have a tab bar with instant changes that can also be swiped:
+
+```
+<v-ons-tabbar swipeable animation="none">...</v-ons-tabbar>
+```
+
+For iOS, `tab-border` attribute can be included to show a tab border that updates position during swipe (this is always default on Android).
+
 ## Advanced usage
 
 `VOnsTab` behavior can be overridden by running `event.preventDefault` on click event handler.
@@ -191,5 +210,6 @@ For example, this can provide fine control to support some of Vue's cool feature
 ```
 
 Notice that preventing the default behavior means that `VOnsTabbar` events (prechange, postchange, reactive...) are not fired.
+Also, it won't be swipeable if only 1 page is provided at a time (when using `:is="component"`, for example).
 
 -->

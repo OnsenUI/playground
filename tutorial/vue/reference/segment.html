@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const homePage = {
+      template: `
+        <v-ons-page>
+          <h2>Page1</h2>
+          <v-ons-button @click="changeTab">Change tab via tabbar</v-ons-button>
+          <v-ons-button @click="changeButton">Change tab via segment</v-ons-button>
+          <v-ons-button @click="logIndexes">Log current button index</v-ons-button>
+        </v-ons-page>
+      `,
+      props: ['changeTab', 'changeButton', 'logIndexes']
+    };
+
+    const tabPage = {
+      template: `
+        <v-ons-page>
+          <h2>{{title}}</h2>
+          <v-ons-button @click="logIndexes">Log current button index</v-ons-button>
+        </v-ons-page>
+      `,
+      props: ['title', 'logIndexes']
+    };
+
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          segmentIndex: 0,
+          segment2Index: 1,
+          tabbarIndex: 0,
+          tabs: [
+            {
+              page: homePage,
+              props: {
+                changeTab: this.changeTab,
+                changeButton: this.changeButton,
+                logIndexes: this.logIndexes
+              },
+              key: "homePage"
+            },
+            {
+              page: tabPage,
+              props: {
+                title: 'Page2',
+                logIndexes: this.logIndexes
+              },
+              key: "page2"
+            },
+            {
+              page: tabPage,
+              props: {
+                title: 'Page3',
+                logIndexes: this.logIndexes
+              },
+              key: "page3"
+            }
+          ]
+        };
+      },
+      methods: {
+        log(...args) {
+          console.log(...args)
+        },
+        changeTab() {
+          this.tabbarIndex = 1
+        },
+        changeButton() {
+          this.segmentIndex = 1
+        },
+        logIndexes() {
+          console.log('active button index', this.segmentIndex);
+          console.log('active tab index', this.tabbarIndex);
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">
+          <v-ons-segment tabbar-id="tabbar" :index.sync="segmentIndex" style="width: 180px">
+            <button>Page 1</button>
+            <button>Page 2</button>
+            <button>Page 3</button>
+          </v-ons-segment>
+        </div>
+      </v-ons-toolbar>
+
+      <v-ons-tabbar id="tabbar"
+        :tabs="tabs"
+        :index.sync="tabbarIndex"
+        @postchange="log('postchange event', $event)"
+      ></v-ons-tabbar>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Segment
+
+The `<v-ons-segment>` component allows you to have a nice button bar with only one active button at a time.
+
+It may be useful for example for filtering lists or especially for connecting to `<v-ons-tabbar>`. See the next page to find out how to do it.
+
+## Connecting to `<v-ons-tabbar>`
+
+Sometimes you may want a segment instead of the normal tabs in your tabbar.
+
+You can connect `<v-ons-segment>` and `<v-ons-tabbar>` by providing the ID of the `<v-ons-tabbar>` you want to control as the `tabbar-id` attribute of `<v-ons-segment>`.
+
+This way the tabbar will be automatically hidden and the active button of `<v-ons-segment>` will always be in sync with the active tab of `<v-ons-tabbar>`.
+
+-->
