@@ -6,7 +6,7 @@
 
   <script>
 
-    /* 
+    /*
     *  This event listener will populate the top of the home screen with user stories when the page is initialized.
     *  It uses the generateStoryBubbles function to do so.
     */
@@ -35,8 +35,8 @@
       }
     });
 
-    /* 
-    * This function is used to toggle the grid/list display of the posts in the profile page as well as 
+    /*
+    * This function is used to toggle the grid/list display of the posts in the profile page as well as
     * change the color of the buttons to show which is the current view.
     */
 
@@ -50,18 +50,19 @@
       document.getElementById(id+"_view").style.display="block";
     }
 
-    //The generateStoryBubbles function is used to create the carousel items be used as stories by the upper two events. 
+    //The generateStoryBubbles function is used to create the carousel items be used as stories by the upper two events.
 
     function generateStoryBubbles(element) {
       for(var i=0; i<9; i++) {
-          var onsItem= document.createElement('ons-carousel-item');
-          onsItem.style.marginLeft="15px";                       
-          onsItem.innerHTML = '<div class="story">' +
-              '<div class="story-thumbnail-wraper unread"><img class="story-thumbnail" src="assets/img/profile-image-0' + (i+1) + '.png" onclick="readStory(this)"></div>' +
-              '<p>david_graham</p>' +
-              '</div>';               
-          element.appendChild(onsItem);
-        }
+        element.appendChild(ons.createElement(
+          '<ons-carousel-item>' +
+            '<div class="story">' +
+            '<div class="story-thumbnail-wraper unread"><img class="story-thumbnail" src="assets/img/profile-image-0' + (i+1) + '.png" onclick="readStory(this)"></div>' +
+            '<p>david_graham</p>' +
+            '</div>' +
+          '</ons-carousel-item>'
+        ));
+      }
     }
 
     //The Like function is used to make the white heart appear in front of the picture as well as make the like button into a red heart and vice versa.
@@ -235,7 +236,7 @@
 
       <style type="text/css">
         .stories-tab {
-          padding-top: 8px;
+          padding: 8px 15px;
           background-color: #f6f6f6;
           height: 75px;
           font-size: 12px
@@ -725,7 +726,7 @@
             </ons-col>
           </ons-row>
         </div>
-      </div>  
+      </div>
 
       <style type="text/css">
         .profile_wrapper {
@@ -920,7 +921,7 @@
           <div class="center">
             <div>
               <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
-            </div>  
+            </div>
           </div>
         </ons-list-item>
 
@@ -945,7 +946,7 @@
           <div class="center">
             <div>
               <b>david_graham</b> started following <b>david_graham</b> and 2 others. <span style="opacity: 0.4;">1 hour ago</span>
-            </div>  
+            </div>
           </div>
         </ons-list-item>
 
@@ -979,7 +980,7 @@
         <ons-list-item class="notification-post">
           <div class="left">
             <img class="list-item__thumbnail" src="assets/img/profile-image-01.png">
-          </div>  
+          </div>
           <div class="center">
             <div>
               <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
@@ -992,7 +993,7 @@
         <ons-list-item class="notification-post">
           <div class="left">
             <img class="list-item__thumbnail" src="assets/img/profile-image-02.png">
-          </div>  
+          </div>
           <div class="center">
             <div>
               <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
@@ -1005,7 +1006,7 @@
         <ons-list-item class="notification-post">
           <div class="left">
             <img class="list-item__thumbnail" src="assets/img/profile-image-03.png">
-          </div>  
+          </div>
           <div class="center">
             <div>
               <b>david_graham</b>, <b>david_graham</b> and 18 others liked your post. <span style="opacity: 0.4;">1 hour ago</span>
@@ -1061,7 +1062,7 @@
 </body>
 </html>
 
-<!-- info 
+<!-- info
 
 ## Making a Photo Sharing application
 
@@ -1070,7 +1071,7 @@ If you want to create a Photo sharing app, by using Onsen UI you can make an app
 The Onsen UI components that are used in this template are the following:
 
  - `ons-tabbar` - the main component used to make the structure of the template
- - `ons-toolbar` - for creating the toolbars on different pages of the app with specific buttons 
+ - `ons-toolbar` - for creating the toolbars on different pages of the app with specific buttons
  - `ons-button` - used for almost all the buttons on the app in combination with `ons-icon` to give the simple button look
  - `ons-list` - used for structuring the content in almost every page, since the content consists of posts or images
  - `ons-row` and `ons-col` - for easy structuring the pages for displaying the pictures as a grid
@@ -1081,7 +1082,7 @@ The Onsen UI components that are used in this template are the following:
 
 The template consists of 5 pages in the same order:
 
- - **The home page** - for displaying posts and stories from users 
+ - **The home page** - for displaying posts and stories from users
  - **The search page** - for searching specific content
  - **The camera page** - for adding new posts
  - **The notification page** - for displaying notification about recent activity concerning the user's posts and the activity of other users in general
@@ -1089,11 +1090,11 @@ The template consists of 5 pages in the same order:
 
 ## The Home Page
 
-The home page consists of two main parts, besides the toolbar that consists of a title and two `ons-toolbar-button` elements that will be used to ease the access to two features of the app. 
+The home page consists of two main parts, besides the toolbar that consists of a title and two `ons-toolbar-button` elements that will be used to ease the access to two features of the app.
 
 The first part is the stories of other users placed in the `ons-carousel` item where each `ons-carousel-item` contains an image with a red border that turns grey after being clicked. The list is populated when the page is initialized using a simple fuction in order to demonstrate the ease of populating the carousel.
 
-The second part is the posts by users, each post represented as a single `ons-card` consisted of a set of `div` and `ons-list-item` blocks. Inside those blocks are the pictures being posted as well as the extra information that comes with it. 
+The second part is the posts by users, each post represented as a single `ons-card` consisted of a set of `div` and `ons-list-item` blocks. Inside those blocks are the pictures being posted as well as the extra information that comes with it.
 
 ## The Search Page
 
