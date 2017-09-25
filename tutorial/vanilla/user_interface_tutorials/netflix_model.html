@@ -62,16 +62,16 @@
 
       <div style="margin: 20px auto 5px; text-align: center;">Who's watching?</div>
 
-      <ons-row class="user_cover"> 
+      <ons-row class="user_cover">
         <ons-col onclick="openHome()">
           <div class="user_thumbnail" style="background-color: #dd6218"><ons-icon icon="fa-beer"></ons-icon></div>
           <div class="username" id="user_2_name">David</div>
-        </ons-col>  
+        </ons-col>
         <ons-col onclick="openHome()">
           <div class="user_thumbnail" style="background-color: #00a899"><ons-icon icon="fa-heart"></ons-icon></div>
           <div class="username" id="user_2_name">Marta</div>
         </ons-col>
-      </ons-row>  
+      </ons-row>
       <ons-row class="user_cover">
         <ons-col onclick="openHome()">
           <div class="user_thumbnail" style="background-color: #e3aa05"><ons-icon icon="fa-headphones"></ons-icon></div>
@@ -81,8 +81,8 @@
           <div class="user_thumbnail" style="background-color: #94b052"><ons-icon icon="fa-gamepad"></ons-icon></div>
           <div class="username" id="username_4">Kevin</div>
         </ons-col>
-      </ons-row>  
-      <ons-row class="user_cover">  
+      </ons-row>
+      <ons-row class="user_cover">
         <ons-col>
           <div class="user_thumbnail"><ons-icon icon="fa-plus-circle"></ons-icon></div>
           <div class="username" id="username_5">Add Profile</div>
@@ -118,7 +118,7 @@
         }
       </style>
     </ons-page>
-  </template>  
+  </template>
 
 
   <!--  The Splitter Page -->
@@ -176,98 +176,98 @@
         </div>
       </ons-toolbar>
 
-      
+
       <ons-carousel class="carousel" swipeable auto-scroll id="carousel">
         <ons-carousel-item>
           <img src="assets/img/onsenui-roadmap.jpg" />
         </ons-carousel-item>
         <ons-carousel-item>
-          <img src="assets/img/Monaca_Logo.jpg" />  
+          <img src="assets/img/Monaca_Logo.jpg" />
         </ons-carousel-item>
         <ons-carousel-item>
-          <img src="assets/img/Onsen_UI_Logo.jpg" />  
-        </ons-carousel-item>
-        <div class="cover-label center">
-          <ul>
-            <li><div id="dot0" class="circle circle_current">&#x25cf;</div></li>
-            <li><div id="dot1" class="circle">&#x25cf;</div></li>
-            <li><div id="dot2" class="circle">&#x25cf;</div></li>
-          </ul>
-        </div>
-      </ons-carousel>
-      
-      <ons-carousel auto-refresh swipeable overscrollable item-width="110px" class="movie_list">
-        <ons-carousel-cover>My List</ons-carousel-cover>
-        <ons-carousel-item modifier="nodivider" id="Movie 1" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Movie 2" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Movie 3" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Movie 4" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Movie 5" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
+          <img src="assets/img/Onsen_UI_Logo.jpg" />
         </ons-carousel-item>
       </ons-carousel>
+      <div class="cover-label center">
+        <ul>
+          <li><div id="dot0" class="circle circle_current">&#x25cf;</div></li>
+          <li><div id="dot1" class="circle">&#x25cf;</div></li>
+          <li><div id="dot2" class="circle">&#x25cf;</div></li>
+        </ul>
+      </div>
 
-      <ons-carousel auto-refresh swipeable overscrollable item-width="110px" class="movie_list">
-        <ons-carousel-cover>Top Picks For You</ons-carousel-cover>
-        <ons-carousel-item modifier="nodivider" id="Top Movie 1" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Top Movie 2" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Top Movie 3" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Top Movie 4" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Top Movie 5" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-      </ons-carousel>
+      <div class="movie_list">
+        My List
+        <ons-carousel auto-refresh swipeable overscrollable item-width="110px">
+          <ons-carousel-item modifier="nodivider" id="Movie 1" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Movie 2" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Movie 3" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Movie 4" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Movie 5" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+        </ons-carousel>
+      </div>
 
-       <ons-carousel auto-refresh swipeable overscrollable item-width="110px" class="movie_list">
-        <ons-carousel-cover>Recently Added</ons-carousel-cover>
-        <ons-carousel-item modifier="nodivider" id="Recent Movie 1" class="movie_cover" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Recent Movie 2" class="movie_cover" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Recent Movie 3" class="movie_cover" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Recent Movie 4" class="movie_cover" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Recent Movie 5" class="movie_cover" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-      </ons-carousel>
+      <div class="movie_list">
+        Top Picks For You
+        <ons-carousel auto-refresh swipeable overscrollable item-width="110px">
+          <ons-carousel-item modifier="nodivider" id="Top Movie 1" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Top Movie 2" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Top Movie 3" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Top Movie 4" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Top Movie 5" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+        </ons-carousel>
+      </div>
+
+      <div class="movie_list">
+        Recently Added
+         <ons-carousel auto-refresh swipeable overscrollable item-width="110px">
+          <ons-carousel-item modifier="nodivider" id="Recent Movie 1" class="movie_cover" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Recent Movie 2" class="movie_cover" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Recent Movie 3" class="movie_cover" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Recent Movie 4" class="movie_cover" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Recent Movie 5" class="movie_cover" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+        </ons-carousel>
+      </div>
 
       <style type="text/css">
-        .carousel {
-          height: 190px;
-        }
-
         .carousel ons-carousel-item img {
           width: 100%;
           max-height: 190px
         }
 
         .cover-label {
-          position: absolute;
-          bottom: 2%;
-          width: 100%;
           text-align: center;
+          cursor: default;
         }
 
         ul {
@@ -284,7 +284,7 @@
           font-size: 15px;
           display: table-cell;
           color: #999;
-        }
+        + }
 
         .circle_current {
           color: white;
@@ -296,12 +296,7 @@
           padding-top: 30px;
         }
 
-        .movie_list ons-carousel-cover{
-          margin-top: -20px;
-          position: absolute;
-        }
-
-        .movie_list img{
+        .movie_list img {
           width: 90%
         }
       </style>
@@ -366,23 +361,25 @@
                 <ons-icon icon="ion-ios-upload-outline"></ons-icon>
                 <div>Share</div>
               </ons-button>
-            </ons-if>  
+            </ons-if>
           </ons-col>
         </ons-row>
       </div>
 
-      <ons-carousel auto-refresh swipeable overscrollable item-width="110px" class="movie_list">
-        <ons-carousel-cover>Similar Movies</ons-carousel-cover>
-        <ons-carousel-item modifier="nodivider" id="Similar Movie 1" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Similar Movie 2" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-        <ons-carousel-item modifier="nodivider" id="Similar Movie 3" onclick="openMovieDetails(this.id)">
-          <img src="assets/img/movie_cover_template.jpg">
-        </ons-carousel-item>
-      </ons-carousel>
+      <div class="movie_list">
+        Similar Movies
+        <ons-carousel auto-refresh swipeable overscrollable item-width="110px">
+          <ons-carousel-item modifier="nodivider" id="Similar Movie 1" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Similar Movie 2" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+          <ons-carousel-item modifier="nodivider" id="Similar Movie 3" onclick="openMovieDetails(this.id)">
+            <img src="assets/img/movie_cover_template.jpg">
+          </ons-carousel-item>
+        </ons-carousel>
+      </div>
 
       <style type="text/css">
         .trailer {
@@ -469,7 +466,7 @@
     .page {
       color: white;
     }
-      
+
     .page__background {
       background-color: black;
     }
@@ -489,7 +486,7 @@
 </body>
 </html>
 
-<!-- info 
+<!-- info
 
 ## Making a Video application
 
@@ -506,7 +503,7 @@ The Onsen UI components used in this template are the following:
 This template consists of three pages:
  - The Login Page
  - The Home Page
- - The Movie Detail Page 
+ - The Movie Detail Page
 
 In addition, there are two extra pages used specifically for the `ons-splitter`:
  - The Splitter Page
