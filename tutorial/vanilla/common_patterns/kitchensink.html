@@ -28,17 +28,6 @@
         document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
       }
     };
-
-    ons.ready(function () {
-      const sidemenu = document.getElementById('appSplitter');
-      ons.platform.isAndroid() ? sidemenu.right.setAttribute('animation', 'overlay') : sidemenu.right.setAttribute('animation', 'reveal');
-
-      document.querySelector('#tabbar-page').addEventListener('postchange', function(event) {
-        if (event.target.matches('#appTabbar')) {
-          event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
-        }
-      });
-    });
   </script>
 </head>
 
@@ -47,26 +36,36 @@
     <ons-page>
       <ons-splitter id="appSplitter">
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
-        <ons-splitter-content>
-          <ons-page id="tabbar-page">
-            <ons-toolbar>
-              <div class="center">Home</div>
-              <div class="right">
-                <ons-toolbar-button onclick="fn.toggleMenu()">
-                  <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-                </ons-toolbar-button>
-              </div>
-            </ons-toolbar>
-            <ons-tabbar swipeable id="appTabbar" position="auto">
-              <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
-              <ons-tab label="Forms" icon="ion-edit" page="forms.html"></ons-tab>
-              <ons-tab label="Animations" icon="ion-film-marker" page="animations.html"></ons-tab>
-            </ons-tabbar>
-          </ons-page>
-        </ons-splitter-content>
+        <ons-splitter-content page="tabbar.html"></ons-splitter-content>
       </ons-splitter>
     </ons-page>
   </ons-navigator>
+
+  <template id="tabbar.html">
+    <ons-page id="tabbar-page">
+      <ons-toolbar>
+        <div class="center">Home</div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.toggleMenu()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+      <ons-tabbar swipeable id="appTabbar" position="auto">
+        <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
+        <ons-tab label="Forms" icon="ion-edit" page="forms.html"></ons-tab>
+        <ons-tab label="Animations" icon="ion-film-marker" page="animations.html"></ons-tab>
+      </ons-tabbar>
+
+      <script>
+        ons.getScriptPage().addEventListener('prechange', function(event) {
+          if (event.target.matches('#appTabbar')) {
+            event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+          }
+        });
+      </script>
+    </ons-page>
+  </template>
 
   <template id="sidemenu.html">
     <ons-page>
@@ -158,6 +157,13 @@
           </div>
         </ons-list-item>
       </ons-list>
+
+      <script>
+        ons.getScriptPage().onInit = function() {
+          // Set ons-splitter-side animation
+          this.parentElement.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
+        };
+      </script>
 
       <style>
         .profile-pic {
@@ -367,7 +373,7 @@
       </ons-list>
 
       <script>
-        document.getElementById('forms-page').onInit = function () {
+        ons.getScriptPage().onInit = function () {
           if (ons.platform.isAndroid()) {
             const inputItems = document.querySelectorAll('.input-items');
             for (i = 0; i < inputItems.length; i++) {
@@ -494,7 +500,7 @@
       </ons-list>
 
       <script>
-        document.getElementById('appNavigator').topPage.onInit = function () {
+        ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
           var pullHook = document.getElementById('pull-hook');
           var icon = document.getElementById('pull-hook-icon');
@@ -710,7 +716,7 @@
       </ons-action-sheet>
 
       <script>
-        document.getElementById('appNavigator').topPage.onInit = function () {
+        ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
           var toolbarButton = ons.platform.isAndroid() ? ons.createElement(`<ons-icon icon="md-more-vert"></ons-icon>`) : ons.createElement(`<span>More</span>`);
           var infoButton = document.getElementById('info-button');
@@ -820,7 +826,7 @@
       </ons-speed-dial>
 
       <script>
-        document.getElementById('appNavigator').topPage.onInit = function () {
+        ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
         }
       </script>
@@ -873,7 +879,7 @@
       </div>
 
       <script>
-        document.getElementById('appNavigator').topPage.onInit = function () {
+        ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
           const carousel = document.getElementById('carousel');
           carousel.addEventListener('postchange', function () {
@@ -934,7 +940,7 @@
       </div>
 
       <script>
-        document.getElementById('load-more-page').onInit = function () {
+        ons.getScriptPage().onInit = function () {
           var listNode = document.getElementById('list-node');
           var createListItem = function (i) {
             return ons.createElement(`<ons-list-item>Item #${i}</ons-list-item>`);
@@ -975,7 +981,7 @@
       </ons-list>
 
       <script>
-        document.getElementById('lazy-repeat-page').onInit = function () {
+        ons.getScriptPage().onInit = function () {
           var infiniteList = document.getElementById('infinite-list');
 
           infiniteList.delegate = {
@@ -1016,7 +1022,7 @@
       </ons-tabbar>
 
       <script>
-        document.getElementById('appNavigator').topPage.onInit = function () {
+        ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
         }
       </script>
@@ -1087,7 +1093,7 @@
       </section>
 
       <script>
-        document.getElementById('appNavigator').topPage.onInit = function () {
+        ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
           if (!ons.platform.isAndroid()) {
             const progressStyle = document.querySelectorAll('.progressStyle');
@@ -1147,7 +1153,7 @@
         Use the VOnsBackButton
       </p>
       <script>
-        document.getElementById('appNavigator').topPage.onInit = function () {
+        ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
         }
       </script>
