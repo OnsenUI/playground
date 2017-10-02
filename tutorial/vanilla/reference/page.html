@@ -90,7 +90,7 @@ Alternatively, lifecycle hooks are also provided for those who prefer a more com
     ons.getScriptPage().onInit = function() {
       // Hooks are bound to the page element
 
-      this.querySelector('ons-toolbar .center') = 'Title';
+      this.querySelector('ons-toolbar .center').innerHTML = 'Title';
       this.onShow = function() {};
     };
   </script>
