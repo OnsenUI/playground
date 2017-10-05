@@ -43,14 +43,14 @@
               side='left'
               width={200}
               collapse={true}
-              isSwipeable={true}
+              swipeable={true}
               isOpen={this.state.isOpen}
               onClose={this.hide}
               onOpen={this.show}
             >
               <Ons.Page>
                 <Ons.List
-                  dataSource={['Profile', 'Followers', 'Settings']} 
+                  dataSource={['Profile', 'Followers', 'Settings']}
                   renderRow={(title) => (
                     <Ons.ListItem key={title} onClick={this.hide} tappable>{title}</Ons.ListItem>
                   )}
