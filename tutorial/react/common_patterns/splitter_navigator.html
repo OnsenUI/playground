@@ -110,7 +110,7 @@
         return (
           <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
             <h2>Cards</h2>
-            
+
             <Ons.ListTitle>Card List</Ons.ListTitle>
             <Ons.List>
               <Ons.ListItem onClick={this.pushPage.bind(this)}>Card One</Ons.ListItem>
@@ -222,7 +222,7 @@
         );
       }
     }
-    
+
     class App extends React.Component {
       constructor() {
         super();
@@ -256,7 +256,7 @@
       render() {
         return (
           <Ons.Splitter>
-            <Ons.SplitterSide side='right' width={220} collapse={true} isSwipeable={true} isOpen={this.state.isOpen} onClose={this.hide.bind(this)} onOpen={this.show.bind(this)}>
+            <Ons.SplitterSide side='right' width={220} collapse={true} swipeable={true} isOpen={this.state.isOpen} onClose={this.hide.bind(this)} onOpen={this.show.bind(this)}>
               <Ons.Page>
                 <Ons.List>
                   <Ons.ListItem key='home' onClick={this.loadPage.bind(this, Home)} tappable>Home</Ons.ListItem>
