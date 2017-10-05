@@ -1,9 +1,10 @@
 // Onsen UI SystemJS config
+(function() {
 
 var ngxonsenui = '';
 
 if (window._isLocalDev) {
-  ngxonsenui = '../../OnsenUI/bindings/angular2';
+  ngxonsenui = '../../OnsenUI/bindings/angular2/dist';
 } else if (window._onsNightlyBuild) {
   ngxonsenui = 'https://crossorigin.me/https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/artifacts/0/$CIRCLE_ARTIFACTS/angular2-onsenui';
 } else {
@@ -78,4 +79,4 @@ System.amdDefine('inline-loader', [], function() {
 });
 
 System.import('inline');
-
+}())
