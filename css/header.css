@@ -143,6 +143,10 @@ header {
   z-index: 1;
 }
 
+.design-2016 > ul > li:hover {
+  opacity: .7;
+}
+
 .design-2016 .dropdown {
   position: relative;
 }
