@@ -10,9 +10,7 @@
 
       infiniteList.delegate = {
         createItemContent: function(i) {
-          return ons._util.createElement(
-            '<ons-list-item>Item ' + i + '</ons-list-item>'
-          );
+          return ons.createElement('<ons-list-item>Item ' + i + '</ons-list-item>');
         },
         countItems: function() {
           return 10000;

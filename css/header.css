@@ -21,36 +21,44 @@ header {
 }
 
 #h2 .title {
-  width: 300px;
-  position: relative;
+  display: flex;
+  justify-content: left;
+  align-items: middle;
   padding-top: 8px;
-}
-
-#h2 .title:hover {
-  opacity: 0.7;
 }
 
 #h2 .logo {
   width: 120px;
   height: 26px;
-  float: left;
+  display: inline-block;
   background: url('../assets/icons/logo_onsenui.svg') center / 100% no-repeat transparent;
 }
+
+#h2 .logo:hover {
+  opacity: 0.7;
+}
+
 #h2 .subtitle {
-  float: right;
   line-height: 30px;
+  display: inline-block;
+  margin-left: 16px;
+  font-style: italic;
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
+}
+
+#h2 .subtitle:hover {
+  opacity: 0.7;
 }
 
 #h2 .subtitle > span:first-of-type {
   color: #AAA;
 }
 
-#h2 .subtitle > span:last-of-type {
-  color: #FF1A33;
-}
+/* #h2 .subtitle > span:last-of-type { */
+/*   color: #FF1A33; */
+/* } */
 
 #h2 > a {
   text-decoration: none;
@@ -133,6 +141,10 @@ header {
   display: inline-block;
   opacity: .9;
   z-index: 1;
+}
+
+.design-2016 > ul > li:hover {
+  opacity: .7;
 }
 
 .design-2016 .dropdown {

@@ -352,51 +352,53 @@ app.services.updateTutorialPage = function (content) {
 };
 
 app.services.modifySource = function () {
+  var url = 'https://github.com/OnsenUI/tutorial/edit/master/';
   var state = window.history.state;
-  if (state) {
-    window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
-  }
+  url += state ? `tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html` : 'index.html';
+  window.open(url, '_blank');
 };
 
 app.services.reportIssue = function () {
-  var state = window.history.state;
-  if (state) {
-    var libs = ['onsenui'];
-    if (app.config.framework !== 'vanilla') {
-      libs.push(app.config.framework + '-onsenui');
-    }
+  var state = window.history.state || {
+    framework: 'core',
+    module: ''
+  };
 
-    var promises = [];
-
-    libs.forEach(function(lib) {
-      if (!app.config.versions[lib] || app.config.versions[lib] === 'latest') {
-        promises.push(app.services.getLatestVersionOf(lib));
-      } else {
-        promises.push(new Promise(function(resolve) {
-          resolve(app.config.versions[lib]);
-        }));
-      }
-    });
-
-    var newTab = window.open('', '_blank');
-    newTab.document.write('Loading...');
-
-    Promise.all(promises).then(
-      function(iterable) {
-        app.setVersion(libs[0], iterable[0]);
-        if (iterable[1]) {
-          app.setVersion(libs[1], iterable[1]);
-        }
-
-        var frameworkName = app.config.framework === 'vanilla' ? 'core' : state.framework;
-        var title = app.util.capitalize(frameworkName) + ' | ' + app.util.capitalize(state.module) + ' issue: ';
-        newTab.location.href = `https://github.com/OnsenUI/OnsenUI/issues/new?title=${title}&labels[]=${frameworkName}&labels[]=hasDemo&body=${app.services.generateIssueTemplate()}`;
-      },
-      function() {
-        newTab.close();
-      }
-    );
+  var libs = ['onsenui'];
+  if (app.config.framework !== 'vanilla') {
+    libs.push(app.config.framework + '-onsenui');
   }
+
+  var promises = [];
+
+  libs.forEach(function(lib) {
+    if (!app.config.versions[lib] || app.config.versions[lib] === 'latest') {
+      promises.push(app.services.getLatestVersionOf(lib));
+    } else {
+      promises.push(new Promise(function(resolve) {
+        resolve(app.config.versions[lib]);
+      }));
+    }
+  });
+
+  var newTab = window.open('', '_blank');
+  newTab.document.write('Loading...');
+
+  Promise.all(promises).then(
+    function(iterable) {
+      app.setVersion(libs[0], iterable[0]);
+      if (iterable[1]) {
+        app.setVersion(libs[1], iterable[1]);
+      }
+
+      var frameworkName = app.config.framework === 'vanilla' ? 'core' : state.framework;
+      var title = app.util.capitalize(frameworkName) + ' | ' + app.util.capitalize(state.module) + ' issue: ';
+      newTab.location.href = `https://github.com/OnsenUI/OnsenUI/issues/new?title=${title}&labels[]=${frameworkName}&labels[]=hasDemo&body=${app.services.generateIssueTemplate()}`;
+    },
+    function() {
+      newTab.close();
+    }
+  );
 };
 
 app.services.getLatestVersionOf = function (lib) {
@@ -415,7 +417,7 @@ app.services.getLatestVersionOf = function (lib) {
 app.services.generateIssueTemplate = function () {
   var frameworkInfo = '';
   var frameworkBindingsInfo = '';
-  if (app.config.framework !== 'vanilla') {
+  if (app.config.framework && app.config.framework !== 'vanilla') {
     frameworkInfo = `
 [Framework]
   ${app.config.framework} ${app.config.versions[app.config.framework || '']}
