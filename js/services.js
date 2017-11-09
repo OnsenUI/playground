@@ -310,7 +310,7 @@ app.services.getRequiredLibs = function (forceRemote) {
   switch (app.config.framework) {
     case 'react':
       requiredLibs.react = {
-        'react': [libs.js.react, libs.js.reactDom],
+        'react': [libs.js.react, libs.js.reactDom], // libs.js.propTypes
         'react-onsenui': [libs.js.reactOnsenui]
       }
       break;
