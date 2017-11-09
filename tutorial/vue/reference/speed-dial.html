@@ -12,9 +12,6 @@
         return {
           spdVisible: true,
           spdOpen: true,
-          spdStyle: {
-            backgroundColor: this.$ons.platform.isIOS() ? '#4282cc' : null
-          },
           shareItems: {
             'Twitter': 'md-twitter',
             'Facebook': 'md-facebook',
@@ -42,12 +39,11 @@
         :visible="spdVisible"
         :open.sync="spdOpen"
       >
-        <v-ons-fab :style="spdStyle">
+        <v-ons-fab>
           <v-ons-icon icon="md-face"></v-ons-icon>
         </v-ons-fab>
 
         <v-ons-speed-dial-item v-for="(icon, name) in shareItems"
-          :style="spdStyle"
           @click="$ons.notification.confirm(`Share on ${name}?`)"
         >
           <v-ons-icon :icon="icon"></v-ons-icon>
