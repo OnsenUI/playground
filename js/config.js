@@ -78,14 +78,15 @@ app.config.lib = function(forceRemote) {
       // React
       react: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react.min.js`,
       reactDom: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react-dom.min.js`,
-      reactOnsenui: app.config.getCdnUrl('react-onsenui', 'dist/react-onsenui.js', forceRemote),
+      // propTypes: `https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.js`,
+      reactOnsenui: app.config.getCdnUrl('react-onsenui', 'dist/react-onsenui.min.js', forceRemote),
       // Vue
       vue: `https://cdnjs.cloudflare.com/ajax/libs/vue/${app.config.versions.vue}/vue.js`,
       vueOnsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js', forceRemote),
       // Angular 2+
-      zone: `https://unpkg.com/zone.js@0.8.17/dist/zone.min.js`,
-      corejs: `https://unpkg.com/core-js@2.5.1/client/core.min.js`,
-      systemjs: `https://unpkg.com/systemjs@0.19.46/dist/system.js` // 0.20.18 caused `Fetch error: 404 Not Found`
+      zone: 'https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.8.18/zone.min.js',
+      corejs: 'https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.1/core.min.js',
+      systemjs: 'https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.47/system.js' // 0.20.18 caused `Fetch error: 404 Not Found`
     },
     css: {
       onsenui: app.config.getCdnUrl('onsenui', 'css/onsenui.css', forceRemote, true),
@@ -95,7 +96,7 @@ app.config.lib = function(forceRemote) {
 };
 
 app.config.transpilerLib = {
-  'babel': "https://unpkg.com/babel-standalone@6.24.0/babel.min.js",
+  'babel': "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js",
   'typescript': "https://cdnjs.cloudflare.com/ajax/libs/typescript/2.5.2/typescript.min.js"
 };
 
