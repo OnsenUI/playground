@@ -11,7 +11,7 @@ if (window._isLocalDev) {
   ngxonsenui = 'https://unpkg.com/ngx-onsenui' + (window._ngxOnsLibVersion ? ('@' + window._ngxOnsLibVersion) : '');
 }
 
-var libVersion = window._ngxLibVersion;
+var libVersion = window._ngxLibVersion ? ('@' + window._ngxLibVersion) : '';
 
 // Adapter modules for `ons` object
 System.registerDynamic('onsenui', [], false, function(require, exports, module) {
@@ -21,12 +21,12 @@ System.registerDynamic('onsenui', [], false, function(require, exports, module) 
 System.config({
   map: {
     'ngx-onsenui': ngxonsenui + '/bundles/ngx-onsenui.umd.js' + (window._onsNightlyBuild ? '?branch=master&filter=successful' : ''),
-    '@angular/core': `https://unpkg.com/@angular/core@${libVersion}/bundles/core.umd.min.js`,
-    '@angular/compiler': `https://unpkg.com/@angular/compiler@${libVersion}/bundles/compiler.umd.min.js`,
-    '@angular/common': `https://unpkg.com/@angular/common@${libVersion}/bundles/common.umd.min.js`,
-    '@angular/forms': `https://unpkg.com/@angular/forms@${libVersion}/bundles/forms.umd.min.js`,
-    '@angular/platform-browser': `https://unpkg.com/@angular/platform-browser@${libVersion}/bundles/platform-browser.umd.min.js`,
-    '@angular/platform-browser-dynamic': `https://unpkg.com/@angular/platform-browser-dynamic@${libVersion}/bundles/platform-browser-dynamic.umd.min.js`,
+    '@angular/core': `https://unpkg.com/@angular/core${libVersion}/bundles/core.umd.min.js`,
+    '@angular/compiler': `https://unpkg.com/@angular/compiler${libVersion}/bundles/compiler.umd.min.js`,
+    '@angular/common': `https://unpkg.com/@angular/common${libVersion}/bundles/common.umd.min.js`,
+    '@angular/forms': `https://unpkg.com/@angular/forms${libVersion}/bundles/forms.umd.min.js`,
+    '@angular/platform-browser': `https://unpkg.com/@angular/platform-browser${libVersion}/bundles/platform-browser.umd.min.js`,
+    '@angular/platform-browser-dynamic': `https://unpkg.com/@angular/platform-browser-dynamic${libVersion}/bundles/platform-browser-dynamic.umd.min.js`,
     'rxjs': 'https://unpkg.com/rxjs@5.4.3',
     'process': 'https://unpkg.com/process@0.11.9'
   },
