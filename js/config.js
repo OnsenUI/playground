@@ -15,7 +15,7 @@ if ((window.location.hostname === 'localhost' || window.location.hostname.match(
 app.config.getCdnUrl = function(lib, path, forceRemote, skipNightly) {
   // Fetch from local disk
   if (app.config.local === true && !forceRemote) {
-    let directory = '../../OnsenUI/';
+    var directory = '../../OnsenUI/';
     if (lib === 'onsenui') {
       directory += 'build/';
     } else {

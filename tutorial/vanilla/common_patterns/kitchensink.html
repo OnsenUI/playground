@@ -406,7 +406,9 @@
             document.getElementById('awesome-platform').innerHTML = `${event.target.value}&nbsp;`;
           });
           var currentFruitId = 'radio-1';
-          document.querySelectorAll('.radio-fruit').forEach(function (radio) {
+          const radios = document.querySelectorAll('.radio-fruit')
+          for (var i = 0; i < radios.length; i++) {
+            var radio = radios[i];
             radio.addEventListener('change', function (event) {
               if (event.target.id !== currentFruitId) {
                 document.getElementById('fruit-love').innerHTML = `I love ${event.target.value}!`;
@@ -414,9 +416,11 @@
                 currentFruitId = event.target.id;
               }
             })
-          });
+          }
           var currentColors = ['Green', 'Blue'];
-          document.querySelectorAll('.checkbox-color').forEach(function (checkbox) {
+          const checkboxes = document.querySelectorAll('.checkbox-color')
+          for (var i = 0; i < checkboxes.length; i++) {
+            var checkbox = checkboxes[i];
             checkbox.addEventListener('change', function (event) {
               if (!currentColors.includes(event.target.value)) {
                 currentColors.push(event.target.value);
@@ -426,7 +430,7 @@
               }
               document.getElementById('checkboxes-header').innerHTML = currentColors;
             })
-          });
+          };
           document.getElementById('range-slider').addEventListener('input', function (event) {
             document.getElementById('volume-value').innerHTML = `&nbsp;${event.target.value}`;
             if (event.target.value > 80) {
@@ -540,7 +544,7 @@
           };
           var getRandomData = function () {
             const data = [];
-            for (let i = 0; i < 8; i++) {
+            for (var i = 0; i < 8; i++) {
               data.push(getRandomKitten());
             }
             return data;
@@ -562,7 +566,7 @@
             document.getElementById('kitten-list').appendChild(kitten);
           };
           pullHook.onAction = function (done) {
-            setTimeout(() => {
+            setTimeout(function() {
               document.getElementById('kitten-list').appendChild(createKitten(getRandomKitten()));
               done();
             }, 400);
@@ -733,7 +737,7 @@
               elem.show();
               if (id === 'modal-dialog') {
                 clearTimeout(timeoutID);
-                timeoutID = setTimeout(() => fn.hideDialog(id), 2000);
+                timeoutID = setTimeout(function() { fn.hideDialog(id) }, 2000);
               }
             }
           };
@@ -945,13 +949,13 @@
           var createListItem = function (i) {
             return ons.createElement(`<ons-list-item>Item #${i}</ons-list-item>`);
           }
-          for (let i = 0; i < 30; i++) {
+          for (var i = 0; i < 30; i++) {
             listNode.appendChild(createListItem(i));
           }
           window.fn.loadMore = function (done) {
-            setTimeout(() => {
+            setTimeout(function() {
               const listLength = listNode.children.length;
-              for (let i = 0; i < 10; i++) {
+              for (var i = 0; i < 10; i++) {
                 listNode.appendChild(createListItem(listLength + i));
               }
               done();
@@ -1106,7 +1110,7 @@
           var progressStatus = document.getElementById('progress-status');
           var progressValue = document.getElementById('progress-value');
           var intervalID = 0;
-          intervalID = setInterval(() => {
+          intervalID = setInterval(function() {
             if (progressValue.value === 100) {
               clearInterval(intervalID);
               return;
