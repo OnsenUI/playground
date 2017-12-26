@@ -562,7 +562,7 @@
             document.getElementById('kitten-list').appendChild(kitten);
           };
           pullHook.onAction = function (done) {
-            setTimeout(() => {
+            setTimeout(function() {
               document.getElementById('kitten-list').appendChild(createKitten(getRandomKitten()));
               done();
             }, 400);
@@ -733,7 +733,7 @@
               elem.show();
               if (id === 'modal-dialog') {
                 clearTimeout(timeoutID);
-                timeoutID = setTimeout(() => fn.hideDialog(id), 2000);
+                timeoutID = setTimeout(function() { fn.hideDialog(id) }, 2000);
               }
             }
           };
@@ -949,7 +949,7 @@
             listNode.appendChild(createListItem(i));
           }
           window.fn.loadMore = function (done) {
-            setTimeout(() => {
+            setTimeout(function() {
               const listLength = listNode.children.length;
               for (var i = 0; i < 10; i++) {
                 listNode.appendChild(createListItem(listLength + i));
@@ -1106,7 +1106,7 @@
           var progressStatus = document.getElementById('progress-status');
           var progressValue = document.getElementById('progress-value');
           var intervalID = 0;
-          intervalID = setInterval(() => {
+          intervalID = setInterval(function() {
             if (progressValue.value === 100) {
               clearInterval(intervalID);
               return;
