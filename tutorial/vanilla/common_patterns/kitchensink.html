@@ -406,7 +406,9 @@
             document.getElementById('awesome-platform').innerHTML = `${event.target.value}&nbsp;`;
           });
           var currentFruitId = 'radio-1';
-          document.querySelectorAll('.radio-fruit').forEach(function (radio) {
+          const radios = document.querySelectorAll('.radio-fruit')
+          for (var i = 0; i < radios.length; i++) {
+            var radio = radios[i];
             radio.addEventListener('change', function (event) {
               if (event.target.id !== currentFruitId) {
                 document.getElementById('fruit-love').innerHTML = `I love ${event.target.value}!`;
@@ -414,9 +416,11 @@
                 currentFruitId = event.target.id;
               }
             })
-          });
+          }
           var currentColors = ['Green', 'Blue'];
-          document.querySelectorAll('.checkbox-color').forEach(function (checkbox) {
+          const checkboxes = document.querySelectorAll('.checkbox-color')
+          for (var i = 0; i < checkboxes.length; i++) {
+            var checkbox = checkboxes[i];
             checkbox.addEventListener('change', function (event) {
               if (!currentColors.includes(event.target.value)) {
                 currentColors.push(event.target.value);
@@ -426,7 +430,7 @@
               }
               document.getElementById('checkboxes-header').innerHTML = currentColors;
             })
-          });
+          };
           document.getElementById('range-slider').addEventListener('input', function (event) {
             document.getElementById('volume-value').innerHTML = `&nbsp;${event.target.value}`;
             if (event.target.value > 80) {
