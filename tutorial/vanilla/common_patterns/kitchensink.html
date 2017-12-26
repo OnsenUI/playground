@@ -540,7 +540,7 @@
           };
           var getRandomData = function () {
             const data = [];
-            for (let i = 0; i < 8; i++) {
+            for (var i = 0; i < 8; i++) {
               data.push(getRandomKitten());
             }
             return data;
@@ -945,13 +945,13 @@
           var createListItem = function (i) {
             return ons.createElement(`<ons-list-item>Item #${i}</ons-list-item>`);
           }
-          for (let i = 0; i < 30; i++) {
+          for (var i = 0; i < 30; i++) {
             listNode.appendChild(createListItem(i));
           }
           window.fn.loadMore = function (done) {
             setTimeout(() => {
               const listLength = listNode.children.length;
-              for (let i = 0; i < 10; i++) {
+              for (var i = 0; i < 10; i++) {
                 listNode.appendChild(createListItem(listLength + i));
               }
               done();
