@@ -242,7 +242,10 @@
 
       loadPage(page) {
         this.hide();
-        this.navigator.resetPage({ component: page, props: { key: page } }, { animation: 'fade' });
+        const currentPage = this.navigator.pages.slice(-1)[0] // --- or [this.navigator.pages.length - 1]
+        if(currentPage.key != page.name){
+          this.navigator.resetPage({ component: page, props: { key: page.name } }, { animation: 'fade' });
+        }
       }
 
       renderPage(route, navigator) {
@@ -259,14 +262,14 @@
             <Ons.SplitterSide side='right' width={220} collapse={true} swipeable={true} isOpen={this.state.isOpen} onClose={this.hide.bind(this)} onOpen={this.show.bind(this)}>
               <Ons.Page>
                 <Ons.List>
-                  <Ons.ListItem key='home' onClick={this.loadPage.bind(this, Home)} tappable>Home</Ons.ListItem>
-                  <Ons.ListItem key='cards' onClick={this.loadPage.bind(this, Cards)} tappable>Cards</Ons.ListItem>
-                  <Ons.ListItem key='settings' onClick={this.loadPage.bind(this, Settings)} tappable>Settings</Ons.ListItem>
+                  <Ons.ListItem key={Home.name} onClick={this.loadPage.bind(this, Home)} tappable>Home</Ons.ListItem>
+                  <Ons.ListItem key={Cards.name} onClick={this.loadPage.bind(this, Cards)} tappable>Cards</Ons.ListItem>
+                  <Ons.ListItem key={Settings.name} onClick={this.loadPage.bind(this, Settings)} tappable>Settings</Ons.ListItem>
                 </Ons.List>
               </Ons.Page>
             </Ons.SplitterSide>
             <Ons.SplitterContent>
-              <Ons.Navigator initialRoute={{ component: Home, props: { key: 'home' } }} renderPage={this.renderPage.bind(this)} ref={(navigator) => { this.navigator = navigator; }} />
+              <Ons.Navigator initialRoute={{ component: Home, props: { key: Home.name } }} renderPage={this.renderPage.bind(this)} ref={(navigator) => { this.navigator = navigator; }} />
             </Ons.SplitterContent>
           </Ons.Splitter>
         );
