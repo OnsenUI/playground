@@ -140,9 +140,18 @@ app.services.loadModule = function (framework, category, module) {
         extract = app.util.extract;
 
       var html = format(extract(responseText, /<body>([\s\S]*)<\/body>/));
-      var docs = extract(responseText, /<\/html>\s*<!--.*\n([\s\S]*)-->/).trim();
       var script = extract(responseText, /<head>[\s\S]*(<script[\s\S]*<\/script>)[\s\S]*<\/head>/);
       var code = format(extract(script, /<script.*>([\s\S]*)<\/script>/));
+
+      // Language
+      var lang = app.config.lang === 'en' ? null : app.config.lang;
+      var getDocsRE = function(lang) {
+        return new RegExp(`</html>[.\\s\\S]*?<!--.*?${lang ? `lang=${lang}` : ''}.*?\\s*?\\n([\\s\\S]*?)-->`);
+      };
+      var docs = extract(responseText, getDocsRE(lang)).trim();
+      if (!docs) {
+        docs = extract(responseText, getDocsRE()).trim();
+      }
 
       app.config.codeType = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
       app.config.framework = framework;

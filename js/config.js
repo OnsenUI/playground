@@ -7,6 +7,8 @@ app.config.cdn = 'https://unpkg.com/';
 app.config.ci = 'https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/artifacts/0/$CIRCLE_ARTIFACTS/';
 app.config.nightly = window.sessionStorage.getItem('nightly') === 'true';
 
+app.config.lang = app.util.getParam('lang') || ((window.location.hostname.split('.')[0] === 'ja') ? 'ja' : null);
+
 // Enables local lib versions
 if ((window.location.hostname === 'localhost' || !window.location.hostname.match(/[a-zA-Z]/)) && window.location.pathname.indexOf('/playground/') === 0) {
   app.config.local = true;
