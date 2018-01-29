@@ -7,7 +7,7 @@ app.services.generateTemplateOutput = function () {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>OnsenUI Tutorial</title>
+      <title>OnsenUI Playground</title>
 
       ${app.config.framework === 'angular2' ? app.services.generateAngular2Globals() : ''}
 
@@ -86,7 +86,7 @@ app.services.codepenSubmit = function () {
 
   var options = {
     title: 'Onsen UI',
-    description: 'Onsen UI Tutorial Export',
+    description: 'Onsen UI Playground Export',
     html: app.editors.html.getValue(),
     js: app.editors.js.getValue(),
     editors: '101',
@@ -328,7 +328,7 @@ app.services.getRequiredLibs = function (forceRemote) {
       break;
     case 'angular2':
       requiredLibs.angular2 = {
-      'systemjs': [libs.js.systemjs, (app.config.local ? '.' : 'https://tutorial.onsen.io') + '/js/onsenui.system.js'],
+        'systemjs': [libs.js.systemjs, (app.config.local ? '.' : 'https://onsen.io/playground') + '/js/onsenui.system.js'],
         'corejs': [libs.js.corejs],
         'zone': [libs.js.zone]
       }
@@ -352,7 +352,7 @@ app.services.updateTutorialPage = function (content) {
 };
 
 app.services.modifySource = function () {
-  var url = 'https://github.com/OnsenUI/tutorial/edit/master/';
+  var url = 'https://github.com/OnsenUI/playground/edit/master/';
   var state = window.history.state;
   url += state ? `tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html` : 'index.html';
   window.open(url, '_blank');
@@ -462,7 +462,7 @@ __How to reproduce__
 
 
   <!-- This link will work once the issue is created -->
-  [__Demo link__](https://tutorial.onsen.io/?issue)
+  [__Demo link__](https://onsen.io/playground/?issue)
 
   <!-- Do not change the following code structure -->
 
