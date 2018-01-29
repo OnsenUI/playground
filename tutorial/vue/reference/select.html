@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          items: [
+            { text: 'Vue', value: 'Vue' },
+            { text: 'React', value: 'React' },
+            { text: 'Angular', value: 'Angular' }
+          ],
+          selectedItem: 'Vue'
+        };
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Select</div>
+      </v-ons-toolbar>
+
+      <v-ons-list>
+        <v-ons-list-item>
+          <div class="center">
+
+            <v-ons-select style="width: 40%"
+              v-model="selectedItem"
+            >
+              <option v-for="item in items" :value="item.value">
+                {{ item.text }}
+              </option>
+            </v-ons-select>
+
+          </div>
+        </v-ons-list-item>
+        <v-ons-list-item>
+          <div class="center">
+            {{ selectedItem }} is awesome!
+          </div>
+        </v-ons-list-item>
+      </v-ons-list>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Select input
+
+The `VOnsSelect` component is used to display a select box with an arbitrary number of options.
+
+There are several attributes that can be used to customize the behavior of the element. These are the same attributes as those that can be used for the regular HTML `<select>` element.
+
+Please check the Onsen UI Reference documentation for a complete reference of the enabled attributes.
+
+-->

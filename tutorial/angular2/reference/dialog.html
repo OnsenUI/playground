@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+    import {
+      Component,
+      ComponentRef,
+      ViewChild,
+      Params,
+      OnsenModule,
+      NgModule,
+      CUSTOM_ELEMENTS_SCHEMA
+    } from 'ngx-onsenui';
+    import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+    import * as ons from 'onsenui';
+
+    @Component({
+      selector: 'app',
+      template: `
+      <ons-page class="page">
+        <ons-toolbar>
+          <div class="center">Dialogs</div>
+        </ons-toolbar>
+        <div class="content">
+          <ons-list>
+            <ons-list-header>Notifications</ons-list-header>
+            <ons-list-item tappable (click)="alert()">Alert</ons-list-item>
+            <ons-list-item tappable (click)="confirm()">Confirmation</ons-list-item>
+            <ons-list-item tappable (click)="prompt()">Prompt</ons-list-item>
+            <ons-list-item tappable (click)="toast()">Toast</ons-list-item>
+
+            <ons-list-header>Components</ons-list-header>
+            <ons-list-item tappable (click)="dialog.show()">Simple Dialog</ons-list-item>
+            <ons-list-item tappable (click)="alertDialog.show()">Alert Dialog</ons-list-item>
+            </ons-list>
+        </div>
+      </ons-page>
+
+      <!-- must be located just under an outermost box such as body element -->
+      <ons-dialog animation="default" cancelable #dialog>
+        <div class="dialog-mask"></div>
+          <div class="dialog">
+            <div class="dialog-container" style="height: 200px;">
+              <ons-page>
+                <ons-toolbar>
+                  <div class="center">Name</div>
+                </ons-toolbar>
+                <div class="content">
+                  <div style="text-align: center">
+                    <p>This is just an example.</p>
+                    <br>
+                    <ons-button (click)="dialog.hide()">Close</ons-button>
+                  </div>
+                </div>
+              </ons-page>
+            </div>
+          </div>
+      </ons-dialog>
+
+      <!-- must be located just under an outermost box such as body element -->
+      <ons-alert-dialog cancelable #alertDialog>
+        <div class="alert-dialog-title">Warning!</div>
+        <div class="alert-dialog-content">
+          This is just an example.
+        </div>
+        <div class="alert-dialog-footer">
+          <ons-alert-dialog-button (click)="alertDialog.hide()">OK</ons-alert-dialog-button>
+        </div>
+      </ons-alert-dialog>
+      `
+    })
+    export class AppComponent {
+      constructor() {
+      }
+
+      alert() {
+        ons.notification.alert('Hello, world!');
+      }
+
+      confirm() {
+        ons.notification.confirm({
+          message: 'This dialog can be canceled by tapping the background or using the back button on your device.',
+          cancelable: true,
+          callback: i => {
+            if (i == -1) {
+              ons.notification.alert({message: 'You canceled it!'});
+            }
+          }
+        });
+      }
+
+      prompt() {
+        ons.notification.prompt({
+          message: 'What is the meaning of Life, the Universe and Everything?',
+          callback: answer => {
+            if (answer === '42') {
+              ons.notification.alert({message: 'That\'s the correct answer!'});
+            } else {
+              ons.notification.alert({message: 'Incorrect! Please try again!'});
+            }
+          }
+        });
+      }
+
+      toast() {
+        ons.notification.toast('Hello, world!', {timeout: 2000});
+      }
+    }
+
+    @NgModule({
+      imports: [OnsenModule],
+      declarations: [AppComponent],
+      bootstrap: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    class AppModule { }
+
+    platformBrowserDynamic().bootstrapModule(AppModule);
+  </script>
+
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## Dialog
+
+Onsen UIではダイアログを表示する方法がいくつかあります。このチュートリアルでは次のダイアログの使い方を解説します。
+
+ * onsNotification
+ * ons-alert-dialogとAlertDialogFactory
+ * ons-dialogとDialogFactory
+
+## onsNotification
+
+`onsNotification`は単純なアラートダイアログを表示することができます。`onsNotification`の持つ`alert()`, `confirm()`, `prompt()`メソッドの役割は、`window.alert()`や`window.confirm()`や`window.prompt()`と対応しています。
+
+```
+import onsNotification from 'angular2-onsenui';
+
+// アラートを表示する
+onsNotification.alert('Hello World!');
+```
+
+確認ダイアログを表示するには、`onsNotification.confirm()`を使います。
+
+```
+onsNotification.confirm({
+  message: 'This dialog can be canceled by tapping the background or using the back button on your device.',
+  cancelable: true,
+  callback: i => {
+    if (i == -1) {
+      // canselされた場合iは-1が代入される
+      onsNotification.alert({message: 'You canceled it!'});
+    }
+  }
+});
+```
+
+プロンプトを表示するには、`onsNotification.prompt()`を用います。
+
+```
+onsNotification.prompt({
+  message: 'What is the meaning of Life, the Universe and Everything?',
+  callback: answer => {
+    if (answer === '42') {
+      onsNotification.alert({message: 'That\'s the correct answer!'});
+    } else {
+      onsNotification.alert({message: 'Incorrect! Please try again!'});
+    }
+  }
+});
+```
+
+onsNotificationはons.notificationのラッパーです。APIの詳細は、ons.notificationのリファレンスを参照してください。
+
+## `<ons-alert-dialog>`とAlertDialogFactory
+
+単純なアラートダイアログではなく、振る舞いやコンテンツをカスタマイズしたい場合には、`<ons-alert-dialog>`要素とAlertDialogFactoryを利用します。
+
+onsNotificationの場合とは違って、Angular 2アプリケーション下で`<ons-alert-dialog>`要素を使うには手順が必要です。まず、`<ons-alert-dialog>`を使ってComponentを宣言します。
+
+```
+@Component({
+  template: `
+    <ons-alert-dialog cancelable #alert>
+      <div class="alert-dialog-title">Warning!</div>
+      <div class="alert-dialog-content">
+        Hello World!
+      </div>
+      <div class="alert-dialog-footer">
+        <button class="alert-dialog-button" (click)="alert.hide()">OK</button>
+      </div>
+    </ons-alert-dialog>
+  `
+})
+class MyAlertDialogComponent {
+}
+```
+
+次にこのコンポーネントとして呼び出すにはAlertDialogFactoryを使います。AlertDialogFactoryオブジェクトは次のようにコンポーネントのコンストラクタの引数に指定することでAngular 2のDIを通じて取得することができます。
+
+```
+@Component({
+  'selector': 'app',
+  'template': '<div></div>'
+})
+export class AppComponent {
+  constructor(adf: AlertDialogFactory) {
+  }
+}
+```
+
+AlertDialogFactoryは、`<ons-alert-dialog>`を使っているコンポーネントを動的に生成することができます。初期化時にダイアログを生成したい場合には、次のようにコンポーネントの`ngAfterViewInit()`内で`createAlertDialog()`メソッドを使ってください。
+
+また、一度作成したアラートダイアログは`destroy`関数で必ず消して下さい。ドキュメントのDOMツリーの中に保持されし続けるので、DOMリークを引き起こします。
+
+```
+export class AppComponent implements AfterViewInit, OnDestroy {
+  private _alert: any;
+  private _destroyAlert: Function;
+
+  constructor(private _adf: AlertDialogFactory) {
+  }
+
+  ngAfterViewInit() {
+    this._adf
+      .createAlertDialog(MyAlertDialogComponent, {message: 'This is just an example.'})
+      .then(({alertDialog, destroy}) => {
+        this._alert = alertDialog;
+        this._alert.show();
+        this._destroyAlert = destroy;
+      });
+  }
+
+  ngOnDestroy() {
+    this._destroyAlert();
+  }
+}
+
+```
+
+ビューの初期化が行われていない`constructor()`内で`createAlertDialog()`を呼び出すとエラーを引き起こすことに注意してください。
+
+## パラメータを受け取る
+
+`createAlertDialog()`の第二引数には、任意のデータを渡すことができます。
+
+```
+this._adf
+  .createAlertDialog(MyAlertDialogComponent, {message: 'This is just an example.'})
+  .then(({alertDialog, destroy}) => {
+    // ...
+  });
+```
+
+ここで渡したデータは、AlertDialogのコンポーネントのコンストラクタから取得することができます。
+
+```
+class MyAlertDialogComponent {
+  message = '';
+
+  constructor(params: Params) {
+    this.message = <string>params.at('message');
+  }
+}
+```
+
+## NgModule
+
+AlertDialogFactoryで読み込むコンポーネントは動的に読み込まれるものであるため、`NgModule`の`declarations`と`entryComponents`に追加することを忘れないでください。
+
+```
+@NgModule({
+  imports: [OnsenModule],
+  declarations: [AppComponent, MyAlertDialogComponent],
+  bootstrap: [AppComponent],
+  entryComponents: [MyAlertDialogComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+class AppModule { }
+```
+
+## `<ons-dialog>`とDialogFactory
+
+アラートダイアログではなく、`<ons-page>`や`<ons-navigator>`などを埋め込めるダイアログを表示する場合には、`<ons-dialog>`を使います。
+
+`<ons-dialog>`をAngular 2で生成するには、DialogFactoryを使います。先ほど紹介したAlertDialogFactoryとほとんど同じ方法で使うことができます。
+
+```
+@Component({
+  template: `
+    <ons-dialog #dialog>
+      <div class="dialog-mask"></div>
+      <div class="dialog">
+        <div class="dialog-container" style="height: 200px;">
+          <ons-page>
+            <ons-toolbar>
+              <div class="center">Name</div>
+            </ons-toolbar>
+            <div class="content">
+              <div style="text-align: center">
+                <p>{{message}}</p>
+                <br>
+                <ons-button (click)="dialog.hide()">Close</ons-button>
+              </div>
+            </div>
+          </ons-page>
+        </div>
+      </div>
+    </ons-dialog>
+  `
+})
+class MyDialogComponent {
+  message = '';
+
+  constructor(params: Params) {
+    this.message = <string>params.at('message');
+  }
+}
+```
+
+DialogFactoryを通じてこのMyDialogComponentを初期化します。
+
+```
+export class AppComponent implements AfterViewInit, OnDestroy {
+  private _dialog: any;
+  private _destroyDialog: Function;
+
+  constructor(private _df: DialogFactory) {
+  }
+
+  ngAfterViewInit() {
+    this._df
+      .createDialog(MyDialogComponent, {message: 'This is just an example.'})
+      .then(({dialog, destroy}) => {
+        this._dialog = dialog;
+        this._destroyDialog = destroy;
+      });
+  }
+
+  ngOnDestroy() {
+    this._destroyDialog();
+  }
+}
+```
+
+AlertDialogの場合と同様に、初期化時に渡されるdestroy関数を終了時に呼び出すことを忘れないでください。
+
+-->

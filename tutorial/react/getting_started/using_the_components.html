@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      handleClick: function() {
+        ons.notification.alert('Hello world!');
+      },
+
+      renderToolbar: function() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>My app</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.Button onClick={this.handleClick}>
+              Click me!
+            </Ons.Button>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## React Components
+
+We provide [React](https://facebook.github.io/react/) components for Onsen UI. React is a great library for building user interfaces and mobile apps.
+
+In this tutorial we will create a simple "Hello, world" example using React and Onsen UI components.
+
+## What is JSX?
+
+If you're not familiar with React you might think that the code is not proper JavaScript and you are right to think that.
+
+React apps are often written in something called [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) which is an extension of the JavaScript language.
+
+JSX can be transformed into proper JavaScript by running a JSX transform.
+
+## JSX continued
+
+Let's take a look at the following JSX statement:
+
+```
+var app = <Nav color="blue" />;
+```
+
+When converted into JavaScript from JSX it will turn into this:
+
+```
+var app = React.createElement(Nav, {color: 'blue'});
+```
+
+The JSX transform makes React code a lot cleaner since we don't need to put a lot of `React.createElement` in our code.
+
+## The `Ons` object
+
+The React extension exports an object called `Ons` where all the components are attached. So to create a button you can use the `Ons.Button` component.
+
+```
+<Ons.Button>Click me!</Ons.Button>
+```
+
+It also contains a bunch of other components such as:
+
+* `Ons.Page`
+* `Ons.Toolbar`
+* `Ons.Navigator`
+* ...and many more.
+
+## Creating a page
+
+To create a page we use the `Ons.Page` component. The toolbar is added with the `Ons.Toolbar` component.
+
+```
+<Ons.Page>
+  <Ons.Toolbar>
+    <div className="center">Title</div>
+  </Ons.Toolbar>
+</Ons.Page>
+```
+
+The toolbar is divided into three sections defined by the `left`, `center` and `right` classes. In React the `className` prop is used instead of `class` for assigning classes.
+
+## Defining event handlers
+
+In React some event handlers are exposed as props. One of those is the `onClick` prop which can be used with any component.
+
+```
+<Ons.Button onClick={this.handleClick}>Click me!</Ons.Button>
+```
+
+When the button is clicked the `this.handleClick` method is called.
+
+## Showing a notification
+
+The `Ons` object contains all the components so it's different from the `ons` object which is provided by the core Onsen UI library.
+
+Just like in normal Onsen UI apps you can show dialogs using the `ons.notification` methods:
+
+```
+ons.notification.alert('Hello world!');
+```
+
+-->

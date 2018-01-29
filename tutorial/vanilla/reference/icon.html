@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Icons</div>
+      <div class="right">
+        <ons-toolbar-button>
+          <ons-icon icon="ion-navicon, material:md-more-vert"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+
+    <section style="padding: 10px">
+      <h3>Material icons</h3>
+
+      <ons-icon icon="md-face"></ons-icon>
+      <ons-icon icon="md-home"></ons-icon>
+      <ons-icon icon="md-zoom-in"></ons-icon>
+
+      <h3>Font awesome</h3>
+
+      <ons-icon icon="fa-file"></ons-icon>
+      <ons-icon icon="fa-cog"></ons-icon>
+      <ons-icon icon="fa-car"></ons-icon>
+
+      <h3>Ionicons</h3>
+
+      <ons-icon icon="ion-navicon"></ons-icon>
+      <ons-icon icon="ion-hammer"></ons-icon>
+      <ons-icon icon="ion-calendar"></ons-icon>
+
+      <h3>Automatic icon</h3>
+      <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+
+      <h3>Colors</h3>
+
+      <ons-icon style="color: red;" icon="md-face"></ons-icon>
+      <ons-icon style="color: blue;" icon="md-face"></ons-icon>
+      <ons-icon style="color: green;" icon="md-face"></ons-icon>
+
+      <h3>Size</h3>
+
+      <ons-icon size="10px" icon="md-face"></ons-icon>
+      <ons-icon size="20px" icon="md-face"></ons-icon>
+      <ons-icon size="30px" icon="md-face"></ons-icon>
+
+      <h3>Spin</h3>
+
+      <ons-icon size="30px" spin icon="md-spinner"></ons-icon>
+
+      <h3>Rotate</h3>
+
+      <ons-icon icon="md-face"></ons-icon>
+      <ons-icon rotate="90" icon="md-face"></ons-icon>
+      <ons-icon rotate="180" icon="md-face"></ons-icon>
+      <ons-icon rotate="270" icon="md-face"></ons-icon>
+
+      <h3>Button</h3>
+      <ons-button>
+        <ons-icon icon="md-face"></ons-icon>
+        Button
+      </ons-button>
+
+      <ons-fab>
+        <ons-icon icon="md-plus"></ons-icon>
+      </ons-fab>
+    </section>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Icons
+
+Icons can be displayed using the `<ons-icon>` element. To specify the icon you also need to defined the `icon` attribute.
+
+The following code will display a Material Design face icon.
+
+```
+<ons-icon
+  icon="md-face">
+</ons-icon>
+```
+
+## Available icons
+
+There are three kinds of icons available in Onsen UI:
+
+* [Font Awesome](https://fortawesome.github.io/Font-Awesome/)
+* [Material Icons](https://design.google.com/icons/)
+* [Ionicons](http://ionicons.com/)
+
+The `icon` attribute is prefixed with `fa-` for Font Awesome, `md-` for Material Icons and `ion-` for Ionicons.
+
+Ionicons are good for iOS apps while the Material Icons work best for apps using Material Design.
+
+Since Onsen UI renders differently based on the platform there is a special syntax to also select the icons based on platform:
+
+```
+<ons-icon
+  icon="ion-navicon, material:md-menu">
+</ons-icon>
+```
+
+This code will automatically render as a `md-menu` icon on Android devices and as `ion-navicon` on iOS devices.
+
+## Changing size and color
+
+To change the size of the icon you can use the `size` attribute.
+
+```
+<ons-icon
+  icon="md-face"
+  size="20px">
+</ons-icon>
+```
+
+Since the icon is a font, changing the color is as easy as changing the font size:
+
+```
+<ons-icon
+  icon="md-face"
+  style="color: red">
+</ons-icon>
+```
+
+## Rotating and spinning
+
+To make the icon spin, the `spin` attribute is added.
+
+```
+<ons-icon
+  icon="md-face"
+  spin>
+</ons-icon>
+```
+
+The icon can be rotated using the `rotate` attribute. The supported rotations are 90, 180 and 270 degrees.
+
+```
+<ons-icon
+  icon="md-face"
+  rotate="90">
+</ons-icon>
+```
+
+## Using with other components
+
+Icons are often used inside other components. To add an icon to a button all you need to do is put it inside the `<ons-button>` element.
+
+```
+<ons-button>
+  <ons-icon icon="md-face"></ons-icon>
+  Button
+</ons-button>
+```
+
+Of course you can also put it in toolbar buttons and floating action buttons:
+
+```
+<ons-toolbar-button>
+  <ons-icon icon="md-menu"></ons-icon>
+</ons-toolbar-button>
+
+<ons-fab>
+  <ons-icon icon="md-plus"></ons-icon>
+</ons-fab>
+```
+
+-->

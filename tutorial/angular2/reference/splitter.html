@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+  import {
+    Component,
+    Injectable,
+    ViewChild,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'ngx-onsenui';
+  import {Observable, Subject} from 'rxjs/Rx';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Injectable()
+  export class MenuService {
+    subject = new Subject();
+    get menu$(): Observable<any> {
+      return this.subject.asObservable();
+    }
+    open() {
+      this.subject.next();
+    }
+  }
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button (click)="openMenu()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">Content Page</div>
+      </ons-toolbar>
+      <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        Swipe right to open the menu!
+      </p>
+    `
+  })
+  class ContentPageComponent {
+    constructor(private menuService: MenuService) { }
+    openMenu() {
+      this.menuService.open();
+    }
+  }
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+      <ons-toolbar>
+        <div class="center">Left Page</div>
+      </ons-toolbar>
+      <div class="background"></div>
+      <div class="content">
+
+      </div>
+    `
+  })
+  class SidePageComponent {
+  }
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-splitter #splitter>
+      <ons-splitter-side [page]="sidePage" side="left" width="220px" collapse swipeable>
+      </ons-splitter-side>
+
+      <ons-splitter-content [page]="contentPage">
+      </ons-splitter-content>
+    </ons-splitter>
+    `
+  })
+  export class AppComponent {
+    sidePage = SidePageComponent;
+    contentPage = ContentPageComponent;
+    @ViewChild('splitter') splitter;
+    constructor(private menuService: MenuService) {
+      this.menuService.menu$.subscribe(() => this.splitter.nativeElement.side.open());
+    }
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent, SidePageComponent, ContentPageComponent],
+    bootstrap: [AppComponent],
+    entryComponents: [SidePageComponent, ContentPageComponent],
+    providers: [MenuService],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## Splitter
+
+縦に分割する画面を作ったり、横からスワイプで表示するスライディングメニューを作るには、`ons-splitter`要素と`ons-splitter-content`要素とOnsSplitterSideディレクティブやOnsSplitterContentディレクティブを使って利用します。
+
+[page]バインディングを使って指定します。
+
+```
+@Component({
+  selector: 'app',
+  template: `
+  <ons-splitter>
+    <ons-splitter-side [page]="sidePage" side="left" width="200px" style="border-right: 1px solid #ccc">
+    </ons-splitter-side>
+
+    <ons-splitter-content [page]="contentPage">
+    </ons-splitter-content>
+  </ons-splitter>
+  `
+})
+export class AppComponent {
+  sidePage = SidePageComponent;
+  contentPage = ContentPageComponent;
+}
+```
+
+-->

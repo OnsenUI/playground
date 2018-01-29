@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/typescript">
+    import {
+      Component,
+      OnsenModule,
+      NgModule,
+      CUSTOM_ELEMENTS_SCHEMA
+    } from 'ngx-onsenui';
+    import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+    import * as ons from 'onsenui';
+
+    @Component({
+      selector: 'app',
+      template: `
+      <ons-page>
+        <ons-toolbar>
+          <div class="center">{{title}}</div>
+          <div class="right">
+            <ons-toolbar-button>
+              <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+        </ons-toolbar>
+        <div class="content">
+          <p style="text-align: center">
+            <ons-button (click)="alert()">Click me!</ons-button>
+          </p>
+        </div>
+      </ons-page>
+      `
+    })
+    export class AppComponent {
+      title:string = 'My app';
+
+      alert() {
+        ons.notification.alert('Hello, world!');
+      }
+    }
+
+    @NgModule({
+      imports: [OnsenModule],
+      declarations: [AppComponent],
+      bootstrap: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    class AppModule { }
+
+    platformBrowserDynamic().bootstrapModule(AppModule);
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## `<ons-page>`要素
+
+Onsen UIを使ったアプリケーションでは、`<ons-page>`要素を使ってある画面を作成します。この要素は、スクリーンいっぱいに広がり他の要素のコンテナとして利用されます。
+
+## コンテンツを配置する
+
+`<ons-page>`要素で作った画面にコンポーネントを配置するには、`content`クラス属性をもつdiv要素以下に配置してください。
+
+```
+<ons-page>
+  <div class="content">
+    Hello World!
+  </div>
+</ons-page>
+```
+
+次のように書くこともできます。
+
+```
+<ons-page>
+  <div class="page__content">
+    Hello World!
+  </div>
+</ons-page>
+```
+
+## ツールバーを配置する
+
+ほとんどのモバイルアプリケーションでは、画面の上部にツールバーを持ちます。このツールバーにはテキストやボタン等を配置できます。
+
+Onsen UIでは、`<ons-toolbar>`要素を使ってツールバーを置くことができます。ツールバー内には、次のように左右中央に要素を配置することができます。
+
+```
+<ons-page>
+  <ons-toolbar>
+    <div class="left">
+      <ons-toolbar-button>Left</ons-toolbar-button>
+    </div>
+    <div class="center">
+      Title
+    </div>
+    <div class="right">
+      <ons-toolbar-button>Right</ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <div class="content">
+    ...
+  </div>
+</ons-page>
+```
+
+## 背景を配置する
+
+`<ons-page>`の背景を表現する要素は、`<ons-page>`コンポーネント内に自動的に補完されますが、開発者がページの背景を指定したい場合にはクラス属性に`background`を指定したdiv要素を手動で配置することができます。
+
+次のコードでは、`<ons-page>`の背景を`gray`にします。
+
+```
+<ons-page>
+  <div class="background" style="background-color: gray;"></div>
+  <div class="content">
+    ...
+  </div>
+</ons-page>
+```
+
+背景を指定するには、次のように書くこともできます。
+
+```
+<ons-page>
+  <div class="page__background" style="background-color: gray;"></div>
+  <div class="page__content">
+    ...
+  </div>
+</ons-page>
+```
+
+-->

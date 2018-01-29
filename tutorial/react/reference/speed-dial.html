@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Speed dial</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      renderFixed() {
+        return (
+          <Ons.SpeedDial position='bottom right'>
+            <Ons.Fab>
+              <Ons.Icon icon='md-share' />
+            </Ons.Fab>
+            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Twitter')}>
+              <Ons.Icon icon='md-twitter' />
+            </Ons.SpeedDialItem>
+            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Facebook')}>
+              <Ons.Icon icon='md-facebook' />
+            </Ons.SpeedDialItem>
+            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Google+')}>
+              <Ons.Icon icon='md-google-plus' />
+            </Ons.SpeedDialItem>
+          </Ons.SpeedDial>
+        );
+      },
+
+      share: function(name) {
+        ons.notification.confirm(`Do you want to share on "${name}"?`);
+      },
+
+      render: function() {
+        return (
+          <Ons.Page
+            renderToolbar={this.renderToolbar}
+            renderFixed={this.renderFixed}
+          >
+            Some content
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Speed dial
+
+The *speed dial* component is a Material Design component that displays a floating action button that expands into a menu when tapped. It's useful for situations where there are several actions needs to be displayed that are of equal importance.
+
+To display a normal floating action button the `Fab` component can be used.
+
+The menu items of the `SpeedDial` component are defined using the `SpeedDialItem` component. It also requires a `Fab` component which represents the main button.
+
+To define the position of the component the `position` property is used. By default it is placed in the bottom right corner which can also be achieved by setting the property to the literal string `"bottom right"`.
+
+
+In order for the `SpeedDial` component to be fixed when scrolling the page, it needs to be put outside the page. This can be archived by rendering it in the renderFixed function of the `Page` component.
+
+```
+<Page
+  renderFixed={() => (
+    <SpeedDial position='bottom right'>
+      <Fab>A</Fab>
+      <SpeedDialItem onClick={this.doSomething}>B</SpeedDialItem>
+      <SpeedDialItem onClick={this.doSomethingElse}>C</SpeedDialItem>
+    </SpeedDial>
+  )} />
+```
+
+-->

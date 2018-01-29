@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+  import {
+    Component,
+    ViewChild,
+    OnsTab,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'ngx-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+      <ons-toolbar>
+      <div class="center">Tab 1</div>
+    </ons-toolbar>
+    <div class="background"></div>
+    <div class="content" class="initial-page">
+      <div style="text-align: center; margin: 10px">
+        <p>This is the first page.</p>
+      </div>
+    </div>
+    `
+  })
+
+  export class Tab1Component {
+    constructor() {
+    }
+  }
+
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+    <ons-toolbar>
+      <div class="center">Tab 2</div>
+    </ons-toolbar>
+    <div class="background"></div>
+    <div class="content" class="normal-page">
+      <div style="text-align: center; margin: 10px">
+        <p>This is the second page.</p>
+      </div>
+    </div>
+`
+  })
+
+  class Tab2Component {
+    constructor() {
+    }
+  }
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+    <ons-toolbar>
+      <div class="center">Tab 3</div>
+    </ons-toolbar>
+    <div class="background"></div>
+    <div class="content" class="normal-page">
+      <div style="text-align: center; margin: 10px">
+        <p>This is the third page.</p>
+      </div>
+    </div>
+`
+  })
+
+  class Tab3Component {
+    constructor() {
+    }
+  }
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-tabbar>
+      <div class="tabbar__content"></div>
+      <div class="tabbar">
+        <ons-tab label="Page1" icon="ion-home" [page]="tab1" active></ons-tab>
+        <ons-tab label="Page2" icon="ion-ios-browsers" [page]="tab2"></ons-tab>
+        <ons-tab label="Page3" icon="ion-ios-search" [page]="tab3"></ons-tab>
+      </div>
+    </ons-tabbar>
+`
+  })
+  export class AppComponent {
+    tab1 = Tab1Component
+    tab2 = Tab2Component
+    tab3 = Tab3Component
+
+    constructor() { }
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent, Tab1Component, Tab2Component, Tab3Component],
+    bootstrap: [AppComponent],
+    entryComponents: [Tab1Component, Tab2Component, Tab3Component],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## Tabbar
+
+Tabbarは、`ons-tabbar`要素と`ons-tab`要素を使って構築できます。ここではAngular 2の場合の基本的な使い方を説明します。
+
+まず、次のように`ons-tabbar`要素を配置するコンポーネントを宣言します。通常の`ons-tabbar`とは違って、直下に`tab-bar__content`というクラス属性を持っているdiv要素と`tab-bar`というクラス属性を持っているdiv要素を配置する必要があります。`tab-bar`以下にはタブアイテムとして利用する`ons-tab`要素を並べます。
+
+`ons-tab`要素には[page]バインディングを使ってそのタブをクリックした時に読み込むページのコンポーネントを指定します。
+
+```
+@Component({
+  selector: 'app',
+  template: `
+  <ons-tabbar>
+    <div class="tab-bar__content"></div>
+    <div class="tab-bar">
+      <ons-tab label="Page1" icon="ion-home" [page]="home" active></ons-tab>
+      <ons-tab label="Page2" icon="ion-help" [page]="page"></ons-tab>
+      <ons-tab label="Page3" icon="ion-stop" [page]="page"></ons-tab>
+    </div>
+  </ons-tabbar>
+  `
+})
+export class AppComponent {
+  home = HomeComponent
+  page = PageComponent
+
+  constructor() { }
+}
+```
+
+`ons-tabbar`内で読み込むページは、別のコンポーネントとして宣言します。コンポーネントの`selector`には`ons-page`を指定し、テンプレートには`ons-page`の内容を記述します。
+
+```
+@Component({
+  selector: 'ons-page',
+  template: `
+    <ons-toolbar>
+      <div class="center">Page</div>
+    </ons-toolbar>
+    <div class="background"></div>
+    <div class="content" class="normal-page">
+      <div style="text-align: center; margin: 10px">
+        <p>Page</p>
+      </div>
+    </div>
+  `
+})
+export class PageComponent {
+}
+```
+
+## NgModuleへのコンポーネントの追加
+
+`ons-tabbar`要素で読み込むコンポーネントは、NgModuleの`declarations`と`entryComponents`に追加することを忘れないでください。
+
+```
+@NgModule({
+  imports: [OnsenModule],
+  declarations: [AppComponent, HomeComponent, PageComponent],
+  bootstrap: [AppComponent],
+  entryComponents: [HomeComponent, PageComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+class AppModule { }
+```
+
+-->

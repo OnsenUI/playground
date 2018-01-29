@@ -2,35 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Learn how to create awesome looking hybrid mobile apps with Onsen UI and AngularJS, Angular 2, React or Vanilla JS in this interactive tutorial.">
-  <title>Onsen UI Tutorial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn how to create awesome looking apps with Onsen UI and AngularJS, Angular 2+, React, Vue or Vanilla JS in this playground.">
+  <title>Onsen UI Playground</title>
 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.3/platform.min.js"></script>
+  <script>
+    if ((/^(ios|android)/i).test(platform.os.family) && screen.width <= 699) {
+      location.href = location.pathname.replace('index.html', '') + 'tabs.html' + location.search;
+    }
+  </script>
+
+  <link rel="canonical" href="https://onsen.io/playground/" />
   <link rel="stylesheet" href="css/split.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/dropdown.css">
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/dark-skin.css">
-  <link rel="stylesheet" href="lib/highlight/chrome.css">
-  <link rel="stylesheet" href="lib/highlight/monokai.css">
-  <link rel="canonical" href="https://tutorial.onsen.io/" />
+  <link rel="stylesheet" href="vendor/highlight/chrome.css">
+  <link rel="stylesheet" href="vendor/highlight/monokai.css">
 
-  <script defer src="lib/Split.js/split.min.js"></script>
-  <script defer src="lib/highlight/highlight.min.js"></script>
-  <script defer src="lib/marked/marked.min.js"></script>
-  <!--<script defer src="lib/babel/babel.min.js" type="text/javascript" charset="utf-8"></script>-->
-  <!--<script defer src="lib/typescript/typescript.min.js" type="text/javascript" charset="utf-8"></script>-->
-  <!--<script defer src="lib/jszip/jszip.min.js" type="text/javascript" charset="utf-8"></script>-->
-  <!--<script defer src="lib/jszip/jszip-utils.min.js" type="text/javascript" charset="utf-8"></script>-->
-  <!--<script defer src="lib/FileSaver/FileSaver.min.js" type="text/javascript" charset="utf-8"></script>-->
-  <script defer src="lib/ace/emmet.min.js"></script>
-  <script defer src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="lib/ace/mode-html.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="lib/ace/ext-emmet.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="lib/ace/mode-javascript.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="lib/ace/mode-jsx.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="lib/ace/mode-typescript.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="lib/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
-  <script defer src="lib/srcdoc-polyfill/srcdoc-polyfill.min.js"></script>
+  <script defer src="vendor/emmet/emmet.min.js"></script>
+  <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.2.0/split.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-emmet.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+  <script defer src="https://unpkg.com/srcdoc-polyfill@1.0.0/srcdoc-polyfill.min.js"></script>
 
   <script src="js/app.js"></script>
   <script src="js/util.js"></script>
@@ -61,37 +62,43 @@
 
   <nav id="h2" class="design-2016">
     <div class="title">
-      <a href="." target="_self"><span class="logo"></span><span class="subtitle"><span>Interactive</span> <span>Tutorial</span></span></a>
+      <a href="https://onsen.io/"><span class="logo"></span></a><a href="." target="_self"><span class="subtitle"><span>Playground</span></span></a>
     </div>
-    <ul>
-      <li class="dropdown">
-        <a href="https://onsen.io/getting-started.html">Getting Started</a>
-      </li>
-      <li class="dropdown">
-        <a href="https://onsen.io/v2/docs/js.html">Docs</a>
-      </li>
-      <li class="dropdown">
-        <a href="https://community.onsen.io/">Community</a>
+    <ul class="header-links">
+      <li>
+        <a href="https://onsen.io/v2/guide/">Guide</a>
       </li>
       <li>
-        <a href="https://onsen.io/blog">Blog</a>
+        <a href="https://onsen.io/v2/api/js/">API</a>
+      </li>
+      <li>
+        <a href="https://community.onsen.io/">Forum</a>
+      </li>
+      <li>
+        <a href="https://gitter.im/OnsenUI/OnsenUI">Chat</a>
+      </li>
+      <li>
+        <a href="https://medium.com/the-web-tub">Articles</a>
       </li>
     </ul>
   </nav>
 
   <div id="h3">
     <div id="toolbar">
-      <button id="modify-button" class="toolbar-button tooltip" tooltip="Modify the source of this tutorial"><span><svg aria-hidden="true" class="octicon octicon-pencil" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path style="fill: #666" d="M0 12v3h3l8-8-3-3L0 12z m3 2H1V12h1v1h1v1z m10.3-9.3l-1.3 1.3-3-3 1.3-1.3c0.39-0.39 1.02-0.39 1.41 0l1.59 1.59c0.39 0.39 0.39 1.02 0 1.41z"></path></svg></span>Improve this</button>
+      <button id="modify-button" class="toolbar-button tooltip" tooltip="Modify the source of this tutorial"><span class="icon"></span><span class="label">Improve this</span></button>
       <!--<button id="download-button" class="toolbar-button tooltip" tooltip="Generate Cordova project based on this sample"><span></span>Download</button>-->
       <form id="codepen-form" action="https://codepen.io/pen/define" method="POST" target="_blank">
         <input type="hidden" name="data" id="codepen-data">
-        <button id="codepen-button" class="toolbar-button tooltip" tooltip="Export this sample to Codepen"><span></span>Export to Codepen</button>
+        <button id="codepen-button" class="toolbar-button tooltip" tooltip="Export this sample to Codepen"><span class="icon"></span><span class="label">Export to Codepen</span></button>
       </form>
+      <button id="issue-button" class="toolbar-button tooltip" tooltip="Report an issue on GitHub based on this code"><span class="icon"></span><span class="label">Report an issue</span></button>
     </div>
+
+    <!-- menu - dropdown - frameworks - tuts -->
     <label id="modules">
       <div class="select">
         <span class="select-thumbnail"></span>
-        <span class="select-item">Select Tutorial</span>
+        <span class="select-item">Select Template</span>
         <span class="select-arrow"></span>
       </div>
 
@@ -100,36 +107,49 @@
       <div class="menu">
         <div class="menu-mask"></div>
 
-        <ul>
-          <li class="framework-item">
-            <input type="radio" id="r-vanilla" name="framework" checked>
-            <label for="r-vanilla" framework="vanilla">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-          <li class="framework-item">
-            <input type="radio" id="r-angular1" name="framework">
-            <label for="r-angular1" framework="angular1">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-          <li class="framework-item">
-            <input type="radio" id="r-angular2" name="framework">
-            <label for="r-angular2" framework="angular2">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-          <li class="framework-item">
-            <input type="radio" id="r-react" name="framework">
-            <label for="r-react" framework="react">
-              <div class="framework-logo"></div>
-            </label>
-            <ul class="module-list"></ul>
-          </li>
-        </ul>
+        <div class="menu-container">
+          <label class="menu-search">
+            <input id="search-input" type="search" placeholder="Filter by space-separated keywords (e.g. page push)" autocomplete="off">
+          </label>
+
+          <ul class="menu-list">
+            <li class="framework-item">
+              <input type="radio" id="r-vanilla" name="framework" checked>
+              <label for="r-vanilla" framework="vanilla">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+            <li class="framework-item">
+              <input type="radio" id="r-angular1" name="framework">
+              <label for="r-angular1" framework="angular1">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+            <li class="framework-item">
+              <input type="radio" id="r-angular2" name="framework">
+              <label for="r-angular2" framework="angular2">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+            <li class="framework-item">
+              <input type="radio" id="r-react" name="framework">
+              <label for="r-react" framework="react">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+            <li class="framework-item">
+              <input type="radio" id="r-vue" name="framework">
+              <label for="r-vue" framework="vue">
+                <div class="framework-logo"></div>
+              </label>
+              <ul class="module-list"></ul>
+            </li>
+          </ul>
+        </div>
 
       </div>
     </label>
@@ -143,14 +163,14 @@
         <h2>Getting Started</h2>
         <img class="welcome-logo" src="assets/icons/logo_onsenui.svg" alt="onsen">
         <p>
-          Welcome to the Onsen UI Tutorial. Here you can interactively learn how to use Onsen UI components and test your own code with the <strong>latest</strong> Onsen UI version.
+          Welcome to the Onsen UI Playground. Here you can interactively learn how to use Onsen UI components and test your own code with the <strong>latest</strong> Onsen UI version.
         </p>
         <p>
           Tutorials are separated depending on the front-end framework and categories. Use the above menu to select tutorials in <strong>Vanilla JavaScript</strong> or with
-          a specific framework: <strong>AngularJS</strong>, <strong>Angular 2</strong> or <strong>React</strong>.
+          a specific framework: <strong>AngularJS</strong>, <strong>Angular 2+</strong>, <strong>React</strong> or <strong>Vue.js</strong>.
         </p>
         <p>
-          If you find any error, please hit "Improve this" button and send us a Pull Request or inform 
+          If you find any error, please hit "Improve this" button and send us a Pull Request or inform
           about it in the <a href="https://community.onsen.io/">forum</a> or <a href="https://gitter.im/OnsenUI/OnsenUI">chat</a>.
           This tutorial is completely standalone so you can fork it and submit your own examples as PR to <a href="https://github.com/OnsenUI/tutorial">the repo</a>.
         </p>
@@ -163,7 +183,7 @@
             If you want to save any of these examples you can <strong>export the code to your Codepen account</strong> with "Export to Codepen" button.
           </li>
           <li>
-            You can also <strong>generate a Cordova project</strong> from the current tutorial with "Download" button.
+            Report an issue on GitHub with the current code and browser information. Hit the "Report an issue" button after choosing a template in the above drop-down and changing the code to reproduce the issue.
           </li>
           <li>
             Press <strong>‘ctrl + s’</strong> to quickly refresh the preview.
@@ -259,10 +279,13 @@
   <div class="angular2-blue"></div>
   <div class="react-black"></div>
   <div class="react-blue"></div>
+  <div class="vue-black"></div>
+  <div class="vue-blue"></div>
   <div class="vanilla-thumbnail"></div>
   <div class="angular1-thumbnail"></div>
   <div class="angular2-thumbnail"></div>
   <div class="react-thumbnail"></div>
+  <div class="vue-thumbnail"></div>
 </div>
 
 </body>

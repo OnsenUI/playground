@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap()
+      .controller('PageController', function($scope) {
+        this.showDialog = function() {
+          if (this.dialog) {
+            this.dialog.show();
+          } else {
+            ons.createDialog('dialog.html', { parentScope: $scope })
+              .then(function(dialog) {
+                this.dialog = dialog;
+                dialog.show();
+              }.bind(this));
+          }
+        }.bind(this);
+      });
+  </script>
+</head>
+<body>
+  <ons-page ng-controller="PageController as page">
+    <ons-toolbar>
+      <div class="center">Dialogs</div>
+    </ons-toolbar>
+
+    <ons-list>
+      <ons-list-header>Showing dialogs</ons-list-header>
+      <ons-list-item tappable ng-click="dialog.show()">Simple dialog</ons-list-item>
+      <ons-list-item tappable ng-click="alertDialog.show()">Alert dialog</ons-list-item>
+      <ons-list-item tappable ng-click="page.showDialog()">From template</ons-list-item>
+      <ons-list-item tappable ng-click="toast.toggle()">Toggle toast</ons-list-item>
+      <ons-list-header>Notifications</ons-list-header>
+      <ons-list-item tappable ng-click="ons.notification.alert('Hello, world')">Alert</ons-list-item>
+      <ons-list-item tappable ng-click="ons.notification.confirm({message: 'Are you ready?'})">Confirmation</ons-list-item>
+      <ons-list-item tappable ng-click="ons.notification.prompt({message: 'What is your name?'})">Prompt</ons-list-item>
+    </ons-list>
+  </ons-page>
+
+  <ons-dialog var="dialog">
+    <div style="text-align: center; padding: 10px;">
+      <p>
+        This is a dialog.
+      </p>
+
+      <p>
+        <ons-button ng-click="dialog.hide()">Close</ons-button>
+      </p>
+    </div>
+  </ons-dialog>
+
+  <ons-alert-dialog var="alertDialog">
+    <div class="alert-dialog-title">Warning!</div>
+    <div class="alert-dialog-content">
+      An error has occurred!
+    </div>
+    <div class="alert-dialog-footer">
+      <button class="alert-dialog-button" ng-click="alertDialog.hide()">Cancel</button>
+      <button class="alert-dialog-button" ng-click="alertDialog.hide()">OK</button>
+    </div>
+  </ons-alert-dialog>
+
+  <template id="dialog.html">
+    <ons-dialog id="dialog-3">
+      <div style="text-align: center; padding: 10px;">
+        <p>
+          This dialog was created from a template.
+        <p>
+
+        <p>
+          <ons-button ng-click="page.dialog.hide()">Close</ons-button>
+        </p>
+      </div>
+    </ons-dialog>
+  </template>
+
+  <ons-toast var="toast">
+    This is an Onsen Toast!<button>Hoge</button>
+  </ons-toast>
+</body>
+</html>
+
+<!-- info
+
+## Dialogs
+
+Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-alert-dialog>` tag that is used to display alert dialogs and an `<ons-toast>` one for toast messages.
+
+```
+<ons-dialog var="dialog">
+  This is a dialog!
+</ons-dialog>
+```
+
+`var` attribute is used to store the dialog in a variable for later access.
+
+The dialogs are hidden by default and usually attached as direct childs of the `<body>` tag.
+
+## Displaying a dialog
+
+To display a dialog you need to get a reference to the element and execute the `show(options)` method.
+It is hidden with the `hide(options)` method.
+
+## Loading from a template
+
+Another way to use dialogs is with the `ons.createDialog(template)` utility function. The dialog needs to be defined as a template and the function returns a `Promise` that resolves to the dialog element.
+
+```
+<template id="dialog.html">
+  <ons-dialog>
+    This dialog is defined as a template.
+  </ons-dialog>
+</template>
+```
+
+```
+ons
+  .createDialog('dialog.html')
+  .then(function(dialog) {
+    dialog.show();
+  });
+```
+
+For AngularJS, an extra parameter can be passed to specify the scope of the new popover: `ons.createDialog('dialog.html', { parentScope: $scope });`
+
+## Alert dialogs
+
+Alert dialogs work exactly like normal dialogs but they require some additional markup. With this element you can create a beautifully styled dialog without any additional CSS.
+
+```
+<ons-alert-dialog>
+  <div class="alert-dialog-title">Warning!</div>
+  <div class="alert-dialog-content">
+    An error has occurred!
+  </div>
+  <div class="alert-dialog-footer">
+    <button class="alert-dialog-button">Cancel</button>
+    <button class="alert-dialog-button">OK</button>
+  </div>
+</ons-alert-dialog>
+```
+
+## The `cancelable` attribute
+
+The `<ons-dialog>`, `<ons-alert-dialog>` and `<ons-toast>` support the `cancelable` attribute. This enables hiding the dialog by tapping outside of it or by pressing the back button on Android devices.
+
+```
+<ons-dialog cancelable>
+  This dialog can be cancelled!
+</ons-dialog>
+```
+
+Try adding the `cancelable` attribute to one of the dialogs to see how it works.
+
+## Notification
+
+Another way to display dialogs is with the `ons.notification` methods:
+
+* `ons.notification.alert(options)`
+* `ons.notification.confirm(options)`
+* `ons.notification.prompt(options)`
+* `ons.notification.toast(options)`
+
+These methods all return a `Promise`. For the `confirm` it resolves to the index of the button pressed and for the `prompt` it resolves to the user input.
+
+```
+ons
+  .notification.prompt({message: 'What is your name?'})
+  .then(function(name) {
+    ons.notification.alert('Hello ' + name);
+  });
+```
+
+
+-->

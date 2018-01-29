@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    function editSelects(event) {
+      document.getElementById('choose-sel').removeAttribute('modifier');
+      if (event.target.value == 'material' || event.target.value == 'underbar') {
+        document.getElementById('choose-sel').setAttribute('modifier', event.target.value);
+      }
+    }
+    function addOption(event) {
+      const option = document.createElement('option');
+      var text = document.getElementById('optionLabel').value;
+      option.innerText = text;
+      text = '';
+      document.getElementById('dynamic-sel').appendChild(option);
+    }
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Select input</div>
+    </ons-toolbar>
+
+    <h3>Choose a type of select with different modifiers:</h3>
+    <ons-select id="choose-sel" onchange="editSelects(event)">
+      <option value="basic">Basic</option>
+      <option value="material">Material</option>
+      <option value="underbar">Underbar</option>
+    </ons-select>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Select input
+
+The `<ons-select>` element is used to display a select box with an arbitrary number of options. The `select-id` attribute can be used for targeting the inner select element.
+
+There are several attributes that can be used to customize the behavior of the element. These are the same attributes as those that can be used for the regular HTML `<select>` element.
+
+Please check the Onsen UI Reference documentation for a complete reference of the enabled attributes.
+
+-->

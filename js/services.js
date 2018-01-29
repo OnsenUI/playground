@@ -1,3 +1,4 @@
+/* global app, marked, platform */
 app.services = {};
 
 app.services.generateTemplateOutput = function () {
@@ -6,17 +7,27 @@ app.services.generateTemplateOutput = function () {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>OnsenUI Tutorial</title>
+      <title>OnsenUI Playground</title>
 
+      ${app.config.framework === 'angular2' ? app.services.generateAngular2Globals() : ''}
+
+      <!-- Required libs -->
       ${app.services.getTranspilerLib()}
       ${app.services.getJSLibs()}
+
+      <!-- Autostyling -->
       <script>
         ons.platform.select('${app.config.platform}');
       </script>
+
+      <!-- App -->
       <script type="text/${app.config.codeType}">
-        ${app.editors.js.getValue()}
+        ${app.config.framework === 'vue' ? 'ons.ready(function() {' : ''}
+          ${app.editors.js.getValue()}
+        ${app.config.framework === 'vue' ? '});' : ''}
       </script>
 
+      <!-- Stylesheet -->
       ${app.services.getCSSLibs()}
       <link href='https://fonts.googleapis.com/css?family=Roboto:400,300italic,300,500,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
     </head>
@@ -28,8 +39,8 @@ app.services.generateTemplateOutput = function () {
   `;
 };
 
-app.services.getJSLibs = function (position) {
-  var libs = app.util.flattenJSLibs(app.services.getAllLibs(position));
+app.services.getJSLibs = function () {
+  var libs = app.util.flattenJSLibs(app.services.getRequiredLibs());
   var result = '';
 
   libs.forEach(function (lib) {
@@ -39,11 +50,11 @@ app.services.getJSLibs = function (position) {
   return result;
 }
 
-app.services.getCSSLibs = function (position) {
-  position = position || 'remote';
+app.services.getCSSLibs = function () {
+  var css = app.config.lib().css;
   return `
-  <link rel="stylesheet" href="${app.config.lib[position].css.onsenui}">
-  <link rel="stylesheet" href="${app.config.lib[position].css.onsenuiCssComponents}">`;
+  <link rel="stylesheet" href="${css.onsenui}">
+  <link rel="stylesheet" href="${css.onsenuiCssComponents}">`;
 };
 
 app.services.showWelcomeMessage = function () {
@@ -69,14 +80,18 @@ app.services.runProject = function () {
 };
 
 app.services.codepenSubmit = function () {
+  var libs = app.services.getRequiredLibs(true);
+  var cssLibs = libs.onsenui['onsen/css'];
+  var jsLibs = app.util.flattenJSLibs(libs);
+
   var options = {
     title: 'Onsen UI',
-    description: 'Onsen UI Tutorial Export',
+    description: 'Onsen UI Playground Export',
     html: app.editors.html.getValue(),
     js: app.editors.js.getValue(),
     editors: '101',
-    js_external: app.util.flattenJSLibs(app.services.getAllLibs()).join(';'),
-    css_external: app.config.lib.remote.css.onsenui + ';' + app.config.lib.remote.css.onsenuiCssComponents,
+    js_external: jsLibs.join(';'),
+    css_external: cssLibs.join(';'),
     js_pre_processor: app.config.codeType
   };
 
@@ -125,36 +140,129 @@ app.services.loadModule = function (framework, category, module) {
         extract = app.util.extract;
 
       var html = format(extract(responseText, /<body>([\s\S]*)<\/body>/));
-      var docs = extract(responseText, /<\/html>\s*<!--.*\n([\s\S]*)-->/).trim();
       var script = extract(responseText, /<head>[\s\S]*(<script[\s\S]*<\/script>)[\s\S]*<\/head>/);
       var code = format(extract(script, /<script.*>([\s\S]*)<\/script>/));
 
+      // Language
+      var lang = app.config.lang === 'en' ? null : app.config.lang;
+      var getDocsRE = function(lang) {
+        return new RegExp(`</html>[.\\s\\S]*?<!--.*?${lang ? `lang=${lang}` : ''}.*?\\s*?\\n([\\s\\S]*?)-->`);
+      };
+      var docs = extract(responseText, getDocsRE(lang)).trim();
+      if (!docs) {
+        docs = extract(responseText, getDocsRE()).trim();
+      }
+
       app.config.codeType = (format(extract(script, /^<script\s*type="text\/([\w-]+)"\s*>/)) || 'javascript').toLowerCase();
-      app.config.framework = app.util.getParam('framework');
+      app.config.framework = framework;
 
       app.services.updateEditors(html, code);
 
       app.tutorial = {
         pageIndex: 0,
-        pages: docs.split(/\n(?=[ \t]*#{2}(?!#))/).map(function (e) {
-          return marked(e);
-        })
+        pages: app.services.generateTutorialPages(docs)
       };
 
-      document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
-      document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
       app.services.updateTutorialPage();
-
-      if (app.config.autoHideHTMLPane !== false) {
-        if (['react', 'angular2'].indexOf(app.config.framework) !== -1) {
-          app.services.resizeHTMLPane(0);
-        } else if (app.config.initRightPanePos) {
-          app.services.resizeHTMLPane(app.config.initRightPanePos);
-        }
-      }
+      app.services.collapseEditors(html, code);
     },
     console.error.bind(console)
   );
+};
+
+app.services.generateTutorialPages = function(markdown) {
+  return markdown.split(/\n(?=[ \t]*#{2}(?!#))/).map(function (e) {
+    return marked(e) + '<br><br>';
+  });
+};
+
+app.services.collapseEditors = function (html, code) {
+  if (window.Split && app.config.autoHideHTMLPane !== false) {
+    if (html.split(/\n/).length <= 1) {
+      app.splits.editors.collapse(0);
+    } else if (code.split(/\n/).length <= 4) {
+      app.splits.editors.collapse(1);
+    } else {
+      app.splits.editors.setSizes([50, 50]);
+    }
+
+    app.util.resize.editorResize();
+  }
+};
+
+app.services.loadIssue = function(issue) {
+  var matchRegExp = function(keyword, text, template) {
+    var regexp = new RegExp(template.replace('placeholder', keyword), 'im');
+    return (text.match(regexp) || []).slice(1, 3);
+  };
+
+  app.util.request('https://api.github.com/repos/OnsenUI/OnsenUI/issues/' + issue).then(function(responseText) {
+    var content = JSON.parse(responseText).body;
+    var regexSection = '\\[placeholder]\\s+([a-zA-Z0-9\\-]+)\\s+(.+)\\s+';
+    var regexCode = '__placeholder__\\s+```[a-zA-z]*\\s+((.|\\s)*?)```';
+
+    // Get core version
+    var m = matchRegExp('Core', content, regexSection);
+    app.config.versions.onsenui = m[1];
+
+    // Get framework version
+    m = matchRegExp('Framework', content, regexSection);
+    if (m && m.length === 2) {
+      app.config.versions[m[0]] = m[1];
+    }
+
+    // Get bindings name + version and framework name
+    m = matchRegExp('Framework binding', content, regexSection);
+    if (m && m.length === 2) {
+      app.config.versions[m[0]] = m[1];
+      var currentFramework = m[0].split('-')[0].toLowerCase();
+      if (app.config.extLibs.indexOf(currentFramework) >= 0) {
+        app.config.framework = currentFramework;
+      }
+    }
+
+    // Fallback to vanilla
+    if (!app.config.framework || app.config.framework === 'none') {
+      app.config.framework = 'vanilla';
+    }
+
+    switch (app.config.framework) {
+      case 'angular2':
+        app.config.codeType = 'typescript';
+        break;
+      case 'vue':
+      case 'react':
+        app.config.codeType = 'babel';
+        break;
+      default:
+        app.config.codeType = 'javascript';
+    }
+
+    // Get code
+    var html = matchRegExp('HTML', content, regexCode);
+    var js = matchRegExp('JS', content, regexCode);
+    if (html && html.length >= 1 && js && js.length >= 1) {
+      app.services.updateEditors(html[0], js[0]);
+    }
+
+    // Get info
+    var info = content.match(/(__Environment__\s+(.|\s)*?)\[__Demo link__]/im);
+    if (info && info.length >= 1) {
+
+      app.tutorial = {
+        pageIndex: 0,
+        pages: app.services.generateTutorialPages(info[1].replace(/__([a-zA-z -]+)__/gm, function(title) {
+          return '## ' + title;
+        }))
+      };
+      app.services.updateTutorialPage();
+    }
+
+    app.splits.docsDemo.collapse(0);
+    app.services.collapseEditors(html[0], js[0]);
+    app.services.updateSelectedItem(app.config.framework, false, 'Issue ' + issue);
+    app.services.runProject();
+  });
 };
 
 app.services.updateDropdown = function (framework, category, module) {
@@ -166,43 +274,11 @@ app.services.updateDropdown = function (framework, category, module) {
   document.querySelector('#r-' + framework + '-' + category + '-' + module).checked = true;
 };
 
-app.services.updateSelectedItem = function (framework, module) {
-  if (window.Split) {
-    var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : 'Select Tutorial';
-    document.querySelector('#modules .select-item').innerHTML = description;
-    var thumbnail = document.querySelector('#modules .select-thumbnail');
-    thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
-  }
-};
-
-app.services.transpile = function (code) {
-  switch (app.config.codeType) {
-    case 'babel':
-      var result;
-      try {
-        result = Babel.transform(code, { presets: ['react'] }).code;
-      } catch (e) {
-        var msg = e.message
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;');
-
-        result = `
-          setTimeout(function() {
-            document.body.setAttribute('style', 'color: red; margin: 8px; font-family: Arial');
-            document.body.innerHTML = \`<pre>${msg}</pre>\`;
-          }, 0);
-        `;
-      }
-      return result;
-    case 'typescript':
-      var result;
-      result = ts.transpileModule(code, { module: ts.ModuleKind.CommonJS, reportDiagnostics: true }).outputText;
-      return result;
-    case 'javascript':
-    default:
-      return code;
-  }
+app.services.updateSelectedItem = function (framework, module, forceTitle) {
+  var description = module ? document.querySelector('label[module="' + module + '"]').getAttribute('desc') : (forceTitle || 'Select Template');
+  document.querySelector('#modules .select-item').innerHTML = description;
+  var thumbnail = document.querySelector('#modules .select-thumbnail');
+  thumbnail.setAttribute('class', 'select-thumbnail ' + (framework ? (framework + '-thumbnail') : ''));
 };
 
 app.services.updateEditors = function (html, js) {
@@ -212,8 +288,13 @@ app.services.updateEditors = function (html, js) {
   var editorTitle = window.Split ? document.querySelector('#rightBottomPane .editor-title') : document.querySelector('label[for="tab-2"]');
   switch (app.config.codeType) {
     case 'babel':
-      editorTitle.innerHTML = 'JSX';
-      app.editors.js.session.setMode('ace/mode/jsx');
+      if (app.config.framework === 'react') {
+        editorTitle.innerHTML = 'JSX';
+        app.editors.js.session.setMode('ace/mode/jsx');
+      } else {
+        editorTitle.innerHTML = 'JS';
+        app.editors.js.session.setMode('ace/mode/javascript');
+      }
       break;
     case 'typescript':
       editorTitle.innerHTML = 'TS';
@@ -225,193 +306,198 @@ app.services.updateEditors = function (html, js) {
   }
 };
 
-app.services.getAllLibs = function (position) {
-  position = position || 'remote';
-  var libs = {
+app.services.getRequiredLibs = function (forceRemote) {
+  var libs = app.config.lib(forceRemote)
+
+  var requiredLibs = {
     'onsenui': {
-      'onsen/js': [app.config.lib[position].js.onsenui],
-      'onsen/css': [app.config.lib[position].css.onsenui, app.config.lib[position].css.onsenuiCssComponents]
+      'onsen/js': [libs.js.onsenui],
+      'onsen/css': [libs.css.onsenui, libs.css.onsenuiCssComponents]
     }
   };
 
   switch (app.config.framework) {
     case 'react':
-      libs.react = {
-        'react': [app.config.lib[position].js.react, app.config.lib[position].js.reactDom],
-        'react-onsenui': [app.config.lib[position].js.reactOnsenui]
+      requiredLibs.react = {
+        'react': [libs.js.react, libs.js.reactDom], // libs.js.propTypes
+        'react-onsenui': [libs.js.reactOnsenui]
+      }
+      break;
+    case 'vue':
+      requiredLibs.vue = {
+        'vue': [libs.js.vue],
+        'vue-onsenui': [libs.js.vueOnsenui]
       }
       break;
     case 'angular1':
-      libs.angular1 = {
-        'angular1': [app.config.lib[position].js.angular1],
-        'onsen/js': [app.config.lib[position].js.angularOnsenui]
+      requiredLibs.angular1 = {
+        'angular1': [libs.js.angular1],
+        'onsen/js': [libs.js.angularOnsenui]
       }
       break;
     case 'angular2':
-      libs.angular2 = {
-        'systemjs': [app.config.lib[position].js.systemjs, 'https://tutorial.onsen.io/js/onsenui.system.js'],
-        'corejs': [app.config.lib[position].js.corejs],
-        'zone': [app.config.lib[position].js.zone]
+      requiredLibs.angular2 = {
+        'systemjs': [libs.js.systemjs, (app.config.local ? '.' : 'https://onsen.io/playground') + '/js/onsenui.system.js'],
+        'corejs': [libs.js.corejs],
+        'zone': [libs.js.zone]
       }
       break;
   }
 
-  return libs;
+  return requiredLibs;
 };
 
 app.services.getTranspilerLib = function () {
-  switch (app.config.codeType) {
-    case 'babel':
-      return `<script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>`;
-    case 'typescript':
-      return `<script src="lib/typescript/typescript-1.8.10.min.js"></script>`;
-    default:
-      return '';
-  }
+  return `<script src="${app.config.transpilerLib[app.config.codeType] || ''}"></script>`;
 };
 
-app.services.addTranspilerDependencies = function (packageJSON) {
-  switch (app.config.codeType) {
-    case 'babel':
-      packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[0], true);
-      packageJSON = app.util.addEntry(packageJSON, 'devDependencies', app.config.npm.babel[1], false);
+app.services.updateTutorialPage = function (content) {
+  document.querySelector('#pages-current').innerHTML = app.tutorial.pageIndex + 1;
+  document.querySelector('#pages-total').innerHTML = app.tutorial.pages.length;
 
-      packageJSON = app.util.addEntry(packageJSON, 'scripts', '"build": "babel www/js/app.jsx -o www/js/app.js"', true);
-      packageJSON = app.util.addEntry(packageJSON, 'scripts', '"watch": "babel www/js/app.jsx --watch -o www/js/app.js"', false);
-
-      packageJSON = packageJSON.replace(/\}\s*\}[\s]*$/, '},\n  "babel": {\n\n  }\n}');
-      packageJSON = app.util.addEntry(packageJSON, 'babel', '"presets": ["react"]', true);
-      break;
-    case 'typescript':
-      packageJSON = app.util.addEntry(packageJSON, 'typescript', app.config.npm.typescript[0], true);
-      break;
-  }
-
-  return packageJSON;
-};
-
-app.services.showGenerateModal = function () {
-  var state = window.history.state;
-  if (state) {
-    document.querySelector('#modal').classList.remove('generating');
-    document.querySelector('#modal-container').classList.add('visible');
-  }
-};
-
-
-app.services.hideGenerateModal = function () {
-  document.querySelector('#modal-container').classList.remove('visible');
-};
-
-app.services.generateCordovaProject = function () {
-  document.querySelector('#modal').classList.add('generating');
-
-  JSZipUtils.getBinaryContent('./project-template.zip', function (err, data) {
-    if (err) {
-      throw new Error(err);
-    }
-
-    var token = {
-      body: '<!-- App layout -->\n',
-      css: '<!-- CSS dependencies -->',
-      js: '<!-- JS dependencies -->'
-    };
-
-    // ZIP FILE
-    var zip = new JSZip(data);
-
-    // INDEX.HTML
-    var indexHTML = zip.file('www/index.html').asText();
-    indexHTML = indexHTML
-      .replace(token.body, token.body + app.editors.html.getValue().split('\n').map(function (line) {
-        return line ? ('  ' + line) : line;
-      }).join('\n'))
-      .replace(token.css, token.css + app.services.getCSSLibs('local'))
-      .replace(token.js, token.js + app.services.getJSLibs('local'));
-    zip.file('www/index.html', indexHTML);
-
-    // APP.JS
-    if (app.config.framework === 'react') {
-      zip.file('www/js/app.js', app.services.transpile(app.editors.js.getValue()));
-      zip.file('www/js/app.jsx', app.editors.js.getValue());
-    } else {
-      zip.file('www/js/app.js', app.editors.js.getValue());
-    }
-
-    // PACKAGE.JSON
-    var packageJSON = zip.file('package.json').asText();
-
-    packageJSON = app.util.addEntry(packageJSON, 'dependencies', app.config.npm.onsenui, true);
-    if (app.config.npm.hasOwnProperty(app.config.framework)) {
-      app.config.npm[app.config.framework].forEach(function (dep) {
-        packageJSON = app.util.addEntry(packageJSON, 'dependencies', dep);
-      });
-
-      packageJSON = app.services.addTranspilerDependencies(packageJSON);
-    }
-    zip.file('package.json', packageJSON);
-
-
-    // EXTERNAL LIBRARIES
-    var promises = [];
-    var externalLibraries = app.services.getAllLibs();
-    var addLib = function (lib) {
-      if (externalLibraries.hasOwnProperty(lib)) {
-        Object.keys(externalLibraries[lib]).forEach(function (dir) {
-          externalLibraries[lib][dir].forEach(function (file) {
-            promises.push(app.util.request(file)
-              .then(function (res) {
-                zip.file(`www/lib/${dir}/${file.split('/').pop()}`, res);
-              })
-            );
-          });
-        });
-      }
-    };
-    addLib('onsenui');
-    addLib(app.config.framework);
-
-
-    // GENERATE AND DOWNLOAD
-    Promise.all(promises)
-      .then(function () {
-        console.info('Done!');
-        app.services.hideGenerateModal();
-
-        var title = document.querySelector('#modules .select-item').innerHTML.replace(/\s+/g, '_');
-        if (title === 'Select_Tutorial') {
-          title = 'OnsenUI-Project.zip';
-        }
-
-        window.saveAs(zip.generate({ type: 'blob' }), `${title}.zip`);
-      })
-      .catch(function (err) {
-        alert('Could not generate Cordova project.')
-        console.error(err.message);
-      });
-  });
-};
-
-app.services.updateTutorialPage = function () {
-  var tutorialContent = document.querySelector('#tutorial-content');
-  tutorialContent.innerHTML = app.tutorial.pages[app.tutorial.pageIndex];
-  tutorialContent.scrollTop = 0;
-};
-
-app.services.refreshSplit = function (selector, position) {
-  var gutter = document.querySelector('#rightPane').previousElementSibling;
-  app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().right);
-};
-
-app.services.resizeHTMLPane = function(newPosition) {
-  var gutter = document.querySelector('#rightPane .gutter-vertical');
-  app.config.initRightPanePos = app.config.initRightPanePos || gutter.getBoundingClientRect().top;
-  app.util.simulatePanelDrag(gutter, 'y', newPosition);
+  var contentElement = document.querySelector('#tutorial-content');
+  contentElement.innerHTML = content ? marked(content) : app.tutorial.pages[app.tutorial.pageIndex];
+  contentElement.scrollTop = 0;
 };
 
 app.services.modifySource = function () {
+  var url = 'https://github.com/OnsenUI/playground/edit/master/';
   var state = window.history.state;
-  if (state) {
-    window.open(`https://github.com/OnsenUI/tutorial/edit/master/tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html`, '_blank');
-  }
+  url += state ? `tutorial/${state.framework}/${state.category.replace(/\s/g, '_')}/${state.module.replace(/\s/g, '_')}.html` : 'index.html';
+  window.open(url, '_blank');
 };
+
+app.services.reportIssue = function () {
+  var state = window.history.state || {
+    framework: 'core',
+    module: ''
+  };
+
+  var libs = ['onsenui'];
+  if (app.config.framework !== 'vanilla') {
+    libs.push(app.config.framework + '-onsenui');
+  }
+
+  var promises = [];
+
+  libs.forEach(function(lib) {
+    if (!app.config.versions[lib] || app.config.versions[lib] === 'latest') {
+      promises.push(app.services.getLatestVersionOf(lib));
+    } else {
+      promises.push(new Promise(function(resolve) {
+        resolve(app.config.versions[lib]);
+      }));
+    }
+  });
+
+  var newTab = window.open('', '_blank');
+  newTab.document.write('Loading...');
+
+  Promise.all(promises).then(
+    function(iterable) {
+      app.setVersion(libs[0], iterable[0]);
+      if (iterable[1]) {
+        app.setVersion(libs[1], iterable[1]);
+      }
+
+      var frameworkName = app.config.framework === 'vanilla' ? 'core' : state.framework;
+      var title = app.util.capitalize(frameworkName) + ' | ' + app.util.capitalize(state.module) + ' issue: ';
+      newTab.location.href = `https://github.com/OnsenUI/OnsenUI/issues/new?title=${title}&labels[]=${frameworkName}&labels[]=hasDemo&body=${app.services.generateIssueTemplate()}`;
+    },
+    function() {
+      newTab.close();
+    }
+  );
+};
+
+app.services.getLatestVersionOf = function (lib) {
+  return app.util.request('https://registry.npmjs.org/' + lib, true)
+  .then(
+    function(responseText) {
+      var responseJSON = JSON.parse(responseText);
+      return responseJSON['dist-tags'].latest;
+    },
+    function() {
+      console.warn('Request timed out.')
+      return 'latest';
+    });
+};
+
+app.services.generateIssueTemplate = function () {
+  var frameworkInfo = '';
+  var frameworkBindingsInfo = '';
+  if (app.config.framework && app.config.framework !== 'vanilla') {
+    frameworkInfo = `
+[Framework]
+  ${app.config.framework} ${app.config.versions[app.config.framework || '']}
+`;
+
+    var frameworkLib = app.config.framework + '-onsenui';
+    frameworkBindingsInfo = `
+[Framework binding]
+ ${frameworkLib} ${app.config.versions[frameworkLib]}
+`;
+  }
+
+  var platformType = (/^(ios|android)/i).test(platform.os.family) ? 'Mobile' : 'Desktop';
+  var platformInfo = platformType + ' - ' + platform.os.toString();
+  var browserInfo = platformType + ' - ' + platform.description;
+  var codeType = app.config.codeType;
+  if (codeType === 'babel') {
+    codeType = app.config.framework === 'react' ? 'jsx' : 'javascript';
+  }
+
+  return window.encodeURIComponent(`
+__Environment__
+
+  <!-- Modify if anything is wrong but keep the structure -->
+\`\`\`
+[Core]
+  onsenui ${app.config.versions.onsenui}
+  ${frameworkInfo}${frameworkBindingsInfo}
+[Platform]
+  ${platformInfo}
+
+[Browser]
+  ${browserInfo}
+\`\`\`
+
+__Encountered problem__
+  <!-- Enter here the description  -->
+
+
+__How to reproduce__
+  <!-- Enter optional here the description  -->
+
+
+  <!-- This link will work once the issue is created -->
+  [__Demo link__](https://onsen.io/playground/?issue)
+
+  <!-- Do not change the following code structure -->
+
+- __HTML__
+
+\`\`\`html
+${app.editors.html.getValue()}
+\`\`\`
+
+- __JS__
+
+\`\`\`${codeType}
+${app.editors.js.getValue()}
+\`\`\`
+
+`);
+};
+
+app.services.generateAngular2Globals = function () {
+  return `
+    <!-- Data for Angular2 SystemJS -->
+    <script>
+      window._isLocalDev = ${app.config.local};
+      window._onsNightlyBuild = ${app.config.nightly};
+      window._ngxOnsLibVersion = '${app.config.versions['ngx-onsenui'] || ''}';
+      window._ngxLibVersion = '${app.config.versions.angular2}'
+    </script>
+  `;
+}

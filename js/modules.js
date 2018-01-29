@@ -1,113 +1,211 @@
+/* globals app */
 app.modules = {
   'vanilla': {
-    'Reference': {
-      'page': 'Creating a page',
-      'navigator': 'Stack navigation',
-      'tabbar': 'Using tabs',
-      'splitter': 'Side menu (Splitter)',
-      'list': 'Lists',
-      'lazy-repeat': 'Infinite lists',
-      'pull-hook': 'Pull to refresh',
-      'carousel': 'Carousel',
-      'dialog': 'Dialogs',
-      'popover': 'Popover',
-      'modal': 'Modal',
-      'input': 'Form input',
-      'switch': 'Switches',
-      'button': 'Buttons',
-      'range': 'Range sliders',
-      'icon': 'Icons',
-      'if': 'Conditional element',
-      'progress': 'Progress indicators',
-      'fab': 'Floating action button',
-      'speed-dial': 'Speed dial',
-      'ripple': 'Ripple effect'
+    'reference': {
+      'page': 'creating a page',
+      'navigator': 'stack navigation',
+      'tabbar': 'using tabs',
+      'splitter': 'side menu (splitter)',
+      'list': 'lists',
+      'lazy-repeat': 'infinite lists',
+      'pull-hook': 'pull to refresh',
+      'carousel': 'carousel',
+      'dialog': 'dialogs',
+      'popover': 'popover',
+      'modal': 'modal',
+      'action-sheet': 'action sheet',
+      'input': 'form input',
+      'switch': 'switches',
+      'button': 'buttons',
+      'range': 'range sliders',
+      'segment': 'segment',
+      'select': 'select input',
+      'icon': 'icons',
+      'card': 'card',
+      'if': 'conditional element',
+      'progress': 'progress indicators',
+      'fab': 'floating action button material',
+      'speed-dial': 'speed dial',
+      'ripple': 'ripple effect'
     },
-    'Community tutorials': {
-      'splitter_navigator': 'Splitter animations with Navigator',
-      'passing_data': 'Passing data outside Onsen UI'
+    'common patterns': {
+      'kitchensink': 'kitchensink example',
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
+    },
+    'community tutorials': {
+      'splitter_anim_navigator': 'splitter animations with navigator',
+      'passing_data': 'passing data outside onsen ui'
+    },
+    'user interface tutorials': {
+      'instagram_model': 'instagram model',
+      'spotify_model': 'spotify model',
+      'twitter_model': 'twitter model',
+      'netflix_model': 'netflix model'
     }
   },
   'angular1': {
-    'Getting started': {
-      'Introduction': 'Introduction',
-      'Data binding': 'Data binding',
-      'Event handling': 'Event handling'
+    'getting started': {
+      'introduction': 'introduction',
+      'data binding': 'data binding',
+      'event handling': 'event handling'
     },
-    'Reference': {
-      'page': 'Creating a page',
-      'navigator': 'Stack navigation',
-      'tabbar': 'Using tabs',
-      'splitter': 'Side menu (Splitter)',
-      'list': 'Lists',
-      'lazy-repeat': 'Infinite lists',
-      'pull-hook': 'Pull to refresh',
-      'carousel': 'Carousel',
-      'dialog': 'Dialogs',
-      'popover': 'Popover',
-      'modal': 'Modal',
-      'input': 'Form input',
-      'switch': 'Switches',
-      'button': 'Buttons',
-      'range': 'Range sliders',
-      'icon': 'Icons',
-      'if': 'Conditional element',
-      'progress': 'Progress indicators',
-      'fab': 'Floating action button',
-      'speed-dial': 'Speed dial',
-      'ripple': 'Ripple effect'
+    'reference': {
+      'page': 'creating a page',
+      'navigator': 'stack navigation',
+      'tabbar': 'using tabs',
+      'splitter': 'side menu (splitter)',
+      'list': 'lists',
+      'lazy-repeat': 'infinite lists',
+      'pull-hook': 'pull to refresh',
+      'carousel': 'carousel',
+      'dialog': 'dialogs',
+      'popover': 'popover',
+      'modal': 'modal',
+      'action-sheet': 'action sheet',
+      'input': 'form input',
+      'switch': 'switches',
+      'button': 'buttons',
+      'range': 'range sliders',
+      'segment': 'segment',
+      'select': 'select input',
+      'icon': 'icons',
+      'card': 'card',
+      'if': 'conditional element',
+      'progress': 'progress indicators',
+      'fab': 'floating action button material',
+      'speed-dial': 'speed dial',
+      'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'angular2': {
-    'Reference': {
-      'page': 'Creating a page',
-      'navigator': 'Stack navigation',
-      'tabbar': 'Using tabs',
-      'splitter': 'Side menu (Splitter)',
-      'list': 'Lists',
-      'lazy-repeat': 'Infinite lists',
-      'pull-hook': 'Pull to refresh',
-      'carousel': 'Carousel',
-      'dialog': 'Dialogs',
-      'popover': 'Popover',
-      'modal': 'Modal',
-      'input': 'Form input',
-      'switch': 'Switches',
-      'button': 'Buttons',
-      'range': 'Range sliders',
-      'icon': 'Icons',
-      'if': 'Conditional element',
-      'progress': 'Progress indicators',
-      'fab': 'Floating action button',
-      'speed-dial': 'Speed Dial',
-      'ripple': 'Ripple'
+    'reference': {
+      'page': 'creating a page',
+      'navigator': 'stack navigation',
+      'tabbar': 'using tabs',
+      'splitter': 'side menu (splitter)',
+      'list': 'lists',
+      'lazy-repeat': 'infinite lists',
+      'pull-hook': 'pull to refresh',
+      'carousel': 'carousel',
+      'dialog': 'dialogs',
+      'popover': 'popover',
+      'modal': 'modal',
+      'action-sheet': 'action sheet',
+      'input': 'form input',
+      'switch': 'switches',
+      'button': 'buttons',
+      'range': 'range sliders',
+      'select': 'select input',
+      'icon': 'icons',
+      'card': 'card',
+      'progress': 'progress indicators',
+      'fab': 'floating action button material',
+      'speed-dial': 'speed dial',
+      'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   },
   'react': {
-    'Getting started': {
-      'Using the components': 'Using the components'
+    'getting started': {
+      'using the components': 'using the components'
     },
-    'Reference': {
-      'page': 'Creating a page',
-      'navigator': 'Stack navigation',
-      'tabbar': 'Using tabs',
-      'splitter': 'Side menu (Splitter)',
-      'list': 'Lists',
-      'lazy-list': 'Infinite lists',
-      'pull-hook': 'Pull to refresh',
-      'carousel': 'Carousel',
-      'dialog': 'Dialogs',
-      'popover': 'Popover',
-      'modal': 'Modal',
-      'input': 'Form input',
-      'switch': 'Switches',
-      'button': 'Buttons',
-      'range': 'Range sliders',
-      'icon': 'Icons',
-      'progress': 'Progress indicators',
-      'fab': 'Floating action button',
-      'speed-dial': 'Speed dial',
-      'ripple': 'Ripple effect'
+    'reference': {
+      'page': 'creating a page',
+      'navigator': 'stack navigation',
+      'tabbar': 'using tabs',
+      'splitter': 'side menu (splitter)',
+      'list': 'lists',
+      'lazy-list': 'infinite lists',
+      'pull-hook': 'pull to refresh',
+      'carousel': 'carousel',
+      'dialog': 'dialogs',
+      'popover': 'popover',
+      'modal': 'modal',
+      'action-sheet': 'action sheet',
+      'input': 'form input',
+      'switch': 'switches',
+      'button': 'buttons',
+      'range': 'range sliders',
+      'segment': 'segment',
+      'select': 'select input',
+      'icon': 'icons',
+      'card': 'card',
+      'progress': 'progress indicators',
+      'fab': 'floating action button material',
+      'speed-dial': 'speed dial',
+      'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
+    }
+  },
+  'vue': {
+    'reference': {
+      'page': 'creating a page',
+      'navigator': 'stack navigation',
+      'tabbar': 'using tabs',
+      'splitter': 'side menu (splitter)',
+      'list': 'lists',
+      'lazy-repeat': 'infinite lists',
+      'pull-hook': 'pull to refresh',
+      'carousel': 'carousel',
+      'dialog': 'dialogs',
+      'popover': 'popover',
+      'modal': 'modal',
+      'action-sheet': 'action sheet',
+      'input': 'form input',
+      'switch': 'switches',
+      'button': 'buttons',
+      'range': 'range sliders',
+      'segment': 'segment',
+      'select': 'select input',
+      'icon': 'icons',
+      'card': 'card',
+      'progress': 'progress indicators',
+      'fab': 'floating action button material',
+      'speed-dial': 'speed dial',
+      'ripple': 'ripple effect'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
     }
   }
 };
+
+app.modulesDefaultKeywords = {
+  'page': 'dialog toolbar',
+  'navigator': 'page animation push pop reset replace toolbar navbar backbutton',
+  'tabbar': 'page tab bar',
+  'splitter': '',
+  'list': ' items',
+  'lazy-repeat': 'items',
+  'lazy-list': 'items',
+  'pull-hook': '',
+  'carousel': 'slider',
+  'dialog': 'alerts notifications',
+  'popover': 'dialog menu',
+  'modal': 'dialog',
+  'input': 'form checkbox radio password text',
+  'switch': 'form toggler checkbox',
+  'button': 'form',
+  'range': 'form',
+  'select': 'form',
+  'icon': 'icons',
+  'card': 'card',
+  'if': '',
+  'progress': 'bar circle circular material',
+  'fab': '',
+  'speed-dial': 'fab floating action button material',
+  'ripple': 'material'
+};
+

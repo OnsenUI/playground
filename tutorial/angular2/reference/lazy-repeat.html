@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/typescript">
+    import {
+      Component,
+      OnsLazyRepeat,
+      ViewChild,
+      OnInit,
+      OnsenModule,
+      NgModule,
+      CUSTOM_ELEMENTS_SCHEMA
+    } from 'ngx-onsenui';
+    import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+    @Component({
+      selector: 'app',
+      template: `
+      <ons-page class="page">
+        <ons-toolbar>
+          <div class="left"></div>
+          <div class="center">Lazy Repeat</div>
+          <div class="right"><ons-toolbar-button (click)="add()">Add</ons-toolbar-button></div>
+        </ons-toolbar>
+
+        <div class="content page__content">
+          <ons-list>
+            <ons-list-item *onsLazyRepeat="let item of items; let i = index">
+              <div class="center">
+                #{{i}} msg: {{item.msg}}
+              </div>
+            </ons-list-item>
+          </ons-list>
+        </div>
+      </ons-page>
+      `
+    })
+    export class AppComponent {
+      public items: any[];
+      @ViewChild(OnsLazyRepeat) lazyRepeat;
+
+      constructor() {
+        this.items = [];
+        for (let i = 0; i < 1000; i++) {
+          this.items.push({
+            msg: 'Hello!'
+          });
+        }
+      }
+
+      add() {
+        this.items.unshift({
+          msg: 'Bonjour!'
+        });
+        this.lazyRepeat.refresh();
+      }
+    }
+
+    @NgModule({
+      imports: [OnsenModule],
+      declarations: [AppComponent],
+      bootstrap: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    class AppModule { }
+
+    platformBrowserDynamic().bootstrapModule(AppModule);
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## Lazy Repeat
+
+Lazy Repeatを利用すると数千数万の要素を持つバーチャルリストを作ることができます。レンダリングエンジンの仕組み上、DOM要素を持てば持つほどレンダリングは遅くなります。モバイル環境では数千数万レベルの長いリストを作ることはパフォーマンスの劣化につながりますが、このLazy Repeatを使うと仮想的に長いリストをパフォーマンスを劣化させること無くレンダリングすることができます。
+
+Angular 2ではOnsLazyRepeatディレクティブを通じてLazy Repeatを利用することができます。
+
+```
+<ons-list>
+  <ons-list-item *onsLazyRepeat="let item of items; let i = index">
+    <div class="center">
+      #{{i}} msg: {{item.msg}}
+    </div>
+  </ons-list-item>
+</ons-list>
+```
+
+## 更新する
+
+Lazy Repeatで作成したリストをレンダリングし直したい場合には、OnsLazyRepeatディレクティブの`refresh()`メソッドを使います。OnsLazyRepeatディレクティブを取得するには、ViewChildデコレータを通じて取得します。
+
+```
+export class AppComponent {
+  @ViewChild(OnsLazyRepeat) lazyRepeat;
+
+  refresh() {
+    this.lazyRepeat.refresh();
+  }
+}
+```
+
+-->

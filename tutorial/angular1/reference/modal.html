@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap();
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Modal</div>
+    </ons-toolbar>
+
+    <p style="text-align: center">
+      <ons-button ng-click="myModal.show()">Show modal</ons-button>
+    </p>
+  </ons-page>
+
+  <ons-modal var="myModal" direction="up">
+    <div style="text-align: center">
+      <p>
+        <ons-button ng-click="myModal.hide()">Hide modal</ons-button>
+      </p>
+    </div>
+  </ons-modal>
+</body>
+</html>
+
+<!-- info
+
+## Modal
+
+Modals are used to display some information on top of the app and take the focus. It forbids user interaction with the background.
+
+Simply add the modal tags together with the page.
+
+```
+<ons-page>...</ons-page>
+
+<ons-modal>
+  This is a modal!
+</ons-modal>
+```
+
+Use `show`, `hide` and `toggle` methods to control it.
+
+-->

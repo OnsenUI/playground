@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI Instagram App</title>
+
+  <script>
+   // Page init event
+
+    var playlist;  // variable used to remember the name of the playlist being opened
+
+    document.addEventListener('init', function(event) {
+      var page = event.target; 
+
+      if (page.matches('#playlist-page')) {  //when the playlist-page is initialized the name of the selected playlist will be written on the toolbar
+
+        page.querySelector('#playlist_title').innerHTML = playlist;
+
+        //the postchange event is used to change the dots indicating which carousel is currently displayed
+
+        page.querySelector('#carousel').addEventListener("postchange", function() {
+          page.querySelector('#dot1').classList.toggle("circle_current");
+          page.querySelector('#dot2').classList.toggle("circle_current");
+        });
+
+      }
+
+      if (page.matches('#play-page')) {
+        page.querySelector('#from_playlist').innerHTML = playlist;
+
+        page.querySelector('#back_button').onclick = function() {
+          document.querySelector('#navigator').popPage();
+        };
+      }
+
+    });
+
+    // The openPlaylist is used to open the playlist screen with the proper name.
+
+    function openPlaylist(id) {
+      playlist = document.querySelector('#'+id + "_name").innerHTML;
+      document.querySelector('#navigator').pushPage('playlist.html');
+    }
+
+     // The shuffle_play is used to display the toast on the bottom of the screen
+
+    function shuffle_play() {
+      if (document.querySelector('ons-toast').style.display == "none") {
+        document.querySelector('ons-toast').show();
+      }
+      document.getElementById("play_icon").classList.remove("fa-play-circle-o");
+      document.getElementById("play_icon").classList.add("fa-pause-circle-o");
+    }
+
+    function openPlayScreen() {
+      document.querySelector('#navigator').pushPage('play.html', { animation: "lift" });
+    }
+
+    // Used to togle the play/paused icon on the play screen and the toast on the playlist page
+
+    function play_toggle(id)　{
+      document.getElementById(id).classList.toggle("fa-pause-circle-o");
+      document.getElementById(id).classList.toggle("fa-play-circle-o"); 
+    }
+  </script>
+
+</head>
+<body>
+  <ons-navigator id="navigator" page="browse.html"></ons-navigator>
+
+
+  <!-- The Browsing Page -->
+
+  <template id="browse.html">
+    <ons-page id="browse-page">
+      <ons-toolbar class="toolbar_semi-transparent" modifier="transparent">
+        <div class="blur"></div>
+        <div class="center">BROWSE</div>
+      </ons-toolbar>
+
+      <div class="content" style="text-align: center">
+        <div class="recomended">
+          <h4>Recomended Playlists</h4>
+          <ons-carousel auto-refresh swipeable overscrollable item-width="130px" class="recomended_list">
+            <ons-carousel-item modifier="nodivider" id="playlist_1" class="recomended_playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="recomended_playlist_title" id="playlist_1_name">Playlist 1</div>
+            </ons-carousel-item>
+            <ons-carousel-item modifier="nodivider" id="playlist_2" class="recomended_playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="recomended_playlist_title" id="playlist_2_name">Playlist 2</div>
+            </ons-carousel-item>
+            <ons-carousel-item modifier="nodivider" id="playlist_3" class="recomended_playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="recomended_playlist_title" id="playlist_3_name">Playlist 3</div>
+            </ons-carousel-item>
+            <ons-carousel-item modifier="nodivider" id="playlist_4" class="recomended_playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="recomended_playlist_title" id="playlist_4_name">Playlist 4</div>
+            </ons-carousel-item>
+            <ons-carousel-item modifier="nodivider" id="playlist_5" class="recomended_playlist" onclick="openPlaylist(this.id)">
+              <div class="thumbnail"><ons-icon icon="ion-music-note"></ons-icon></div>
+              <div class="recomended_playlist_title" id="playlist_5_name">Playlist 5</div>
+            </ons-carousel-item>
+          </ons-carousel>
+        </div>
+
+        <div>
+          <ons-list class="menu_list">
+            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="fa-line-chart"></ons-icon>  Charts</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="fa-calendar-o"></ons-icon>  New Releases</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="ion-radio-waves"></ons-icon>  Podcasts &amp; Videos</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="ion-disc"></ons-icon>  Discover</ons-list-item>
+            <ons-list-item class="menu_item" modifier="chevron" tappable><ons-icon icon="fa-ticket"></ons-icon>  Concerts</ons-list-item>
+          </ons-list>
+        </div>
+
+        <div>
+          <h4 style="padding-top: 10px;">Genre &amp; Mood</h4>
+          <ons-row class="category">
+            <ons-col modifier="nodivider" id="Category_1" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                  <ons-icon icon="fa-users"></ons-icon>
+                  <div class="category_title" id="Category_1_name">Party</div>
+                </figure>
+              </div>
+            </ons-col>
+            <ons-col modifier="nodivider" id="Category_2" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                  <ons-icon icon="fa-headphones"></ons-icon>
+                  <div class="category_title" id="Category_2_name">Relax</div>
+                </figure>
+              </div>
+            </ons-col>
+          </ons-row>
+          <ons-row class="category">  
+            <ons-col modifier="nodivider" id="Category_3" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                  <ons-icon icon="ion-music-note"></ons-icon>
+                  <div class="category_title" id="Category_3_name">Classical</div>
+                </figure>
+              </div>
+            </ons-col>
+            <ons-col modifier="nodivider" id="Category_4" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                  <ons-icon icon="ion-android-microphone"></ons-icon>
+                  <div class="category_title" id="Category_4_name">Pop</div>
+                </figure>
+              </div>
+            </ons-col>
+          </ons-row>
+          <ons-row class="category">    
+            <ons-col modifier="nodivider" id="Category_5" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                  <ons-icon icon="fa-smile-o"></ons-icon>
+                  <div class="category_title" id="Category_5_name">Happy</div>
+                </figure>
+              </div>
+            </ons-col>
+            <ons-col modifier="nodivider" id="Category_6" onclick="openPlaylist(this.id)">
+              <div class="category_wrapper">
+                <figure class="category_thumbnail">
+                  <ons-icon icon="fa-bed"></ons-icon>
+                  <div class="category_title" id="Category_6_name">Sleepy</div>
+                </figure>
+              </div>
+            </ons-col>
+          </ons-row>
+        </div>
+      </div>
+
+      <style type="text/css">
+        .recomended_playlist {
+          padding-left: 10px;
+        }
+
+        .recomended_playlist_title {
+          font-size: 12px;
+          font-weight: bold;
+        }
+
+        .thumbnail {
+          width: 120px;
+          height: 120px;
+          display: table;
+          background-color: rgba(0, 0, 0, 0.42);
+        }
+
+        .thumbnail ons-icon {
+          font-size: 70px;
+          color: rgba(190, 190, 190, 0.74);
+          display: table-cell;
+          vertical-align: middle !important;
+        }
+
+        .recomended_list {
+          height: 150px;
+        }
+
+        .recomended {
+          background: linear-gradient(rgb(208, 247, 211),#151715);
+          padding-top: 44px;
+        }
+
+        .menu_list {
+          background: transparent;
+        }
+
+        .menu_item {
+          color: white;
+          font-size: 12px;
+        }
+
+        .menu_item ons-icon {
+          margin-right: 10px;
+          color: gray;
+          font-size: 16px;
+        }
+
+        .category {
+          margin: 20px 0px;
+          padding: 0px 30px;
+        }
+
+        .category_wrapper {
+          max-width: 120px;
+          width: 90%;
+          margin: auto;
+          background-color: rgba(128, 128, 128, 0.62);
+        }
+
+        .category_wrapper ons-icon {
+          font-size: 55px;
+          padding-top: 10px;
+          line-height: 0.75em;
+        }
+
+        .category_thumbnail {
+          display: inline-block;
+          margin: 16px 0px;
+        }
+
+        .category_title {
+          font-size: 12px;
+          font-weight: bold;
+          padding-top: 10px;
+        }
+      </style>
+
+    </ons-page>
+  </template>
+
+
+  <!-- The Playlist Page -->
+
+  <template id="playlist.html">
+    <ons-page id="playlist-page">
+      <ons-toolbar modifier="transparent">
+        <div class="left"><ons-back-button></ons-back-button></div>
+        <div class="right">
+          <ons-toolbar-button>
+            <ons-icon style="color: white" icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <div class="content" style="text-align: center;">
+        <div class="playlist_content">
+          <ons-carousel class="carousel" swipeable auto-scroll id="carousel">
+            <ons-carousel-item>
+              <div>
+                <figure>
+                  <img class="playlist_thumbnail" src="assets/img/profile-image-05.png">
+                  <div class="playlist_title" id="playlist_title">Classical</div>
+                </figure>
+                <div>
+                  <div class="playlist_follow">FOLLOW</div>
+                </div>
+                <div class="playlist_info">1,023 FOLLOWERS・BY UNKNOWN AUTHOR</div>
+              </div>
+            </ons-carousel-item>
+            <ons-carousel-item>
+              <div>
+                <div class="playlist_description">
+                  Though the author is unknown, this playlist offers the best music can offer, from relaxing tracks to tracks that will make you get on your fit and jump as much as you can! Enjoy ^_^
+                </div>
+                <div>
+                  <div style="font-size: 14px; margin-bottom: 10px;">Created by</div>
+                  <div><ons-icon icon="fa-user-circle" size="20px" style="margin-bottom: 10px;"></ons-icon></div>
+                  <div class="playlist_username">Unknown</div>
+                </div>
+                <div style="font-size: 14px">
+                  <div style="left: 25px; bottom: 45px; position: absolute;"><ons-icon icon="fa-calendar-plus-o"></ons-icon> 2017/06/20</div>
+                  <div style="right: 25px; bottom: 45px; position: absolute;"><ons-icon icon="fa-clock-o"></ons-icon> 30 min</div>
+                </div>
+              </div>  
+            </ons-carousel-item>
+            <div class="cover-label center">
+              <ul>
+                <li><div id="dot1" class="circle circle_current">&#x25cf;</div></li>
+                <li><div id="dot2" class="circle">&#x25cf;</div></li>
+              </ul>
+            </div>
+          </ons-carousel>
+        </div>
+
+        <div><ons-button class="shuffle" onclick="shuffle_play()"><ons-icon style="margin-right: 5px;" icon="fa-play"></ons-icon> SHUFFLE PLAY!</ons-button></div>
+        
+        <ons-list class="track_list">
+          <ons-list-item class="track_offline">
+            <div class="center">Available Offline</div>
+            <div class="right">
+              <ons-switch></ons-switch>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 01</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 01</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 02</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 02</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 03</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 03</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 04</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 04</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 05</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 05</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 06</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 06</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 07</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 07</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 08</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 08</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 09</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 09</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+          <ons-list-item class="track" tappable>
+            <div class="center">
+              <div class="list-item__title">Track 10</div>
+              <div class="list-item__subtitle track_title">Unknown Artist - Track 10</div>
+            </div>
+            <div class="right">
+              <ons-icon icon="ion-ios-more,material:ion-android-more-vertical"></ons-icon>
+            </div>
+          </ons-list-item>
+        </ons-list>  
+      </div>
+
+      <ons-toast>
+        <div onclick="openPlayScreen()"><ons-icon size="20px" style="margin-right: 10px" icon="fa-angle-up"></ons-icon> Unknown Artist - Track 01 </div>
+        <button><ons-icon id="play_icon" size="20px" style="color: white;" icon="fa-play-circle-o" onclick="play_toggle(this.id)"></ons-icon></button>
+      </ons-toast>
+
+      <style type="text/css">
+        .playlist_content {
+          padding-top: 44px;
+          background: linear-gradient(rgba(254, 221, 166, 0.42),rgba(73, 64, 49, 0.49));
+        }
+
+        .carousel {
+          height: 285px;
+        }
+
+        .playlist_thumbnail {
+          width: 50%;
+          max-width: 145px;
+        }
+
+        .playlist_title {
+          font-size: 20px;
+          font-weight: bold;
+          padding-top: 5px;
+        }
+
+        .playlist_info {
+          font-size: 10px;
+          color: #999;
+        }
+
+        .playlist_follow {
+          font-size: 11px;
+          width: 20%;
+          margin: auto;
+          border: 1px solid;
+          border-radius: 10px;
+          padding: 2px 0px;
+          font-weight: bold;
+          margin-bottom: 5px;
+          margin-top: -8px;
+        }
+
+        .playlist_description {
+          margin: 15px 30px;
+          font-size: 15px;
+        }
+
+        .playlist_username {
+          font-size: 14px;
+          background-color: rgba(142, 142, 142, 0.5);
+          width: 90px;
+          margin: auto;
+          border-radius: 10px;
+          padding: 2px;
+          font-weight: bold;
+          font-family: monospace;
+        }
+
+        .cover-label {
+          position: absolute;
+          bottom: 5%;
+          width: 100%;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+        }
+
+        ul li {
+          display: inline;
+        }
+
+        .circle {
+          font-size: 15px;
+          display: table-cell;
+          color: #999;
+        }
+
+        .circle_current {
+          color: #fff;
+        }
+
+        .shuffle {
+          background-color: #38d786;
+          padding: 3px 40px;
+          font-size: 14px;
+          border-radius: 20px;
+          margin-top: -16px;
+          z-index: 2;
+        }
+
+        .track_list {
+          font-size: 14px;
+          background: transparent;
+        }
+
+        .track_offline {
+          color: white;
+        }
+
+        .track {
+          color: white;
+        }
+
+        .track_title {
+          font-size: 12px;
+          color: #808080;
+        }
+
+        .toast {
+          background-color: #5d5d5d;
+          border-radius: 0px;
+          width: 100%;
+          margin: 0;
+          left: 0;
+          padding: 0px 10px;
+        }
+      </style>
+
+    </ons-page>
+  </template>
+
+
+  <!-- The Play Screen -->
+
+  <template id="play.html">
+    <ons-page id="play-page">
+      <ons-toolbar modifier="transparent">
+        <div class="left"><ons-toolbar-button id="back_button"><ons-icon style="color: white" icon="fa-angle-down"></ons-icon></ons-toolbar-button></div>
+        <div class="center" style="margin-top: -5px;">
+          <div style="font-size: 8px; height: 15px; color: #999;">PLAYING FROM ALBUM</div>
+          <div style="font-size: 12px;" id="from_playlist">Playlist 01</div>
+        </div>
+        <div class="right"><ons-toolbar-button><ons-icon style="color: white" icon="fa-bars"></ons-icon></ons-toolbar-button></div>
+      </ons-toolbar>
+
+      <div class="play_wrapper">
+        <div style="margin: 20px auto 20px; width: 85%">
+          <img style="width: 100%;" src="assets/img/profile-image-05.png">
+        </div>
+        <ons-row>
+          <ons-col  width="40px" class="function_icon"><ons-icon icon="ion-ios-plus-outline" style="font-size: 12px;"></ons-icon></ons-col>
+          <ons-col style="font-size: 12px; margin-bottom: 20px;">
+            <div><b>Track 01</b></div>
+            <div style="margin-top: 5px; color: #999;">Unknown Artist</div>
+          </ons-col>
+          <ons-col  width="40px" class="function_icon"><ons-icon icon="ion-more"></ons-icon></ons-col>
+        </ons-row>
+        <ons-row>
+          <ons-col  width="50px" class="duration_info">0:45</ons-col>
+          <ons-col style="padding-top: 7px;"><ons-progress-bar value="17"></ons-progress-bar></ons-col>
+          <ons-col  width="50px" class="duration_info">4:35</ons-col>
+        </ons-row>
+        <ons-row style="margin-top: 20px; line-height: 60px;">
+          <ons-col>
+            <ons-icon class="player_button" icon="fa-random"></ons-icon>
+          </ons-col>
+          <ons-col>
+            <ons-icon class="player_button" size="25px" icon="fa-step-backward" tappable></ons-icon>
+          </ons-col>
+          <ons-col>
+            <ons-icon class="player_button" size="60px" icon="fa-pause-circle-o" id="play_icon_big" onclick="play_toggle(this.id)"></ons-icon>
+          </ons-col>
+          <ons-col>
+            <ons-icon class="player_button" size="25px" icon="fa-step-forward"></ons-icon>
+          </ons-col>
+          <ons-col>
+            <ons-icon class="player_button" icon="fa-repeat"></ons-icon>
+          </ons-col>
+        </ons-row>
+      </div>
+
+      <style type="text/css">
+        .play_wrapper {
+          text-align: center;
+          height: 100%;
+          background: linear-gradient(rgba(254, 221, 166, 0.42),rgba(73, 64, 49, 0.49));
+          padding-top: 44px;
+        }
+
+        .progress-bar__primary {
+          background-color: white;
+        }
+
+        .progress-bar {
+          background-color: #999999 !important;
+        }
+
+        .function_icon { 
+          font-size: 20px;
+          color: #999
+        }
+
+        .duration_info {
+          font-size: 12px;
+          color: #999
+        }
+
+        .toolbar-button {
+          color: white;
+        }
+
+        .player_button:active {
+          color: gray;
+        }
+      </style>
+
+    </ons-page>
+  </template>
+
+  <style type="text/css">
+    .page {
+      color: white;
+      background-color: black;
+    }
+      
+    .page__background {
+      background-color: black;
+    }
+
+    .page__content {
+      top: 0 !important;
+    }
+
+    .page--material__content > div:first-child {
+      padding-top: 56px;
+    }
+
+    .toolbar_semi-transparent {
+      background-color: rgba(0, 0, 0, 0.39);
+      background-image: linear-gradient(0deg, #000000, #000 40%, transparent 40%);
+    }
+
+    .toolbar__title{
+      color: white;
+      font-size: 12px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .blur {
+      background-color: rgb(0, 0, 0);
+      width: 200%;
+      height: 100%;
+      z-index: 1;
+      position: absolute; 
+      -webkit-filter: blur(20px);
+      filter: blur(20px);     
+    }
+
+    .back-button__icon {
+      fill: white;
+    }
+
+    :checked + .switch__toggle{
+      background-color: #38d786;
+      box-shadow: inset 0 0 0 2px #38d786;
+    }
+
+    .switch__toggle{
+      background-color: #464646;
+      box-shadow: inset 0 0 0 2px #636363;
+    }
+  </style>
+</body>
+</html>
+
+<!-- info 
+
+## Making a Music application
+
+If you are a music lover and want to create a music app, so you can share music with the world, then you can easily create a music app by using Onsen UI.
+
+The Onsen UI components used in this template are the following:
+ - `ons-list` - for listing tracks and displaying the solitter menu options
+ - `ons-carousel` - for displaying playlists and playlist's info in several pages
+ - `ons-row` and `ons-col` - for easy structuring the page
+ - `ons-toast` - for minimized notification that a track is playing
+ - `ons-toolbar`- for creating the toolbar along with `ons-toolbar-button`
+
+This template consists of three pages:
+ - The Browsing Page
+ - The Playlist Page
+ - The Play Screen
+
+## The Browsing Page
+
+The Browsing page consists of a `ons-carousel` on the top, displaying the recommended playlist as a horizontally scrollable list. Below it, there is a `ons-list` of options for discovering new playlists, followed by a combination of `ons-row` and `ons-col` elements that easily structure the page to display a grid of genres and moods. By tapping on one of the recommended playlists or genres/moods, the Playlist page will open. 
+
+**Note:** The additional options' functionality will not be implemented since they lead to a page with similar structure to the browsing page with just different categorization of the playlists.
+
+## The Playlist Page
+
+This page consists of two parts. The first part is the playlist's information displayed using the `ons-carousel` in two carousels, the first one showing the thumbnail of the playlist, the author's name and the number of followers, while the second displays some description about the playlist, its creation day and duration. The second part of the page is the `ons-list` of the playlist's tracks. 
+Additionally, the page has a toast notification that shows the name of the track currently playing. The notification appears after clicking the "Shuffle play" button. By tapping on the notification, the Play Screen opens.
+
+## The Play Screen
+
+The Play screen displays the album cover of the track that is currently playing. Beneath it, is the track's name, the duration as well as a row of buttons characteristic for all music players. 
+
+-->

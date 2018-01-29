@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    document.addEventListener('postchange', function (event) {
+      console.log('postchange event', event);
+    });
+    function changeTab() {
+      document.getElementById('tabbar').setActiveTab(1);
+    }
+    function changeButton() {
+      document.getElementById('segment').setActiveButton(1);
+    }
+    function logIndexes() {
+      console.log('active button index', document.getElementById('segment').getActiveButtonIndex());
+      console.log('active tab index', document.getElementById('tabbar').getActiveTabIndex());
+    }
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">
+        <ons-segment id="segment" tabbar-id="tabbar" style="width: 180px">
+          <button>Page 1</button>
+          <button>Page 2</button>
+          <button>Page 3</button>
+        </ons-segment>
+      </div>
+    </ons-toolbar>
+
+    <ons-tabbar id="tabbar">
+      <ons-tab page="page1.html" active></ons-tab>
+      <ons-tab page="page2.html"></ons-tab>
+      <ons-tab page="page3.html"></ons-tab>
+    </ons-tabbar>
+  </ons-page>
+
+  <template id="page1.html">
+    <ons-page>
+      <h2>Page1</h2>
+      <ons-button onclick="changeTab()">Change tab via tabbar</ons-button>
+      <ons-button onclick="changeButton()">Change tab via segment</ons-button>
+      <ons-button onclick="logIndexes()">Log current button index</ons-button>
+    </ons-page>
+  </template>
+
+  <template id="page2.html">
+    <ons-page>
+      <h2>Page2</h2>
+      <ons-button onclick="logIndexes()">Log current button index</ons-button>
+    </ons-page>
+  </template>
+
+  <template id="page3.html">
+    <ons-page>
+      <h2>Page3</h2>
+      <ons-button onclick="logIndexes()">Log current button index</ons-button>
+    </ons-page>
+  </template>
+</body>
+</html>
+
+<!-- info
+
+## Segment
+
+The `<ons-segment>` component allows you to have a nice button bar with only one active button at a time.
+
+It may be useful for example for filtering lists or especially for connecting to `<ons-tabbar>`. See the next page to find out how to do it.
+
+## Connecting to `<ons-tabbar>`
+
+Sometimes you may want a segment instead of the normal tabs in your tabbar.
+
+You can connect `<ons-segment>` and `<ons-tabbar>` by providing the ID of the `<ons-tabbar>` you want to control as the `tabbar-id` attribute of `<ons-segment>`.
+
+This way the tabbar will be automatically hidden and the active button of `<ons-segment>` will always be in sync with the active tab of `<ons-tabbar>`.
+
+-->

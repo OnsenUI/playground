@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+  import {
+    Component,
+    ViewChild,
+    OnInit,
+    OnDestroy,
+    Params,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'ngx-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-page class="page">
+      <ons-toolbar>
+        <div class="center">Popover</div>
+      </ons-toolbar>
+      <div class="background"></div>
+      <div class="content">
+        <div style="text-align: center; margin: 10px">
+          <ons-button (click)="popover.show(button)" #button>show Popover</ons-button>
+        </div>
+      </div>
+    </ons-page>
+
+    <!-- must be located just under an outermost box such as body element -->
+    <ons-popover direction="up down" cancelable #popover (prehide)="onPreHide($event)">
+      <div style="text-align: center; opacity: 0.7;">
+        <p>This is popover.</p>
+        <p><ons-button (click)="popover.hide()" modifier="light">Hide</ons-button></p>
+      </div>
+    </ons-popover>
+    `
+  })
+  export class AppComponent {
+    constructor() { }
+
+    onPreHide(event) {
+      // event.cancel(); // cancel hiding popover
+    }
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## Popover
+
+`ons-popover`はpopoverを表示することができる要素です。ここではAngular 2下では、`ons-popover`と`PopoverFactory`を使ってpopoverを表示するコンポーネントを作成します。
+
+まず、`ons-popover`をテンプレートのルートに置いたコンポーネントを宣言します。
+
+```
+@Component({
+  template: `
+    <ons-popover direction="up down" cancelable #popover>
+      <div style="text-align: center; opacity: 0.7;">
+        <p>HelloWorld!</p>
+      </div>
+    </ons-popover>
+  `
+})
+class MyPopoverComponent implements OnInit {
+}
+```
+
+次にPopoverFactoryを使ってコンポーネントを生成します。
+
+```
+export class AppComponent implements OnInit, OnDestroy {
+  private _popover: any;
+  private _destroyPopover: Function;
+
+  constructor(private _popoverFactory: PopoverFactory) { }
+
+  ngOnInit() {
+    this._popoverFactory
+      .createPopover(MyPopoverComponent, {msg: 'This is popover.'})
+      .then(({popover, destroy}) => {
+        this._popover = popover;
+        this._destroyPopover = destroy;
+      });
+  }
+
+  ngOnDestroy() {
+    this._destroyPopover();
+  }
+}
+```
+
+popoverを表示するには、取得した`ons-popover`要素の`show()`メソッドを呼び出します。`show()`メソッドの第一引数には、popoverを表示する位置のベースとなる要素を指定します。
+
+```
+this._popover.show(button);
+```
+
+基本的にはAlertDialogFactoryやDialogFactoryと変わりません。AlertDialogやDialogと同様に、`ngOnDestroy`で作成したポップオーバーを破棄することを忘れないでください。
+
+## NgModuleへのコンポーネントの追加
+
+PopoverFactoryを使って読み込むコンポーネントは、NgModuleの`declarations`と`entryComponents`に追加することを忘れないでください。
+
+```
+@NgModule({
+  imports: [OnsenModule],
+  declarations: [AppComponent, MyPopoverComponent],
+  bootstrap: [AppComponent],
+  entryComponents: [MyPopoverComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+class AppModule { }
+```
+
+-->

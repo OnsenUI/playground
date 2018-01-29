@@ -1,8 +1,17 @@
+/* globals app, marked, hljs, ace */
 window.app = {};
-window.setVersion = function(lib, version) {
+
+app.setVersion = function(lib, version) {
+  app.config.versions[lib] = version;
   window.sessionStorage.setItem(lib + '-version', version);
-  console.info('Reload the page to get the new version.');
+  console.info(`Using ${lib}@${version}.`, 'Run the project to update the version.');
 };
+
+app.toggleNightly = function() {
+  app.config.nightly = !app.config.nightly;
+  window.sessionStorage.setItem('nightly', app.config.nightly);
+  console.info(`Using latest ${app.config.nightly ? 'commit' : 'release'}.`, 'Run the project to update the version.')
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   app.config.compact = document.body.classList.contains('compact');
@@ -12,7 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
   var framework = app.util.getParam('framework'),
     category = app.util.getParam('category'),
     module = app.util.getParam('module'),
-    external = app.util.getParam('external');
+    external = app.util.getParam('external'),
+    issue = app.util.getParam('issue');
+
+  if (issue === '') {
+    issue = (document.referrer.match(/github\.com\/OnsenUI\/OnsenUI\/issues\/([0-9]+)/i) || [])[1] || '';
+  }
+
   if (window.Split) {
     app.setup.splitPanes();
     if (!app.config.compact) {
@@ -23,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   } else {
+    app.setup.modules();
     app.setup.tabView();
   }
 
@@ -47,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
     js: app.setup.editor('js-input', 'javascript')
   };
   app.setup.pagesCounter();
-  if ((!framework || !category || !module) && !external) {
+  if ((!framework || !category || !module) && !external && !issue) {
     app.services.showWelcomeMessage();
   }
 
@@ -55,6 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
   app.services.switchStyle(app.config.platform);
   if (external) {
     app.services.loadModule(external).then(app.services.runProject);
+  } else if (issue) {
+    app.services.loadIssue(issue);
   } else if (framework && category && module) {
     app.services.changeModule(framework, category, module).then(app.services.runProject);
   } else {

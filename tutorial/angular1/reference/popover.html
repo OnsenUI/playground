@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap();
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Popover</div>
+    </ons-toolbar>
+
+    <p style="text-align: center; margin: 50% 0;">
+      <ons-button ng-click="popover.show($event)">Click me</ons-button>
+    </p>
+  </ons-page>
+
+  <ons-popover direction="up" var="popover">
+    <div style="padding: 10px; text-align: center;">
+      <p>
+        This is a popover
+      </p>
+      <p>
+        <ons-button ng-click="popover.hide()">Close</ons-button>
+      </p>
+    </div>
+  </ons-popover>
+</body>
+</html>
+
+<!-- info
+
+## Popover
+
+A popover can be used to give additional information about a component or add extra functionality.
+
+The usage is very similar to that of `<ons-dialog>` and `<ons-alert-dialog>`. It is defined using the `<ons-popover>` tag:
+
+```
+<ons-popover var="popover">
+  This is a popover!
+</ons-popover>
+```
+
+`var` attribute is used to store the popover in a variable for later access.
+
+It is hidden by default and usually attached directly to the `<body>` tag.
+
+## Displaying a popover
+
+To display the popover you need to get a reference to the element and execute the `show(target, options)` method. The `target` argument can be either a DOM element, a query selector string or an `Event` object.
+
+## Loading from a template
+
+Just like the `<ons-dialog>` and `<ons-alert-dialog>` elements the popover can be loaded from a template. It is done by using the `ons.createPopover(template)` utility function. It returns a `Promise` that resolves to the popover element.
+
+```
+<template id="popover.html">
+  <ons-popover>
+    This popover is defined as a template.
+  </ons-popover>
+</template>
+```
+
+```
+ons
+  .createPopover('popover.html')
+  .then(function(popover) {
+    popover.show();
+  });
+```
+
+For AngularJS, an extra parameter can be passed to specify the scope of the new popover: `ons.createPopover('popover.html', { parentScope: $scope });`
+
+## The `cancelable` attribute
+
+The `<ons-popover>` supports the `cancelable` attribute. This enables hiding the popover when the user taps outside of it or presses the back button on an Android device.
+
+```
+<ons-popover cancelable>
+  This popover can be cancelled!
+</ons-popover>
+```
+
+-->

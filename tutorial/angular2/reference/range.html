@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+
+  import {
+    Component,
+    OnsRange,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'ngx-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Range Example</div>
+      </ons-toolbar>
+      <div class="background"></div>
+      <div class="content">
+        <div style="text-align: center; margin: 10px">
+          <ons-range [(value)]="value"></ons-range><br>
+          <ons-range modifier="material" [(value)]="value"></ons-range><br>
+          {{value}}
+        </div>
+      </div>
+    </ons-page>
+    `
+  })
+  export class AppComponent {
+    value: string = '10';
+    constructor() { }
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## Range
+
+`ons-range`要素は、`range`要素をラップしたコンポーネントです。`ons-range`要素を利用することでモバイルでのrange UIを作成することができます。
+
+`value`双方向バインディングを使うことで、`ons-range`の値を指定したり変更を受け取ったりすることができます。
+
+```
+  @Component({
+    selector: 'app',
+    template: `
+    <div>
+      <ons-range modifier="material" [(value)]="value"></ons-range><br>
+      Value: {{value}}
+    </div>
+    `
+  })
+  export class AppComponent {
+    value: string = '10';
+  }
+```
+
+## ドラッグ中に値の変更を検知する
+
+`ons-range`の双方向バインディングでは、値の変更が通知されるのは`ons-range`のコントロールを動かし終わったときです。もし動かしている最中に値の変更を受け取りたい場合には、`(input)`イベントバインディングを次のように記述します。
+
+```
+  @Component({
+    selector: 'app',
+    template: `
+    <div>
+      <ons-range modifier="material" [(value)]="value" (input)="value = $event.target.value"></ons-range><br>
+      Value: {{value}}
+    </div>
+    `
+  })
+  export class AppComponent {
+    value: string = '10';
+  }
+```
+
+-->

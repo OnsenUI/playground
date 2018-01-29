@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main'
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Icons</div>
+        <div class="right">
+          <v-ons-toolbar-button>
+            <v-ons-icon icon="ion-navicon, material:md-more-vert"></v-ons-icon>
+          </v-ons-toolbar-button>
+        </div>
+      </v-ons-toolbar>
+
+      <section style="padding: 10px">
+        <h3>Material icons</h3>
+
+        <v-ons-icon icon="md-face"></v-ons-icon>
+        <v-ons-icon icon="md-home"></v-ons-icon>
+        <v-ons-icon icon="md-zoom-in"></v-ons-icon>
+
+        <h3>Font awesome</h3>
+
+        <v-ons-icon icon="fa-file"></v-ons-icon>
+        <v-ons-icon icon="fa-cog"></v-ons-icon>
+        <v-ons-icon icon="fa-car"></v-ons-icon>
+
+        <h3>Ionicons</h3>
+
+        <v-ons-icon icon="ion-navicon"></v-ons-icon>
+        <v-ons-icon icon="ion-hammer"></v-ons-icon>
+        <v-ons-icon icon="ion-calendar"></v-ons-icon>
+
+        <h3>Automatic icon</h3>
+        <v-ons-icon icon="ion-navicon, material:md-menu"></v-ons-icon>
+
+        <h3>Colors</h3>
+
+        <v-ons-icon style="color: red;" icon="md-face"></v-ons-icon>
+        <v-ons-icon style="color: blue;" icon="md-face"></v-ons-icon>
+        <v-ons-icon style="color: green;" icon="md-face"></v-ons-icon>
+
+        <h3>Size</h3>
+
+        <v-ons-icon size="10px" icon="md-face"></v-ons-icon>
+        <v-ons-icon size="20px" icon="md-face"></v-ons-icon>
+        <v-ons-icon size="30px" icon="md-face"></v-ons-icon>
+
+        <h3>Spin</h3>
+
+        <v-ons-icon size="30px" spin icon="md-spinner"></v-ons-icon>
+
+        <h3>Rotate</h3>
+
+        <v-ons-icon icon="md-face"></v-ons-icon>
+        <v-ons-icon rotate="90" icon="md-face"></v-ons-icon>
+        <v-ons-icon rotate="180" icon="md-face"></v-ons-icon>
+        <v-ons-icon rotate="270" icon="md-face"></v-ons-icon>
+
+        <h3>Button</h3>
+        <v-ons-button>
+          <v-ons-icon icon="md-face"></v-ons-icon>
+          Button
+        </v-ons-button>
+
+        <v-ons-fab>
+          <v-ons-icon icon="md-plus"></v-ons-icon>
+        </v-ons-fab>
+      </section>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Icons
+
+Icons are displayed using the `VOnsIcon` component. In Onsen UI there are three families of icons available:
+
+* [Material Icons](http://zavoloklom.github.io/material-design-iconic-font/icons.html)
+* [Ionicons](http://ionicons.com/)
+* [Font Awesome](http://fontawesome.io/?utm_source=hackernewsletter)
+
+The icon is selected using the `icon` prop. To use Material Icons the `md-` prefix is used, `ion-` for Ionicons and `fa-` for Font Awesome.
+
+```
+<v-ons-icon icon="md-menu"></v-ons-icon>
+```
+
+The code above displays a Material Design menu icon.
+
+For quick autostyling, one or more modifiers can be provided in the `icon` prop with the corresponding icon name:
+
+```
+<v-ons-icon icon="ion-navicon, material:md-menu" size="12px, material: 18px"></v-ons-icon>
+```
+
+-->

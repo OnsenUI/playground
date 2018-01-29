@@ -8,6 +8,10 @@ body {
   src: url(../assets/fonts/Hermit-medium.otf) format("opentype");
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .frame {
   position: relative;
   width: 100%;

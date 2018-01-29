@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main'
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Ripple</div>
+      </v-ons-toolbar>
+
+      <div style="width: 200px; height: 200px; margin: 10px auto; background-color: grey;">
+        <v-ons-ripple
+          color="rgba(255, 0, 0, 0.4)"
+          background="rgba(0, 0, 255, 0.4)"
+        >
+        </v-ons-ripple>
+      </div>
+
+      <v-ons-fab ripple position="bottom right">
+        <v-ons-icon icon="md-face"></v-ons-icon>
+      </v-ons-fab>
+
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Ripple
+
+The `VOnsRipple` component is used to add a Material Design ripple effect to an element. This effect will expand from the location point the user taps until it covers the whole element.
+
+To add a ripple effect to an element the `Ripple` component should be placed as a child.
+
+```
+<div style={{width: 100, height: 100, backgroundColor: 'grey'}}>
+  <v-ons-ripple></v-ons-ripple>
+</div>
+```
+
+The color of the ripple effect defaults to gray. It can be customized using the `color` property. It is also possible to customize the background color with the `background` property.
+
+```
+<v-ons-ripple color='red' background='blue'></v-ons-ripple>
+```
+
+## The `ripple` prop
+
+There are some components that support the ripple effect using a `ripple` property. The `VOnsButton` component is one of those. In this case,  instead of using the `Ripple` component only the property `ripple` needs to be added:
+
+```
+<v-ons-button ripple>
+  Ripple!
+</v-ons-button>
+```
+
+Other components that support the `ripple` property are: `VOnsListItem`, `VOnsFab`, `VOnsSpeedDial` and `VOnsTab`.
+-->

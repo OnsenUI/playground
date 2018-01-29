@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          isOpen: false
+        };
+      },
+
+      handleClick: function() {
+        this.setState({isOpen: true});
+      },
+
+      handleCancel: function() {
+        this.setState({isOpen: false});
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Action sheet</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <p style={{textAlign: 'center', paddingTop: '10px'}}>
+              <Ons.Button onClick={this.handleClick.bind(this)}>Show dialog</Ons.Button>
+            </p>
+
+            <Ons.ActionSheet isOpen={this.state.isOpen} animation='default'
+              onCancel={this.handleCancel.bind(this)}
+              isCancelable={true}
+              title={'Description'}
+            >
+              <Ons.ActionSheetButton onClick={this.handleCancel.bind(this)}>Label1</Ons.ActionSheetButton>
+              <Ons.ActionSheetButton onClick={this.handleCancel.bind(this)}>Label2</Ons.ActionSheetButton>
+              <Ons.ActionSheetButton onClick={this.handleCancel.bind(this)} modifier={'destructive'}>Label3</Ons.ActionSheetButton>
+              <Ons.ActionSheetButton onClick={this.handleCancel.bind(this)} icon={'md-close'}>Cancel</Ons.ActionSheetButton>
+            </Ons.ActionSheet>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Dialogs
+
+There are two components used to show dialogs: `Dialog` and `AlertDialog`. The `Dialog` component is a general dialog where you can put any content while the `AlertDialog` has some default styles that make it easy to show errors, warnings or questions to the user.
+
+To show or hide the dialog the `isOpen` prop is used.
+
+```
+<Dialog isOpen={this.state.dialogShown}>
+  Hi!
+
+  <Button onClick={this.hideDialog.bind(this)}>
+    Close
+  </Button>
+</Dialog>
+```
+
+## Notification methods
+
+The `ons.notification` object contains some useful methods to easily show alerts, confirmation dialogs and prompts:
+
+* `ons.notification.alert(message, options)`
+* `ons.notificaiton.confirm(message, options)`
+* `ons.notification.prompt(message, options)`
+
+They all return a `Promise` object that can be used to handle the input from the user.
+
+```
+ons.notification.confirm('Are you ready?')
+  .then((response) => {
+    // Handle response.
+  });
+```
+
+-->

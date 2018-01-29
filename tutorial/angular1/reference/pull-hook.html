@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap()
+      .controller('PageController', function($timeout) {
+        this.items = [3, 2, 1];
+
+        this.load = function($done) {
+          $timeout(function() {
+            this.items.unshift(this.items.length + 1);
+            $done();
+          }.bind(this), 1000);
+        }.bind(this);
+      });
+  </script>
+</head>
+<body>
+  <ons-page ng-controller="PageController as page">
+    <ons-pull-hook ng-action="page.load($done)" var="loader">
+      <span ng-switch="loader.state">
+        <span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh</span>
+        <span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> Release to refresh</span>
+        <span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> Loading data...</span>
+      </span>
+    </ons-pull-hook>
+
+    <ons-toolbar>
+      <div class="center">Pull to refresh</div>
+    </ons-toolbar>
+
+    <ons-list>
+      <ons-list-item ng-repeat="item in page.items">
+        Item #{{ item }}
+      </ons-list-item>
+    </ons-list>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Pull to refresh
+
+The `<ons-pull-hook>` is used to perform an action when the user pulls down the page. It's a common design pattern in mobile apps.
+
+It is normally put as a direct descendant to the `<ons-page>` element.
+
+```
+<ons-page>
+  <ons-toolbar>
+    ...
+  </ons-toolbar>
+
+  <ons-pull-hook></ons-pull-hook>
+</ons-page>
+```
+
+## Setting the callback
+
+The callback that should be executed when the user pulls the page can be set as an expression with `ng-action` attribute: `<ons-pull-hook ng-action="myController.load($done)">`
+
+This callback will take a `$done` function as an argument that needs to be called when the action is performed. Calling the function will cause the page to snap back into position.
+
+```
+app.controller('MyController', function() {
+  this.load = function($done) {
+    refreshData()
+      .then($done);
+  };
+});
+```
+
+## States
+
+The `<ons-pull-hook>` has three different states:
+
+* `initial` - Initial state.
+* `preaction` - Will run the callback when released.
+* `action` - Currently running the callback.
+
+The element will update its state in `pullHook.state` property so it can be easily accessed by, for example, `ng-switch`:
+
+```
+<ons-pull-hook ng-action="page.load($done)" var="pullHook">
+  <span ng-switch="pullHookElement.state">
+    <span ng-switch-when="initial">Pull down to refresh</span>
+    <span ng-switch-when="preaction">Release to refresh</span>
+    <span ng-switch-when="action">Loading data...</span>
+  </span>
+</ons-pull-hook>
+```
+
+## Styling with CSS
+
+Another way to change the content or the appearance of the `<ons-pull-hook>` element is to use CSS and attribute selectors.
+
+The element has the attribute `style` which will have the value of the current state:
+
+```
+ons-pull-hook[style="initial"] {
+  // Write some style for initial state here.
+}
+
+...
+```
+
+## Customizing the behavior
+
+There are a number of attributes that can be used to configure how the `<ons-pull-hook>` will behave.
+
+The `height` attribute defines how long the component must be pulled before transitioning to the `preaction` state. With the `threshold-height` attribute the component can be configured to transition directly to the `action` state without releasing.
+
+There is also an attribute called `fixed-content` that prevents the page from moving while scrolling.
+
+-->
+

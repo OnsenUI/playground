@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+  import {
+    Component,
+    OnsSwitch,
+    OnsenModule,
+    Directive,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'ngx-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+  import {FormsModule} from '@angular/forms';
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Switch Example</div>
+      </ons-toolbar>
+      <div class="background"></div>
+      <div class="content">
+        <div style="text-align: center; margin: 10px;">
+          <label><input type="checkbox" [(ngModel)]="target"> {{target ? 'On' : 'Off'}}</label>
+          <br>
+          <br>
+          <ons-switch [value]="target" (change)="target = $event.target.checked"></ons-switch>
+        </div>
+      </div>
+    </ons-page>
+      `
+  })
+  export class AppComponent {
+    target: boolean = true;
+  }
+
+  @NgModule({
+    imports: [OnsenModule, FormsModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## Switch
+
+`ons-switch`要素はswitch UIを作ることができます。`ons-switch`に値を指定する場合には、`[value]`バインディングを使って値を指定します。
+
+```
+@Component({
+  selector: 'app',
+  template: `
+    <ons-switch [value]="target"></ons-switch>
+    `
+})
+export class AppComponent {
+  target: boolean = true;
+}
+```
+
+## 値の変更を補足する
+
+`ons-switch`の値を補足するには、`(change)`イベントバインディングを次のように記述します。
+
+```
+@Component({
+  selector: 'app',
+  template: `
+    <div>
+      <div><ons-switch [value]="target" (change)="target = $event.target.checked"></ons-switch></div>
+      <div>{{target ? 'on' : 'off'}}</div>
+    </div>
+    `
+})
+export class AppComponent {
+  target: boolean = true;
+}
+```
+
+-->

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    class Settings extends React.Component {
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Splitter+Navigator</div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      }
+
+      showMenu() {
+        this.props.showMenu();
+      }
+
+      render() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
+            <h2>Settings</h2>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
+          </Ons.Page>
+        );
+      }
+    }
+
+    class PageNav2 extends React.Component {
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='left'><Ons.BackButton>Back</Ons.BackButton></div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      }
+
+      showMenu() {
+        this.props.showMenu();
+      }
+
+      render() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
+            <Ons.Card>
+              <img src={"https://monaca.io/img/logos/download_image_onsenui_01.png"} alt="Onsen UI" style={{ width: '100%' }} />
+              <div className="title">{this.props.cardTitle ? this.props.cardTitle : 'Custom Card'}</div>
+              <div className="content">
+                <div>
+                  <Ons.Button>
+                    <Ons.Icon icon="ion-thumbsup"></Ons.Icon>
+                  </Ons.Button>
+                  <Ons.Button>
+                    <Ons.Icon icon="ion-share"></Ons.Icon>
+                  </Ons.Button>
+                </div>
+                <Ons.List>
+                  <Ons.ListHeader>Bindings</Ons.ListHeader>
+                  <Ons.ListItem>Vue</Ons.ListItem>
+                  <Ons.ListItem>Angular</Ons.ListItem>
+                  <Ons.ListItem>React</Ons.ListItem>
+                </Ons.List>
+              </div>
+            </Ons.Card>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
+          </Ons.Page>
+        );
+      }
+    }
+
+    class Cards extends React.Component {
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Splitter+Navigator</div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      }
+
+      showMenu() {
+        this.props.showMenu();
+      }
+
+      pushPage(event) {
+        this.props.navigator.pushPage({ component: PageNav2, props: { key: 'pageNav2', cardTitle: event.target.textContent } });
+      }
+
+      render() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
+            <h2>Cards</h2>
+
+            <Ons.ListTitle>Card List</Ons.ListTitle>
+            <Ons.List>
+              <Ons.ListItem onClick={this.pushPage.bind(this)}>Card One</Ons.ListItem>
+              <Ons.ListItem onClick={this.pushPage.bind(this)}>Card Two</Ons.ListItem>
+              <Ons.ListItem onClick={this.pushPage.bind(this)}>Card Three</Ons.ListItem>
+            </Ons.List>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
+          </Ons.Page>
+        );
+      }
+    }
+
+    class PageNav1 extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          title: props.title ? props.title : 'Custom Page',
+          nextTitle: null
+        };
+      }
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='left'><Ons.BackButton>Back</Ons.BackButton></div>
+            <div className="center">{this.state.title}</div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      }
+
+      showMenu() {
+        this.props.showMenu();
+      }
+
+      pushPage() {
+        this.props.navigator.pushPage({ component: PageNav1, props: { key: 'pageNav' + this.props.navigator.routes.length, title: this.state.nexTitle } });
+      }
+
+      popPage() {
+        this.props.navigator.popPage();
+      }
+
+      render() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
+            <div style={{ textAlign: 'center' }}>
+              <h1>Custom Page</h1>
+              <p>
+                <Ons.Input modifier="underbar" placeholder="Title" float onChange={evt => this.setState({ nexTitle: evt.target.value })} ></Ons.Input>
+              </p>
+              <Ons.Button onClick={this.pushPage.bind(this)}>
+                Push Page
+              </Ons.Button>
+              <Ons.Button onClick={this.popPage.bind(this)}>
+                Pop Page
+              </Ons.Button>
+            </div>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
+          </Ons.Page>
+        );
+      }
+    }
+
+    class Home extends React.Component {
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Splitter+Navigator</div>
+            <div className='right'>
+              <Ons.ToolbarButton onClick={this.showMenu.bind(this)}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+          </Ons.Toolbar>
+        );
+      }
+
+      showMenu() {
+        this.props.showMenu();
+      }
+
+      pushPage() {
+        this.props.navigator.pushPage({ component: PageNav1, props: { key: 'pageNav1' } });
+      }
+
+      render() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar.bind(this)}>
+            <h2>Home</h2>
+            <div style={{ textAlign: 'center' }}>
+              <br />
+              <Ons.Button onClick={this.pushPage.bind(this)}>
+                Push Page
+              </Ons.Button>
+            </div>
+            <p style={{ textAlign: 'center', opacity: '0.6', paddingTop: '20px' }}>
+              Swipe left to open the menu!
+            </p>
+          </Ons.Page>
+        );
+      }
+    }
+
+    class App extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          isOpen: false
+        };
+        this.loadPage = this.loadPage.bind(this);
+      }
+
+      hide() {
+        this.setState({ isOpen: false });
+      }
+
+      show() {
+        this.setState({ isOpen: true });
+      }
+
+      loadPage(page) {
+        this.hide();
+        const currentPage = this.navigator.pages.slice(-1)[0] // --- or [this.navigator.pages.length - 1]
+        if(currentPage.key != page.name){
+          this.navigator.resetPage({ component: page, props: { key: page.name } }, { animation: 'fade' });
+        }
+      }
+
+      renderPage(route, navigator) {
+        route.props = route.props || {};
+        route.props.navigator = navigator;
+        route.props.showMenu = this.show.bind(this);
+
+        return React.createElement(route.component, route.props);
+      }
+
+      render() {
+        return (
+          <Ons.Splitter>
+            <Ons.SplitterSide side='right' width={220} collapse={true} swipeable={true} isOpen={this.state.isOpen} onClose={this.hide.bind(this)} onOpen={this.show.bind(this)}>
+              <Ons.Page>
+                <Ons.List>
+                  <Ons.ListItem key={Home.name} onClick={this.loadPage.bind(this, Home)} tappable>Home</Ons.ListItem>
+                  <Ons.ListItem key={Cards.name} onClick={this.loadPage.bind(this, Cards)} tappable>Cards</Ons.ListItem>
+                  <Ons.ListItem key={Settings.name} onClick={this.loadPage.bind(this, Settings)} tappable>Settings</Ons.ListItem>
+                </Ons.List>
+              </Ons.Page>
+            </Ons.SplitterSide>
+            <Ons.SplitterContent>
+              <Ons.Navigator initialRoute={{ component: Home, props: { key: Home.name } }} renderPage={this.renderPage.bind(this)} ref={(navigator) => { this.navigator = navigator; }} />
+            </Ons.SplitterContent>
+          </Ons.Splitter>
+        );
+      }
+    }
+
+    ons.ready(function() {
+      ReactDOM.render(<App />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Combining Splitter and Navigator
+
+A common Single-Page App pattern can be achieved by combining the `<Splitter>` and `<Navigator>` elements. This way you can have a side menu and provide stacked navigation in the main content.
+
+In order to do so simply place the `<Navigator>` element inside the `<Splitter>` with the first initial page as the `initialRoute` component (you can consult their respective reference pages to better understand both):
+
+```
+  <Ons.SplitterSide ...>
+    ...
+  </Ons.SplitterSide>
+  <Ons.SplitterContent>
+    <Ons.Navigator initialRoute={{ component: Home, props: { key: 'home' } }} renderPage={this.renderPage.bind(this)} ref={(navigator) => { this.navigator = navigator; }} />
+  </Ons.SplitterContent>
+```
+
+Inside the `renderPage` prop function of the `<Navigator>` you need to pass the navigator down in the second argument of `React.createElement`.
+
+You also need a `ref` to the navigator in order to load pages from the menu. Save it as an instance variable.
+
+## Loading pages from the menu
+
+Since there is a navigator "ruling" the splitter's content you can load the intended page by grabbing the reference to the navigator set in the previous page and calling one of its methods when one of the menu items is tapped. In this example we use `resetPage()`:
+
+```
+this.navigator.resetPage({ component: page, props: { key: page } }, { animation: 'fade' });
+```
+
+## Passing data in the Navigator
+
+If you followed the instruction of passing the navigator down as a prop you reference it with `this.props.navigator`. You can call its methods such as `pushPage()`, in which you can pass props as the second argument:
+
+```
+this.props.navigator.pushPage({ component: PageNav1, props: { title: this.state.nexTitle } });
+```
+
+Then you can get the props on your target page's constructor (or anywhere else) and retrieve the passed data.
+
+-->

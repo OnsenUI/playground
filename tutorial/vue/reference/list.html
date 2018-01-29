@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main'
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Lists</div>
+      </v-ons-toolbar>
+
+      <v-ons-list>
+        <v-ons-list-header>Default</v-ons-list-header>
+        <v-ons-list-item>Item A</v-ons-list-item>
+        <v-ons-list-item>Item B</v-ons-list-item>
+
+        <v-ons-list-header>Tappable / Ripple</v-ons-list-header>
+        <v-ons-list-item tappable>Tap me</v-ons-list-item>
+
+        <v-ons-list-header>Chevron</v-ons-list-header>
+        <v-ons-list-item modifier="chevron" tappable>Chevron</v-ons-list-item>
+
+        <v-ons-list-header>Thumbnails and titles</v-ons-list-header>
+        <v-ons-list-item>
+          <div class="left">
+            <img class="list-item__thumbnail" src="http://placekitten.com/g/40/40">
+          </div>
+          <div class="center">
+            <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+          </div>
+        </v-ons-list-item>
+
+        <v-ons-list-header>Icons</v-ons-list-header>
+        <v-ons-list-item>
+          <div class="left">
+            <v-ons-icon icon="md-face" class="list-item__icon"></v-ons-icon>
+          </div>
+          <div class="center">
+            Icon
+          </div>
+        </v-ons-list-item>
+
+        <v-ons-list-header>Switch</v-ons-list-header>
+        <v-ons-list-item>
+          <div class="center">
+            Turn it on
+          </div>
+          <div class="right">
+            <v-ons-switch></v-ons-switch>
+          </div>
+        </v-ons-list-item>
+
+        <v-ons-list-header>Switch and icon</v-ons-list-header>
+        <v-ons-list-item>
+          <div class="left">
+            <v-ons-icon icon="md-face" class="list-item__icon"></v-ons-icon>
+          </div>
+          <div class="center">
+            Icon and switch
+          </div>
+          <div class="right">
+            <v-ons-switch></v-ons-switch>
+          </div>
+        </v-ons-list-item>
+
+        <v-ons-list-header>No divider</v-ons-list-header>
+        <v-ons-list-item modifier="nodivider">Item A</v-ons-list-item>
+        <v-ons-list-item modifier="nodivider">Item B</v-ons-list-item>
+
+        <v-ons-list-header>Long divider</v-ons-list-header>
+        <v-ons-list-item modifier="longdivider">Item A</v-ons-list-item>
+        <v-ons-list-item modifier="longdivider">Item B</v-ons-list-item>
+      </v-ons-list>
+
+      <br />
+
+      <v-ons-list modifier="inset">
+        <v-ons-list-header>Inset list</v-ons-list-header>
+        <v-ons-list-item modifier="longdivider">Item A</v-ons-list-item>
+        <v-ons-list-item modifier="longdivider">Item B</v-ons-list-item>
+      </v-ons-list>
+
+      <br />
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Lists
+
+Creating lists in Onsen UI is very simple and they are one of the most important UI components in mobile apps.
+
+Onsen UI provides three elements for creating lists:
+
+* `<v-ons-list>`
+* `<v-ons-list-item>`
+* `<v-ons-list-header>`
+
+## Markup
+
+The `<v-ons-list>` is used as the parent and for every item one `<v-ons-list-item>` element is used:
+
+```
+<v-ons-list>
+  <v-ons-list-item>Item A</v-ons-list-item>
+  <v-ons-list-item>Item B</v-ons-list-item>
+  <v-ons-list-item>Item C</v-ons-list-item>
+</v-ons-list>
+```
+
+This will render as a list with three items.
+
+## Headers
+
+To group items together you can use the `<v-ons-list-header>` element to create a header with text content.
+
+```
+<v-ons-list>
+  <v-ons-list-header>My friends</v-ons-list-header>
+  <v-ons-list-item>Alice</v-ons-list-item>
+  <v-ons-list-item>Bob</v-ons-list-item>
+  <v-ons-list-item>Eve</v-ons-list-item>
+</v-ons-list>
+```
+
+You can use as many headers as you want in the same list.
+
+## List item structure
+
+In the previous examples the list items only contained simple text content. Onsen UI list items provide a secondary syntax where the list item is divided into three sections.
+
+This can be used to add icons, thumbnails or even form elements to your list items:
+
+```
+<v-ons-list-item>
+  <div class="left">
+    <v-ons-icon icon="md-face" class="list-item__icon"></v-ons-icon>
+  </div>
+  <div class="center">
+    Icon and switch
+  </div>
+  <div class="right">
+    <v-ons-switch></v-ons-switch>
+  </div>
+</v-ons-list-item>
+```
+
+Notice that the inner structure does not need to be made with `div` elements. It can be any element such as a `label`.
+
+## The `tappable` attribute
+
+The `tappable` attribute is used to give the user an indication when they tap a list item. In iOS the background color will change when tapped and on Android it will display the Material Design ripple effect.
+
+```
+<v-ons-list-item tappable>Tap me!</v-ons-list-item>
+```
+
+This is very useful in apps that perform some action or navigate to a new page when a list item is tapped.
+
+## Modifiers
+
+There is a bunch of modifiers that can be used to customize the look of the lists and list items.
+
+In Onsen UI modifiers are applied by adding the `modifier` attribute to an element. More than one can be added by separating them with spaces.
+
+### Inset lists
+
+To create an inset list you can use the `inset` modifier on the `<v-ons-list>` element:
+
+```
+<v-ons-list modifier="inset">
+  ...
+</v-ons-list>
+```
+
+### Changing the divider
+
+The `longdivider` and `nodivider` modifiers can be used to change the length or remove the divider (horizontal line) between list items completely. The default style for list items is a divider that doesn't completely cover the whole screen. Instead it has some padding on the left to make it look more similar to native lists.
+
+By adding the `nodivider` modifier the divider can be removed:
+
+```
+<v-ons-list>
+  <v-ons-list-item modifier="nodivider">Item A</v-ons-list-item>
+  <v-ons-list-item modifier="nodivider">Item B</v-ons-list-item>
+</v-ons-list>
+```
+
+-->

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      getInitialState() {
+        return {
+          isOpen: false
+        };
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Modal</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      render() {
+        return (
+          <Ons.Page
+            renderToolbar={this.renderToolbar}
+            renderModal={() => (
+              <Ons.Modal
+                isOpen={this.state.isOpen}
+              >
+                <section style={{margin: '16px'}}>
+                  <p style={{opacity: 0.6}}>
+                    This is a Modal. Show some information here.
+                  </p>
+                  <p>
+                    <Ons.Button onClick={() => this.setState({isOpen: false})}>
+                      Close
+                    </Ons.Button>
+                  </p>
+                </section>
+              </Ons.Modal>
+            )}
+          >
+            <section style={{margin: '16px'}}>
+              <p style={{textAlign: 'center'}}>
+                <Ons.Button ref='button' onClick={() => this.setState({isOpen: true})}>Tap here!</Ons.Button>
+              </p>
+            </section>
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Using Modal
+
+A `modal` component covers the entire screen. Underlying components are not subject to any events while the modal component is shown.
+
+This component can be used to block user input while some operation is running or to show some information to the user.
+
+To show or hide a modal the `isOpen` property is used. `onShow` and `onHide` properties can be specified to handle the related events right after the modal is shown and after the modal is hidden.
+
+-->

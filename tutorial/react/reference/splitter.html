@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          isOpen: false
+        };
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='left'>
+              <Ons.ToolbarButton onClick={this.show}>
+                <Ons.Icon icon='ion-navicon, material:md-menu' />
+              </Ons.ToolbarButton>
+            </div>
+            <div className='center'>Side menu</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      hide() {
+        this.setState({isOpen: false});
+      },
+
+      show() {
+        this.setState({isOpen: true});
+      },
+
+      render: function() {
+        return (
+          <Ons.Splitter>
+            <Ons.SplitterSide
+              style={{
+                  boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'
+              }}
+              side='left'
+              width={200}
+              collapse={true}
+              swipeable={true}
+              isOpen={this.state.isOpen}
+              onClose={this.hide}
+              onOpen={this.show}
+            >
+              <Ons.Page>
+                <Ons.List
+                  dataSource={['Profile', 'Followers', 'Settings']}
+                  renderRow={(title) => (
+                    <Ons.ListItem key={title} onClick={this.hide} tappable>{title}</Ons.ListItem>
+                  )}
+                />
+              </Ons.Page>
+            </Ons.SplitterSide>
+            <Ons.SplitterContent>
+              <Ons.Page renderToolbar={this.renderToolbar}>
+                <section style={{margin: '16px'}}>
+                  <p>
+                    Swipe right to open the menu.
+                  </p>
+                </section>
+              </Ons.Page>
+            </Ons.SplitterContent>
+          </Ons.Splitter>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Side menu
+
+The `Splitter` is used to display a menu next to the main content. It can be configured to either display in column layout or as a swipeable menu. It is also possible to automatically switch between column layout and a layout with a swipeable menu based on the screen size or any arbitrary condition. In some situations it can be useful to display a column layout on large devices and hide the menu on smaller screens.
+
+## Menu
+
+The menu is defined using the `SplitterSide` component.  This component can either be displayed as a column next to the main content or as a swipeable menu. This behavior is controlled using the `collapse` property.
+
+To enable opening and closing the menu by swiping the `isSwipeable` property must be defined. The `side` property is used to specify on which side of the screen the menu is displayed.
+
+## Opening and closing the menu
+
+The menu can be opened and closed using the `isOpen` property. This property only works when the menu is collapsed, since in column layout it is always visible.
+
+In the following example the menu is opened,  when the user presses a button. The `onClose` property is called when the menu is closed and is used to control the state.
+
+## Main content
+
+The main content of the screen is put inside the `SplitterContent` component. A `Page` component should be put as a child of this component.
+
+```
+<Splitter>
+  <SplitterContent>
+    <Page>
+      Main content
+    </Page>
+  </SplitterContent
+</Splitter>
+```
+
+-->

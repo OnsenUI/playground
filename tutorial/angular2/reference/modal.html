@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+  import {
+    Component,
+    AfterViewInit,
+    Params,
+    OnInit,
+    OnDestroy,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'ngx-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-page class="page">
+      <ons-toolbar>
+        <div class="center">Modal</div>
+      </ons-toolbar>
+      <div class="content">
+        <div style="text-align: center;">
+          <br>
+          <ons-button (click)="modal.show()">show</ons-button>
+        </div>
+      </div>
+    </ons-page>
+
+    <!-- must be located just under outermost box such as body element -->
+    <ons-modal #modal>
+      <p>This is just an example.</p>
+      <p><span (click)="modal.hide()" style="text-decoration: underline; cursor: pointer;">Click</span> to hide this modal.</p>
+    </ons-modal>
+    `
+  })
+  export class AppComponent {
+    constructor() {
+    }
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## Modal
+
+Angular 2では`ons-modal`要素とModalFactoryを使って今の画面の前面に出る要素(いわゆるモーダル)を作ることができます。
+
+まず`<ons-modal>`をテンプレートのトップに置いたコンポーネントを宣言します。
+
+```
+@Component({
+  template: `
+    <ons-modal #modal>
+      <p><span (click)="modal.hide()" style="text-decoration: underline; cursor: pointer;">Click</span> to hide this modal.</p>
+    </ons-modal>
+  `
+})
+class MyModalComponent { }
+```
+
+次にModalFactoryを使ってこのコンポーネントを生成します。この利用方法は、AlertDialogFactoryやDialogFactoryとほとんど変わりません。
+
+```
+export class AppComponent implements AfterViewInit, OnDestroy {
+  private _modal: any;
+  private _destroyModal: Function;
+
+  constructor(private _modalFactory: ModalFactory) {
+  }
+
+  ngAfterViewInit() {
+    this._modalFactory
+      .createModal(MyModalComponent, {message: 'This is just an example.'})
+      .then(({modal, destroy}) => {
+        this._modal = modal;
+        this._destroyModal = destroy;
+      });
+  }
+
+  ngOnDestroy() {
+    this._destroyModal();
+  }
+}
+```
+
+-->

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          fabVisible: true
+        };
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Floating action button</div>
+      </v-ons-toolbar>
+
+      <p style="text-align: center">
+        <label>Show FAB <input type="checkbox" v-model="fabVisible" /></label>
+      </p>
+
+      <v-ons-fab
+        position="bottom right"
+        :visible="fabVisible"
+      >
+        <v-ons-icon icon="md-face"></v-ons-icon>
+      </v-ons-fab>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Floating action button
+
+The *Floating action button* is a Material Design component that displays a circular button. It is normally displayed in the lower right corner and is used to represent the primary action of the app.
+
+It is displayed using the `VOnsFab` component. To specify the position the `position` prop is used. To put an icon inside the button the `VOnsIcon` component can be used.
+
+```
+<v-ons-fab position='bottom right'>
+  <v-ons-icon icon="md-face"></v-ons-icon>
+</v-ons-fab>
+```
+
+In order to show or hide `VOnsFab`, the `visible` prop must be used.
+
+-->
+
+

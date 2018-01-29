@@ -1,9 +1,17 @@
+/* globals app */
 app.util = {};
 
 app.util.getParam = function (param) {
-  var regex = new RegExp(param + '=([^&]+)');
+  var regexContent = new RegExp(param + '=([^&]+)');
+  var regexExists = new RegExp('[?&]' + param + '(=|&|$)');
   var query = window.location.search.replace(/\+|%20/g, ' ');
-  return ((query.match(regex) || [])[1] || '');
+
+  var content = (query.match(regexContent) || [])[1];
+  if (content) {
+    return content.toLowerCase();
+  }
+
+  return query.match(regexExists) ? '' : null;
 };
 
 app.util.arrayFrom = function (arrayLike) {
@@ -15,18 +23,24 @@ app.util.resize = {
   toolbarLock: null,
   throttler: function () {
     clearTimeout(app.util.resize.toolbarLock);
-    app.util.resize.toolbarLock = setTimeout(app.services.refreshSplit, 100);
+    this.toolbarLock = setTimeout(this.refreshSplit, 100);
 
-    if (!app.util.resize.editorLock) {
-      app.util.resize.editorLock = setTimeout(function () {
-        app.util.resize.editorLock = null;
-        app.util.resize.editorResize();
-      }, 50);
+    if (!this.editorLock) {
+      this.editorLock = setTimeout(function () {
+        this.editorLock = null;
+        this.editorResize();
+      }.bind(this), 50);
     }
   },
+
   editorResize: function () {
     app.editors.js.resize();
     app.editors.html.resize();
+  },
+
+  refreshSplit: function () {
+    var gutter = document.querySelector('#rightPane').previousElementSibling;
+    app.util.simulatePanelDrag(gutter, 'x', gutter.getBoundingClientRect().right);
   }
 };
 
@@ -50,17 +64,23 @@ app.util.toDash = function (string) {
     return "-" + $1.toLowerCase(); });
 };
 
-app.util.request = function (url) {
+app.util.request = function (url, CORS) {
   return new Promise(function (resolve, reject) {
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function () {
       if (request.readyState === XMLHttpRequest.DONE) {
-        request.status === 200 ? resolve(request.responseText) : reject(new Error(request.statusText));
+        request.status === 200 ? resolve(request.responseText) : reject(Error(request.statusText));
       }
     };
 
-    request.open('get', url);
+    if (CORS) {
+      request.open('get', 'https://crossorigin.me/' + url);
+      request.setRequestHeader('Content-Type', 'application/json');
+      request.timeout = 4000;
+    } else {
+      request.open('get', url);
+    }
     request.send();
   });
 };
@@ -99,3 +119,8 @@ app.util.simulatePanelDrag = function (gutter, position, value) {
   gutter.dispatchEvent(mousemove);
   gutter.dispatchEvent(mouseup);
 };
+
+app.util.capitalize = function (name) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+};
+

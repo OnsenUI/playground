@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          name: '',
+          vegetables: ['Apples', 'Bananas', 'Oranges'],
+          selectedVegetable: 'Bananas',
+          colors: ['Red', 'Green', 'Blue'],
+          checkedColors: ['Green', 'Blue']
+        };
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Form input</div>
+      </v-ons-toolbar>
+
+      <p>
+        <v-ons-search-input placeholder="Search something"></v-ons-search-input>
+      </p>
+
+      <v-ons-list>
+        <v-ons-list-header>
+          Text input
+        </v-ons-list-header>
+        <v-ons-list-item>
+          <div class="center">
+            <v-ons-input placeholder="Input your name" float
+              v-model="name"
+            >
+            </v-ons-input>
+          </div>
+        </v-ons-list-item>
+        <v-ons-list-item>
+          <div class="right">
+            Hello {{ name || 'anonymous' }}!
+          </div>
+        </v-ons-list-item>
+
+        <v-ons-list-header>
+          Radio buttons
+        </v-ons-list-header>
+        <v-ons-list-item v-for="(vegetable, $index) in vegetables" :key="vegetable" tappable>
+          <label class="left">
+            <v-ons-radio
+              :input-id="'radio-' + $index"
+              :value="vegetable"
+              v-model=" selectedVegetable"
+            >
+            </v-ons-radio>
+          </label>
+          <label :for="'radio-' + $index" class="center">
+            {{ vegetable }}
+          </label>
+        </v-ons-list-item>
+        <v-ons-list-item>
+          <div class="center">
+            I love {{ selectedVegetable }}!
+          </div>
+        </v-ons-list-item>
+
+        <v-ons-list-header>
+          Checkboxes - {{checkedColors}}
+        </v-ons-list-header>
+        <v-ons-list-item v-for="(color, $index) in colors" :key="color" tappable>
+          <label class="left">
+            <v-ons-checkbox
+              :input-id="'checkbox-' + $index"
+              :value="color"
+              v-model="checkedColors"
+            >
+            </v-ons-checkbox>
+          </label>
+          <label class="center" :for="'checkbox-' + $index">
+            {{ color }}
+          </label>
+        </v-ons-list-item>
+
+      </v-ons-list>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Form input
+
+Text input elements are created using the `VOnsInput` component. It works almost exactly the same as a normal `<input>` tag.
+
+This component implements a `type` attribute to choose the type of the input. Default is `text` but it also admits `password`, `number`, etc. The only exception are checkboxes and radio buttons, which have corresponding components, `VOnsCheckbox` and `VOnsRadio`.
+
+An attribute `input-id` is provided to set the ID of the inner native element. This is useful for `HTMLLabel` elements: `<label for="some-inner-input">`.
+
+For the text-like inputs, in Material Design the placeholder can be made to float using the `float` prop.
+
+## Using v-model
+
+Every input is compatible with `v-model` directive. Checkboxes can be bound to arrays or booleans normally. The only exception are modifiers (as of `vue@2.3`). There is, however, a workaround for `lazy` modifier:
+
+```html
+<v-ons-input v-model="something" model-event="change"></v-ons-input>
+```
+
+This will use `change` event instead of `input` when updating `v-model`.
+-->

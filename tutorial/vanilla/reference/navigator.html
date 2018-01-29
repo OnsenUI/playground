@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    document.addEventListener('init', function(event) {
+      var page = event.target;
+
+      if (page.id === 'page1') {
+        page.querySelector('#push-button').onclick = function() {
+          document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
+        };
+      } else if (page.id === 'page2') {
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+      }
+    });
+  </script>
+</head>
+<body>
+  <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
+
+  <template id="page1.html">
+    <ons-page id="page1">
+      <ons-toolbar>
+        <div class="center">Page 1</div>
+      </ons-toolbar>
+
+      <p>This is the first page.</p>
+
+      <ons-button id="push-button">Push page</ons-button>
+    </ons-page>
+  </template>
+
+  <template id="page2.html">
+    <ons-page id="page2">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>Page 1</ons-back-button></div>
+        <div class="center"></div>
+      </ons-toolbar>
+
+      <p>This is the second page.</p>
+    </ons-page>
+  </template>
+</body>
+</html>
+
+<!-- info
+
+## The Navigator
+
+The `<ons-navigator>` element handles a stack of pages. This is a very common type of navigation in mobile apps where one page is pushed on top of another using a transition animation.
+
+To change the animation you can use the `animation` attribute:
+
+```
+<ons-navigator animation="fade"></ons-navigator>
+```
+
+Available animations are:
+
+* `fade`
+* `lift`
+* `slide`
+* `none`
+
+For iOS' "swipe to pop" feature, add the `swipeable` attribute. Note that this behavior is automatically removed on Android platforms unless `swipeable="force"` is specified.
+
+## Defining pages
+
+The pages that you push to the Navigator are defined using a `<template>` element.
+
+```
+<template id="page2.html">
+  <ons-page>
+    ...
+  </ons-page>
+</template>
+```
+
+The `id` attribute is used to reference the pages when pushing.
+
+## Pushing pages
+
+To push a new page to the top of the stack, the `pushPage(page, options)` method is used.
+
+In Onsen UI all such methods are attached to the element so you need to create a reference to it:
+
+```
+var myNavigator = document.getElementById('myNavigator');
+myNavigator.pushPage('page2.html');
+```
+
+The method returns a `Promise` object that is resolved when the transition is finished. You can try adding the following code:
+
+```
+myNavigator
+  .pushPage('page2.html')
+  .then(function() {
+    ons.notification.alert('Page pushed!');
+  });
+```
+
+## Sending custom data to a new page
+
+It may be useful to have access to custom data when we push a new page. This is achieved by passing `options.data` parameter:
+
+```
+myNavigator
+  .pushPage('page2.html', {
+    data: {
+      title: 'New Page',
+      // ...
+    },
+    // Other options
+  });
+```
+
+`options.data` object will be available in the new page element: `myNavigator.topPage.data`.
+
+
+## Going back
+
+To go back to a previous page the `popPage(options)` method is used.
+
+Another way is to use the `<ons-back-button>` element. It can be added to the left side of the toolbar and renders as an arrow:
+
+```
+<ons-toolbar>
+  <div class="left">
+    <ons-back-button>Back</ons-back-button>
+  </div>
+</ons-toolbar>
+```
+
+It will automatically find the Navigator element and trigger a `popPage()` call so there is no need to attach any click handlers to it.
+
+-->

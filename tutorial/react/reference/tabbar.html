@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyTab = React.createClass({
+      render: function() {
+        return (
+          <Ons.Page>
+            <section style={{margin: '16px'}}>
+              <p>
+                {this.props.content}.
+              </p>
+            </section>
+          </Ons.Page>
+        );
+      }
+    });
+
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          index: 0
+        }
+      },
+      renderToolbar: function() {
+        const titles = ['Home', 'Settings'];
+        return (
+          <Ons.Toolbar>
+            <div className='center'>{titles[this.state.index]}</div>
+          </Ons.Toolbar>
+        );
+      },
+      renderTabs: function() {
+        return [
+          {
+            content: <MyTab content="Welcome home" />,
+            tab: <Ons.Tab label='Home' icon='md-home' />
+          },
+          {
+            content: <MyTab content="Change the settings" />,
+            tab: <Ons.Tab label='Settings' icon='md-settings' />
+          }
+        ];
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.Tabbar
+              swipeable={true}
+              position='auto'
+              index={this.state.index}
+              onPreChange={(event) =>
+                {
+                  if (event.index != this.state.index) {
+                    this.setState({index: event.index});
+                  }
+                }
+              }
+              renderTabs={this.renderTabs}
+            />
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Tabbar
+
+The `Tabbar` component is used to add tab navigation to an app. It is a very common navigation pattern in mobile apps.
+
+Every tab is defined by one `Page` component and one `Tab` component. The `Tab` component displays the actual tab and the `Page` component will be displayed when the tab is tapped.
+
+The `Tabbar` component has a `index` property which is used to specify the page that is currently visible. To handle changing tabs by user input, the property `onPreChange` should be implemented.
+
+```
+<Ons.Tabbar
+  index={this.state.index}
+  onPreChange={(event) =>
+    {
+      if (event.index != index) {
+        this.setState({index: event.index});
+      }
+    }
+  }
+  renderTabs={this.renderTabs}
+/>
+```
+
+
+There is also a `renderTabs` property that should be set to a function that returns an array of objects with the keys `content` and `tab`:
+
+```
+{
+  content: <Page />,
+  tab: <Tab />
+}
+```
+
+Every tab has, by default, the same width. 50% with two tabs, 25% with four tabs and so on. To allow tabs grow depending on their content (i.e. shorter/ longer labels), use the `autogrow` modifier in Tabbar component. Optionally, `max-width` CSS property can be specified to set the width of the tab (for each Tab component).
+
+## The `Tab` component
+
+There are two ways to define a tab. Either the tab label can be put as a child of the `Tab` component or the `label` and `icon` props can be used to specify its appearance.
+
+## Swipes and Animations
+
+By default, the tab bar will slide from one page to another on tab click. Use `animation='none'` prop to have an instant change.
+
+`swipeable={true}` prop can be used to enable this functionality. It can be toggled to allow or prevent swipes at different moments of the app.
+
+These props can be combined to have a tab bar with instant changes that can also be swiped:
+
+```
+<Tabbar swipeable={true} animation='none' ... />
+```
+
+For iOS, `tabBorder` prop can be included to show a tab border that updates position during swipe (this is always default on Android).
+
+-->

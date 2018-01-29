@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          state: 'initial',
+          data: this.getRandomData()
+        };
+      },
+
+      getRandomData() {
+        const rv = [];
+
+        for (let i = 0; i < 100; i++) {
+          rv.push(Math.round(100 * Math.random()));
+        }
+
+        return rv;
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Pull to refresh</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      handleChange: function(e) {
+        this.setState({state: e.state});
+      },
+
+      handleLoad: function(done) {
+        const data = this.getRandomData();
+
+        setTimeout(() => {
+          this.setState({data: data}, done);
+        }, 500);
+      },
+
+      getContent: function() {
+        switch (this.state.state) {
+          case 'initial':
+            return 'Pull to refresh';
+          case 'preaction':
+            return 'Release';
+          case 'action':
+            return 'Loading...';
+        }
+      },
+
+      renderRow: function(row, index) {
+        return (
+          <Ons.ListItem key={index}>{row}</Ons.ListItem>
+        );
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.PullHook
+              onChange={this.handleChange}
+              onLoad={this.handleLoad}
+            >
+              {this.getContent()}
+            </Ons.PullHook>
+            <Ons.List
+              dataSource={this.state.data}
+              renderRow={this.renderRow}
+              renderHeader={() => <Ons.ListHeader>Pull to refresh</Ons.ListHeader>}
+            />
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Pull to refresh
+
+The `PullHook` component is used to add a *pull to refresh* functionality to a page. It can let the user refresh a page or load the latest data.
+
+The `PullHook` component has three different states: `initial`, `preaction` and `action`. It starts in the `initial` state. When it's pulled down below its height it will transition into the `preaction` state. If it's released in `initial` state it will just bounce back. If it's released in the `preaction` state,  it will go into `action` state.
+
+Every time the state changes the `onChange` property will be called.
+
+When the component transitions into the `action` state, it will call the `onLoad` property with a `done` callback as an argument. Calling this function will cause it to return to the `initial` state.
+
+-->

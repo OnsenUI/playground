@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+  <script type="text/typescript">
+  import {
+    Component,
+    ViewChild,
+    Params,
+    OnsNavigator,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'ngx-onsenui';
+  import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+      <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Page2</div>
+      </ons-toolbar>
+      <div class="content">
+        <div style="text-align: center; margin: 10px">
+          <ons-button (click)="push()">push</ons-button>
+          <ons-button (click)="pop()">pop</ons-button> <p>page2</p> </div>
+      </div>
+    `
+  })
+  export class PageComponent {
+    constructor(private _navigator: OnsNavigator, private _params: Params) {
+      console.log('parameters:', _params.data);
+    }
+
+    push() {
+      this._navigator.element.pushPage(PageComponent, {animation: 'slide', data: {aaa: 'bbb'}});
+    }
+
+    pop() {
+      this._navigator.element.popPage();
+    }
+  }
+
+  @Component({
+    selector: 'ons-page',
+    template: `
+      <ons-toolbar>
+        <div class="center">Page</div>
+      </ons-toolbar>
+      <div class="content">
+        <div style="text-align: center; margin: 10px">
+          <ons-button (click)="push(navi)">push</ons-button>
+        </div>
+      </div>
+    `
+  })
+  class DefaultPageComponent {
+
+    constructor(private _navigator: OnsNavigator) {
+    }
+
+    push() {
+      this._navigator.element.pushPage(PageComponent, {data: {hoge: "fuga"}}); } }
+
+  @Component({
+    selector: 'app',
+    template: `
+    <ons-navigator swipeable [page]="page"></ons-navigator>
+    `
+  })
+  export class AppComponent {
+    page = DefaultPageComponent
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent, DefaultPageComponent, PageComponent],
+    entryComponents: [DefaultPageComponent, PageComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- lang=ja
+
+## OnsNavigatorディレクティブ
+
+Angular 2バインディング下では、`<ons-navigator>`要素には`OnsNavigator`ディレクティブが適用されます。`OnsNavigator`ディレクティブは、Angular 2のコンポーネントを読み込めるように`<ons-navigator>`を拡張します。
+
+`<ons-navigator>`要素でAngular 2のコンポーネントを読み込むには、次のように`[page]`バインディングを用います。
+
+```
+@Component({
+  selector: 'ons-page',
+  template: `
+    <ons-toolbar>
+      <div class="center">Page</div>
+    </ons-toolbar>
+    <div class="content">
+      ...
+    </div>
+  `
+})
+class DefaultPageComponent { }
+
+@Component({
+  selector: 'app',
+  template: `
+  <ons-navigator [page]="page"></ons-navigator>
+  `
+})
+class AppComponent {
+  page = DefaultPageComponent
+}
+```
+
+`<ons-navigator>`内に読み込むコンポーネントのselectorには必ず`ons-page`を指定してください。この例では、DefaultPageComponentのselectorは`ons-page`です。
+
+## コンポーネントから`<ons-navigator>`を参照する
+
+テンプレート内に`<ons-navigator>`がある場合には、`ViewChild`デコレータを使ってOnsNavigatorオブジェクトを代入することができます。OnsNavigatorオブジェクトの`element`プロパティには
+
+```
+@Component({
+  selector: 'app',
+  template: `
+  <ons-navigator [page]="page"></ons-navigator>
+  `
+})
+class AppComponent {
+  page = DefaultPageComponent
+
+  @ViewChild(OnsNavigator) navigator;
+
+  doSomething() {
+    this.navigator.element.pushPage();
+  }
+}
+```
+
+## ページからOnsNavigatorを参照する
+
+`<ons-navigator>`要素内で読み込まれたページのコンポーネントが`<ons-navigator>`を参照するには、ViewChild()デコレータは使わずに代わりにDIを使います。
+
+具体的には、ページのコンポーネントのコンストラクタの引数にOnsNavigatorを宣言すると、それが代入されます。
+
+```
+@Component({
+  selector: 'ons-page',
+  template: `
+    <ons-toolbar>
+      <div class="center">Page</div>
+    </ons-toolbar>
+    <div class="content">...</div>
+  `
+})
+class PageComponent {
+  constructor(navigator: OnsNavigator, private _params: Params) {
+    console.log(navigator);
+  }
+}
+```
+
+## pushPage()する
+
+Angular2以下ではpushPage()の引数にはページのURLではなくコンポーネントのクラスを指定することができます。
+
+```
+navigatorElement.pushPage(PageComponent);
+```
+
+## pushPage()する際にデータを受け渡しする
+
+pushPage()の第二引数のdataオプションには、読み込むページンポーネントに渡すデータを指定することができます。
+
+```
+const data = {foo: 'bar'};
+navigatorElement.pushPage(PageComponent, {data: data});
+```
+
+```
+@Component({
+  selector: 'ons-page',
+  template: `
+    <ons-toolbar>
+      <div class="center">Page</div>
+    </ons-toolbar>
+    <div class="content">...</div>
+  `
+})
+class PageComponent {
+  constructor(navigator: OnsNavigator, params: Params) {
+    console.log(params.data); // {foo: 'bar'}が表示される
+  }
+}
+```
+
+## 動的に読み込むコンポーネント
+
+Angular 2アプリケーションでは、読み込まれるコンポーネントをあらかじめリストにする必要があります。`<ons-navigator>`要素に読み込まれるページコンポーネントを、`NgModule`の`declarations`オプションと`entryComponents`オプションに追加することを忘れないでください。
+
+```
+@NgModule({
+  imports: [OnsenModule],
+  declarations: [AppComponent, DefaultPageComponent, PageComponent],
+  entryComponents: [DefaultPageComponent, PageComponent],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+class AppModule { }
+```
+
+もしこれを忘れると、コンポーネントの読み込み時にエラーを出すことになります。
+
+詳細は、Angular 2の[Angular Modules - NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html)を参照して下さい。
+
+-->
