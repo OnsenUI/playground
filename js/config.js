@@ -8,7 +8,7 @@ app.config.ci = 'https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/arti
 app.config.nightly = window.sessionStorage.getItem('nightly') === 'true';
 
 // Enables local lib versions
-if ((window.location.hostname === 'localhost' || window.location.hostname.match(/[0-9.]+/)) && window.location.pathname.indexOf('/tutorial/') === 0) {
+if ((window.location.hostname === 'localhost' || window.location.hostname.match(/[0-9.]+/)) && window.location.pathname.indexOf('/playground/') === 0) {
   app.config.local = true;
 }
 
