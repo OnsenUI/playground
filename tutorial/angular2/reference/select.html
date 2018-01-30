@@ -14,7 +14,7 @@
   } from 'ngx-onsenui';
   import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
   import { FormsModule } from '@angular/forms';
-  
+
   @Component({
     selector: 'app',
     template: `
@@ -44,10 +44,10 @@
       {value: 'material', label: 'Material'},
       {value: 'underbar', label: 'Underbar'}
     ];
-  
+
     constructor() { }
   }
-  
+
   @NgModule({
     imports: [OnsenModule, FormsModule],
     declarations: [AppComponent],
@@ -55,9 +55,9 @@
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
   })
   class AppModule { }
-  
+
   platformBrowserDynamic().bootstrapModule(AppModule);
-  
+
   </script>
 
 </head>

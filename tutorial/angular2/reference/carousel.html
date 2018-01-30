@@ -42,9 +42,7 @@
               <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
                 DARK
               </div>
-            </ons-carousel-item>
-            <ons-carousel-item style="background-color: #D38312;">
-              <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+            </ons-carousel-item> <ons-carousel-item style="background-color: #D38312;"> <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
                 ORANGE
               </div>
             </ons-carousel-item>
@@ -82,10 +80,56 @@
 
 <!-- info
 
-## Carousel
+Tutorial will be added soon.
 
-`ons-carousel` element renders a carousel. Please refer to [ons-carousel element Reference](https://onsen.io/v2/docs/angular2/ons-carousel.html) for more details.
+-->
 
-Tutorial contents will be added soon.
+<!-- lang=ja
+
+## カルーセル
+
+`<ons-carousel>`要素と`<ons-carousel-item>`要素を使ってカルーセルのUIを表現することができます。
+
+```
+<ons-carousel>
+  <ons-carousel-item>
+    ...
+  </ons-carousel-item>
+  <ons-carousel-item>
+    ...
+  </ons-carousel-item>
+  ...
+</ons-carousel>
+```
+
+## Angular 2での扱い方
+
+コンポーネントからカルーセルを扱うには、`ViewChild`デコレータを使ってコンポーネントのプロパティに代入してから操作します。
+
+まずコンポーネントのテンプレート内にtemplate reference variableをつけた`ons-carousel`要素のElementRefをおきます。ここでは`#myCarousel`というtemplate reference varialbleを使っています。
+
+```
+@Component({
+  template: `
+    <ons-carousel #myCarousel>
+      ...
+    </ons-carousel>
+`
+})
+```
+
+コンポーネント側では、プロパティに対して`ViewChild()`デコレータを使うとその要素の`ElementRef`オブジェクトが代入されます。`ElementRef`オブジェクトの`nativeElement`プロパティからそのDOM要素にアクセスできるので、そこから`<ons-carousel>`要素のメソッドにもアクセスできます。
+
+```
+class MyComponent {
+  // ElementRefが代入される
+  @ViewChild('myCarousel') carousel;
+
+  showNextPage() {
+    // ons-carouselのnextメソッドを呼び出す
+    this.carousel.nativeElement.next();
+  }
+}
+```
 
 -->
