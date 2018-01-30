@@ -63,10 +63,52 @@
 
 <!-- info
 
+Tutorial will be added soon.
+
+-->
+
+<!-- lang=ja
+
 ## Modal
 
-`ons-modal` element renders a modal screen. Please refer to [ons-modal element Reference](https://onsen.io/v2/docs/angular2/ons-modal.html) for more details.
+Angular 2では`ons-modal`要素とModalFactoryを使って今の画面の前面に出る要素(いわゆるモーダル)を作ることができます。
 
-Tutorial contents will be added soon.
+まず`<ons-modal>`をテンプレートのトップに置いたコンポーネントを宣言します。
+
+```
+@Component({
+  template: `
+    <ons-modal #modal>
+      <p><span (click)="modal.hide()" style="text-decoration: underline; cursor: pointer;">Click</span> to hide this modal.</p>
+    </ons-modal>
+  `
+})
+class MyModalComponent { }
+```
+
+次にModalFactoryを使ってこのコンポーネントを生成します。この利用方法は、AlertDialogFactoryやDialogFactoryとほとんど変わりません。
+
+```
+export class AppComponent implements AfterViewInit, OnDestroy {
+  private _modal: any;
+  private _destroyModal: Function;
+
+  constructor(private _modalFactory: ModalFactory) {
+  }
+
+  ngAfterViewInit() {
+    this._modalFactory
+      .createModal(MyModalComponent, {message: 'This is just an example.'})
+      .then(({modal, destroy}) => {
+        this._modal = modal;
+        this._destroyModal = destroy;
+      });
+  }
+
+  ngOnDestroy() {
+    this._destroyModal();
+  }
+}
+```
 
 -->

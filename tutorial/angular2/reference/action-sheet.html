@@ -17,7 +17,7 @@
   } from 'ngx-onsenui';
   import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
   import * as ons from 'onsenui';
-  
+
   @Component({
     selector: 'app',
     template: `
@@ -35,7 +35,7 @@
         </div>
       </div>
     </ons-page>
-  
+
     <ons-action-sheet #actionSheet cancelable [attr.animation]="animation">
       <div class="action-sheet-mask"></div>
       <div class="action-sheet">
@@ -50,10 +50,10 @@
   })
   export class AppComponent {
     animation: string = 'default';
-  
+
     constructor() {
     }
-  
+
     showActionSheet() {
       ons.openActionSheet({
         title: 'Dynamic action sheet',
@@ -74,7 +74,7 @@
       });
     }
   }
-  
+
   @NgModule({
     imports: [OnsenModule],
     declarations: [AppComponent],
@@ -82,7 +82,7 @@
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
   })
   class AppModule { }
-  
+
   platformBrowserDynamic().bootstrapModule(AppModule);
 
   </script>
