@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main'
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+  <v-ons-page>
+    <v-ons-toolbar>
+      <div class="center">Notifications</div>
+    </v-ons-toolbar>
+
+    <v-ons-list>
+      <v-ons-list-item
+        tappable
+        @click="$ons.notification.alert('Hello, world!')"
+        >
+        <div class="center">
+          Alert
+        </div>
+      </v-ons-list-item>
+      <v-ons-list-item
+        tappable
+        @click="$ons.notification.confirm('Are you ready?')"
+        >
+        <div class="center">
+          Confirmation
+        </div>
+      </v-ons-list-item>
+      <v-ons-list-item
+        tappable
+        @click="$ons.notification.prompt('What is your name?')"
+        >
+        <div class="center">
+          Prompt
+        </div>
+      </v-ons-list-item>
+      <v-ons-list-item
+        tappable
+        @click="$ons.notification.toast('Hello, world!', {timeout: 2000})"
+      >
+        <div class="center">
+          Toast
+        </div>
+      </v-ons-list-item>
+    </v-ons-list>
+  </v-ons-page>
+</template>
+
+<div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Notification methods
+
+The `$ons.notification` object contains some useful methods to easily show alerts, confirmation dialogs and prompts:
+
+1.
+```javascript
+$ons.notification.alert(message, options)
+```
+2.
+```javascript
+$ons.notification.confirm(message, options)
+```
+3.
+```javascript
+$ons.notification.prompt(message, options)
+```
+4.
+```javascript
+$ons.notification.toast(message, options)
+```
+
+They all return a `Promise` object that can be used to handle the input from the user.
+
+```javascript
+$ons.notification.confirm('Are you ready?')
+  .then((response) => {
+    // Handle response.
+  });
+```
+
+Notifications can also be created using `VOnsDialog`, `VOnsAlertDialog` and `VOnsToast` instead of `$ons.notification`.
+
+-->
