@@ -87,7 +87,7 @@
 
 ## Dialogs
 
-Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-alert-dialog>` tag that is used to display alert dialogs and an `<ons-toast>` one for toast messages.
+Dialogs are defined using the `<ons-dialog>`, `<ons-alert-dialog>` and `<ons-toast>` tags.
 
 ```
 <ons-dialog var="dialog">
@@ -97,7 +97,22 @@ Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-
 
 `var` attribute is used to store the dialog in a variable for later access.
 
-The dialogs are hidden by default and usually attached as direct childs of the `<body>` tag.
+Alert dialogs work exactly like normal dialogs but they require some additional markup. With this element you can create a beautifully styled dialog without any additional CSS.
+
+```
+<ons-alert-dialog>
+  <div class="alert-dialog-title">Warning!</div>
+  <div class="alert-dialog-content">
+    An error has occurred!
+  </div>
+  <div class="alert-dialog-footer">
+    <button class="alert-dialog-button">Cancel</button>
+    <button class="alert-dialog-button">OK</button>
+  </div>
+</ons-alert-dialog>
+```
+
+Dialogs are hidden by default and usually attached as direct children of the `<body>` tag.
 
 ## Displaying a dialog
 
@@ -125,23 +140,6 @@ ons
 ```
 
 For AngularJS, an extra parameter can be passed to specify the scope of the new popover: `ons.createDialog('dialog.html', { parentScope: $scope });`
-
-## Alert dialogs
-
-Alert dialogs work exactly like normal dialogs but they require some additional markup. With this element you can create a beautifully styled dialog without any additional CSS.
-
-```
-<ons-alert-dialog>
-  <div class="alert-dialog-title">Warning!</div>
-  <div class="alert-dialog-content">
-    An error has occurred!
-  </div>
-  <div class="alert-dialog-footer">
-    <button class="alert-dialog-button">Cancel</button>
-    <button class="alert-dialog-button">OK</button>
-  </div>
-</ons-alert-dialog>
-```
 
 ## The `cancelable` attribute
 
