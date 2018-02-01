@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+  </script>
+</head>
+<body>
+  <ons-page>
+    <ons-list>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-radio name="color" input-id="radio-1" checked></ons-radio>
+        </label>
+        <label for="radio-1" class="center">
+          Red
+        </label>
+      </ons-list-item>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-radio name="color" input-id="radio-2"></ons-radio>
+        </label>
+        <label for="radio-2" class="center">
+          Blue
+        </label>
+      </ons-list-item>
+    </ons-list>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Radio buttons
+
+Radio buttons are defined using the `<ons-radio>` element.
+
+```
+<ons-radio checked></ons-radio>
+```
+
+To create a group of radio buttons the `name` attribute is used:
+
+```
+<ons-radio name="group" value="first"></ons-radio>
+<ons-radio name="group" value="second"></ons-radio>
+```
+
+This will enable switching between radio buttons.
+
+## Inner input element
+
+For normal input elements is possible to define a `<label>` tab with the `for` attribute to link it to an input element.
+
+Unfortunately this does not work with custom elements like `<ons-label>` so in order to do it we need to set the `id` attribute of the inner input element. This is done using the `input-id` attribute.
+
+```
+<label for="username">Username</label>
+<ons-input input-id="username"></ons-input>
+```
+
+This work with any input in Onsen UI such as checkboxes, radios, etc.
+
+-->

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Onsen UI App</title>
@@ -11,23 +12,15 @@
 
       if (username === 'bob' && password === 'secret') {
         ons.notification.alert('Congratulations!');
-      }
-      else {
+      } else {
         ons.notification.alert('Incorrect username or password.');
       }
     };
   </script>
 </head>
+
 <body>
   <ons-page>
-    <ons-toolbar>
-      <div class="center">Input</div>
-    </ons-toolbar>
-
-    <p style="text-align: center; margin-top: 10px;">
-      <ons-search-input placeholder="Search"></ons-search-input>
-    </p>
-
     <div style="text-align: center; margin-top: 30px;">
       <p>
         <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
@@ -39,48 +32,9 @@
         <ons-button onclick="login()">Sign in</ons-button>
       </p>
     </div>
-
-    <ons-list>
-      <ons-list-header>Checkboxes</ons-list-header>
-      <ons-list-item tappable>
-        <label class="left">
-          <ons-checkbox input-id="check-1"></ons-checkbox>
-        </label>
-        <label for="check-1" class="center">
-          Apple
-        </label>
-      </ons-list-item>
-      <ons-list-item tappable>
-        <label class="left">
-          <ons-checkbox input-id="check-2"></ons-checkbox>
-        </label>
-        <label for="check-2" class="center">
-          Banana
-        </label>
-      </ons-list-item>
-    </ons-list>
-
-    <ons-list>
-      <ons-list-header>Radio buttons</ons-list-header>
-      <ons-list-item tappable>
-        <label class="left">
-          <ons-radio name="color" input-id="radio-1" checked></ons-radio>
-        </label>
-        <label for="radio-1" class="center">
-          Red
-        </label>
-      </ons-list-item>
-      <ons-list-item tappable>
-        <label class="left">
-          <ons-radio name="color" input-id="radio-2"></ons-radio>
-        </label>
-        <label for="radio-2" class="center">
-          Blue
-        </label>
-      </ons-list-item>
-    </ons-list>
   </ons-page>
 </body>
+
 </html>
 
 <!-- info
@@ -115,46 +69,12 @@ The label is defined with the `placeholder` attribute and to activate the animat
 </ons-input>
 ```
 
-## Search input
-
-Even though `ons-input` supports `type="search"`, Onsen UI provides an extra element `ons-search-input` that styles the input as a real search bar:
-
-```html
-<ons-search-input placeholder="Search something"></ons-search-input>
-```
-
-As usual, any attribute for `<input>` element works for the search input (except `type` which is fixed to `search`).
-
-## Checkboxes
-
-Checkboxes are defined using the `<ons-checkbox>` element. The element works almost exactly as when you use a normal `<input type="checkbox">` element.
-
-```
-<ons-checkbox value="something" checked></ons-checkbox>
-```
-
-## Radio buttons
-
-Radio buttons are defined using the `<ons-radio>` element.
-
-```
-<ons-radio checked></ons-radio>
-```
-
-To create a group of radio buttons the `name` attribute is used:
-
-```
-<ons-radio name="group" value="first"></ons-radio>
-<ons-radio name="group" value="second"></ons-radio>
-```
-
-This will enable switching between radio buttons.
-
 ## Inner input element
 
 For normal input elements is possible to define a `<label>` tab with the `for` attribute to link it to an input element.
 
-Unfortunately this does not work with custom elements like `<ons-label>` so in order to do it we need to set the `id` attribute of the inner input element. This is done using the `input-id` attribute.
+Unfortunately this does not work with custom elements like `<ons-label>` so in order to do it we need to set the `id` attribute of the inner input element.
+This is done using the `input-id` attribute.
 
 ```
 <label for="username">Username</label>
