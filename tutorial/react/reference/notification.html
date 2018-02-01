@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {
+          items: [
+            {
+              title: 'Alert notification',
+              fn: () => ons.notification.alert('An error has occurred!')
+            },
+            {
+              title: 'Confirmation',
+              fn: () => ons.notification.confirm('Are you ready?')
+            },
+            {
+              title: 'Prompt',
+              fn: () => ons.notification.prompt('What\'s your name?')
+            },
+            {
+              title: 'Toast',
+              fn: () => ons.notification.toast('Toast')
+            }
+          ]
+        };
+      },
+
+      renderRow(row) {
+        return (
+          <Ons.ListItem key={row.title} tappable onClick={row.fn}>
+          {row.title}
+          </Ons.ListItem>
+        );
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+          <div className='center'>Notifications</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+          <Ons.List dataSource={this.state.items} renderRow={this.renderRow} />
+          </Ons.Page>
+        );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Notification methods
+
+The `ons.notification` object contains some useful methods to easily show alerts, confirmation dialogs and prompts:
+
+* `ons.notification.alert(message, options)`
+* `ons.notification.confirm(message, options)`
+* `ons.notification.prompt(message, options)`
+* `ons.notification.toast(message, options)`
+
+They all return a `Promise` object that can be used to handle the input from the user.
+
+```
+ons.notification.confirm('Are you ready?')
+  .then((response) => {
+    // Handle response.
+  });
+```
+
+-->

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+  var MyPage = React.createClass({
+    getInitialState: function() {
+      return {
+        vegetables: [
+          'Tomato',
+          'Cucumber',
+          'Onion',
+          'Eggplant',
+          'Cabbage'
+        ],
+        selectedVegetable: 'Onion'
+      };
+    },
+
+    renderToolbar() {
+      return (
+        <Ons.Toolbar>
+        <div className='center'>Radio buttons</div>
+        </Ons.Toolbar>
+      );
+    },
+
+    handleVegetableChange(vegetable) {
+      this.setState({selectedVegetable: vegetable});
+    },
+
+    renderRadioRow(row) {
+      return (
+        <Ons.ListItem key={row} tappable>
+        <label className='left'>
+          <Ons.Radio
+            inputId={`radio-${row}`}
+            checked={row === this.state.selectedVegetable}
+            onChange={this.handleVegetableChange.bind(this, row)}
+            />
+            </label>
+            <label htmlFor={`radio-${row}`} className='center'>
+            {row}
+            </label>
+            </Ons.ListItem>
+          )
+        },
+
+        render: function() {
+          return (
+            <Ons.Page renderToolbar={this.renderToolbar}>
+            <Ons.List
+            dataSource={this.state.vegetables}
+            renderRow={this.renderRadioRow}
+            />
+            </Ons.Page>
+          );
+        }
+      });
+
+      ons.ready(function() {
+        ReactDOM.render(<MyPage />, document.getElementById('app'));
+      });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Radio buttons
+
+`Radio` components are provided in Onsen UI:
+
+```
+<Radio onChange={ this.handleRadioChange.bind(this) } />
+```
+
+-->
