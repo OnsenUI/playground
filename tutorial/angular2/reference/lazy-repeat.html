@@ -40,7 +40,6 @@
     })
     export class AppComponent {
       public items: any[];
-
       @ViewChild(OnsLazyRepeat) lazyRepeat;
 
       constructor() {
@@ -78,8 +77,40 @@
 
 <!-- info
 
+Tutorial will be added soon.
+
+-->
+
+<!-- lang=ja
+
 ## Lazy Repeat
 
-Tutorial contents will be added soon.
+Lazy Repeatを利用すると数千数万の要素を持つバーチャルリストを作ることができます。レンダリングエンジンの仕組み上、DOM要素を持てば持つほどレンダリングは遅くなります。モバイル環境では数千数万レベルの長いリストを作ることはパフォーマンスの劣化につながりますが、このLazy Repeatを使うと仮想的に長いリストをパフォーマンスを劣化させること無くレンダリングすることができます。
+
+Angular 2ではOnsLazyRepeatディレクティブを通じてLazy Repeatを利用することができます。
+
+```
+<ons-list>
+  <ons-list-item *onsLazyRepeat="let item of items; let i = index">
+    <div class="center">
+      #{{i}} msg: {{item.msg}}
+    </div>
+  </ons-list-item>
+</ons-list>
+```
+
+## 更新する
+
+Lazy Repeatで作成したリストをレンダリングし直したい場合には、OnsLazyRepeatディレクティブの`refresh()`メソッドを使います。OnsLazyRepeatディレクティブを取得するには、ViewChildデコレータを通じて取得します。
+
+```
+export class AppComponent {
+  @ViewChild(OnsLazyRepeat) lazyRepeat;
+
+  refresh() {
+    this.lazyRepeat.refresh();
+  }
+}
+```
 
 -->
