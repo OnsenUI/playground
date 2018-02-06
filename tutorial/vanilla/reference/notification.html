@@ -12,10 +12,6 @@
 
     var showConfirm = function() {
       ons.notification.confirm('Confirm!')
-        .then(function(buttonIndex) {
-          var message = buttonIndex === -1 ? 'Cancelled!' : 'Ok!';
-          ons.notification.alert(message);
-        })
     };
 
     var showPrompt = function() {
