@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+  </script>
+</head>
+<body>
+  <ons-page ng-controller="PageController as page" >
+    <ons-toolbar>
+      <div class="center">Search input</div>
+    </ons-toolbar>
+
+    <p style="text-align: center; margin-top: 10px">
+      <ons-search-input placeholder="Search"></ons-search-input>
+    </p>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Search inputs
+
+In Onsen UI search input is provided by the `<ons-search-input>` tag. It works almost exactly like the normal `<input type="search">`.
+
+## Inner input element
+
+For normal input elements is possible to define a `<label>` tab with the `for` attribute to link it to an input element.
+
+Unfortunately this does not work with custom elements like `<ons-label>` so in order to do it we need to set the `id` attribute of the inner input element. This is done using the `input-id` attribute.
+
+```
+<label for="username">Username</label>
+<ons-input input-id="username"></ons-input>
+```
+
+This work with any input in Onsen UI such as checkboxes, radios, etc.
+
+-->

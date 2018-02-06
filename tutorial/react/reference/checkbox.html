@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+  var MyPage = React.createClass({
+  getInitialState: function() {
+    return {
+      vegetables: [
+        'Tomato',
+        'Cucumber',
+        'Onion',
+        'Eggplant',
+        'Cabbage'
+      ]
+    };
+  },
+
+  renderToolbar() {
+    return (
+      <Ons.Toolbar>
+        <div className='center'>Checkboxes</div>
+      </Ons.Toolbar>
+    );
+  },
+
+  renderCheckboxRow(row) {
+    return (
+      <Ons.ListItem key={row} tappable>
+        <label className='left'>
+          <Ons.Checkbox
+            inputId={`checkbox-${row}`}
+          />
+        </label>
+        <label htmlFor={`checkbox-${row}`} className='center'>
+          {row}
+        </label>
+      </Ons.ListItem>
+    )
+  },
+
+  render: function() {
+    return (
+      <Ons.Page renderToolbar={this.renderToolbar}>
+
+        <Ons.List
+          dataSource={this.state.vegetables}
+          renderRow={this.renderCheckboxRow}
+        />
+      </Ons.Page>
+    );
+  }
+});
+
+ons.ready(function() {
+  ReactDOM.render(<MyPage />, document.getElementById('app'));
+});
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Checkboxes and radio buttons
+
+`Checkbox` components are provided in Onsen UI:
+
+```
+<Checkbox checked={ this.state.checked } />
+```
+
+-->

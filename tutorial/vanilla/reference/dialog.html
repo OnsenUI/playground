@@ -6,98 +6,69 @@
   <title>Onsen UI App</title>
 
   <script>
-    var showDialog = function (id) {
+    var showDialog = function() {
       document
-        .getElementById(id)
+        .getElementById('dialog-1')
         .show();
     };
 
-    var hideDialog = function (id) {
-      document
-        .getElementById(id)
-        .hide();
-    };
-
-    var fromTemplate = function () {
-      var dialog = document.getElementById('dialog-3');
+    var showTemplateDialog = function() {
+      var dialog = document.getElementById('dialog-2');
 
       if (dialog) {
         dialog.show();
-      }
-      else {
+      } else {
         ons.createDialog('dialog.html')
-          .then(function (dialog) {
+          .then(function(dialog) {
             dialog.show();
           });
       }
     };
 
-    function toggleToast() {
-      document.querySelector('ons-toast').toggle();
+    var showNotificationDialog = function() {
+      ons.notification.confirm('This dialog was created with ons.notification');
     }
+
+    var hideDialog = function(id) {
+      document
+        .getElementById(id)
+        .hide();
+    };
   </script>
 </head>
 
 <body>
   <ons-page>
-    <ons-toolbar>
-      <div class="center">Dialogs</div>
-    </ons-toolbar>
+  <ons-button onclick="showDialog()">Dialog 1</ons-button>
+  <ons-button onclick="showTemplateDialog()">Dialog 2</ons-button>
+  <ons-button onclick="showNotificationDialog()">Dialog 3</ons-button>
+</ons-page>
 
-    <ons-list>
-      <ons-list-header>Showing dialogs</ons-list-header>
-      <ons-list-item tappable onclick="showDialog('dialog-1')">Simple dialog</ons-list-item>
-      <ons-list-item tappable onclick="showDialog('dialog-2')">Alert dialog</ons-list-item>
-      <ons-list-item tappable onclick="fromTemplate()">From template</ons-list-item>
-      <ons-list-item tappable onclick="toggleToast()">Toggle Toast</ons-list-item>
-      <ons-list-header>Notifications</ons-list-header>
-      <ons-list-item tappable onclick="ons.notification.alert('Hello, world')">Alert</ons-list-item>
-      <ons-list-item tappable onclick="ons.notification.confirm({message: 'Are you ready?'})">Confirmation</ons-list-item>
-      <ons-list-item tappable onclick="ons.notification.prompt({message: 'What is your name?'})">Prompt</ons-list-item>
-      <ons-list-item tappable onclick="ons.notification.toast({message: 'Enjoy Onsen UI', timeout: 2000})">Toast</ons-list-item>
-    </ons-list>
-  </ons-page>
+<ons-dialog id="dialog-1">
+  <div style="text-align: center; padding: 10px;">
+    <p>
+      This is a dialog
+    </p>
 
-  <ons-dialog id="dialog-1">
+    <p>
+      <ons-button onclick="hideDialog('dialog-1')">Close</ons-button>
+    </p>
+  </div>
+</ons-dialog>
+
+<template id="dialog.html">
+  <ons-dialog id="dialog-3">
     <div style="text-align: center; padding: 10px;">
       <p>
-        This is a dialog.
+        This dialog was created from a template
       </p>
 
       <p>
-        <ons-button onclick="hideDialog('dialog-1')">Close</ons-button>
+        <ons-button onclick="hideDialog('dialog-3')">Close</ons-button>
       </p>
     </div>
   </ons-dialog>
-
-  <ons-alert-dialog id="dialog-2">
-    <div class="alert-dialog-title">Warning!</div>
-    <div class="alert-dialog-content">
-      An error has occurred!
-    </div>
-    <div class="alert-dialog-footer">
-      <button class="alert-dialog-button" onclick="hideDialog('dialog-2')">Cancel</button>
-      <button class="alert-dialog-button" onclick="hideDialog('dialog-2')">OK</button>
-    </div>
-  </ons-alert-dialog>
-
-  <template id="dialog.html">
-    <ons-dialog id="dialog-3">
-      <div style="text-align: center; padding: 10px;">
-        <p>
-          This dialog was created from a template.
-        </p>
-
-        <p>
-          <ons-button onclick="hideDialog('dialog-3')">Close</ons-button>
-        </p>
-      </div>
-    </ons-dialog>
-  </template>
-
-  <ons-toast>
-    This is an Onsen Toast!<button>Hoge</button>
-  </ons-toast>
+</template>
 </body>
 
 </html>
@@ -106,7 +77,7 @@
 
 ## Dialogs
 
-Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-alert-dialog>` tag that is used to display alert dialogs and an `<ons-toast>` one for toast messages.
+Normal dialogs are defined using the `<ons-dialog>` tag.
 
 ```
 <ons-dialog id="dialog-1">
@@ -114,7 +85,7 @@ Normal dialogs are defined using the `<ons-dialog>` tag. There is also an `<ons-
 </ons-dialog>
 ```
 
-The dialogs are hidden by default and usually attached as direct childs of the `<body>` tag.
+Dialogs are hidden by default and usually attached as direct children of the `<body>` tag.
 
 ## Displaying a dialog
 
@@ -148,26 +119,9 @@ ons
   });
 ```
 
-## Alert dialogs
-
-Alert dialogs work exactly like normal dialogs but they require some additional markup. With this element you can create a beautifully styled dialog without any additional CSS.
-
-```
-<ons-alert-dialog>
-  <div class="alert-dialog-title">Warning!</div>
-  <div class="alert-dialog-content">
-    An error has occurred!
-  </div>
-  <div class="alert-dialog-footer">
-    <button class="alert-dialog-button">Cancel</button>
-    <button class="alert-dialog-button">OK</button>
-  </div>
-</ons-alert-dialog>
-```
-
 ## The `cancelable` attribute
 
-The `<ons-dialog>`, `<ons-alert-dialog>` and `<ons-toast>` support the `cancelable` attribute. This enables hiding the dialog by tapping outside of it or by pressing the back button on Android devices.
+`<ons-dialog>` supports the `cancelable` attribute. This enables hiding the dialog by tapping outside of it or by pressing the back button on Android devices.
 
 ```
 <ons-dialog cancelable>
@@ -175,7 +129,7 @@ The `<ons-dialog>`, `<ons-alert-dialog>` and `<ons-toast>` support the `cancelab
 </ons-dialog>
 ```
 
-Try adding the `cancelable` attribute to one of the dialogs to see how it works.
+Try adding the `cancelable` attribute to the dialog to see how it works.
 
 ## Notification
 

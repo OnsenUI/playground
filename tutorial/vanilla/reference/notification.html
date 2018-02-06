@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    var showAlert = function() {
+      ons.notification.alert('Alert!');
+    };
+
+    var showConfirm = function() {
+      ons.notification.confirm('Confirm!')
+    };
+
+    var showPrompt = function() {
+      ons.notification.prompt('Prompt!')
+        .then(function(input) {
+          var message = input ? 'Entered: ' + input : 'Entered nothing!';
+          ons.notification.alert(message);
+        });
+    };
+
+    var showToast = function() {
+      ons.notification.toast('Toast!', {
+        timeout: 2000
+      });
+    };
+  </script>
+</head>
+
+<body>
+  <ons-page>
+    <ons-button onclick="showAlert()">Alert</ons-button>
+    <ons-button onclick="showConfirm()">Confirm</ons-button>
+    <ons-button onclick="showPrompt()">Prompt</ons-button>
+    <ons-button onclick="showToast()">Toast</ons-button>
+  </ons-page>
+</body>
+
+</html>
+
+<!-- info
+
+## Notification
+
+Dialogs can be displayed with the `ons.notification` methods:
+
+* `ons.notification.alert(options)`
+* `ons.notification.confirm(options)`
+* `ons.notification.prompt(options)`
+* `ons.notification.toast(options)`
+
+These methods all return a `Promise`. For the `confirm` it resolves to the index of the button pressed and for the `prompt` it resolves to the user input.
+
+```
+ons
+  .notification.prompt({message: 'What is your name?'})
+  .then(function(name) {
+    ons.notification.alert('Hello ' + name);
+  });
+```
+
+The `<ons-dialog>`, `<ons-alert-dialog>` and `<ons-toast>` tags can also be used instead of `ons.notification`.
+
+-->

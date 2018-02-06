@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    document.addEventListener('init', function(event) {
+      var page = event.target;
+      if (page.matches('#helloworld-page')) {
+        page.querySelector('ons-toolbar .center').innerHTML = 'My app';
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <ons-page id="helloworld-page">
+    <ons-toolbar>
+      <div class="center"></div>
+      <div class="right">
+        <ons-toolbar-button>
+          <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+  </ons-page>
+</body>
+
+</html>
+
+<!-- info
+
+## Adding a toolbar
+
+Most mobile apps have a toolbar at the top containing a header text and maybe some buttons.
+
+In Onsen UI this is achieved using the `<ons-toolbar>` element. It is divided into three sections that are defined using the HTML classes `left`, `center` and `right`.
+
+```html
+<ons-toolbar>
+  <div class="left">
+    <!-- left section -->
+</div>
+<div class="center">
+  <!-- title -->
+</div>
+<div class="right">
+  <!-- right section -->
+</div>
+</ons-toolbar>
+```
+
+Buttons can be added to the toolbar with the `<ons-toolbar-button>` element.
+
+-->

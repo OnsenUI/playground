@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap()
+      .controller('PageController', function () {});
+  </script>
+</head>
+<body>
+  <ons-page ng-controller="PageController as page">
+    <ons-toolbar>
+      <div class="center">Notifications</div>
+    </ons-toolbar>
+
+    <ons-list>
+      <ons-list-item tappable ng-click="ons.notification.alert('Hello, world')">Alert</ons-list-item>
+      <ons-list-item tappable ng-click="ons.notification.confirm({message: 'Are you ready?'})">Confirmation</ons-list-item>
+      <ons-list-item tappable ng-click="ons.notification.prompt({message: 'What is your name?'})">Prompt</ons-list-item>
+    </ons-list>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Notifications
+
+Dialogs can be displayed with the `ons.notification` methods:
+
+* `ons.notification.alert(options)`
+* `ons.notification.confirm(options)`
+* `ons.notification.prompt(options)`
+* `ons.notification.toast(options)`
+
+These methods all return a `Promise`. For the `confirm` it resolves to the index of the button pressed and for the `prompt` it resolves to the user input.
+
+```
+ons
+  .notification.prompt({message: 'What is your name?'})
+  .then(function(name) {
+    ons.notification.alert('Hello ' + name);
+  });
+```
+
+Alternatively, dialogs can be created with the `<ons-dialog>`, `<ons-alert-dialog>` and `<ons-toast>` elements.
+
+-->

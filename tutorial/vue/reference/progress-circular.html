@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    new Vue({
+      el: '#app',
+      template: '#main',
+      data() {
+        return {
+          progress: 0,
+          intervalID: 0
+        };
+      },
+      mounted() {
+        this.intervalID = setInterval(() => {
+          if (this.progress === 100) {
+            clearInterval(this.intervalID);
+            return;
+          }
+
+          this.progress++;
+        }, 40);
+      }
+    });
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Progress</div>
+      </v-ons-toolbar>
+
+      <v-ons-progress-bar :value="progress"></v-ons-progress-bar>
+
+      <section style="margin: 16px">
+        <p>
+          Progress: {{ progress }}%
+        </p>
+
+        <p>
+          <v-ons-progress-bar value="20"></v-ons-progress-bar>
+        </p>
+
+        <p>
+          <v-ons-progress-bar value="40" secondary-value="80"></v-ons-progress-bar>
+        </p>
+
+        <p>
+          <v-ons-progress-bar indeterminate></v-ons-progress-bar>
+        </p>
+
+        <p>
+          <v-ons-progress-circular value="20"></v-ons-progress-circular>
+          <v-ons-progress-circular value="40" secondary-value="80"></v-ons-progress-circular>
+          <v-ons-progress-circular indeterminate></v-ons-progress-circular>
+        </p>
+      </section>
+
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Progress
+
+There are two components for indicating progress: `VOnsProgressBar` and `VOnsProgressCircular`. As the names imply, the `VOnsProgressBar` displays a linear progress bar while the `VOnsProgressCircular` displays a circular progress indicator.
+
+They have the ability to show the current progress or a looping animation in cases where the current progress is not known.
+
+Both components implement the same props.
+
+To change the progress the `value` property is used. It should be a value between `0` and `100`.
+
+```
+<v-ons-progress-bar :value="currentProgress"></v-ons-progress-bar>
+<v-ons-progress-circular :value="currentProgress" /></v-ons-progress-circular>
+```
+
+## Secondary value
+
+It is sometimes necessary to display two different values in the same progress indicator. An example could be an app that streams a video. The progress bar could show both how much of the video has elapsed in addition to how much of the video that has been buffered.
+
+To do this the `secondaryValue` property can be used.
+
+```
+<v-ons-progress-bar
+  :value="elapsed"
+  :secondaryValue="buffered"
+>
+</v-ons-progress-bar>
+```
+
+## Indeterminate mode
+
+There is also an `indeterminate` property which makes the component ignore both the `value` and `secondaryValue` properties. Instead, it show a looping animation. This can be useful for cases where the total progress is unknown, e.g. when waiting for some data to arrive.
+
+```
+<v-ons-progress-bar indeterminate></v-ons-progress-bar>
+```
+-->

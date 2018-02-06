@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Onsen UI App</title>
@@ -10,31 +11,38 @@
       template: '#main',
       data() {
         return {
-          name: ''
+          vegetables: ['Apples', 'Bananas', 'Oranges'],
+          selectedVegetable: 'Bananas'
         };
       }
     });
   </script>
 </head>
+
 <body>
   <template id="main">
   <v-ons-page>
     <v-ons-toolbar>
-      <div class="center">Text input</div>
+      <div class="center">Radio buttons</div>
     </v-ons-toolbar>
 
     <v-ons-list>
-      <v-ons-list-item>
-        <div class="center">
-          <v-ons-input placeholder="Input your name" float
-            v-model="name"
+      <v-ons-list-item v-for="(vegetable, $index) in vegetables" :key="vegetable" tappable>
+        <label class="left">
+          <v-ons-radio
+            :input-id="'radio-' + $index"
+            :value="vegetable"
+            v-model=" selectedVegetable"
           >
-          </v-ons-input>
-        </div>
+          </v-ons-radio>
+        </label>
+        <label :for="'radio-' + $index" class="center">
+          {{ vegetable }}
+        </label>
       </v-ons-list-item>
       <v-ons-list-item>
-        <div class="right">
-          Hello {{ name || 'anonymous' }}!
+        <div class="center">
+          I love {{ selectedVegetable }}!
         </div>
       </v-ons-list-item>
     </v-ons-list>
@@ -43,19 +51,16 @@
 
   <div id="app"></div>
 </body>
+
 </html>
 
 <!-- info
 
-## Text input
+## Radio buttons
 
-Text input elements are created using the `VOnsInput` component. It works almost exactly the same as a normal `<input>` tag.
-
-This component implements a `type` attribute to choose the type of the input. Default is `text` but it also admits `password`, `number`, etc. The only exception are checkboxes and radio buttons, which have corresponding components, `VOnsCheckbox` and `VOnsRadio`.
+Radio button elements are created using the `VOnsRadio` component. It works almost exactly the same as a normal `<input type="radio">` tag.
 
 An attribute `input-id` is provided to set the ID of the inner native element. This is useful for `HTMLLabel` elements: `<label for="some-inner-input">`.
-
-For the text-like inputs, in Material Design the placeholder can be made to float using the `float` prop.
 
 ## Using v-model
 
