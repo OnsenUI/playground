@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    var search = function(input) {
+      ons.notification.alert('Searched for "' + input.value + '"');
+    };
+  </script>
+</head>
+
+<body>
+  <ons-page>
+    <p style="text-align: center; margin-top: 10px;">
+      <ons-search-input placeholder="Search" onchange="search(this)"></ons-search-input>
+    </p>
+  </ons-page>
+</body>
+
+</html>
+
+<!-- info
+
+## Search input
+
+Even though `ons-input` supports `type="search"`, Onsen UI provides an extra element `ons-search-input` that styles the input as a real search bar:
+
+```html
+<ons-search-input placeholder="Search something"></ons-search-input>
+```
+
+As usual, any attribute for `<input>` element works for the search input (except `type` which is fixed to `search`).
+
+## Inner input element
+
+For normal input elements is possible to define a `<label>` tab with the `for` attribute to link it to an input element.
+
+Unfortunately this does not work with custom elements like `<ons-label>` so in order to do it we need to set the `id` attribute of the inner input element. This is done using the `input-id` attribute.
+
+```
+<label for="username">Username</label>
+<ons-input input-id="username"></ons-input>
+```
+
+This work with any input in Onsen UI such as checkboxes, radios, etc.
+
+-->

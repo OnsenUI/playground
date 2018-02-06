@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script>
+    ons.bootstrap()
+    .controller('PageController', function() {
+      this.apples = true;
+      this.bananas = false;
+    });
+  </script>
+</head>
+<body>
+  <ons-page ng-controller="PageController as page" >
+  <ons-toolbar>
+    <div class="center">Checkboxes</div>
+  </ons-toolbar>
+
+  <ons-list>
+    <ons-list-item tappable>
+      <label class="left">
+        <ons-checkbox input-id="check-1" ng-model="page.apples"></ons-checkbox>
+      </label>
+      <label for="check-1" class="center">
+        Apples <span ng-show="page.apples" style="color: red; margin-left: 6px">♥</span>
+      </label>
+    </ons-list-item>
+    <ons-list-item tappable>
+      <label class="left">
+        <ons-checkbox input-id="check-2" ng-model="page.bananas"></ons-checkbox>
+      </label>
+      <label for="check-2" class="center">
+        Bananas <span ng-show="page.bananas" style="color: red; margin-left: 6px">♥</span>
+      </label>
+    </ons-list-item>
+  </ons-list>
+  </ons-page>
+</body>
+</html>
+
+<!-- info
+
+## Checkboxes
+
+Checkboxes are defined using the `<ons-checkbox>` element. The element works almost exactly as when you use a normal `<input type="checkbox">` element.
+
+```
+<ons-checkbox value="something" checked></ons-checkbox>
+```
+
+## Inner input element
+
+For normal input elements is possible to define a `<label>` tab with the `for` attribute to link it to an input element.
+
+Unfortunately this does not work with custom elements like `<ons-label>` so in order to do it we need to set the `id` attribute of the inner input element. This is done using the `input-id` attribute.
+
+```
+<label for="username">Username</label>
+<ons-input input-id="username"></ons-input>
+```
+
+This work with any input in Onsen UI such as checkboxes, radios, etc.
+
+-->

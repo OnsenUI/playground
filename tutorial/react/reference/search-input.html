@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    var MyPage = React.createClass({
+      getInitialState: function() {
+        return {};
+      },
+
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+          <div className='center'>Search input</div>
+          </Ons.Toolbar>
+        );
+      },
+
+      render: function() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
+          <section style={{textAlign: 'center'}}>
+            <p>
+              <Ons.SearchInput
+                placeholder='Search' />
+                </p>
+                </section>
+                </Ons.Page>
+              );
+      }
+    });
+
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Search inputs
+
+Even though `Input` component can handle `type='search'`, an extra component is provided which implements search input styles:
+
+```
+<SearchInput placeholder='Search something' />
+```
+
+-->
