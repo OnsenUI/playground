@@ -26,7 +26,16 @@ app.modules = {
       'progress': 'progress indicators',
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
-      'ripple': 'ripple effect'
+      'ripple': 'ripple effect',
+      'alert-dialog': 'alert dialog',
+      'back-button': 'back button',
+      'checkbox': 'checkbox',
+      'notification': 'notification',
+      'progress-circular': 'progress circular',
+      'radio': 'radio',
+      'search-input': 'search input',
+      'toast': 'toast',
+      'toolbar': 'toolbar'
     },
     'common patterns': {
       'kitchensink': 'kitchensink example',
@@ -75,7 +84,16 @@ app.modules = {
       'progress': 'progress indicators',
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
-      'ripple': 'ripple effect'
+      'ripple': 'ripple effect',
+      'alert-dialog': 'alert dialog',
+      'back-button': 'back button',
+      'checkbox': 'checkbox',
+      'notification': 'notification',
+      'progress-circular': 'progress circular',
+      'radio': 'radio',
+      'search-input': 'search input',
+      'toast': 'toast',
+      'toolbar': 'toolbar'
     },
     'common patterns': {
       'splitter_navigator': 'splitter outside navigator',
@@ -106,7 +124,16 @@ app.modules = {
       'progress': 'progress indicators',
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
-      'ripple': 'ripple effect'
+      'ripple': 'ripple effect',
+      'alert-dialog': 'alert dialog',
+      'back-button': 'back button',
+      'checkbox': 'checkbox',
+      'notification': 'notification',
+      'progress-circular': 'progress circular',
+      'radio': 'radio',
+      'search-input': 'search input',
+      'toast': 'toast',
+      'toolbar': 'toolbar'
     },
     'common patterns': {
       'splitter_navigator': 'splitter outside navigator',
@@ -141,7 +168,16 @@ app.modules = {
       'progress': 'progress indicators',
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
-      'ripple': 'ripple effect'
+      'ripple': 'ripple effect',
+      'alert-dialog': 'alert dialog',
+      'back-button': 'back button',
+      'checkbox': 'checkbox',
+      'notification': 'notification',
+      'progress-circular': 'progress circular',
+      'radio': 'radio',
+      'search-input': 'search input',
+      'toast': 'toast',
+      'toolbar': 'toolbar'
     },
     'common patterns': {
       'splitter_navigator': 'splitter outside navigator',
@@ -173,7 +209,16 @@ app.modules = {
       'progress': 'progress indicators',
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
-      'ripple': 'ripple effect'
+      'ripple': 'ripple effect',
+      'alert-dialog': 'alert dialog',
+      'back-button': 'back button',
+      'checkbox': 'checkbox',
+      'notification': 'notification',
+      'progress-circular': 'progress circular',
+      'radio': 'radio',
+      'search-input': 'search input',
+      'toast': 'toast',
+      'toolbar': 'toolbar'
     },
     'common patterns': {
       'splitter_navigator': 'splitter outside navigator',
