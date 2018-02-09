@@ -180,7 +180,7 @@ app.services.collapseEditors = function (html, code) {
   if (window.Split && app.config.autoHideHTMLPane !== false) {
     if (html.split(/\n/).length <= 1) {
       app.splits.editors.collapse(0);
-    } else if (code.split(/\n/).length <= 4) {
+    } else if (code.split(/\n/).length <= 2) {
       app.splits.editors.collapse(1);
     } else {
       app.splits.editors.setSizes([50, 50]);
