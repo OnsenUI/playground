@@ -11,7 +11,7 @@
           if (this.dialog) {
             this.dialog.show();
           } else {
-            ons.createElement('dialog.html', { parentScope: $scope })
+            ons.createElement('dialog.html', { parentScope: $scope, append: true })
               .then(function(dialog) {
                 this.dialog = dialog;
                 dialog.show();
@@ -133,7 +133,7 @@ Another way to use dialogs is with the `ons.createElement(template)` utility fun
 
 ```
 ons
-  .createElement('dialog.html')
+  .createElement('dialog.html', { append: true })
   .then(function(dialog) {
     dialog.show();
   });

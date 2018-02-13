@@ -6,28 +6,18 @@
   <title>Onsen UI App</title>
 
   <script>
-    var showDialog = function() {
-      document
-        .getElementById('dialog-1')
-        .show();
-    };
-
     var showTemplateDialog = function() {
-      var dialog = document.getElementById('dialog-2');
+      var dialog = document.getElementById('my-dialog');
 
       if (dialog) {
         dialog.show();
       } else {
-        ons.createElement('dialog.html')
+        ons.createElement('dialog.html', { append: true })
           .then(function(dialog) {
             dialog.show();
           });
       }
     };
-
-    var showNotificationDialog = function() {
-      ons.notification.confirm('This dialog was created with ons.notification');
-    }
 
     var hideDialog = function(id) {
       document
@@ -39,36 +29,22 @@
 
 <body>
   <ons-page>
-  <ons-button onclick="showDialog()">Dialog 1</ons-button>
-  <ons-button onclick="showTemplateDialog()">Dialog 2</ons-button>
-  <ons-button onclick="showNotificationDialog()">Dialog 3</ons-button>
-</ons-page>
+    <ons-button onclick="showTemplateDialog()">Show Dialog</ons-button>
+  </ons-page>
 
-<ons-dialog id="dialog-1">
-  <div style="text-align: center; padding: 10px;">
-    <p>
-      This is a dialog
-    </p>
+  <template id="dialog.html">
+    <ons-dialog id="my-dialog">
+      <div style="text-align: center; padding: 10px;">
+        <p>
+          This is a simple dialog!
+        </p>
 
-    <p>
-      <ons-button onclick="hideDialog('dialog-1')">Close</ons-button>
-    </p>
-  </div>
-</ons-dialog>
-
-<template id="dialog.html">
-  <ons-dialog id="dialog-3">
-    <div style="text-align: center; padding: 10px;">
-      <p>
-        This dialog was created from a template
-      </p>
-
-      <p>
-        <ons-button onclick="hideDialog('dialog-3')">Close</ons-button>
-      </p>
-    </div>
-  </ons-dialog>
-</template>
+        <p>
+          <ons-button onclick="hideDialog('my-dialog')">Close</ons-button>
+        </p>
+      </div>
+    </ons-dialog>
+  </template>
 </body>
 
 </html>
@@ -132,5 +108,19 @@ Do not forget attaching the created dialog to the DOM. This can be done by passi
 ```
 
 Try adding the `cancelable` attribute to the dialog to see how it works.
+
+## Complex dialogs
+
+The `<ons-dialog>` element can get as complex as we need. It can contain pages or even navigators:
+
+```
+<ons-dialog>
+  <ons-page>
+    <ons-toolbar>...</ons-toolbar>
+
+    ...
+  </ons-page>
+</ons-dialog>
+```
 
 -->
