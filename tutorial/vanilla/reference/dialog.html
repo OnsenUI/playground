@@ -113,11 +113,13 @@ Another way to use dialogs is with the `ons.createElement(template)` utility fun
 
 ```
 ons
-  .createElement('dialog.html')
+  .createElement('dialog.html', { append: true })
   .then(function(dialog) {
     dialog.show();
   });
 ```
+
+Do not forget attaching the created dialog to the DOM. This can be done by passing `append` options to `ons.createElement`.
 
 ## The `cancelable` attribute
 
@@ -130,25 +132,5 @@ ons
 ```
 
 Try adding the `cancelable` attribute to the dialog to see how it works.
-
-## Notification
-
-Another way to display dialogs is with the `ons.notification` methods:
-
-* `ons.notification.alert(options)`
-* `ons.notification.confirm(options)`
-* `ons.notification.prompt(options)`
-* `ons.notification.toast(options)`
-
-These methods all return a `Promise`. For the `confirm` it resolves to the index of the button pressed and for the `prompt` it resolves to the user input.
-
-```
-ons
-  .notification.prompt({message: 'What is your name?'})
-  .then(function(name) {
-    ons.notification.alert('Hello ' + name);
-  });
-```
-
 
 -->

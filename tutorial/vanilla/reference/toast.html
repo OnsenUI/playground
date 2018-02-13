@@ -43,6 +43,8 @@ Toasts are defined using the `<ons-toast>` tag.
 </ons-toast>
 ```
 
+They can be located inside templates or separated files and be created with `ons.createElement` as any other dialog.
+
 Toasts are hidden by default and usually attached as direct children of the `<body>` tag.
 
 ## Displaying a toast
@@ -59,32 +61,13 @@ It is hidden with the `hide(options)` method.
 
 Toasts can be toggled with the `toggle(options)` method.
 
-## The `cancelable` attribute
-
-`<ons-toast>` supports the `cancelable` attribute. This enables hiding the dialog by tapping outside of it or by pressing the back button on Android devices.
-
-```
-<ons-toast cancelable>
-  This toast can be cancelled!
-</ons-toast>
-```
-
-Try adding the `cancelable` attribute to the toast to see how it works.
-
 ## Notification
 
-Another way to display toasts is with the `ons.notification` method:
-
-* `ons.notification.toast(options)`
-
-This method returns a `Promise`.
+Another way to display toasts is with the `ons.notification`, which returns a `Promise`. Unlike the previous version, all the toasts created with this method will be part of a notification queue, being visible only one at a time. The `force` option disables this feature.
 
 ```
-ons
-  .notification.prompt({message: 'What is your name?'})
-  .then(function(name) {
-    ons.notification.toast('Hello ' + name);
-  });
+ons.notification.toast('Hello ' + name, { timeout: 2000 }); // Shows from 0s to 2s
+ons.notification.toast('Good-bye ' + name, { timeout: 1000 }); // Shows from 2s to 3s
 ```
 
 -->
