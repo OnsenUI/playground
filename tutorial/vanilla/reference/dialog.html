@@ -18,7 +18,7 @@
       if (dialog) {
         dialog.show();
       } else {
-        ons.createDialog('dialog.html')
+        ons.createElement('dialog.html')
           .then(function(dialog) {
             dialog.show();
           });
@@ -101,7 +101,7 @@ It is hidden with the `hide(options)` method.
 
 ## Loading from a template
 
-Another way to use dialogs is with the `ons.createDialog(template)` utility function. The dialog needs to be defined as a template and the function returns a `Promise` that resolves to the dialog element.
+Another way to use dialogs is with the `ons.createElement(template)` utility function. The dialog needs to be defined as a template and the function returns a `Promise` that resolves to the dialog element.
 
 ```
 <template id="dialog.html">
@@ -113,7 +113,7 @@ Another way to use dialogs is with the `ons.createDialog(template)` utility func
 
 ```
 ons
-  .createDialog('dialog.html')
+  .createElement('dialog.html')
   .then(function(dialog) {
     dialog.show();
   });

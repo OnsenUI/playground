@@ -11,7 +11,7 @@
           if (this.dialog) {
             this.dialog.show();
           } else {
-            ons.createDialog('dialog.html', { parentScope: $scope })
+            ons.createElement('dialog.html', { parentScope: $scope })
               .then(function(dialog) {
                 this.dialog = dialog;
                 dialog.show();
@@ -121,7 +121,7 @@ It is hidden with the `hide(options)` method.
 
 ## Loading from a template
 
-Another way to use dialogs is with the `ons.createDialog(template)` utility function. The dialog needs to be defined as a template and the function returns a `Promise` that resolves to the dialog element.
+Another way to use dialogs is with the `ons.createElement(template)` utility function. The dialog needs to be defined as a template and the function returns a `Promise` that resolves to the dialog element.
 
 ```
 <template id="dialog.html">
@@ -133,13 +133,13 @@ Another way to use dialogs is with the `ons.createDialog(template)` utility func
 
 ```
 ons
-  .createDialog('dialog.html')
+  .createElement('dialog.html')
   .then(function(dialog) {
     dialog.show();
   });
 ```
 
-For AngularJS, an extra parameter can be passed to specify the scope of the new popover: `ons.createDialog('dialog.html', { parentScope: $scope });`
+For AngularJS, an extra parameter can be passed to specify the scope of the new popover: `ons.createElement('dialog.html', { parentScope: $scope });`
 
 ## The `cancelable` attribute
 

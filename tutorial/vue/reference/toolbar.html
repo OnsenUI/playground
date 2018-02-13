@@ -42,64 +42,24 @@
 
 <!-- info
 
-## The `VOnsPage` component
-
-The `VOnsPage` component serves as the main view of a screen in an app. It covers the whole screen and is used as a container for the other components. When managing multiple views, all of them must be contained in `VOnsPage` components.
-
-```html
-<v-ons-page>
-  Content goes here
-</v-ons-page>
-```
-
-This component automatically spawns a `background` and a `content` elements. These can also be manually provided for higher customizability:
-
-```html
-<v-ons-page>
-  Toolbar here
-
-  <div class="background"></div>
-
-  <div class="content">
-    Scrollable content here
-  </div>
-
-  Fixed content here
-</v-ons-page>
-```
-
-Since `content` element is transparent by default, we can add custom colors to the `background` element. Notice that, if `content` element is provided, scrollable and fixed content must be manually separated as well.
-
 ## Adding a toolbar
+
+Most mobile apps have a toolbar at the top containing a header text and maybe some buttons.
 
 The `VOnsToolbar` component displays a navigation bar on the top of a `VOnsPage` component. It is separated into three sections (left, center and right) in order to let the buttons and title be layouted a beautiful way.
 
 ```html
 <v-ons-toolbar>
   <div class="left">
+    Left part
   </div>
   <div class="center">
+    Title here
   </div>
   <div class="right">
+    Right part
   </div>
 </v-ons-toolbar>
 ```
 
-## The `$ons` object
-
-Onsen UI not only contains components, it also provides an object called `$ons` with a lot of useful functions attached to it.
-
-Enabling or disabling autostyling feature, setting a new global device back button handler, extending animations or getting device orientation events are just a bunch of examples.
-
-`$ons` object is exposed directly in Vue's prototype. Therefore, it can be accessed with `this.$ons` or `Vue.$ons`.
-
-## Showing a notification
-
-Just like in normal Onsen UI apps you can show dialogs using the `$ons.notification` methods:
-
-```javascript
-this.$ons.notification.alert('Hello world!');
-this.$ons.notification.confirm('Are you sure?', {...});
-this.$ons.notification.prompt('How are you?', {...});
-```
 -->
