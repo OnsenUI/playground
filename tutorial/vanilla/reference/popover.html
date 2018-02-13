@@ -76,7 +76,7 @@ Just like the `<ons-dialog>` and `<ons-alert-dialog>` elements the popover can b
 
 ```
 ons
-  .createElement('popover.html')
+  .createElement('popover.html', { append: true })
   .then(function(popover) {
     popover.show();
   });
