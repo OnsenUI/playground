@@ -8,6 +8,9 @@ app.config.ci = 'https://circleci.com/api/v1/project/OnsenUI/OnsenUI/latest/arti
 app.config.nightly = window.sessionStorage.getItem('nightly') === 'true';
 
 app.config.lang = app.util.getParam('lang') || ((window.location.hostname.split('.')[0] === 'ja') ? 'ja' : null);
+if (app.config.lang) {
+  document.documentElement.classList.add('i18n-' + app.config.lang);
+}
 
 // Enables local lib versions
 if ((window.location.hostname === 'localhost' || !window.location.hostname.match(/[a-zA-Z]/)) && window.location.pathname.indexOf('/playground/') === 0) {
