@@ -62,30 +62,4 @@ This element automatically spawns a `background` and a `content` elements. These
 
 Since `content` element is transparent by default, we can add custom colors to the `background` element. Notice that, if `content` element is provided, scrollable and fixed content must be manually separated as well.
 
-## Adding a toolbar
-
-Most mobile apps have a toolbar at the top containing a header text and maybe some buttons.
-
-In Onsen UI this is achieved using the `<ons-toolbar>` element. It is divided into three sections that are defined using the HTML classes `left`, `center` and `right`.
-
-```html
-<ons-toolbar>
-  <div class="left"></div>
-  <div class="center"></div>
-  <div class="right"></div>
-</ons-toolbar>
-```
-
-## The `ons` object
-
-Onsen UI not only provides custom elements, it also provides an object called `ons` with a lot of useful functions attached to it. In this example we are using `ons.notification.alert` to show an alert dialog.
-
-There are also `confirm` and `prompt` methods available to show other types of dialogs. You can try replacing the click handler with the following code to get another type of dialog:
-
-```javascript
-ons.notification.confirm({message: 'Are you ready?'});
-```
-
-We will take a look at other types of dialogs in a later section.
-
 -->

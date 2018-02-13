@@ -64,7 +64,7 @@ To display the popover you need to get a reference to the element and execute th
 
 ## Loading from a template
 
-Just like the `<ons-dialog>` and `<ons-alert-dialog>` elements the popover can be loaded from a template. It is done by using the `ons.createPopover(template)` utility function. It returns a `Promise` that resolves to the popover element.
+Just like the `<ons-dialog>` and `<ons-alert-dialog>` elements the popover can be loaded from a template. It is done by using the `ons.createElement(template)` utility function. It returns a `Promise` that resolves to the popover element.
 
 ```
 <template id="popover.html">
@@ -76,7 +76,7 @@ Just like the `<ons-dialog>` and `<ons-alert-dialog>` elements the popover can b
 
 ```
 ons
-  .createPopover('popover.html')
+  .createElement('popover.html')
   .then(function(popover) {
     popover.show();
   });

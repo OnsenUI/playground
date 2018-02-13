@@ -6,66 +6,49 @@
   <title>Onsen UI App</title>
 
   <script>
-    var showAlertDialog = function() {
-      document
-        .getElementById('dialog-1')
-        .show();
-    };
-
-    var showTemplateAlertDialog = function() {
-      var dialog = document.getElementById('dialog-2');
+    var createAlertDialog = function() {
+      var dialog = document.getElementById('my-alert-dialog');
 
       if (dialog) {
         dialog.show();
       } else {
-        ons.createAlertDialog('dialog.html')
+        ons.createElement('alert-dialog.html', { append: true })
           .then(function(dialog) {
             dialog.show();
           });
       }
     };
 
-    var showNotificationAlertDialog = function() {
-      ons.notification.alert('This dialog was created with ons.notification');
-    }
-
-    var hideDialog = function(id) {
+    var hideAlertDialog = function() {
       document
-        .getElementById(id)
+        .getElementById('my-alert-dialog')
         .hide();
+    };
+
+    var notify = function() {
+      ons.notification.alert('This dialog was created with ons.notification');
     };
   </script>
 </head>
 
 <body>
   <ons-page>
-    <ons-button onclick="showAlertDialog()">Alert 1</ons-button>
-    <ons-button onclick="showTemplateAlertDialog()">Alert 2</ons-button>
-    <ons-button onclick="showNotificationAlertDialog()">Alert 3</ons-button>
+    <ons-button onclick="createAlertDialog()">From Template</ons-button>
+    <ons-button onclick="notify()">Notification</ons-button>
   </ons-page>
 
-  <ons-alert-dialog id="dialog-1">
-    <div class="alert-dialog-title">Alert</div>
-    <div class="alert-dialog-content">
-      Alert content
-    </div>
-    <div class="alert-dialog-footer">
-      <button class="alert-dialog-button" onclick="hideDialog('dialog-1')">Cancel</button>
-      <button class="alert-dialog-button" onclick="hideDialog('dialog-1')">OK</button>
-    </div>
-  </ons-alert-dialog>
-
-  <template id="dialog.html">
-  <ons-alert-dialog id="dialog-2">
-    <div class="alert-dialog-title">Alert</div>
-    <div class="alert-dialog-content">
+  <template id="alert-dialog.html">
+    <ons-alert-dialog id="my-alert-dialog" modifier="rowfooter">
+      <div class="alert-dialog-title">Alert</div>
+      <div class="alert-dialog-content">
         This dialog was created from a template
-    </div>
-    <div class="alert-dialog-footer">
-      <ons-button class="alert-dialog-button" onclick="hideDialog('dialog-2')">Close</ons-button>
-    </div>
-  </ons-alert-dialog>
-</template>
+      </div>
+      <div class="alert-dialog-footer">
+        <ons-alert-dialog-button onclick="hideAlertDialog()">Cancel</ons-alert-dialog-button>
+        <ons-alert-dialog-button onclick="hideAlertDialog()">OK</ons-alert-dialog-button>
+      </div>
+    </ons-alert-dialog>
+  </template>
 </body>
 
 </html>
@@ -84,8 +67,8 @@ Alert dialogs work exactly like normal dialogs but they require some additional 
     An error has occurred!
   </div>
   <div class="alert-dialog-footer">
-    <button class="alert-dialog-button">Cancel</button>
-    <button class="alert-dialog-button">OK</button>
+    <ons-alert-dialog-button>Cancel</ons-alert-dialog-button>
+    <ons-alert-dialog-button>OK</ons-alert-dialog-button>
   </div>
 </ons-alert-dialog>
 ```
@@ -106,7 +89,7 @@ It is hidden with the `hide(options)` method.
 
 ## Loading from a template
 
-Another way to use alert dialogs is with the `ons.createAlertDialog(template)` utility function. The dialog needs to be defined as a template and the function returns a `Promise` that resolves to the dialog element.
+Another way to use alert dialogs is with the `ons.createElement(template)` utility function. The dialog needs to be defined as a template (or a separate file) and the function returns a `Promise` that resolves to the dialog element.
 
 ```
 <template id="dialog.html">
@@ -118,11 +101,13 @@ Another way to use alert dialogs is with the `ons.createAlertDialog(template)` u
 
 ```
 ons
-  .createAlertDialog('dialog.html')
+  .createElement('dialog.html', { append: true })
   .then(function(dialog) {
     dialog.show();
   });
 ```
+
+Do not forget attaching the created dialog to the DOM. This can be done by passing `append` options to `ons.createElement`.
 
 ## The `cancelable` attribute
 
@@ -141,8 +126,10 @@ Try adding the `cancelable` attribute to the dialog to see how it works.
 Another way to display alert dialogs is with the `ons.notification` methods:
 
 * `ons.notification.alert(options)`
+* `ons.notification.confirm(options)`
+* `ons.notification.prompt(options)`
 
-This method returns a `Promise`.
+These methods all return a `Promise`. For the `confirm` it resolves to the index of the button pressed and for the `prompt` it resolves to the user input.
 
 ```
 ons

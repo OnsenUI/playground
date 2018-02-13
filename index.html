@@ -73,43 +73,63 @@
 
   <nav id="h2" class="design-2016">
     <div class="title">
-      <a href="https://onsen.io/"><span class="logo"></span></a><a href="." target="_self"><span class="subtitle"><span>Playground</span></span></a>
+      <a href="https://onsen.io/"><span class="logo"></span></a>
+      <a href="." target="_self">
+        <span class="subtitle">
+          <span i18n content="Playground" content-ja="プレイグランド"></span>
+        </span>
+      </a>
     </div>
     <ul class="header-links">
       <li>
-        <a href="https://onsen.io/v2/guide/">Guide</a>
+        <a href="https://onsen.io/v2/guide/" i18n content="Guide" content-ja="ガイド"></a>
       </li>
       <li>
-        <a href="https://onsen.io/v2/api/js/">API</a>
+        <a href="https://onsen.io/v2/api/js/" i18n content="API" content-ja="API"></a>
       </li>
       <li>
-        <a href="https://community.onsen.io/">Forum</a>
+        <a href="https://community.onsen.io/" i18n content="Community" content-ja="コミュニティ"></a>
       </li>
       <li>
-        <a href="https://gitter.im/OnsenUI/OnsenUI">Chat</a>
+        <a href="https://gitter.im/OnsenUI/OnsenUI" i18n content="Chat" content-ja="チャット"></a>
       </li>
       <li>
-        <a href="https://medium.com/the-web-tub">Articles</a>
+        <a href="https://medium.com/the-web-tub" i18n content="Articles" content-ja="ブログ"></a>
       </li>
     </ul>
   </nav>
 
   <div id="h3">
     <div id="toolbar">
-      <button id="modify-button" class="toolbar-button tooltip" tooltip="Modify the source of this tutorial"><span class="icon"></span><span class="label">Improve this</span></button>
+      <button id="modify-button" class="toolbar-button tooltip"
+        tooltip="Modify the source of this tutorial"
+        tooltip-ja="このチュートリアルのソースコードを編集する"
+       >
+        <span class="icon"></span><span class="label" i18n content="Improve this" content-ja="改善する"></span>
+      </button>
       <!--<button id="download-button" class="toolbar-button tooltip" tooltip="Generate Cordova project based on this sample"><span></span>Download</button>-->
       <form id="codepen-form" action="https://codepen.io/pen/define" method="POST" target="_blank">
         <input type="hidden" name="data" id="codepen-data">
-        <button id="codepen-button" class="toolbar-button tooltip" tooltip="Export this sample to Codepen"><span class="icon"></span><span class="label">Export to Codepen</span></button>
+        <button id="codepen-button" class="toolbar-button tooltip"
+          tooltip="Export this sample to Codepen"
+          tooltip-ja="このサンプルをCodepenにエクスポートする"
+        >
+          <span class="icon"></span><span class="label" i18n content="Export to Codepen" content-ja="Codepenにエクスポート"></span>
+        </button>
       </form>
-      <button id="issue-button" class="toolbar-button tooltip" tooltip="Report an issue on GitHub based on this code"><span class="icon"></span><span class="label">Report an issue</span></button>
+      <button id="issue-button" class="toolbar-button tooltip"
+        tooltip="Report an issue on GitHub based on this code"
+        tooltip-ja="このコードに関する問題をGitHubに報告する"
+      >
+        <span class="icon"></span><span class="label" i18n content="Report an issue" content-ja="問題を報告する"></span>
+      </button>
     </div>
 
     <!-- menu - dropdown - frameworks - tuts -->
     <label id="modules">
       <div class="select">
         <span class="select-thumbnail"></span>
-        <span class="select-item">Select Template</span>
+        <span class="select-item" i18n content="Select Template" content-ja="テンプレートの選択"></span>
         <span class="select-arrow"></span>
       </div>
 
@@ -121,6 +141,7 @@
         <div class="menu-container">
           <label class="menu-search">
             <input id="search-input" type="search" placeholder="Filter by space-separated keywords (e.g. page push)" autocomplete="off">
+            <script>if (app.config.lang === 'ja') document.getElementById('search-input').placeholder = 'スペース区切りのキーワードによる絞り込み（例：push）'</script>
           </label>
 
           <ul class="menu-list">
@@ -214,15 +235,15 @@
     <div id="leftBottomPane" class="split content">
       <div id="output" class="frame">
         <div class="preview-toolbar">
-          <div id="run" class="custom-button"><span><span>▶</span> Run</span></div>
+          <div id="run" class="custom-button"><span><span>▶ </span><span class="button-text" i18n content="Run" content-ja="実行"></span></span></div>
           <span id="styling">
             <label class="custom-button">
               <input type="radio" name="styling" checked>
-              <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label">iOS View</span></span>
+              <span platform="ios"><span class="styling-icon icon-ios"></span><span class="styling-label">iOS</span></span>
             </label>
             <label class="custom-button">
               <input type="radio" name="styling">
-              <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label">Android View</span></span>
+              <span platform="android"><span class="styling-icon icon-android"></span><span class="styling-label">Android</span></span>
             </label>
           </span>
         </div>
