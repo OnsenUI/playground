@@ -74,13 +74,13 @@ It is normally put as a direct descendant to the `<ons-page>` element.
 
 ## Setting the callback
 
-To set the callback that should be executed when the user pulls the page you can modify the `actionCallback(callback)` property.
+To set the callback that should be executed when the user pulls the page you can modify the `onAction` property.
 
 The callback will take a function as an argument that needs to be called when the action is performed. Calling the function will cause the page to snap back into position.
 
 ```
 var pullHook = document.getElementById('pull-hook');
-pullHook.actionCallback = function(done) {
+pullHook.onAction = function(done) {
   refreshTheData()
     .then(done);
 };
@@ -125,6 +125,8 @@ There are a number of attributes that can be used to configure how the `<ons-pul
 The `height` attribute defines how long the component must be pulled before transitioning to the `preaction` state. With the `threshold-height` attribute the component can be configured to transition directly to the `action` state without releasing.
 
 There is also an attribute called `fixed-content` that prevents the page from moving while scrolling.
+
+Additionally, the `onPull` DOM prop provides a way to gradually modify the appearance of the pull-hook when the user pulls it. This could be useful, for example, to place a `<ons-progress-circular>` element as the visual part of `<ons-pull-hook>` and change it progress value as the user pulls.
 
 -->
 

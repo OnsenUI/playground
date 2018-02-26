@@ -64,5 +64,16 @@ It will automatically find the Navigator element and trigger a `popPage()` call 
 
 The `popPage()` method of `<ons-navigator>` can also be used directly instead of `<ons-back-button>`.
 
+## Overriding default behavior
+
+The `onClick` DOM property is available to modify the default behavior of `ons-back-button`:
+
+```javascript
+document.querySelector('ons-back-button').onClick = function(event) {
+  // Reset the whole stack instead of popping 1 page
+  document.querySelector('ons-navigator').resetToPage('home.html');
+};
+
+```
 
 -->

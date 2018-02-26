@@ -6,6 +6,8 @@
 
   <script>
     document.addEventListener('init', function(event) {
+      console.log('This is a lifecycle event!', event.target);
+
       var page = event.target;
       if (page.matches('#helloworld-page')) {
         page.querySelector('ons-toolbar .center').innerHTML = 'My app';
@@ -30,13 +32,19 @@
     <p style="text-align: center">
       <ons-button>Click me!</ons-button>
     </p>
+
+    <script>
+      ons.getScriptPage().onInit = function() {
+        console.log('This is a lifecycle hook!', this);
+      };
+    </script>
   </ons-page>
 </body>
 </html>
 
 <!-- info
 
-## The `<ons-page>` element
+## The page element
 
 The root of a page in Onsen UI is created using the `<ons-page>` element. It covers the whole screen and is used as a container for the other elements. When managing multiple views, all of them must be contained in `<ons-page>` element.
 
@@ -62,7 +70,7 @@ This element automatically spawns a `background` and a `content` elements. These
 </ons-page>
 ```
 
-Since `content` element is transparent by default, we can add custom colors to the `background` element. Notice that, if `content` element is provided, scrollable and fixed content must be manually separated as well.
+Since `content` element is transparent by default, we can add custom colors to the `background` element. Notice that, if `content` element is provided, scrollable and fixed content must be manually separated as well. See `Compilation` section for further details.
 
 ## Lifecycle
 
@@ -98,5 +106,85 @@ Alternatively, lifecycle hooks are also provided for those who prefer a more com
 ```
 
 `ons.getScriptPage()` returns the page element of the current `script` tag. It cannot be used in any other context.
+
+## Infinite scroll
+
+By using the `onInfiniteScroll` DOM prop or the `on-infinite-scroll` attribute we can set an action that will be executed whenever the scroll reaches the bottom of the page. This can be used, for example, to add new items to a list:
+
+```javascript
+document.addEventListener('init', function(event) {
+  var page = event.target;
+
+  page.onInfiniteScroll = function(done) {
+    var list = page.querySelector('ons-list');
+
+    getNewAsyncData()
+      .then(function(data) {
+
+        data.forEach(function(item) {
+          var newItem = ons.createElement('<ons-list-item>' + item + '<ons-list-item>');
+          list.appendChild(newItem);
+        });
+
+        done(); // Important!
+      });
+  };
+});
+```
+
+Note that `done` callback should be called when the processing is over. If, for some reason, you have asynchronous operations, make sure `done` runs after everything is finished.
+
+## Compilation
+
+There are basically 3 parts inside an ons-page:
+
+ * Background: Applies background color or image.
+ * Scrollable content: Scrollable part where most of the content is included.
+ * Fixed elements: Content that is fixed in the screen during scroll.
+
+`ons-page` tries to separate fixed and scrollable content upon creation when these parts are not provided. Specifically, when you create a page like this:
+
+```html
+<ons-page>
+  <ons-toolbar></ons-toolbar>
+  Some content here
+  <ons-input></ons-input>
+  <ons-fab></ons-fab>
+  <div>More content</div>
+</ons-page>
+````
+
+`ons-page` will compile in the following way:
+
+```html
+<ons-page class="page">
+  <ons-toolbar></ons-toolbar>
+  <div class="page__background"></div>
+  <div class="page__content">
+    Some content here
+    <ons-input></ons-input>
+    <div>More content</div>
+  </div>
+  <ons-fab></ons-fab>
+</ons-page>
+```
+
+As you can see, it added `.page`, `div.page__background` and `div.page__content` automatically. `ons-toolbar` and `ons-fab` are fixed content so they are left outside the previous wrappers. If you want to add an extra ons-fab after all of this happens, you should add it as a direct child of ons-page. However, other non-fixed elements like `ons-input` must be appended inside `div.page__content`.
+
+Knowing this, it is very easy to bypass the compilation process. If you directly provide the previous structure, Onsen UI won’t need to change anything at all. To make it easier, you can just include `<div class="content">` or `<div class="background">` and the other necessary classes (`page__content` and `page__background`) will be added automatically. Example:
+
+```html
+<ons-page>
+  <ons-toolbar></ons-toolbar>
+  <div class="content">
+    Some content here
+    <ons-input></ons-input>
+    <div>More content</div>
+  </div>
+  <ons-fab></ons-fab>
+</ons-page>
+```
+
+As a side note, the scrollable part of `ons-page` is precisely `div.page__content`. Therefore, if you need to add listeners or anything else, you should use the latter.
 
 -->

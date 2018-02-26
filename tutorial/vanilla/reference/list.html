@@ -27,7 +27,7 @@
       <ons-list-header>Thumbnails and titles</ons-list-header>
       <ons-list-item>
         <div class="left">
-          <img class="list-item__thumbnail" src="http://placekitten.com/g/40/40">
+          <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
         </div>
         <div class="center">
           <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
@@ -95,11 +95,12 @@
 
 Creating lists in Onsen UI is very simple and they are one of the most important UI components in mobile apps.
 
-Onsen UI provides three elements for creating lists:
+Onsen UI provides some elements for creating lists:
 
 * `<ons-list>`
 * `<ons-list-item>`
 * `<ons-list-header>`
+* `<ons-list-title>`
 
 ## Markup
 
@@ -115,13 +116,19 @@ The `<ons-list>` is used as the parent and for every item one `<ons-list-item>` 
 
 This will render as a list with three items.
 
-## Headers
+## Headers and titles
 
-To group items together you can use the `<ons-list-header>` element to create a header with text content.
+To group items together you can use the `<ons-list-header>` element to create a header with text content. The whole list can be preceded by a `<ons-list-title>` element.
 
 ```
+<ons-list-title>People I know</ons-list-title>
 <ons-list>
   <ons-list-header>My friends</ons-list-header>
+  <ons-list-item>Alice</ons-list-item>
+  <ons-list-item>Bob</ons-list-item>
+  <ons-list-item>Eve</ons-list-item>
+
+  <ons-list-header>My enemies</ons-list-header>
   <ons-list-item>Alice</ons-list-item>
   <ons-list-item>Bob</ons-list-item>
   <ons-list-item>Eve</ons-list-item>
@@ -150,6 +157,28 @@ This can be used to add icons, thumbnails or even form elements to your list ite
 </ons-list-item>
 ```
 
+The child elements can also be `label` or even `ons-if`.
+
+Apart from this, some extra classes are provided to style different parts of the list items:
+
+  * `list-item__title`: Title inside the central part. Modifies font and position.
+  * `list-item__subtitle`: Subtitle inside the central part. Modifies font and position.
+  * `list-item__icon`: List item icon. Modifies size and alignment.
+  * `list-item__thumbnail`: List item thumbnail. Modifies size, borders and alignment.
+
+```html
+<ons-list-item>
+  <div class="left">
+    <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+  </div>
+  <div class="center">
+    <span class="list-item__title">Cutest kitty</span>
+    <span class="list-item__subtitle">On the Internet</span>
+  </div>
+</ons-list-item>
+
+```
+
 ## The `tappable` attribute
 
 The `tappable` attribute is used to give the user an indication when they tap a list item. In iOS the background color will change when tapped and on Android it will display the Material Design ripple effect.
@@ -160,17 +189,17 @@ The `tappable` attribute is used to give the user an indication when they tap a 
 
 This is very useful in apps that perform some action or navigate to a new page when a list item is tapped.
 
+In order to prevent tappable effect when tapping on specific child elements like custom buttons, `prevent-tap` attribute can be added to any of the children. `ons-*` elements like `ons-button` or `ons-checkbox` are ignored by default.
+
 ## Modifiers
 
 There is a bunch of modifiers that can be used to customize the look of the lists and list items.
 
 In Onsen UI modifiers are applied by adding the `modifier` attribute to an element. More than one can be added by separating them with spaces.
 
-### Inset lists
+For example, to create an inset list you can use the `inset` modifier on the `<ons-list>` element:
 
-To create an inset list you can use the `inset` modifier on the `<ons-list>` element:
-
-```
+```html
 <ons-list modifier="inset">
   ...
 </ons-list>
@@ -178,7 +207,7 @@ To create an inset list you can use the `inset` modifier on the `<ons-list>` ele
 
 ### Changing the divider
 
-The `longdivider` and `nodivider` modifiers can be used to change the length or remove the divider (horizontal line) between list items completely. The default style for list items is a divider that doesn't completely cover the whole screen. Instead it has some padding on the left to make it look more similar to native lists.
+The `longdivider` and `nodivider` modifiers can be used to change the length or remove the divider (horizontal line) between list items completely. The default style for list items is a divider that doesn't completely cover the whole screen. Instead, it has some padding on the left to make it look more similar to native lists.
 
 By adding the `nodivider` modifier the divider can be removed:
 
@@ -189,4 +218,20 @@ By adding the `nodivider` modifier the divider can be removed:
 </ons-list>
 ```
 
+## Compilation
+
+`ons-list-item` adds extra classes to avoid CSS collisions. The final results is as follows:
+
+```html
+<ons-list-item class="list-item">
+  <div class="left list-item__left">Left content</div>
+  <div class="center list-item__center">Center content</div>
+  <div class="right list-item__right">Right content</div>
+</ons-list-item>
+```
+
+If none of those sections is provided, `ons-list-item` will wrap all its content inside `div.list-item__center`.
+
+
 -->
+
