@@ -40,10 +40,21 @@
 
 ## Select input
 
-The `<ons-select>` element is used to display a select box with an arbitrary number of options. The `select-id` attribute can be used for targeting the inner select element.
+The `<ons-select>` element is used to display a select box with an arbitrary number of options. It will display a native select on mobile devices.
 
-There are several attributes that can be used to customize the behavior of the element. These are the same attributes as those that can be used for the regular HTML `<select>` element.
+There are several attributes that can be used to customize the behavior of the element. These are the same attributes as those that can be used for the regular HTML `<select>` element, including `multiple`. The `select-id` attribute can be used for targeting the inner select element.
 
-Please check the Onsen UI Reference documentation for a complete reference of the enabled attributes.
 
+## Compilation
+
+`ons-select` component simply adds a native `select` element if none is provided:
+
+```html
+<ons-select class="select">
+  <select class="select-input">
+    <option>Opt 1</option>
+    <option>Opt 2</option>
+  </select>
+</ons-select>
+```
 -->

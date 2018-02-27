@@ -5,17 +5,15 @@
   <meta charset="UTF-8">
   <title>Onsen UI App</title>
 
-  <script>
-    var search = function(input) {
-      ons.notification.alert('Searched for "' + input.value + '"');
-    };
-  </script>
 </head>
 
 <body>
   <ons-page>
     <p style="text-align: center; margin-top: 10px;">
-      <ons-search-input placeholder="Search" onchange="search(this)"></ons-search-input>
+      <ons-search-input
+        placeholder="Search"
+        onchange="ons.notification.alert('Searhed for: ' + this.value)"
+      ></ons-search-input>
     </p>
   </ons-page>
 </body>

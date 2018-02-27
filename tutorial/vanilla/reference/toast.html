@@ -5,27 +5,28 @@
   <meta charset="UTF-8">
   <title>Onsen UI App</title>
 
-  <script>
-    var toggleToast = function() {
-      document.getElementById('toast-1').toggle();
-    };
-
-    var notificationToast = function() {
-      ons.notification.toast('This is another toast', {
-        timeout: 2000
-      });
-    };
-  </script>
 </head>
 
 <body>
   <ons-page>
-    <ons-button onclick="toggleToast()">Toggle toast 1</ons-button>
-    <ons-button onclick="notificationToast()">Show toast 2</ons-button>
+    <p>
+      <ons-button
+        onclick="ons.notification.toast('Hi there!', { timeout: 1000, animation: 'fall' })"
+      >
+        Queue notification toast (top)
+      </ons-button>
+
+      <br><br>
+
+      <ons-button onclick="myToast.toggle()">Toggle element toast (bottom)</ons-button>
+    </p>
+
+    <ons-fab position="bottom right">+</ons-fab>
   </ons-page>
 
-  <ons-toast id="toast-1">
-    This is a toast
+  <ons-toast id="myToast" animation="ascend">
+    FABs up!
+    <button onclick="myToast.hide()">ok</button>
   </ons-toast>
 </body>
 
@@ -35,7 +36,7 @@
 
 ## Toasts
 
-Toasts are defined using the `<ons-toast>` tag.
+Toasts are defined using the `<ons-toast>` tag. In Material Design they are also called Snackbars.
 
 ```
 <ons-toast id="dialog-1">
@@ -53,7 +54,7 @@ To display a toast you need to get a reference to the element and execute the `s
 
 ```
 document
-  .getElementById('toast-1')
+  .querySelector('ons-toast')
   .show();
 ```
 
