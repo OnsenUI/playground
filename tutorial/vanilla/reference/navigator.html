@@ -54,7 +54,7 @@ The `<ons-navigator>` element handles a stack of pages. This is a very common ty
 
 To change the animation you can use the `animation` attribute:
 
-```
+```html
 <ons-navigator animation="fade"></ons-navigator>
 ```
 
@@ -71,7 +71,7 @@ For iOS' "swipe to pop" feature, add the `swipeable` attribute. Note that this b
 
 The pages that you push to the Navigator are defined using a `<template>` element.
 
-```
+```html
 <template id="page2.html">
   <ons-page>
     ...
@@ -87,14 +87,14 @@ To push a new page to the top of the stack, the `pushPage(page, options)` method
 
 In Onsen UI all such methods are attached to the element so you need to create a reference to it:
 
-```
+```javascript
 var myNavigator = document.getElementById('myNavigator');
 myNavigator.pushPage('page2.html');
 ```
 
 The method returns a `Promise` object that is resolved when the transition is finished. You can try adding the following code:
 
-```
+```javascript
 myNavigator
   .pushPage('page2.html')
   .then(function() {
@@ -106,7 +106,7 @@ myNavigator
 
 It may be useful to have access to custom data when we push a new page. This is achieved by passing `options.data` parameter:
 
-```
+```javascript
 myNavigator
   .pushPage('page2.html', {
     data: {
@@ -118,7 +118,6 @@ myNavigator
 ```
 
 `options.data` object will be available in the new page element: `myNavigator.topPage.data`.
-
 
 ## Going back
 

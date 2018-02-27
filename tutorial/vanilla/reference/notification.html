@@ -45,7 +45,7 @@
 
 ## Notification
 
-Dialogs can be displayed with the `ons.notification` methods:
+Dialogs can be displayed with the `ons.notification` shortcut methods:
 
 * `ons.notification.alert(options)`
 * `ons.notification.confirm(options)`
@@ -56,12 +56,14 @@ These methods all return a `Promise`. For the `confirm` it resolves to the index
 
 ```
 ons
-  .notification.prompt({message: 'What is your name?'})
+  .notification.prompt({ message: 'What is your name?' })
   .then(function(name) {
     ons.notification.alert('Hello ' + name);
   });
 ```
 
 The `<ons-dialog>`, `<ons-alert-dialog>` and `<ons-toast>` tags can also be used instead of `ons.notification`.
+
+Toasts created by `ons.notification.toast` are queued internally to prevent overlays.
 
 -->

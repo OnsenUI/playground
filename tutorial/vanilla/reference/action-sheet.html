@@ -32,7 +32,7 @@
             icon: 'md-close'
           }
         ]
-      }).then(function (index) { console.log('index: ', index) })
+      }).then(function (index) { console.log('index: ', index) });
     };
   </script>
 </head>
@@ -45,6 +45,7 @@
 
     <p style="text-align: center">
       <ons-button onclick="app.showFromTemplate()">Create from template</ons-button>
+      <br><br>
       <ons-button onclick="app.showFromObject()">Create from object</ons-button>
     </p>
 
@@ -64,9 +65,19 @@
 
 <!-- info
 
-## Static action sheet
+## Action sheets
 
 Onsen UI provides `<ons-action-sheet>` and `<ons-action-sheet-button>` elements. Use them to create a dialog that slides from the bottom of the screen to give user options.
+
+```html
+<ons-action-sheet id="sheet" cancelable title="From template">
+  <ons-action-sheet-button icon="md-square-o">Label</ons-action-sheet-button>
+  <ons-action-sheet-button icon="md-square-o">Label</ons-action-sheet-button>
+  <ons-action-sheet-button icon="md-close">Cancel</ons-action-sheet-button>
+</ons-action-sheet>
+```
+
+This component is referred as "Bottom sheets" in the Material Design spec.
 
 You can display or cancel the action sheet by calling its methods `show` or `hide` respectively.
 
@@ -75,5 +86,13 @@ You can display or cancel the action sheet by calling its methods `show` or `hid
 You can also create and open an action sheet dynamically with the method `ons.openActionSheet`.
 
 This method takes as argument an object where you can define the action sheet's properties (e.g. `id`, `title`) and the buttons inside it.
+
+```js
+ons.openActionSheet({
+  title: 'My Action Sheet',
+  cancelable: true,
+  buttons: ['Label 0', 'Label 1', 'Label 2']
+});
+```
 
 -->

@@ -5,26 +5,24 @@
   <meta charset="UTF-8">
   <title>Onsen UI App</title>
 
-  <script>
-    document.addEventListener('init', function(event) {
-      var page = event.target;
-      if (page.matches('#helloworld-page')) {
-        page.querySelector('ons-toolbar .center').innerHTML = 'My app';
-      }
-    });
-  </script>
 </head>
 
 <body>
   <ons-page id="helloworld-page">
     <ons-toolbar>
-      <div class="center"></div>
+      <div class="left">
+        <ons-toolbar-button icon="md-face"></ons-toolbar-button>
+      </div>
+
+      <div class="center">Title</div>
+
       <div class="right">
-        <ons-toolbar-button>
-          <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-        </ons-toolbar-button>
+        <ons-toolbar-button>-</ons-toolbar-button>
+        <ons-toolbar-button>+</ons-toolbar-button>
       </div>
     </ons-toolbar>
+
+    <p style="text-align: center">Some content.</p>
   </ons-page>
 </body>
 
@@ -53,5 +51,25 @@ In Onsen UI this is achieved using the `<ons-toolbar>` element. It is divided in
 ```
 
 Buttons can be added to the toolbar with the `<ons-toolbar-button>` element.
+
+## Inline and static toolbars
+
+We can indicate that the toolbar should be part of the scrollable content with the `inline` attribute.
+
+Additionally, the `static` attribute prevents the toolbar from being animated in some navigator animations to enhance performance.
+
+## Compilation
+
+`ons-toolbar` divides its layout in three parts: `div.left`, `div.center` and `div.right`. However, these classes are simple aliases for the real classes. A normal toolbar will compile its content as follows:
+
+```html
+<ons-toolbar class="toolbar">
+  <div class="left toolbar__left">Left content</div>
+  <div class="center toolbar__center">Center content</div>
+  <div class="right toolbar__right">Right content</div>
+</ons-toolbar>
+```
+
+In addition, these containers are sorted automatically to always match “left - center - right” order.
 
 -->

@@ -87,7 +87,7 @@ By default the carousel can not be controlled by swiping. The `swipeable` attrib
 
 To make it automatically snap to item borders the `auto-scroll` attribute is used. The `overscrollable` attribute makes it possible to scroll past the first and last element of the carousel.
 
-To make it cover the whole screen you can use the `fullscreen` attribute.
+To make it cover the whole screen you can use the `fullscreen` attribute. If the carousel is not fullscreen you may need to specify the height or the width of the items through CSS.
 
 ## Changing the direction
 
@@ -101,26 +101,20 @@ The carousel goes from left to right by default. It is possible to make scroll v
 
 You can try adding the `direction="vertical"` attribute to this example to see how it works.
 
-## Methods
+## Compilation
 
-The carousel can also be controlled programmatically. To switch to the previous or next item the `prev()` and `next()` are used.
+`<ons-carousel>` element slightly modifies its content to make it swipeable by adding `div.ons-swiper-target` wrapper. The final results look like this:
 
+```html
+<ons-carousel>
+  <div class="ons-swiper-target">
+    <ons-carousel-item></ons-carousel-item>
+    <ons-carousel-item></ons-carousel-item>
+    <ons-carousel-item></ons-carousel-item>
+  </div>
+</ons-carousel>
 ```
-var carousel = document.getElementById('carousel');
-carousel.next();
-```
 
-To switch to a specific item the `setActiveIndex(index)` method is used.
-
-## Events
-
-The carousel element emits DOM event. Every time the current item has changed it emits the `postchange` event which is useful to make sure which is the currently displayed item:
-
-```
-var carousel = document.getElementById('carousel');
-carousel.addEventListener('postchange', function(event) {
-  console.log('Current item is ' + event.activeIndex);
-});
-```
+This wrapper can also be manually provided.
 
 -->

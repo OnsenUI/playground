@@ -46,11 +46,11 @@
 
 ## Popover
 
-A popover can be used to give additional information about a component or add extra functionality.
+A popover can be used to give additional information about a component or add extra functionality. In Material Design it looks like a toolbar menu or a dropdown.
 
 The usage is very similar to that of `<ons-dialog>` and `<ons-alert-dialog>`. It is defined using the `<ons-popover>` tag:
 
-```
+```html
 <ons-popover>
   This is a popover!
 </ons-popover>
@@ -66,7 +66,7 @@ To display the popover you need to get a reference to the element and execute th
 
 Just like the `<ons-dialog>` and `<ons-alert-dialog>` elements the popover can be loaded from a template. It is done by using the `ons.createElement(template)` utility function. It returns a `Promise` that resolves to the popover element.
 
-```
+```html
 <template id="popover.html">
   <ons-popover>
     This popover is defined as a template.
@@ -74,7 +74,7 @@ Just like the `<ons-dialog>` and `<ons-alert-dialog>` elements the popover can b
 </template>
 ```
 
-```
+```javascript
 ons
   .createElement('popover.html', { append: true })
   .then(function(popover) {
@@ -82,14 +82,13 @@ ons
   });
 ```
 
-## The `cancelable` attribute
+## The "cancelable" attribute
 
-The `<ons-popover>` supports the `cancelable` attribute. This enables hiding the popover when the user taps outside of it or presses the back button on an Android device.
+`<ons-popover>` supports the `cancelable` attribute. This enables hiding the popover when the user taps outside of it or presses the back button on an Android device.
 
 ```
 <ons-popover cancelable>
   This popover can be cancelled!
 </ons-popover>
 ```
-
 -->

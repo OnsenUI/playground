@@ -51,7 +51,7 @@ In Onsen UI tab navigation is enabled using the `<ons-tabbar>` element.
 
 Tabs are added using `<ons-tab>` which is a child of `<ons-tabbar>`:
 
-```
+```html
 <ons-tabbar>
   <ons-tab label="Tab 1" active></ons-tab>
   <ons-tab label="Tab 2"></ons-tab>
@@ -60,7 +60,7 @@ Tabs are added using `<ons-tab>` which is a child of `<ons-tabbar>`:
 
 The `active` attribute is used to define the tab which should be open by default. If this attribute is not provided, the first page will be activated by default.
 
-## The `<ons-tab>` element
+## The tab element
 
 A tab accepts multiple attriutes to change its style and behavior, i.e. `page`, `label` or `icon`.
 
@@ -87,7 +87,7 @@ Binding pages to the tabs works very similar to the `<ons-navigator>`.
 
 The content of the pages is defined using a `<template>` element:
 
-```
+```html
 <template id="tab1.html">
   <ons-page>
     ...
@@ -97,7 +97,7 @@ The content of the pages is defined using a `<template>` element:
 
 and in order to bind a template to a specific tab the `page` attribute is used on the `<ons-tab>` element:
 
-```
+```html
 <ons-tab
   label="Tab 1"
   page="tab1.html">
@@ -106,13 +106,13 @@ and in order to bind a template to a specific tab the `page` attribute is used o
 
 ## Swipes and Animations
 
-has default, the tab bar will slide from one page to another on tab click. Use `animation="none"` attribute to have an instant change.
+By default, the tab bar will slide from one page to another on tab click. Use `animation="none"` attribute to have an instant change.
 
 `swipeable` attribute can be used to enable this functionality. It can be toggled to allow or prevent swipes at different moments of the app.
 
 These attributes can be combined to have a tab bar with instant changes that can also be swiped:
 
-```
+```html
 <ons-tabbar swipeable animation="none">...</ons-tabbar>
 ```
 

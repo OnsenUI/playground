@@ -56,6 +56,8 @@ Just like the normal input tag you can use the `type` attribute to define what k
 
 You can also use types like `number` or `date`. The only exception are checkboxes and radio buttons, which are implemented in different elements.
 
+Any valid HTML attribute for inputs should work in `ons-input` (`required`, `max`, etc.).
+
 ## Floating label
 
 For Android devices the input will displayed as a Material Design input element. One of the features of this input is that it can have a floating label which will animated when the user starts typing. Try changing the style to Android to see how it works.
@@ -63,10 +65,7 @@ For Android devices the input will displayed as a Material Design input element.
 The label is defined with the `placeholder` attribute and to activate the animation the `float` attribute is required.
 
 ```html
-<ons-input
-  placeholder="Username"
-  float>
-</ons-input>
+<ons-input placeholder="Username" float></ons-input>
 ```
 
 ## Inner input element

@@ -99,7 +99,7 @@ There are three kinds of icons available in Onsen UI:
 * [Material Icons](https://design.google.com/icons/)
 * [Ionicons](http://ionicons.com/)
 
-The `icon` attribute is prefixed with `fa-` for Font Awesome, `md-` for Material Icons and `ion-` for Ionicons.
+The `icon` attribute is prefixed with `fa-` for Font Awesome, `md-` for Material Icons and `ion-` for Ionicons. If no prefix is provided, `fa-` will be added by default. In order to disable this behavior (for custom icons), you need to call `ons.disableIconAutoPrefix()`.
 
 Ionicons are good for iOS apps while the Material Icons work best for apps using Material Design.
 
@@ -162,18 +162,17 @@ Icons are often used inside other components. To add an icon to a button all you
   <ons-icon icon="md-face"></ons-icon>
   Button
 </ons-button>
-```
-
-Of course you can also put it in toolbar buttons and floating action buttons:
-
-```
-<ons-toolbar-button>
-  <ons-icon icon="md-menu"></ons-icon>
-</ons-toolbar-button>
 
 <ons-fab>
   <ons-icon icon="md-plus"></ons-icon>
 </ons-fab>
+```
+
+Some components implement an `icon` attribute that works as a shortcut:
+
+```
+<ons-toolbar-button icon="md-menu"></ons-toolbar-button>
+<ons-action-sheet-button icon="md-edit"></ons-action-sheet-button>
 ```
 
 -->
