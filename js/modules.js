@@ -118,6 +118,7 @@ app.modules = {
       'switch': 'switches',
       'button': 'buttons',
       'range': 'range sliders',
+      'segment': 'segment',
       'select': 'select input',
       'icon': 'icons',
       'card': 'card',
