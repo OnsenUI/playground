@@ -17,14 +17,17 @@
     template: `
     <ons-page>
       <ons-toolbar>
-        <div class="center">Input</div>
+        <div class="center">Search Input</div>
       </ons-toolbar>
       <div class="background"></div>
       <div class="content">
         <div style="padding: 10px">
-          <div><ons-input placeholder="Type here" [(value)]="target"></ons-input></div>
-
-          <p>Text: {{target}}</p>
+          <p>
+            <ons-search-input id="text" placeholder="Type here" [(value)]="target"></ons-search-input>
+          </p>
+          <p id="target">
+            {{target}}
+          </p>
         </div>
       </div>
     </ons-page>
@@ -43,7 +46,6 @@
   class AppModule { }
 
   platformBrowserDynamic().bootstrapModule(AppModule);
-
   </script>
 
 </head>
@@ -54,10 +56,28 @@
 
 <!-- info
 
-## Input
+## Search input
 
-`ons-input` element renders a input box. Please refer to [ons-input element Reference](https://onsen.io/v2/docs/angular2/ons-input.html) for more details.
+Even though `ons-input` supports `type="search"`, Onsen UI provides an extra element `ons-search-input` that styles the input as a real search bar:
 
-Tutorial contents will be added soon.
+```html
+<ons-search-input placeholder="Search something"></ons-search-input>
+```
+
+As usual, any attribute for `<input>` element works for the search input (except `type` which is fixed to `search`).
+
+## Inner input element
+
+For normal input elements is possible to define a `<label>` tab with the `for` attribute to link it to an input element.
+
+Unfortunately this does not work with custom elements like `<ons-label>` so in order to do it we need to set the `id` attribute of the inner input element. This is done using the `input-id` attribute.
+
+```
+<label for="username">Username</label>
+<ons-input input-id="username"></ons-input>
+```
+
+This work with any input in Onsen UI such as checkboxes, radios, etc.
 
 -->
+

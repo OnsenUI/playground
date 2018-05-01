@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/typescript">
+  import {
+    Component,
+    ViewChild,
+    OnsenModule,
+    NgModule,
+    CUSTOM_ELEMENTS_SCHEMA
+  } from 'ngx-onsenui';
+  import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+  @Component({
+    selector: 'app',
+    template: `
+      <ons-page>
+        <ons-toolbar>
+          <div class="center">
+            <ons-segment #segment id="segment" style="width: 280px; margin-top: 8px;">
+              <button>Segment 1</button>
+              <button>Segment 2</button>
+              <button>Segment 3</button>
+            </ons-segment>
+          </div>
+        </ons-toolbar>
+        <p>Selected Segment: {{segment.getActiveButtonIndex() + 1}}</p>
+      </ons-page>
+    `
+  })
+  export class AppComponent {
+    @ViewChild('segment') _segment: any;
+
+    constructor() {
+      document.addEventListener('postchange', function (event) {
+        console.log('postchange event', event);
+      });
+    }
+  }
+
+  @NgModule({
+    imports: [OnsenModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  })
+  class AppModule { }
+
+  platformBrowserDynamic().bootstrapModule(AppModule);
+  </script>
+</head>
+<body>
+  <app></app>
+</body>
+</html>
+
+<!-- info
+
+## Segment
+
+The `<ons-segment>` component allows you to have a nice button bar with only one active button at a time. It may be useful for example for filtering lists.
+
+-->
