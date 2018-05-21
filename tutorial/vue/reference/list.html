@@ -7,7 +7,12 @@
   <script type="text/babel">
     new Vue({
       el: '#app',
-      template: '#main'
+      template: '#main',
+      data() {
+        return {
+          isExpanded: false
+        }
+      }
     });
   </script>
 </head>
@@ -22,7 +27,21 @@
         <v-ons-list-header>Default</v-ons-list-header>
         <v-ons-list-item>Item A</v-ons-list-item>
         <v-ons-list-item>Item B</v-ons-list-item>
+      </v-ons-list>
+      <br />
 
+      <v-ons-button @click="isExpanded = !isExpanded">Toggle expansion</v-ons-button>
+
+      <v-ons-list>
+        <v-ons-list-header>Expandable</v-ons-list-header>
+        <v-ons-list-item expandable :expanded.sync="isExpanded">
+          Tap to expand
+          <div class="expandable-content">Expandable content</div>
+        </v-ons-list-item>
+      </v-ons-list>
+      <br />
+
+      <v-ons-list>
         <v-ons-list-header>Tappable / Ripple</v-ons-list-header>
         <v-ons-list-item tappable>Tap me</v-ons-list-item>
 
@@ -147,7 +166,7 @@ You can use as many headers as you want in the same list.
 
 ## List item structure
 
-In the previous examples the list items only contained simple text content. Onsen UI list items provide a secondary syntax where the list item is divided into three sections.
+In the previous examples the list items only contained simple text content. Onsen UI list items provide a secondary syntax where the list item is divided into four sections.
 
 This can be used to add icons, thumbnails or even form elements to your list items:
 
@@ -161,6 +180,9 @@ This can be used to add icons, thumbnails or even form elements to your list ite
   </div>
   <div class="right">
     <v-ons-switch></v-ons-switch>
+  </div>
+  <div class="expandable-content">
+    Expandable content
   </div>
 </v-ons-list-item>
 ```
@@ -186,6 +208,23 @@ Apart from this, some extra classes are provided to style different parts of the
 </v-ons-list-item>
 
 ```
+
+## Expandable list items
+
+You can create list items that expand to reveal extra content when tapped by setting the `expandable` attribute.
+The content that is shown when the list item is expanded is defined in a `div.expandable-content`.
+
+```html
+<v-ons-list-item expandable>
+  Tap to expand
+  <div class="expandable-content">This is shown when expanded</div>
+</v-ons-list-item>
+```
+
+If `div.right` is not defined, a dropdown arrow is automatically added to the right side of the expandable list item.
+
+The list item can also be expanded and contracted by setting the value of `expanded`.
+
 
 ## The `tappable` attribute
 

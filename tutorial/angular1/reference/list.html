@@ -19,6 +19,12 @@
       <ons-list-item>Item A</ons-list-item>
       <ons-list-item>Item B</ons-list-item>
 
+      <ons-list-header>Expandable</ons-list-header>
+      <ons-list-item expandable>
+        Tap to expand
+        <div class="expandable-content">Expandable content</div>
+      </ons-list-item>
+
       <ons-list-header>Tappable / Ripple</ons-list-header>
       <ons-list-item tappable>Tap me</ons-list-item>
 
@@ -133,7 +139,7 @@ You can use as many headers as you want in the same list.
 
 ## List item structure
 
-In the previous examples the list items only contained simple text content. Onsen UI list items provide a secondary syntax where the list item is divided into three sections.
+In the previous examples the list items only contained simple text content. Onsen UI list items provide a secondary syntax where the list item is divided into four sections.
 
 This can be used to add icons, thumbnails or even form elements to your list items:
 
@@ -148,8 +154,29 @@ This can be used to add icons, thumbnails or even form elements to your list ite
   <div class="right">
     <ons-switch></ons-switch>
   </div>
+  <div class="expandable-content">
+    Expandable content
+  </div>
 </ons-list-item>
 ```
+
+
+## Expandable list items
+
+You can create list items that expand to reveal extra content when tapped by setting the `expandable` attribute.
+The content that is shown when the list item is expanded is defined in `div.expandable-content`.
+
+```html
+<ons-list-item expandable>
+  Tap to expand
+  <div class="expandable-content">This is shown when expanded</div>
+</ons-list-item>
+```
+
+If `div.right` is not defined, a dropdown arrow is automatically added to the right side of the expandable list item.
+
+The list item can also be expanded and contracted with the `showExpansion` and `hideExpansion` methods.
+
 
 ## The `tappable` attribute
 
@@ -163,7 +190,7 @@ This is very useful in apps that perform some action or navigate to a new page w
 
 ## Modifiers
 
-There is a bunch of modifiers that can be used to customize the look of the lists and list items.
+There are a bunch of modifiers that can be used to customize the look of the lists and list items.
 
 In Onsen UI modifiers are applied by adding the `modifier` attribute to an element. More than one can be added by separating them with spaces.
 
