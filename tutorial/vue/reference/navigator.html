@@ -109,7 +109,7 @@ this.$emit('push-page', newPage);
 
 Navigator’s pages are sibling elements, which means that communication among them in Vue is fairly challenging. [Vuex](https://vuex.vuejs.org/) is a good solution for this, but not the only one. When you push a new page component and want to add some initial data, you can simply extend it and let Vue merge the new `data` prop with the original one in `newPage` component:
 
-```
+```js
 this.$emit('push-page', {
   extends: newPage,
   data() {
@@ -120,7 +120,7 @@ this.$emit('push-page', {
 
 Alternatively, since 2.5.2 we can also pass props to the pages through the `onsNavigatorProps` property:
 
-```
+```js
 this.$emit('push-page', {
   ...newPage, // Or 'extends: newPage'
   onsNavigatorProps: {
@@ -130,7 +130,20 @@ this.$emit('push-page', {
 });
 ```
 
-This way we can take avantage of the built in prop validation.
+Any props passed using `onsNavigatorProps` must be defined using `props` on the extended page, or they will not be available. For example, `newPage` as used above might look like this:
+
+```js
+const newPage = {
+  name: 'newPage',
+  template: `<v-ons-page>{{myCustomPropHere}}</v-ons-page>`,
+  props: {
+    myCustomPropHere: {
+      type: Number,
+      required: true
+    }
+  }
+}
+```
 
 In order to pass data back to the previous page, we can either use Vuex, [an event bus](https://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication), or simply pass a function that modifies the corresponding context. If page A pushes page B, it can send a function as a prop or data (mentioned above) that modifies page A's context. This way, whenever we want to send anything to page A from page B, the latter just needs to call the function and pass some arguments:
 
