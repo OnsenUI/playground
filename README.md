@@ -6,7 +6,7 @@ Try it here: http://onsenui.github.io/playground
 
 # Contributing
 
-We always appreciate contributions in form of issues or pull requests. For questions about OnsenUI please ask in our [community](https://community.onsen.io/).  
+We always appreciate contributions in form of issues or pull requests. For questions about OnsenUI please ask in our [community](https://community.onsen.io/).
 
 First, clone the repository with `git@github.com:OnsenUI/playground.git`. After that just run a simple http-server for example:
 
@@ -41,6 +41,10 @@ This can be disabled by running `app.config.local = false;` in Developer Console
 ## Testing Onsen UI
 
 Open this on a device browser while serving locally. It will automatically switch to `tabs.html` view and can be used to manually debug Onsen UI with any framework.
+
+# Release
+
+As part of the build process of [onsen.io](https://github.com/OnsenUI/onsen.io), it pulls the `gh-pages` branch of this repository. To release your Playground changes, merge `master` into `gh-pages` (preferably via a pull request, even if you merge it yourself). Then trigger a new build of `onsen.io` as per [its release guide](https://github.com/OnsenUI/onsen.io#releasing-to-production).
 
 # Other Features
 
