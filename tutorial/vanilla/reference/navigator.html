@@ -135,4 +135,18 @@ Another way is to use the `<ons-back-button>` element. It can be added to the le
 
 It will automatically find the Navigator element and trigger a `popPage()` call so there is no need to attach any click handlers to it.
 
+## Conditional first page
+
+Many apps show a different first page depending on whether the user is logged in or not. To achieve this with the navigator, it is best not to define any page attribute on the navigator element at all. Then, when the app is ready, determine what the first page should be.
+
+```
+ons.ready(function() {
+  if(isLoggedIn()) {
+    myNavigator.pushPage('homePage.html');
+  } else {
+    myNavigator.pushPage('loginPage.html');
+  }
+});
+```
+
 -->
