@@ -27,7 +27,7 @@ System.config({
     '@angular/forms': `https://unpkg.com/@angular/forms${libVersion}/bundles/forms.umd.min.js`,
     '@angular/platform-browser': `https://unpkg.com/@angular/platform-browser${libVersion}/bundles/platform-browser.umd.min.js`,
     '@angular/platform-browser-dynamic': `https://unpkg.com/@angular/platform-browser-dynamic${libVersion}/bundles/platform-browser-dynamic.umd.min.js`,
-    'rxjs': 'https://unpkg.com/rxjs@5.4.3',
+    'rxjs': 'https://unpkg.com/rxjs@6.3.3',
     'process': 'https://unpkg.com/process@0.11.9'
   },
   packages: {
@@ -37,6 +37,14 @@ System.config({
     'core-js': {
       main: 'index.js',
       format: 'cjs'
+    },
+    'rxjs': {
+      main: 'index.js',
+      defaultExtension: 'js'
+    },
+    'rxjs/operators': {
+      main: 'index.js',
+      defaultExtension: 'js'
     },
     'app': {
       defaultExtension: 'ts',
