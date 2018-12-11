@@ -51,7 +51,7 @@ app.config.extLibs = ['react', 'angular1', 'angular2', 'vue'];
 app.config.defaultVersions = {
   react: '15.4.2',
   angular1: '1.5.5',
-  angular2: '4.3.6',
+  angular2: '7.1.0',
   vue: '2.4.1'
 };
 
@@ -89,8 +89,8 @@ app.config.lib = function(forceRemote) {
       vue: `https://cdnjs.cloudflare.com/ajax/libs/vue/${app.config.versions.vue}/vue.js`,
       vueOnsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js', forceRemote),
       // Angular 2+
-      zone: 'https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.8.18/zone.min.js',
-      corejs: 'https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.1/core.min.js',
+      zone: 'https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.8.26/zone.min.js',
+      corejs: 'https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.4/core.min.js',
       systemjs: 'https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.47/system.js' // 0.20.18 caused `Fetch error: 404 Not Found`
     },
     css: {
