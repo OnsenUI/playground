@@ -122,6 +122,7 @@ app.modules = {
       'select': 'select input',
       'icon': 'icons',
       'card': 'card',
+      'if': 'conditional element',
       'progress': 'progress indicators',
       'fab': 'floating action button material',
       'speed-dial': 'speed dial',
