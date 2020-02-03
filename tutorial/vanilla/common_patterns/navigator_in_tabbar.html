@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <ons-page>
+    <ons-tabbar id="tabbar">
+      <ons-tab page="home.html" icon="ion-md-home" label="Home"></ons-tab>
+      <ons-tab page="my-profile.html" icon="ion-md-person" label="My Profile"></ons-tab>
+    </ons-tabbar>
+  </ons-page>
+
+  <template id="home.html">
+    <ons-navigator id="nav">
+      <ons-page>
+        <ons-toolbar>
+          <div class="center">Photo Feed</div>
+        </ons-toolbar>
+        
+        <ons-list>
+          <ons-list-item modifier="nodivider" onclick="nav.pushPage('terry-profile.html')">
+            <div class="left"><img class="list-item__thumbnail" src="https://api.adorable.io/avatars/285/face1.png" /></div>
+            <div class="center">
+              <span class="list-item__title">Terry</span>
+              <span class="list-item__subtitle">(Tap here to view profile)</span>
+            </div>
+          </ons-list-item>
+
+          <img style="width: 100%" src="https://picsum.photos/seed/one/800" />
+
+          <ons-list-item modifier="nodivider" onclick="nav.pushPage('julie-profile.html')">
+            <div class="left"><img class="list-item__thumbnail" src="https://api.adorable.io/avatars/285/face2.png" /></div>
+            <div class="center">
+              <span class="list-item__title">Julie</span>
+              <span class="list-item__subtitle">(Tap here to view profile)</span>
+            </div>
+          </ons-list-item>
+
+          <img style="width: 100%" src="https://picsum.photos/seed/haha/800" />
+
+        </ons-list>
+      </ons-page>
+    </ons-navigator>
+  </template>
+
+  <template id="my-profile.html">
+    <ons-page>
+      <ons-card>
+        <img src="https://api.adorable.io/avatars/285/yourself.png" style="width: 100%" />
+        <div class="title">
+          Myself
+        </div>
+        <div class="content">
+          Hi, I'm Myself!
+        </div>
+      </ons-card>
+    </ons-page>
+  </template>
+
+  <template id="terry-profile.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button></ons-back-button>
+        </div>
+        <div class="center">
+          Terry's Profile 
+        </div>
+      </ons-toolbar>
+
+      <ons-card>
+        <img src="https://api.adorable.io/avatars/285/face1.png" style="width: 100%" />
+        <div class="title">
+          Terry
+        </div>
+        <div class="content">
+          Hi, I'm Terry!
+        </div>
+      </ons-card>
+    </ons-page>
+  </template>
+
+  <template id="julie-profile.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button></ons-back-button>
+        </div>
+        <div class="center">
+          Julie's Profile 
+        </div>
+      </ons-toolbar>
+
+      <ons-card>
+        <img src="https://api.adorable.io/avatars/285/face2.png" style="width: 100%" />
+        <div class="title">
+          Julie
+        </div>
+        <div class="content">
+          Hi, I'm Julie!
+        </div>
+      </ons-card>
+    </ons-page>
+  </template>
+
+</body>
+</html>
+
+<!-- info
+
+## Navigator inside Tabbar
+
+As well as the more common pattern of putting a navigator outside a tabbar, there may also be times when you to use a navigator _inside_ a tabbar. For example, if a tab contains a stack of pages and switching between tabs should not cause the tab's page stack to reset to the first page, then you would want a navigator inside a tabbar.
+
+To put a navigator inside a tabbar, simply add `<ons-navigator>` as a child of the `<ons-tab>` within which you want to have stacked navigation:
+
+```
+<ons-tab page="home.html"></ons-tab>
+...
+
+<template id="home.html">
+  <ons-navigator id="nav">
+  ...
+  </ons-navigator>
+</template>
+```
+
+You can then use `ons-navigator` as normal. Now your app will consist of a top-level tabbar, and within one of those tabs there will be stacked page navigation. Switching to a different tab and returning to the tab containing the navigator will not cause the navigator's page stack to reset to the first page.
+
+## Sharing templates between Tabbar and Navigator
+
+The pages that make up a tabbar's tabs and the pages that make up a navigator's stack are managed separately from each other. The tabbar does not know about the navigator's pages, and the navigator does not know about the tabbar's tabs.
+
+Usually this is not a problem. However, it can become tricky if you want to use the same page in both a navigator and a tabbar.
+
+In this situation, you need to make sure that the copy of the page held by the tabbar and the copy of the page held by the navigator have distinct IDs. At no point should you have two elements in the DOM with the same ID.
+
+For example, if you want to push a page in the navigator that already exists in the tabbar, manually set the ID in JavaScript:
+
+```
+navigator.pushPage('my-page.html')
+  .then(page => page.id = 'some-new-id');
+```
+
+-->

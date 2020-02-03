@@ -40,7 +40,8 @@ app.modules = {
     'common patterns': {
       'kitchensink': 'kitchensink example',
       'splitter_navigator': 'splitter outside navigator',
-      'navigator_tabbar': 'navigator outside tabbar'
+      'navigator_tabbar': 'navigator outside tabbar',
+      'navigator_in_tabbar': 'navigator inside tabbar'
     },
     'community tutorials': {
       'splitter_anim_navigator': 'splitter animations with navigator',
