@@ -79,7 +79,7 @@ app.config.lib = function(forceRemote) {
       onsenui: app.config.getCdnUrl('onsenui', 'js/onsenui.js', forceRemote),
       // AngularJS
       angular1: `https://cdnjs.cloudflare.com/ajax/libs/angular.js/${app.config.versions.angular1}/angular.min.js`,
-      angularOnsenui: app.config.getCdnUrl('onsenui', 'js/angular-onsenui.js', forceRemote),
+      angularOnsenui: app.config.getCdnUrl('angularjs-onsenui', 'dist/angularjs-onsenui.js', forceRemote),
       // React
       react: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react.min.js`,
       reactDom: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react-dom.min.js`,
