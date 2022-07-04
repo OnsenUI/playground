@@ -5,9 +5,18 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.showDialog = this.showDialog.bind(this);
+        this.hideDialog = this.hideDialog.bind(this);
+        this.showAlertDialog = this.showAlertDialog.bind(this);
+        this.hideAlertDialog = this.hideAlertDialog.bind(this);
+        this.handleShow = this.handleShow.bind(this);
+        this.handleDismiss = this.handleDismiss.bind(this);
+
+        this.state = {
           dialogShown: false,
           alertDialogShown: false,
           toastShown: false,
@@ -38,31 +47,31 @@
             }
           ]
         };
-      },
+      }
 
-      showDialog: function() {
+      showDialog() {
         this.setState({dialogShown: true});
-      },
+      }
 
-      hideDialog: function() {
+      hideDialog() {
         this.setState({dialogShown: false});
-      },
+      }
 
-      showAlertDialog: function() {
+      showAlertDialog() {
         this.setState({alertDialogShown: true});
-      },
+      }
 
-      hideAlertDialog: function() {
+      hideAlertDialog() {
         this.setState({alertDialogShown: false});
-      },
+      }
 
-      handleShow: function() {
+      handleShow() {
         this.setState({toastShown: true});
-      },
+      }
 
-      handleDismiss: function() {
+      handleDismiss() {
         this.setState({toastShown: false});
-      },
+      }
 
       renderRow(row) {
         return (
@@ -70,7 +79,7 @@
             {row.title}
           </Ons.ListItem>
         );
-      },
+      }
 
       renderToolbar() {
         return (
@@ -78,9 +87,9 @@
             <div className='center'>Dialogs</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <Ons.List dataSource={this.state.items} renderRow={this.renderRow} />
@@ -125,7 +134,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

@@ -5,39 +5,35 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      renderToolbar() {
-        return (
-          <Ons.Toolbar>
-            <div className='center'>Ripple effect</div>
-          </Ons.Toolbar>
-        );
-      },
+    const MyPage = () => {
+      const renderToolbar = () => (
+        <Ons.Toolbar>
+          <div className='center'>Ripple effect</div>
+        </Ons.Toolbar>
+      );
 
-      render: function() {
-        return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
-            <section style={{margin: '16px'}}>
-              <div style={{
-                width: '200px',
-                height: '200px',
-                margin: '0 auto',
-                backgroundColor: 'grey'
-              }}>
-                <Ons.Ripple color='rgba(255, 0, 0, 0.4)' background='rgba(0, 0, 255, 0.4)' />
-              </div>
-            </section>
+      return (
+        <Ons.Page renderToolbar={renderToolbar}>
+          <section style={{margin: '16px'}}>
+            <div style={{
+              width: '200px',
+              height: '200px',
+              margin: '0 auto',
+              backgroundColor: 'grey'
+            }}>
+              <Ons.Ripple color='rgba(255, 0, 0, 0.4)' background='rgba(0, 0, 255, 0.4)' />
+            </div>
+          </section>
 
-            <Ons.Fab
-              style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}} 
-              ripple
-              position='bottom right'>
-              <Ons.Icon icon='md-face' />
-            </Ons.Fab>
-          </Ons.Page>
-        );
-      }
-    });
+          <Ons.Fab
+            style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}}
+            ripple
+            position='bottom right'>
+            <Ons.Icon icon='md-face' />
+          </Ons.Fab>
+        </Ons.Page>
+      );
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

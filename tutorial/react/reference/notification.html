@@ -5,9 +5,10 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           items: [
             {
               title: 'Alert notification',
@@ -27,7 +28,7 @@
             }
           ]
         };
-      },
+      }
 
       renderRow(row) {
         return (
@@ -35,7 +36,7 @@
           {row.title}
           </Ons.ListItem>
         );
-      },
+      }
 
       renderToolbar() {
         return (
@@ -43,16 +44,16 @@
           <div className='center'>Notifications</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
           <Ons.List dataSource={this.state.items} renderRow={this.renderRow} />
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

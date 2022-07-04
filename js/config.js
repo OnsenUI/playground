@@ -49,7 +49,7 @@ app.config.getCdnUrl = function(lib, path, forceRemote, skipNightly) {
 app.config.ownLibs = ['onsenui', 'react-onsenui', 'ngx-onsenui', 'vue-onsenui'];
 app.config.extLibs = ['react', 'angular1', 'angular2', 'vue'];
 app.config.defaultVersions = {
-  react: '15.4.2',
+  react: '17.0.2',
   angular1: '1.5.5',
   angular2: '7.1.0',
   vue: '2.4.1'
@@ -81,10 +81,10 @@ app.config.lib = function(forceRemote) {
       angular1: `https://cdnjs.cloudflare.com/ajax/libs/angular.js/${app.config.versions.angular1}/angular.min.js`,
       angularOnsenui: app.config.getCdnUrl('angularjs-onsenui', 'dist/angularjs-onsenui.js', forceRemote),
       // React
-      react: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react.min.js`,
-      reactDom: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/react-dom.min.js`,
-      // propTypes: `https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.js`,
-      reactOnsenui: app.config.getCdnUrl('react-onsenui', 'dist/react-onsenui.min.js', forceRemote),
+      react: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/umd/react.development.js`,
+      reactDom: `https://cdnjs.cloudflare.com/ajax/libs/react-dom/${app.config.versions.react}/umd/react-dom.development.js`,
+      propTypes: `https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.min.js`,
+      reactOnsenui: app.config.getCdnUrl('react-onsenui', 'dist/react-onsenui.js', forceRemote),
       // Vue
       vue: `https://cdnjs.cloudflare.com/ajax/libs/vue/${app.config.versions.vue}/vue.js`,
       vueOnsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js', forceRemote),

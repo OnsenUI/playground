@@ -5,48 +5,43 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      renderToolbar() {
-        return (
-          <Ons.Toolbar>
-            <div className='center'>Floating action button</div>
-            <div className='right'>
-              <Ons.ToolbarButton><Ons.Icon icon='ion-ios-menu, material:md-menu' /></Ons.ToolbarButton>
-            </div>
-          </Ons.Toolbar>
-        );
-      },
+    const MyPage = () => {
+      const renderToolbar = () => (
+        <Ons.Toolbar>
+          <div className='center'>Floating action button</div>
+          <div className='right'>
+            <Ons.ToolbarButton><Ons.Icon icon='ion-ios-menu, material:md-menu' /></Ons.ToolbarButton>
+          </div>
+        </Ons.Toolbar>
+      );
 
-      handleClick() {
+      const handleClick = () =>
         ons.notification.alert('You clicked the button!');
-      },
 
-      render: function() {
-        return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
-            <section style={{fontSize: '26px', margin: '16px'}}>
-              <p>
-                <Ons.Icon icon='md-delete' />
-              </p>
-              <p>
-                <Ons.Icon style={{color: 'red'}} spin icon='md-spinner' />
-              </p>
-              <p>
-                <Ons.Button>
-                  Edit <Ons.Icon icon='md-edit' />
-                </Ons.Button>
-              </p>
-            </section>
+      return (
+        <Ons.Page renderToolbar={renderToolbar}>
+          <section style={{fontSize: '26px', margin: '16px'}}>
+            <p>
+              <Ons.Icon icon='md-delete' />
+            </p>
+            <p>
+              <Ons.Icon style={{color: 'red'}} spin icon='md-spinner' />
+            </p>
+            <p>
+              <Ons.Button>
+                Edit <Ons.Icon icon='md-edit' />
+              </Ons.Button>
+            </p>
+          </section>
 
-            <Ons.Fab
-              style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}} 
-              position='bottom right'>
-              <Ons.Icon icon='md-face' />
-            </Ons.Fab>
-          </Ons.Page>
-        );
-      }
-    });
+          <Ons.Fab
+            style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}}
+            position='bottom right'>
+            <Ons.Icon icon='md-face' />
+          </Ons.Fab>
+        </Ons.Page>
+      );
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

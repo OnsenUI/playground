@@ -5,32 +5,24 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {};
-      },
 
-      renderToolbar() {
-        return (
-          <Ons.Toolbar>
+    const MyPage = () => {
+      const renderToolbar = () => (
+        <Ons.Toolbar>
           <div className='center'>Search input</div>
-          </Ons.Toolbar>
-        );
-      },
+        </Ons.Toolbar>
+      );
 
-      render: function() {
-        return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
+      return (
+        <Ons.Page renderToolbar={renderToolbar}>
           <section style={{textAlign: 'center'}}>
             <p>
-              <Ons.SearchInput
-                placeholder='Search' />
-                </p>
-                </section>
-                </Ons.Page>
-              );
-      }
-    });
+              <Ons.SearchInput placeholder='Search' />
+            </p>
+          </section>
+        </Ons.Page>
+      );
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

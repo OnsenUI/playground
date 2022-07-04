@@ -5,35 +5,29 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      renderToolbar() {
-        return (
-          <Ons.Toolbar>
-            <div className='center'>Infinite scroll</div>
-          </Ons.Toolbar>
-        );
-      },
+    const MyPage = () => {
+      const renderToolbar = () => (
+        <Ons.Toolbar>
+          <div className='center'>Infinite scroll</div>
+        </Ons.Toolbar>
+      );
 
-      renderRow: function(index) {
-        return (
-          <Ons.ListItem key={index}>
-            {`Item ${index + 1}`}
-          </Ons.ListItem>
-        );
-      },
+      const renderRow = index => (
+        <Ons.ListItem key={index}>
+          {`Item ${index + 1}`}
+        </Ons.ListItem>
+      );
 
-      render: function() {
-        return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
-            <Ons.LazyList
-              length={10000}
-              renderRow={this.renderRow}
-              calculateItemHeight={() => ons.platform.isAndroid() ? 48 : 44}
-            />
-          </Ons.Page>
-        );
-      }
-    });
+      return (
+        <Ons.Page renderToolbar={renderToolbar}>
+          <Ons.LazyList
+            length={10000}
+            renderRow={renderRow}
+            calculateItemHeight={() => ons.platform.isAndroid() ? 48 : 44}
+          />
+        </Ons.Page>
+      );
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

@@ -5,20 +5,20 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      handleClick: function() {
+    class MyPage extends React.Component {
+      handleClick() {
         ons.notification.alert('Hello world!');
-      },
+      }
 
-      renderToolbar: function() {
+      renderToolbar() {
         return (
           <Ons.Toolbar>
             <div className='center'>My app</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <Ons.Button onClick={this.handleClick}>
@@ -27,7 +27,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

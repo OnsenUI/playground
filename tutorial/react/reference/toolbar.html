@@ -5,36 +5,31 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      handleClick: function() {
+    const MyPage = () => {
+      const handleClick = () =>
         ons.notification.alert('Hello world!');
-      },
 
-      renderToolbar: function() {
-        return (
-          <Ons.Toolbar>
-            <div className='center'>My app</div>
-            <div className='right'>
-            <Ons.ToolbarButton>
-              <Ons.Icon icon='ion-ios-menu, material:md-menu'></Ons.Icon>
-            </Ons.ToolbarButton>
-            </div>
-          </Ons.Toolbar>
-        );
-      },
+      const renderToolbar = () => (
+        <Ons.Toolbar>
+          <div className='center'>My app</div>
+          <div className='right'>
+          <Ons.ToolbarButton>
+            <Ons.Icon icon='ion-ios-menu, material:md-menu'></Ons.Icon>
+          </Ons.ToolbarButton>
+          </div>
+        </Ons.Toolbar>
+      );
 
-      render: function() {
-        return (
-          <Ons.Page renderToolbar={this.renderToolbar}>
-            <p style={{textAlign: 'center'}}>
-              <Ons.Button onClick={this.handleClick}>
-                Click me!
-              </Ons.Button>
-            </p>
-          </Ons.Page>
-        );
-      }
-    });
+      return (
+        <Ons.Page renderToolbar={renderToolbar}>
+          <p style={{textAlign: 'center'}}>
+            <Ons.Button onClick={handleClick}>
+              Click me!
+            </Ons.Button>
+          </p>
+        </Ons.Page>
+      );
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));
