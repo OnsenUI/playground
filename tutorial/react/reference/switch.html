@@ -5,12 +5,15 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           checked: false
         };
-      },
+
+        this.handleChange = this.handleChange.bind(this);
+      }
 
       renderToolbar() {
         return (
@@ -18,13 +21,13 @@
             <div className='center'>Switch</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
       handleChange(e) {
         this.setState({checked: e.target.checked});
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <section style={{textAlign: 'center'}}>
@@ -38,7 +41,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

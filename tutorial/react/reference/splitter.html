@@ -5,12 +5,16 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           isOpen: false
         };
-      },
+        this.hide = this.hide.bind(this);
+        this.show = this.show.bind(this);
+        this.renderToolbar = this.renderToolbar.bind(this);
+      }
 
       renderToolbar() {
         return (
@@ -23,17 +27,17 @@
             <div className='center'>Side menu</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
       hide() {
         this.setState({isOpen: false});
-      },
+      }
 
       show() {
         this.setState({isOpen: true});
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Splitter>
             <Ons.SplitterSide
@@ -69,7 +73,7 @@
           </Ons.Splitter>
         );
       }
-    });
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

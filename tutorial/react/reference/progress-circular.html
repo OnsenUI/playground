@@ -5,10 +5,12 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {progress: 0};
-      },
+    class MyPage extends React.Component {
+
+      constructor(props) {
+        super(props);
+        this.state = {progress: 0};
+      }
 
       renderToolbar() {
         return (
@@ -16,9 +18,9 @@
             <div className='center'>Progress</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
-      componentDidMount: function() {
+      componentDidMount() {
         this.interval = setInterval(() => {
           let progress = this.state.progress;
 
@@ -31,15 +33,15 @@
           this.setState({progress: progress});
 
         }, 40);
-      },
+      }
 
-      componentWillUnmount: function() {
+      componentWillUnmount() {
         if (this.interval) {
           clearInterval(this.interval);
         }
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <Ons.ProgressBar value={this.state.progress} />
@@ -71,7 +73,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

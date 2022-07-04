@@ -5,35 +5,35 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyTab = React.createClass({
-      render: function() {
-        return (
-          <Ons.Page>
-            <section style={{margin: '16px'}}>
-              <p>
-                {this.props.content}.
-              </p>
-            </section>
-          </Ons.Page>
-        );
-      }
-    });
+    const MyTab = ({content}) => (
+      <Ons.Page>
+        <section style={{margin: '16px'}}>
+          <p>
+            {content}.
+          </p>
+        </section>
+      </Ons.Page>
+    );
 
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           index: 0
         }
-      },
-      renderToolbar: function() {
+        this.renderToolbar = this.renderToolbar.bind(this);
+      }
+
+      renderToolbar() {
         const titles = ['Home', 'Settings'];
         return (
           <Ons.Toolbar>
             <div className='center'>{titles[this.state.index]}</div>
           </Ons.Toolbar>
         );
-      },
-      renderTabs: function() {
+      }
+
+      renderTabs() {
         return [
           {
             content: <MyTab content="Welcome home" />,
@@ -44,9 +44,9 @@
             tab: <Ons.Tab label='Settings' icon='md-settings' />
           }
         ];
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <Ons.Tabbar
@@ -65,7 +65,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

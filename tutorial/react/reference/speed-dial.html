@@ -5,49 +5,42 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      renderToolbar() {
-        return (
-          <Ons.Toolbar>
-            <div className='center'>Speed dial</div>
-          </Ons.Toolbar>
-        );
-      },
+    const MyPage = () => {
+      const renderToolbar = () => (
+        <Ons.Toolbar>
+          <div className='center'>Speed dial</div>
+        </Ons.Toolbar>
+      );
 
-      renderFixed() {
-        return (
-          <Ons.SpeedDial position='bottom right'>
-            <Ons.Fab>
-              <Ons.Icon icon='md-share' />
-            </Ons.Fab>
-            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Twitter')}>
-              <Ons.Icon icon='md-twitter' />
-            </Ons.SpeedDialItem>
-            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Facebook')}>
-              <Ons.Icon icon='md-facebook' />
-            </Ons.SpeedDialItem>
-            <Ons.SpeedDialItem onClick={this.share.bind(this, 'Google+')}>
-              <Ons.Icon icon='md-google-plus' />
-            </Ons.SpeedDialItem>
-          </Ons.SpeedDial>
-        );
-      },
+      const renderFixed = () => (
+        <Ons.SpeedDial position='bottom right'>
+          <Ons.Fab>
+            <Ons.Icon icon='md-share' />
+          </Ons.Fab>
+          <Ons.SpeedDialItem onClick={() => share('Twitter')}>
+            <Ons.Icon icon='md-twitter' />
+          </Ons.SpeedDialItem>
+          <Ons.SpeedDialItem onClick={() => share('Facebook')}>
+            <Ons.Icon icon='md-facebook' />
+          </Ons.SpeedDialItem>
+          <Ons.SpeedDialItem onClick={() => share('Google+')}>
+            <Ons.Icon icon='md-google-plus' />
+          </Ons.SpeedDialItem>
+        </Ons.SpeedDial>
+      );
 
-      share: function(name) {
+      const share = name =>
         ons.notification.confirm(`Do you want to share on "${name}"?`);
-      },
 
-      render: function() {
-        return (
-          <Ons.Page
-            renderToolbar={this.renderToolbar}
-            renderFixed={this.renderFixed}
-          >
-            Some content
-          </Ons.Page>
-        );
-      }
-    });
+      return (
+        <Ons.Page
+          renderToolbar={renderToolbar}
+          renderFixed={renderFixed}
+        >
+          Some content
+        </Ons.Page>
+      );
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

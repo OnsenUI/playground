@@ -5,12 +5,13 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           isOpen: false
         };
-      },
+      }
 
       renderToolbar() {
         return (
@@ -18,7 +19,7 @@
             <div className='center'>Modal</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
       render() {
         return (
@@ -43,13 +44,13 @@
           >
             <section style={{margin: '16px'}}>
               <p style={{textAlign: 'center'}}>
-                <Ons.Button ref='button' onClick={() => this.setState({isOpen: true})}>Tap here!</Ons.Button>
+                <Ons.Button onClick={() => this.setState({isOpen: true})}>Tap here!</Ons.Button>
               </p>
             </section>
           </Ons.Page>
         );
-      }
-    });
+     }
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

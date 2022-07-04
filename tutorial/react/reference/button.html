@@ -5,43 +5,37 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      handleClick: function() {
+    const MyPage = () => {
+      const handleClick = () =>
         ons.notification.alert('Hello world!');
-      },
 
-      renderToolbar() {
-        return (
-          <Ons.Toolbar>
-            <div className='center'>Buttons</div>
-            <div className='right'>
-              <Ons.ToolbarButton>
-                <Ons.Icon icon="ion-ios-menu, material:md-menu"></Ons.Icon>
-              </Ons.ToolbarButton>
-            </div>
-          </Ons.Toolbar>
-        );
-      },
+      const renderToolbar = () => (
+        <Ons.Toolbar>
+          <div className='center'>Buttons</div>
+          <div className='right'>
+            <Ons.ToolbarButton>
+              <Ons.Icon icon="ion-ios-menu, material:md-menu"></Ons.Icon>
+            </Ons.ToolbarButton>
+          </div>
+        </Ons.Toolbar>
+      );
 
-      render: function() {
-        return (
-        <Ons.Page renderToolbar={this.renderToolbar}>
+      return (
+        <Ons.Page renderToolbar={renderToolbar}>
+          <section style={{margin: '16px'}}>
+              <Ons.Button style={{margin: '6px'}} onClick={handleClick}>Normal</Ons.Button>
+              <Ons.Button style={{margin: '6px'}} modifier='quiet'>Quiet</Ons.Button>
+              <Ons.Button style={{margin: '6px'}} modifier='outline'>Outline</Ons.Button>
+              <Ons.Button style={{margin: '6px'}} modifier='cta'>Call to action</Ons.Button>
+              <Ons.Button style={{margin: '6px'}} modifier='large'>Large</Ons.Button>
+          </section>
 
-            <section style={{margin: '16px'}}>
-                <Ons.Button style={{margin: '6px'}} onClick={this.handleClick}>Normal</Ons.Button>
-                <Ons.Button style={{margin: '6px'}} modifier='quiet'>Quiet</Ons.Button>
-                <Ons.Button style={{margin: '6px'}} modifier='outline'>Outline</Ons.Button>
-                <Ons.Button style={{margin: '6px'}} modifier='cta'>Call to action</Ons.Button>
-                <Ons.Button style={{margin: '6px'}} modifier='large'>Large</Ons.Button>
-            </section>
-
-            <Ons.Fab position='bottom right'>
-              +
-            </Ons.Fab>
-          </Ons.Page>
-        );
-      }
-    });
+          <Ons.Fab position='bottom right'>
+            +
+          </Ons.Fab>
+        </Ons.Page>
+      );
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

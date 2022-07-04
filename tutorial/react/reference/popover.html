@@ -5,39 +5,45 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           isOpen: false
         };
-      },
+        this.buttonRef = React.createRef();
 
-      renderToolbar: function() {
+        this.show = this.show.bind(this);
+        this.hide = this.hide.bind(this);
+        this.getTarget = this.getTarget.bind(this);
+      }
+
+      renderToolbar() {
         return (
           <Ons.Toolbar>
             <div className='center'>Popover</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
-      getTarget: function() {
-        return this.refs.button;
-      },
+      getTarget() {
+        return this.buttonRef;
+      }
 
-      show: function () {
+      show() {
         this.setState({isOpen: true});
-      },
+      }
 
-      hide: function() {
+      hide() {
         this.setState({isOpen: false});
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <section style={{margin: '16px'}}>
               <p style={{textAlign: 'center'}}>
-                <Ons.Button ref='button' onClick={this.show}>Tap here!</Ons.Button>
+                <Ons.Button ref={this.buttonRef} onClick={this.show}>Tap here!</Ons.Button>
               </p>
             </section>
 
@@ -62,7 +68,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

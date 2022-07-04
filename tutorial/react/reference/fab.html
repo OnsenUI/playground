@@ -5,41 +5,34 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      renderToolbar() {
-        return (
-          <Ons.Toolbar>
-            <div className='center'>Floating action button</div>
-          </Ons.Toolbar>
-        );
-      },
+    const MyPage = () => {
+      const renderToolbar = () => (
+        <Ons.Toolbar>
+          <div className='center'>Floating action button</div>
+        </Ons.Toolbar>
+      );
 
-      renderFixed() {
-        return (
-          <Ons.Fab
-            style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}}
-            onClick={this.handleClick}
-            position='bottom right'>
-            <Ons.Icon icon='md-face' />
-          </Ons.Fab>
-        );
-      },
+      const renderFixed = () => (
+        <Ons.Fab
+          style={{backgroundColor: ons.platform.isIOS() ? '#4282cc' : null}}
+          onClick={handleClick}
+          position='bottom right'>
+          <Ons.Icon icon='md-face' />
+        </Ons.Fab>
+      );
 
-      handleClick() {
+      const handleClick = () =>
         ons.notification.alert('You clicked the button!');
-      },
 
-      render: function() {
-        return (
-          <Ons.Page
-            renderToolbar={this.renderToolbar}
-            renderFixed={this.renderFixed}
-          >
-            Some Content
-          </Ons.Page>
-        );
-      }
-    });
+      return (
+        <Ons.Page
+          renderToolbar={renderToolbar}
+          renderFixed={renderFixed}
+        >
+          Some Content
+        </Ons.Page>
+      );
+    };
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));
