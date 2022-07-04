@@ -5,58 +5,59 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-  var MyPage = React.createClass({
-  getInitialState: function() {
-    return {
-      vegetables: [
-        'Tomato',
-        'Cucumber',
-        'Onion',
-        'Eggplant',
-        'Cabbage'
-      ]
-    };
-  },
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          vegetables: [
+            'Tomato',
+            'Cucumber',
+            'Onion',
+            'Eggplant',
+            'Cabbage'
+          ]
+        };
+      }
 
-  renderToolbar() {
-    return (
-      <Ons.Toolbar>
-        <div className='center'>Checkboxes</div>
-      </Ons.Toolbar>
-    );
-  },
+      renderToolbar() {
+        return (
+          <Ons.Toolbar>
+            <div className='center'>Checkboxes</div>
+          </Ons.Toolbar>
+        );
+      }
 
-  renderCheckboxRow(row) {
-    return (
-      <Ons.ListItem key={row} tappable>
-        <label className='left'>
-          <Ons.Checkbox
-            inputId={`checkbox-${row}`}
-          />
-        </label>
-        <label htmlFor={`checkbox-${row}`} className='center'>
-          {row}
-        </label>
-      </Ons.ListItem>
-    )
-  },
+      renderCheckboxRow(row) {
+        return (
+          <Ons.ListItem key={row} tappable>
+            <label className='left'>
+              <Ons.Checkbox
+                inputId={`checkbox-${row}`}
+              />
+            </label>
+            <label htmlFor={`checkbox-${row}`} className='center'>
+              {row}
+            </label>
+          </Ons.ListItem>
+        )
+      }
 
-  render: function() {
-    return (
-      <Ons.Page renderToolbar={this.renderToolbar}>
+      render() {
+        return (
+          <Ons.Page renderToolbar={this.renderToolbar}>
 
-        <Ons.List
-          dataSource={this.state.vegetables}
-          renderRow={this.renderCheckboxRow}
-        />
-      </Ons.Page>
-    );
-  }
-});
+            <Ons.List
+              dataSource={this.state.vegetables}
+              renderRow={this.renderCheckboxRow}
+            />
+          </Ons.Page>
+        );
+      }
+    }
 
-ons.ready(function() {
-  ReactDOM.render(<MyPage />, document.getElementById('app'));
-});
+    ons.ready(function() {
+      ReactDOM.render(<MyPage />, document.getElementById('app'));
+    });
   </script>
 </head>
 <body>

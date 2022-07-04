@@ -5,13 +5,18 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           state: 'initial',
           data: this.getRandomData()
         };
-      },
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleLoad = this.handleLoad.bind(this);
+        this.getContent = this.getContent.bind(this);
+      }
 
       getRandomData() {
         const rv = [];
@@ -21,7 +26,7 @@
         }
 
         return rv;
-      },
+      }
 
       renderToolbar() {
         return (
@@ -29,21 +34,21 @@
             <div className='center'>Pull to refresh</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
-      handleChange: function(e) {
+      handleChange(e) {
         this.setState({state: e.state});
-      },
+      }
 
-      handleLoad: function(done) {
+      handleLoad(done) {
         const data = this.getRandomData();
 
         setTimeout(() => {
           this.setState({data: data}, done);
         }, 500);
-      },
+      }
 
-      getContent: function() {
+      getContent() {
         switch (this.state.state) {
           case 'initial':
             return 'Pull to refresh';
@@ -52,15 +57,17 @@
           case 'action':
             return 'Loading...';
         }
-      },
+      }
 
-      renderRow: function(row, index) {
+      renderRow(row, index) {
         return (
-          <Ons.ListItem key={index}>{row}</Ons.ListItem>
+          <Ons.ListItem key={index}>
+            <div className="center">{row}</div>
+          </Ons.ListItem>
         );
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <Ons.PullHook
@@ -77,7 +84,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

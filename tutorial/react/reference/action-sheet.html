@@ -5,20 +5,22 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
-          isOpen: false
-        };
-      },
+    class MyPage extends React.Component {
 
-      handleClick: function() {
+      constructor(props) {
+        super(props);
+        this.state = {isOpen: false};
+        this.handleClick = this.handleClick.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+      }
+
+      handleClick() {
         this.setState({isOpen: true});
-      },
+      }
 
-      handleCancel: function() {
+      handleCancel() {
         this.setState({isOpen: false});
-      },
+      }
 
       renderToolbar() {
         return (
@@ -26,9 +28,9 @@
             <div className='center'>Action sheet</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <p style={{textAlign: 'center', paddingTop: '10px'}}>
@@ -48,7 +50,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

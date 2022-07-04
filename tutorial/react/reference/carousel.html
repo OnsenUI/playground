@@ -5,9 +5,11 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
           items: [
             '#F1948A',
             '#D7BDE2',
@@ -16,11 +18,14 @@
           ],
           index: 0
         };
-      },
+
+        this.handleChange = this.handleChange.bind(this);
+        this.setIndex = this.setIndex.bind(this);
+      }
 
       handleChange(e) {
         this.setState({index: e.activeIndex});
-      },
+      }
 
       renderToolbar() {
         return (
@@ -28,15 +33,15 @@
             <div className='center'>Carousel</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
       setIndex(index) {
         this.setState({index: index});
-      },
+      }
 
-      render: function() {
+      render() {
         return (
-        <Ons.Page renderToolbar={this.renderToolbar}>
+          <Ons.Page renderToolbar={this.renderToolbar}>
             <Ons.Carousel onPostChange={this.handleChange} index={this.state.index} fullscreen swipeable autoScroll overscrollable>
               {this.state.items.map((item, index) => (
                 <Ons.CarouselItem key={index} style={{backgroundColor: item}}>
@@ -64,7 +69,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

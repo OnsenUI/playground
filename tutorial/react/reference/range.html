@@ -5,12 +5,15 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           value: 0
         };
-      },
+
+        this.handleChange = this.handleChange.bind(this);
+      }
 
       renderToolbar() {
         return (
@@ -18,20 +21,20 @@
             <div className='center'>Range</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
       handleChange(e) {
         this.setState({value: e.target.value});
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
             <section style={{textAlign: 'center'}}>
               <p>
                 <span>-50 </span>
                 <Ons.Range
-                  onChange={this.handleChange}
+                  onInput={this.handleChange}
                   value={this.state.value}
                   min={-50}
                   max={50}
@@ -45,7 +48,7 @@
           </Ons.Page>
         );
       }
-    });
+    }
 
     ons.ready(function() {
       ReactDOM.render(<MyPage />, document.getElementById('app'));

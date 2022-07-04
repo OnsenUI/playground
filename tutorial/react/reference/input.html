@@ -5,40 +5,45 @@
   <title>Onsen UI App</title>
 
   <script type="text/babel">
-    var MyPage = React.createClass({
-      getInitialState: function() {
-        return {
+    class MyPage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
           username: '',
           password: ''
         };
-      },
-      
+
+        this.handleClick = this.handleClick.bind(this);
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+      }
+
       renderToolbar() {
         return (
           <Ons.Toolbar>
           <div className='center'>Form input</div>
           </Ons.Toolbar>
         );
-      },
+      }
 
-      handleClick: function() {
+      handleClick() {
         if (this.state.username === 'bob' && this.state.password === 'secret') {
           ons.notification.alert('You are now signed in!');
         }
         else {
           ons.notification.alert('Username or password incorrect!');
         }
-      },
+      }
 
       handleUsernameChange(e) {
         this.setState({username: e.target.value});
-      },
+      }
 
       handlePasswordChange(e) {
         this.setState({password: e.target.value});
-      },
+      }
 
-      render: function() {
+      render() {
         return (
           <Ons.Page renderToolbar={this.renderToolbar}>
           <section style={{textAlign: 'center'}}>
@@ -66,11 +71,11 @@
                 </Ons.Page>
               );
             }
-          });
+       }
 
-          ons.ready(function() {
-            ReactDOM.render(<MyPage />, document.getElementById('app'));
-          });
+       ons.ready(function() {
+         ReactDOM.render(<MyPage />, document.getElementById('app'));
+       });
   </script>
 </head>
 <body>
