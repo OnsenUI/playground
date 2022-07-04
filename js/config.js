@@ -81,8 +81,8 @@ app.config.lib = function(forceRemote) {
       angular1: `https://cdnjs.cloudflare.com/ajax/libs/angular.js/${app.config.versions.angular1}/angular.min.js`,
       angularOnsenui: app.config.getCdnUrl('angularjs-onsenui', 'dist/angularjs-onsenui.js', forceRemote),
       // React
-      react: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/umd/react.development.js`,
-      reactDom: `https://cdnjs.cloudflare.com/ajax/libs/react-dom/${app.config.versions.react}/umd/react-dom.development.js`,
+      react: `https://cdnjs.cloudflare.com/ajax/libs/react/${app.config.versions.react}/umd/react.production.min.js`,
+      reactDom: `https://cdnjs.cloudflare.com/ajax/libs/react-dom/${app.config.versions.react}/umd/react-dom.production.min.js`,
       propTypes: `https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.min.js`,
       reactOnsenui: app.config.getCdnUrl('react-onsenui', 'dist/react-onsenui.js', forceRemote),
       // Vue
