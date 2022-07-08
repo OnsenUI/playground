@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          toastVisible: false,
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Toasts</div>
+      </v-ons-toolbar>
+
+      <p>
+        <v-ons-button
+          @click="$ons.notification.toast('Hi there!', { timeout: 1000, animation: 'fall' })"
+        >
+          Queue notification toast (top)
+        </v-ons-button>
+
+        <br><br>
+
+        <v-ons-button @click="toastVisible = !toastVisible">Toggle element toast (bottom)</v-ons-button>
+      </p>
+
+      <v-ons-fab position="bottom right">+</v-ons-fab>
+
+      <v-ons-toast v-model:visible="toastVisible" animation="ascend">
+        FABs up!
+        <button @click="toastVisible = false">ok</button>
+      </v-ons-toast>
+
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Toasts
+
+Toasts are defined using the `VOnsToast` component. In Material Design they are also called Snackbars.
+
+```
+<v-ons-toast v-model:visible="isToastVisible">
+  This is a toast!
+</v-ons-toast>
+```
+
+The `visible` boolean prop can be used to toggle its visibility. `v-model:visible` can be used to keep the state in sync.
+
+Toasts are hidden by default and, like other dialogs, they are attached to the `body` even if they are placed inside another component (portal).
+
+## Notification methods
+
+Another way to display toasts is with the `$ons.notification`, which returns a `Promise`. Unlike the previous version, all the toasts created with this method will be part of a notification queue, being visible only one at a time. The `force` option disables this feature.
+
+```javascript
+$ons.notification.toast('Hello ' + name, { timeout: 2000 }); // Shows from 0s to 2s
+$ons.notification.toast('Good-bye ' + name, { timeout: 1000 }); // Shows from 2s to 3s
+```
+
+-->

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          state: 'initial',
+          items: [1, 2, 3]
+        };
+      },
+      methods: {
+        loadItem(done) {
+          setTimeout(() => {
+            this.items = [...this.items, this.items.length + 1];
+            done();
+          }, 400);
+        }
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Pull Hook</div>
+      </v-ons-toolbar>
+
+      <v-ons-pull-hook
+        :action="loadItem"
+        @changestate="state = $event.state"
+      >
+        <span v-show="state === 'initial'"> Pull to refresh </span>
+        <span v-show="state === 'preaction'"> Release </span>
+        <span v-show="state === 'action'"> Loading... </span>
+      </v-ons-pull-hook>
+
+      <v-ons-list>
+        <v-ons-list-item v-for="item in items">
+          {{item}}
+        </v-ons-list-item>
+      </v-ons-list>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Pull to refresh
+
+The `VOnsPullHook` component is used to add a *pull to refresh* functionality to a page. It can let the user refresh a page or load the latest data.
+
+The `VOnsPullHook` component has three different states: `initial`, `preaction` and `action`. It starts in the `initial` state. When it's pulled down below its height it will transition into the `preaction` state. If it's released in `initial` state it will just bounce back. If it's released in the `preaction` state,  it will go into `action` state.
+
+Every time the state changes the, a `changestate` event is fired.
+
+Through the `action` prop it is possible to provide a handler that runs when the component reaches "action" state. This handler gets a `done` function as a parameter that must be called when the action is finished, thus returning to the `initial` state.
+
+-->

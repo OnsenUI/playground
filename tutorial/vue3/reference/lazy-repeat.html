@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          renderItem:
+            i => ({
+              template: `
+                <v-ons-list-item :key="index">
+                  #{{ index }}
+                </v-ons-list-item>
+              `,
+              data() {
+                return {
+                  index: i
+                };
+              }
+            })
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Lazy Repeat</div>
+        <div class="right">
+          <v-ons-toolbar-button @click="$emit('refresh')">
+            Refresh
+        </v-ons-toolbar-button></div>
+      </v-ons-toolbar>
+
+      <v-ons-list>
+        <v-ons-lazy-repeat
+          :render-item="renderItem"
+          :length="1000"
+        >
+        </v-ons-lazy-repeat>
+      </v-ons-list>
+
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Infinite lists
+
+In mobile apps it is often necessary to display very large lists of items. One problem with this is that a large number of DOM elements must be created which can affect performance.
+
+Onsen UI provides an element called `VOnsLazyRepeat` which helps rendering large numbers of items. It will automatically calculate what elements are visible and only render those. When the user scrolls, it will remove items that are outside the screen and add elements that become visible dynamically.
+
+Notice that for a simple "load more items" functionality, it is recommended to use `VOnsPage`'s `infiniteScroll` prop instead.
+
+## Using the component
+
+`VOnsLazyRepeat` must we used inside the container component that will held all the items. Frequently it is used together with `VOnsList`:
+
+```
+<v-ons-list>
+  <v-ons-lazy-repeat ...props></v-ons-lazy-repeat>
+</v-ons-list>
+```
+
+The items will be rendered as siblings of `VOnsLazyRepeat`.
+
+## Defining an infinite list
+
+`VOnsLazyRepeat` needs at least two props: `length` and `renderItem`. The first one is just a number that indicates the maximum amount of items that could be virtually displayed. The second one must be a generator function like the following:
+
+```javascript
+renderItem(index) {
+  return {
+    template: `<v-ons-list-item>...</v-ons-list-item>`;
+    // Set item data using 'index'
+  };
+}
+```
+The requirement is that it must return an object describing a Vue component to be attached in the parent list. The generator function gets the index of the item in the list (absolute index, not the index of the visible list) that can be used to initialize the item's data.
+
+
+## Calculating the height
+
+`VOnsLazyRepeat` can dynamically calculate the height of every item once they are rendered, but in order to know how many items it should render beforehand we must provide a hint. By default, `VOnsLazyRepeat` pre-renders the very first item and takes its height to do the calculations.
+
+However, it is also possible to pass an optional `calculateItemHeight` function prop that gets the element index and returns its approximate height. This can enhance the calculations and allow better scrolling.
+
+```javascript
+calculateItemHeight(index) {
+  return myItems[index].image.height;
+}
+```
+
+-->

@@ -22,9 +22,9 @@ app.services.generateTemplateOutput = function () {
 
       <!-- App -->
       <script type="text/${app.config.codeType}">
-        ${app.config.framework === 'vue' ? 'ons.ready(function() {' : ''}
+        ${['vue', 'vue3'].includes(app.config.framework) ? 'ons.ready(function() {' : ''}
           ${app.editors.js.getValue()}
-        ${app.config.framework === 'vue' ? '});' : ''}
+        ${['vue', 'vue3'].includes(app.config.framework) ? '});' : ''}
       </script>
 
       <!-- Stylesheet -->
@@ -231,6 +231,7 @@ app.services.loadIssue = function(issue) {
         app.config.codeType = 'typescript';
         break;
       case 'vue':
+      case 'vue3':
       case 'react':
         app.config.codeType = 'babel';
         break;
@@ -327,6 +328,12 @@ app.services.getRequiredLibs = function (forceRemote) {
       requiredLibs.vue = {
         'vue': [libs.js.vue],
         'vue-onsenui': [libs.js.vueOnsenui]
+      }
+      break;
+    case 'vue3':
+      requiredLibs.vue3 = {
+        'vue': [libs.js.vue3],
+        'vue-onsenui': [libs.js.vue3Onsenui]
       }
       break;
     case 'angular1':

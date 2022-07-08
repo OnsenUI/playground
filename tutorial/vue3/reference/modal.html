@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          modalVisible: false,
+          timeoutID: 0
+        };
+      },
+      methods: {
+        showModal() {
+          this.modalVisible = true;
+          clearTimeout(this.timeoutID);
+          this.timeoutID = setTimeout(() => this.modalVisible = false, 2000);
+        }
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Modal</div>
+      </v-ons-toolbar>
+
+      <p style="text-align: center">
+        <v-ons-button @click="showModal" >Click me</v-ons-button>
+      </p>
+
+      <v-ons-modal :visible="modalVisible" @click="modalVisible = false">
+        <p style="text-align: center">
+          Loading <v-ons-icon icon="fa-spinner" spin></v-ons-icon>
+          <br><br>
+          Click or wait
+        </p>
+      </v-ons-modal>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Using Modal
+
+`VOnsModal` component covers the entire screen. Underlying components are not subject to any events while the modal component is shown.
+
+This component can be used to block user input while some operation is running or to show some information to the user.
+
+To show or hide a modal the `visible` prop is used. This also works with `v-model:visible`.
+
+-->

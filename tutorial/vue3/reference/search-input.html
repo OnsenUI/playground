@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          query: ''
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+
+<body>
+  <template id="main">
+  <v-ons-page>
+    <v-ons-toolbar>
+      <div class="center">Search input</div>
+    </v-ons-toolbar>
+    <p>
+      <v-ons-search-input placeholder="Search something" v-model="query"></v-ons-search-input>
+    </p>
+    <p>Query: {{ query }}</p>
+  </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+
+</html>
+
+<!-- info
+
+## Search input
+
+Search input elements are created using the `VOnsSearchInput` component. It works almost exactly the same as a normal `<input type="search">` tag.
+
+An attribute `input-id` is provided to set the ID of the inner native element. This is useful for `HTMLLabel` elements: `<label for="some-inner-input">`.
+
+## Using v-model
+
+Search input are compatible with `v-model` directive. The only exception are modifiers. There is, however, a workaround for `lazy` modifier:
+
+```html
+<v-ons-input v-model="something" model-event="change"></v-ons-input>
+```
+
+This will use `change` event instead of `input` when updating `v-model`.
+-->
