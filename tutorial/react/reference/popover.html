@@ -71,7 +71,8 @@
     }
 
     ons.ready(function() {
-      ReactDOM.render(<MyPage />, document.getElementById('app'));
+      const root = ReactDOM.createRoot(document.getElementById('app'));
+      root.render(<MyPage />);
     });
   </script>
 </head>
