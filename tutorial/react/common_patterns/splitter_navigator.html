@@ -230,6 +230,7 @@
           isOpen: false
         };
         this.loadPage = this.loadPage.bind(this);
+        this.navigator = React.createRef();
       }
 
       hide() {
@@ -269,7 +270,7 @@
               </Ons.Page>
             </Ons.SplitterSide>
             <Ons.SplitterContent>
-              <Ons.Navigator initialRoute={{ component: Home, props: { key: Home.name } }} renderPage={this.renderPage.bind(this)} ref={(navigator) => { this.navigator = navigator; }} />
+              <Ons.Navigator initialRoute={{ component: Home, props: { key: Home.name } }} renderPage={this.renderPage.bind(this)} ref={this.navigator} />
             </Ons.SplitterContent>
           </Ons.Splitter>
         );
