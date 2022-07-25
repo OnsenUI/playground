@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          vegetables: ['Apples', 'Bananas', 'Oranges'],
+          selectedVegetable: 'Bananas'
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+
+<body>
+  <template id="main">
+  <v-ons-page>
+    <v-ons-toolbar>
+      <div class="center">Radio buttons</div>
+    </v-ons-toolbar>
+
+    <v-ons-list>
+      <v-ons-list-item v-for="(vegetable, $index) in vegetables" :key="vegetable" tappable>
+        <label class="left">
+          <v-ons-radio
+            :input-id="'radio-' + $index"
+            :value="vegetable"
+            v-model=" selectedVegetable"
+          >
+          </v-ons-radio>
+        </label>
+        <label :for="'radio-' + $index" class="center">
+          {{ vegetable }}
+        </label>
+      </v-ons-list-item>
+      <v-ons-list-item>
+        <div class="center">
+          I love {{ selectedVegetable }}!
+        </div>
+      </v-ons-list-item>
+    </v-ons-list>
+  </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+
+</html>
+
+<!-- info
+
+## Radio buttons
+
+Radio button elements are created using the `VOnsRadio` component. It works almost exactly the same as a normal `<input type="radio">` tag.
+
+An attribute `input-id` is provided to set the ID of the inner native element. This is useful for `HTMLLabel` elements: `<label for="some-inner-input">`.
+
+## Using v-model
+
+Every input is compatible with `v-model` directive. Checkboxes can be bound to arrays or booleans normally. The only exception are modifiers. There is, however, a workaround for `lazy` modifier:
+
+```html
+<v-ons-input v-model="something" model-event="change"></v-ons-input>
+```
+
+This will use `change` event instead of `input` when updating `v-model`.
+-->

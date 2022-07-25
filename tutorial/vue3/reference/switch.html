@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          switchOn: true
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Form input</div>
+      </v-ons-toolbar>
+
+      <ons-list>
+        <ons-list-item>
+          <label class="center" for="switch1">
+            Switch ({{ switchOn ? 'on' : 'off' }})
+          </label>
+          <div class="right">
+            <v-ons-switch input-id="switch1"
+              v-model="switchOn"
+            >
+            </v-ons-switch>
+          </div>
+        </ons-list-item>
+
+        <ons-list-item>
+          <label class="center" for="switch2">
+            {{ switchOn ? 'Enabled switch' : 'Disabled switch' }}
+          </label>
+          <div class="right">
+            <v-ons-switch input-id="switch2"
+              :disabled="!switchOn"
+            >
+            </v-ons-switch>
+          </div>
+        </ons-list-item>
+      </ons-list>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Switches
+
+A switch is an UI element that can be used to toggle between two states.
+
+The state of a switch in Onsen UI can be changed both by dragging the knob and by tapping on the switch.
+
+To make the switch enabled by default you can use `:modelProp="true"`, or `v-model` for two-way data binding.
+
+To disable the switch the `disabled` prop is used.
+
+-->

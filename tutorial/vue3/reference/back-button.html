@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const page2 = {
+      key: 'page2',
+      template: '#page2'
+    };
+
+    const page1 = {
+      key: 'page1',
+      template: '#page1',
+      methods: {
+        push() {
+          this.$emit('push-page', page2);
+        }
+      }
+    };
+
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          pageStack: [page1, page2]
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-navigator
+      v-model:page-stack="pageStack"
+      @push-page="pageStack = [...pageStack, $event]"
+    ></v-ons-navigator>
+  </template>
+
+  <template id="page1">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Page 1</div>
+      </v-ons-toolbar>
+      <p style="text-align: center">
+        This is the first page
+        <v-ons-button @click="push">Push Page 2</v-ons-button>
+      </p>
+    </v-ons-page>
+  </template>
+
+  <template id="page2">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="left">
+          <v-ons-back-button>Page 1</v-ons-back-button>
+        </div>
+        <div class="center">Page 2</div>
+      </v-ons-toolbar>
+      <p style="text-align: center">This is the second page</p>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Going back
+
+The `VOnsBackButton` component can be used to display a back button in the navigation bar. By default, this component automatically finds its parent `VOnsNavigator` component and pops a page when pressed. However, this default behavior can be overriden by running `event.preventDefault` in a click handler (or using Vue's `.prevent` shorthand modifier):
+
+```html
+<v-ons-back-button @click.prevent="pageStack = [pageStack[0]]"></v-ons-back-button>
+```
+
+The previous code resets the pageStack to its first page instance instead of popping 1 single page. It assumes `pageStack` variable exists in the current context.
+
+-->
