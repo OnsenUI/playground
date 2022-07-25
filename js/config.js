@@ -49,7 +49,7 @@ app.config.getCdnUrl = function(lib, path, forceRemote, skipNightly) {
 app.config.ownLibs = ['onsenui', 'react-onsenui', 'ngx-onsenui', 'vue-onsenui'];
 app.config.extLibs = ['react', 'angular1', 'angular2', 'vue'];
 app.config.defaultVersions = {
-  react: '17.0.2',
+  react: '18.2.0',
   angular1: '1.5.5',
   angular2: '7.1.0',
   vue: '2.4.1'
