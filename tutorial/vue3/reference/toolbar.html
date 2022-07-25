@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          title: 'My app'
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">{{ title }}</div>
+        <div class="right">
+          <v-ons-toolbar-button icon="ion-ios-menu, material: md-menu"></v-ons-toolbar-button>
+        </div>
+      </v-ons-toolbar>
+
+      <p style="text-align: center">
+        Some content.
+      </p>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Adding a toolbar
+
+Most mobile apps have a toolbar at the top containing a header text and maybe some buttons.
+
+The `VOnsToolbar` component displays a navigation bar on the top of a `VOnsPage` component. It is separated into three sections (left, center and right) in order to let the buttons and title be layouted a beautiful way.
+
+```html
+<v-ons-toolbar>
+  <div class="left">
+    Left part
+  </div>
+  <div class="center">
+    Title here
+  </div>
+  <div class="right">
+    Right part
+  </div>
+</v-ons-toolbar>
+```
+
+-->

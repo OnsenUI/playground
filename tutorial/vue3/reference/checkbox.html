@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          colors: ['Red', 'Green', 'Blue'],
+          checkedColors: ['Green', 'Blue']
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+
+<body>
+  <template id="main">
+  <v-ons-page>
+    <v-ons-toolbar>
+      <div class="center">Checkboxes</div>
+    </v-ons-toolbar>
+
+    <v-ons-list>
+      <v-ons-list-header>
+        Checkboxes - {{checkedColors}}
+      </v-ons-list-header>
+      <v-ons-list-item v-for="(color, $index) in colors" :key="color" tappable>
+        <label class="left">
+          <v-ons-checkbox
+            :input-id="'checkbox-' + $index"
+            :value="color"
+            v-model="checkedColors"
+          >
+          </v-ons-checkbox>
+        </label>
+        <label class="center" :for="'checkbox-' + $index">
+          {{ color }}
+        </label>
+      </v-ons-list-item>
+
+    </v-ons-list>
+  </v-ons-page>
+</template>
+
+  <div id="app"></div>
+
+</body>
+
+</html>
+
+<!-- info
+
+## Checkboxes
+
+Checkboxes are created with the `VOnsCheckbox` component. It works almost exactly the same way as a normal `<input type="checkbox">` tag.
+
+An attribute `input-id` is provided to set the ID of the inner native element. This is useful for `HTMLLabel` elements: `<label for="some-inner-input">`.
+
+## Using v-model
+
+Every input is compatible with `v-model` directive. Checkboxes can be bound to arrays or booleans normally. The only exception are modifiers. There is, however, a workaround for `lazy` modifier:
+
+```html
+<v-ons-input v-model="something" model-event="change"></v-ons-input>
+```
+
+This will use `change` event instead of `input` when updating `v-model`.
+-->

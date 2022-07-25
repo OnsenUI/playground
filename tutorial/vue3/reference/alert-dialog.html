@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          alertDialog1Visible: false,
+          alertDialog2Visible: false
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Alert Dialogs</div>
+      </v-ons-toolbar>
+
+      <v-ons-list>
+        <v-ons-list-header>Notifications</v-ons-list-header>
+        <v-ons-list-item
+          tappable
+          @click="$ons.notification.alert('Hello, world!')"
+          >
+          <div class="center">
+            Alert
+          </div>
+        </v-ons-list-item>
+        <v-ons-list-item
+          tappable
+          @click="$ons.notification.confirm('Are you ready?')"
+          >
+          <div class="center">
+            Confirmation
+          </div>
+        </v-ons-list-item>
+        <v-ons-list-item
+          tappable
+          @click="$ons.notification.prompt('What is your name?')"
+          >
+          <div class="center">
+            Prompt
+          </div>
+        </v-ons-list-item>
+
+        <v-ons-list-header>Components</v-ons-list-header>
+
+        <v-ons-list-item tappable
+          @click="alertDialog1Visible = true"
+        >
+          <div class="center">
+            Alert Dialog (slots)
+          </div>
+        </v-ons-list-item>
+
+        <v-ons-list-item tappable
+          @click="alertDialog2Visible = true"
+        >
+          <div class="center">
+            Alert Dialog (props)
+          </div>
+        </v-ons-list-item>
+
+      </v-ons-list>
+
+      <v-ons-alert-dialog modifier="rowfooter"
+        v-model:visible="alertDialog1Visible"
+        cancelable
+      >
+        <span v-slot:title>Title slots</span>
+        Lorem ipsum
+        <template v-slot:footer>
+          <v-ons-alert-dialog-button @click="alertDialog1Visible = false">Cancel</v-ons-alert-dialog-button>
+          <v-ons-alert-dialog-button @click="alertDialog1Visible = false">Ok</v-ons-alert-dialog-button>
+        </template>
+      </v-ons-alert-dialog>
+
+      <v-ons-alert-dialog modifier="rowfooter"
+        :title="'Title props'"
+        :footer="{
+          Cancel: () => alertDialog2Visible = false,
+          Ok: () => alertDialog2Visible = false
+        }"
+        v-model:visible="alertDialog2Visible"
+      >
+        Lorem ipsum
+      </v-ons-alert-dialog>
+
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Alert dialogs
+
+Alert dialogs are defined using `<v-ons-alert-dialog>` and `<v-ons-alert-dialog-button>` tags.
+Alert dialogs work exactly like normal dialogs but they require some additional markup. With this element you can create a beautifully styled dialog without any additional CSS.
+
+To show or hide the dialog the `visible` prop is used. An `update:visible` event is fired when the user interacts with the component (taps the background mask). Use this event to refresh the value of `visible` prop. `v-model:visible` can also be used.
+
+## Custom alerts
+
+`VOnsAlertDialog` allows to create custom alerts with optional inputs, methods or anything else. We can pass all the information with props:
+
+```html
+<v-ons-alert-dialog modifier="rowfooter"
+  :title="myTitle"
+  :footer="{
+    Cancel: () => isVisible = false,
+    Ok: () => isVisible = false
+  }"
+  v-model:visible="isVisible"
+>
+
+  Content here
+</v-ons-alert-dialog>
+```
+
+For higher control, it is also possible to use slots (can be combined with props):
+
+```html
+<v-ons-alert-dialog modifier="rowfooter"
+  v-model:visible="isVisible"
+>
+  <span v-slot:title>Title</span>
+
+  Content here
+
+  <template v-slot:footer>
+    <v-ons-alert-dialog-button @click="isVisible = false">Cancel</v-ons-alert-dialog-button>
+    <v-ons-alert-dialog-button @click="isVisible = false">Ok</v-ons-alert-dialog-button>
+  </template>
+</v-ons-alert-dialog>
+```
+
+The optional `rowfooter` modifier forces the buttons to be displayed on a single row rather than a column.
+
+## Notification methods
+
+The `$ons.notification` object contains some useful methods to easily show alerts, confirmation dialogs and prompts:
+
+```javascript
+$ons.notification.alert(message, options);
+$ons.notification.confirm(message, options);
+$ons.notification.prompt(message, options);
+```
+
+They all return a `Promise` object that can be used to handle the input from the user.
+
+```javascript
+$ons.notification.confirm('Are you ready?')
+  .then((response) => {
+    // Handle response.
+  });
+```
+
+-->

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main'
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Buttons</div>
+      </v-ons-toolbar>
+
+      <section style="margin: 16px">
+        <v-ons-button style="margin: 6px 0">Normal</v-ons-button>
+        <v-ons-button modifier="quiet" style="margin: 6px 0">Quiet</v-ons-button>
+        <v-ons-button modifier="outline" style="margin: 6px 0">Outline</v-ons-button>
+        <v-ons-button modifier="cta" style="margin: 6px 0">Call to action</v-ons-button>
+        <v-ons-button modifier="large" style="margin: 6px 0">Large</v-ons-button>
+      </section>
+
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Buttons
+
+Buttons are created using the `VOnsButton` component.
+
+```
+<v-ons-button>Tap me</v-ons-button>
+```
+
+The button will automatically select the style based on the platform. On Android it will be a Material Design button with a ripple effect.
+
+## Adding actions
+
+A button is no good if it doesn't do anything. To bind an action to a button the `@click` event is used.
+
+```
+<Button @click="handleClick($event)">Tap me</Button>
+```
+
+## Modifiers
+
+The appearance of the button can be changed with the `modifier` prop.
+
+Available props are: `quiet`, `outline`, `cta` and `large`.
+-->

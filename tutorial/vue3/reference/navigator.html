@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const page2 = {
+      key: 'page2',
+      template: '#page2'
+    };
+
+    const page1 = {
+      key: 'page1',
+      template: '#page1',
+      methods: {
+        push() {
+          this.$emit('push-page', page2);
+        }
+      }
+    };
+
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          pageStack: [page1]
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-navigator swipeable
+      v-model:page-stack="pageStack"
+      @push-page="pageStack = [...pageStack, $event]"
+    ></v-ons-navigator>
+  </template>
+
+  <template id="page1">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Page 1</div>
+      </v-ons-toolbar>
+      <p style="text-align: center">
+        This is the first page
+        <v-ons-button @click="push">Push Page 2</v-ons-button>
+      </p>
+    </v-ons-page>
+  </template>
+
+  <template id="page2">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="left">
+          <v-ons-back-button>Page 1</v-ons-back-button>
+        </div>
+        <div class="center">Page 2</div>
+      </v-ons-toolbar>
+      <p style="text-align: center">This is the second page</p>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Stack navigation
+
+The `VOnsNavigator` is a component that provides stack based navigation. It is a very common navigation pattern in mobile apps. After pushing a page to the top of the stack, it will be displayed using transition animation. When the user goes back to the previous page the top page will be popped from the top of the stack and hidden with a corresponding transition animation.
+
+An array of `VOnsPage` components must be passed as a prop to `VOnsNavigator`.
+
+```html
+<v-ons-navigator v-model:page-stack="[p1, p2, p3]"></v-ons-navigator>
+```
+
+Whenever the page stack is modified, `VOnsNavigator` will perform the corresponding transition. Pushing or popping multiple pages at once is allowed, although only 1 animation will be performed.
+
+Any action will throw corresponding `prepush`, `postpush`, `prepop` and `postpop` events.
+
+## Modifying the stack
+
+The page stack can be modified by assigning it a new value (`pageStack = [...pageStack, newPage]`). Array mutation methods, which mutate the prop without assigning it a new value, (`push`, `pop`, `splice`...) are not allowed. Instead assign the pack stack a new value. For example, to pop a page, instead of using `pageStack.pop()`, use `pageStack = pageStack.slice(0, -1)`.
+
+The navigator keeps its own internal view of the page stack, so use `v-model:page-stack` to keep the page stack prop in sync.
+
+In order to push a new page from the current one (sibling pages), pages must have access to the stack array as well. There are many ways to achieve this sort of component communication in Vue. First one, we can define custom actions as event listeners:
+
+```html
+<v-ons-navigator :page-stack="pageStack"
+  @push-page="pageStack = [...pageStack, $event]"
+  @replace-page="pageStack = [...pageStack.slice(0, -1), $event]"
+></v-ons-navigator>
+```
+
+`VOnsNavigator` sets custom listeners (i.e. anything except `@prepush`, `@postpush`, `@prepop` and `@postpop`) directly to its child pages. This way, you can name your events however you like and do any action you want. With the previous example, we can push a new page from any existing page as follows:
+
+```js
+// import newPage from ...
+this.$emit('push-page', newPage);
+```
+
+## Passing data around
+
+Navigator’s pages are sibling elements, which means that communication among them in Vue is fairly challenging. [Pinia](https://pinia.vuejs.org/) is a good solution for this, but not the only one. When you push a new page component and want to add some initial data, you can simply extend it and let Vue merge the new `data` prop with the original one in `newPage` component:
+
+```js
+this.$emit('push-page', {
+  extends: newPage,
+  data() {
+    myCustomDataHere: 42
+  }
+});
+```
+
+Alternatively, we can also pass props to the pages through the `onsNavigatorProps` property:
+
+```js
+this.$emit('push-page', {
+  ...newPage, // Or 'extends: newPage'
+  onsNavigatorProps: {
+    myCustomPropHere: 42,
+    // ...
+  }
+});
+```
+
+Any props passed using `onsNavigatorProps` must be defined using `props` on the extended page, or they will not be available. For example, `newPage` as used above might look like this:
+
+```js
+const newPage = {
+  name: 'newPage',
+  template: `<v-ons-page>{{myCustomPropHere}}</v-ons-page>`,
+  props: {
+    myCustomPropHere: {
+      type: Number,
+      required: true
+    }
+  }
+}
+```
+
+In order to pass data back to the previous page, we can either use Pinia, or simply pass a function that modifies the corresponding context. If page A pushes page B, it can send a function as a prop or data (mentioned above) that modifies page A's context. This way, whenever we want to send anything to page A from page B, the latter just needs to call the function and pass some arguments:
+
+```js
+// Page A
+this.$emit('push-page', {
+  extends: pageB,
+  onsNavigatorProps: {
+    passDataBack(data) {
+      this.dataFromPageB = data;
+    }
+  }
+});
+```
+
+## Customizing the animation
+
+There are several animations available for `VOnsNavigator` component. It can be specified with the `animation` prop. Available animations are `slide`, `lift` and `fade`. Setting the property to `none` will make the transition instantly.
+
+It is also possible to customize the duration, delay and timing function of the animation using the `animationOptions` property.
+
+```html
+<v-ons-navigator
+  animation="fade"
+  :animationOptions="{duration: 0.2, timing: 'ease-in'}"
+>
+</v-ons-navigator>
+```
+
+The same options can be passed through the `onsNavigatorOptions` property when pushing pages in order to modify only specific pages:
+
+```js
+this.$emit('push-page', {
+  extends: newPage,
+  onsNavigatorOptions: {
+    animation: 'lift',
+    animationOptions: { duration: 0.5 }
+  }
+});
+````
+
+For iOS' "swipe to pop" feature, add the `swipeable` prop. Note that this behavior only works with animations that support this feature, such as `slide-ios` (default slide animation on iOS).
+
+## The back button
+
+The `VOnsBackButton` component can be used to display a back button in the navigation bar. By default, this component automatically finds its parent `VOnsNavigator` component and pops a page when pressed. However, this default behavior can be overriden by running `event.preventDefault` in a click handler (or using Vue's `.prevent` shorthand modifier):
+
+```html
+<v-ons-back-button
+  @click.prevent="pageStack = [pageStack[0]]"
+>
+  Back
+</v-ons-back-button>
+```
+
+The previous code resets the pageStack to its first page instead of popping 1 single page. It assumes `pageStack` variable exists in the current context.
+
+-->

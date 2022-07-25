@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          dialogVisible: false,
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Dialogs</div>
+      </v-ons-toolbar>
+
+      <p>
+        <v-ons-button @click="dialogVisible = true">
+          Simple Dialog
+        </v-ons-button>
+      </p>
+
+      <v-ons-dialog
+        cancelable
+        v-model:visible="dialogVisible"
+      >
+        <p style="text-align: center">Lorem ipsum</p>
+      </v-ons-dialog>
+
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Dialogs
+
+Simple dialogs are defined using the `VOnsDialog` component.
+
+To show or hide the dialog the `visible` prop is used.
+
+```html
+<v-ons-dialog
+  cancelable
+  v-model:visible="show"
+>
+  Hi!
+
+  <v-ons-button @click="show = false">
+    Close
+  </v-ons-button>
+</v-ons-dialog>
+```
+
+An `update:visible` event is fired when the user interacts with the component (taps the background mask). Use this event to refresh the value of `visible` prop. Vue's `v-model` directive can also be used.
+
+## Complex dialogs
+
+The `VOnsDialog` element can get as complex as we need. It can contain pages or even navigators:
+
+```
+<v-ons-dialog>
+  <v-ons-page>
+    <v-ons-toolbar>...</v-ons-toolbar>
+
+    ...
+  </v-ons-page>
+</v-ons-dialog>
+```
+
+-->

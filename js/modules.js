@@ -227,6 +227,47 @@ app.modules = {
       'splitter_navigator': 'splitter outside navigator',
       'navigator_tabbar': 'navigator outside tabbar'
     }
+  },
+  'vue3': {
+    'reference': {
+      'page': 'creating a page',
+      'navigator': 'stack navigation',
+      'tabbar': 'using tabs',
+      'splitter': 'side menu (splitter)',
+      'list': 'lists',
+      'lazy-repeat': 'infinite lists',
+      'pull-hook': 'pull to refresh',
+      'carousel': 'carousel',
+      'dialog': 'dialogs',
+      'popover': 'popover',
+      'modal': 'modal',
+      'action-sheet': 'action sheet',
+      'input': 'form input',
+      'switch': 'switches',
+      'button': 'buttons',
+      'range': 'range sliders',
+      'segment': 'segment',
+      'select': 'select input',
+      'icon': 'icons',
+      'card': 'card',
+      'progress': 'progress indicators',
+      'fab': 'floating action button material',
+      'speed-dial': 'speed dial',
+      'ripple': 'ripple effect',
+      'alert-dialog': 'alert dialog',
+      'back-button': 'back button',
+      'checkbox': 'checkbox',
+      'notification': 'notification',
+      'progress-circular': 'progress circular',
+      'radio': 'radio',
+      'search-input': 'search input',
+      'toast': 'toast',
+      'toolbar': 'toolbar'
+    },
+    'common patterns': {
+      'splitter_navigator': 'splitter outside navigator',
+      'navigator_tabbar': 'navigator outside tabbar'
+    }
   }
 };
 

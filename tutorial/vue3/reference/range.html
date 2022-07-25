@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          volume: 25
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">Range</div>
+      </v-ons-toolbar>
+
+      <v-ons-list>
+        <v-ons-list-item>
+          Adjust the volume:
+          <v-ons-row>
+            <v-ons-col width="40px" style="text-align: center; line-height: 31px;">
+              <v-ons-icon icon="md-volume-down"></v-ons-icon>
+            </v-ons-col>
+            <v-ons-col>
+
+              <v-ons-range v-model="volume" style="width: 100%;"></v-ons-range>
+
+            </v-ons-col>
+            <v-ons-col width="40px" style="text-align: center; line-height: 31px;">
+              <v-ons-icon icon="md-volume-up"></v-ons-icon>
+            </v-ons-col>
+          </v-ons-row>
+          Volume: {{ volume }} <span v-show="Number(volume) > 80">&nbsp;(careful, that's loud)</span>
+        </v-ons-list-item>
+      </v-ons-list>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## Range sliders
+
+The `VOnsRange` component is used to display a slider.
+
+There are several props that can be used to customize the behavior of the element. Most of these props come from the original attributes for `<input type="range">` element.
+
+To set the maximum and minimum and maximum value the `min` and `max` props are used. The `step` prop can be used to change how much the value changes every step.
+
+The element can be disabled using the `disabled` prop.
+
+-->

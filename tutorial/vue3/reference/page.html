@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onsen UI App</title>
+
+  <script type="text/babel">
+    const app = Vue.createApp({
+      template: '#main',
+      data() {
+        return {
+          title: 'My app'
+        };
+      }
+    });
+
+    app.use(VueOnsen);
+    app.mount('#app');
+  </script>
+</head>
+<body>
+  <template id="main">
+    <v-ons-page>
+      <v-ons-toolbar>
+        <div class="center">{{ title }}</div>
+        <div class="right">
+          <v-ons-toolbar-button>
+            <v-ons-icon icon="ion-ios-menu, material: md-menu"></v-ons-icon>
+          </v-ons-toolbar-button>
+        </div>
+      </v-ons-toolbar>
+
+      <p style="text-align: center">
+        <v-ons-button @click="$ons.notification.alert('Hello World!')">
+          Click me!
+        </v-ons-button>
+      </p>
+    </v-ons-page>
+  </template>
+
+  <div id="app"></div>
+</body>
+</html>
+
+<!-- info
+
+## The "VOnsPage" component
+
+The `VOnsPage` component serves as the main view of a screen in an app. It covers the whole screen and is used as a container for the other components. When managing multiple views, all of them must be contained in `VOnsPage` components.
+
+```html
+<v-ons-page>
+  Content goes here
+</v-ons-page>
+```
+
+This component automatically spawns a `background` and a `content` elements. These can also be manually provided for higher customizability:
+
+```html
+<v-ons-page>
+  Toolbar here
+
+  <div class="background"></div>
+
+  <div class="content">
+    Scrollable content here
+  </div>
+
+  Fixed content here
+</v-ons-page>
+```
+
+Since `content` element is transparent by default, we can add custom colors to the `background` element. Notice that, if `content` element is provided, scrollable and fixed content must be manually separated as well.
+
+-->
