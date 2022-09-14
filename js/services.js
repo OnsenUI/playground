@@ -207,16 +207,28 @@ app.services.loadIssue = function(issue) {
 
     // Get framework version
     m = matchRegExp('Framework', content, regexSection);
+    let vueVersion;
     if (m && m.length === 2) {
-      app.config.versions[m[0]] = m[1];
+      if (m[0] === 'vue') {
+        vueVersion = m[1];
+        if (vueVersion.startsWith('2')) {
+          app.config.versions.vue.legacy = vueVersion;
+        } else {
+          app.config.versions.vue.latest = vueVersion;
+        }
+      } else {
+        app.config.versions[m[0]] = m[1];
+      }
     }
 
     // Get bindings name + version and framework name
     m = matchRegExp('Framework binding', content, regexSection);
     if (m && m.length === 2) {
       app.config.versions[m[0]] = m[1];
-      var currentFramework = m[0].split('-')[0].toLowerCase();
-      if (app.config.extLibs.indexOf(currentFramework) >= 0) {
+      const currentFramework = m[0].split('-')[0].toLowerCase();
+      if (currentFramework === 'vue' && vueVersion.startsWith(3)) {
+        app.config.framework = 'vue3';
+      } else if (app.config.extLibs.indexOf(currentFramework) >= 0) {
         app.config.framework = currentFramework;
       }
     }
@@ -382,14 +394,22 @@ app.services.reportIssue = function () {
 
   var libs = ['onsenui'];
   if (app.config.framework !== 'vanilla') {
-    libs.push(app.config.framework + '-onsenui');
+    if (app.config.framework === 'vue3') {
+      libs.push('vue-onsenui');
+    } else {
+      libs.push(app.config.framework + '-onsenui');
+    }
   }
 
   var promises = [];
 
   libs.forEach(function(lib) {
     if (!app.config.versions[lib] || app.config.versions[lib] === 'latest') {
-      promises.push(app.services.getLatestVersionOf(lib));
+      if (lib === 'vue-onsenui' && app.config.framework === 'vue') {
+        promises.push('legacy');
+      } else {
+        promises.push(app.services.getLatestVersionOf(lib));
+      }
     } else {
       promises.push(new Promise(function(resolve) {
         resolve(app.config.versions[lib]);
@@ -434,12 +454,23 @@ app.services.generateIssueTemplate = function () {
   var frameworkInfo = '';
   var frameworkBindingsInfo = '';
   if (app.config.framework && app.config.framework !== 'vanilla') {
+    let framework, frameworkVersion;
+    if (app.config.framework === 'vue3') {
+      framework = 'vue';
+      frameworkVersion = app.config.versions[framework].latest;
+    } else if (app.config.framework === 'vue') {
+      framework = 'vue';
+      frameworkVersion = app.config.versions[framework].legacy;
+    } else {
+      framework = app.config.framework;
+      frameworkVersion = app.config.versions[framework || ''];
+    }
     frameworkInfo = `
 [Framework]
-  ${app.config.framework} ${app.config.versions[app.config.framework || '']}
+  ${framework} ${frameworkVersion}
 `;
 
-    var frameworkLib = app.config.framework + '-onsenui';
+    var frameworkLib = framework + '-onsenui';
     frameworkBindingsInfo = `
 [Framework binding]
  ${frameworkLib} ${app.config.versions[frameworkLib]}
