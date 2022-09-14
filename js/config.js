@@ -40,7 +40,12 @@ app.config.getCdnUrl = function(lib, path, forceRemote, skipNightly, tag) {
     return `${app.config.cdn}${lib}${!app.config.versions.onsenui || app.config.nightly ? '' : ('@' + app.config.versions.onsenui)}/${path}`;
   }
 
-  const version = app.config.versions[lib] || tag;
+  let version;
+  if (lib === 'vue-onsenui') {
+    version = app.config.versions[lib][tag] || tag;
+  } else {
+    app.config.versions[lib];
+  }
 
   var url = app.config.nightly ? app.config.ci : app.config.cdn;
   url += `${lib}${(version && !app.config.nightly ? ('@' + version) : '')}/${path}`;
@@ -98,7 +103,7 @@ app.config.lib = function(forceRemote) {
       vueOnsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js', forceRemote, null, 'legacy'),
       // Vue 3
       vue3: `https://cdnjs.cloudflare.com/ajax/libs/vue/${app.config.versions.vue.latest}/vue.global.prod.min.js`,
-      vue3Onsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js', forceRemote),
+      vue3Onsenui: app.config.getCdnUrl('vue-onsenui', 'dist/vue-onsenui.js', forceRemote, null, 'latest'),
       // Angular 2+
       zone: 'https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.8.26/zone.min.js',
       corejs: 'https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.4/core.min.js',

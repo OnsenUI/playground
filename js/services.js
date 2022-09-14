@@ -224,12 +224,18 @@ app.services.loadIssue = function(issue) {
     // Get bindings name + version and framework name
     m = matchRegExp('Framework binding', content, regexSection);
     if (m && m.length === 2) {
-      app.config.versions[m[0]] = m[1];
       const currentFramework = m[0].split('-')[0].toLowerCase();
-      if (currentFramework === 'vue' && vueVersion.startsWith(3)) {
-        app.config.framework = 'vue3';
+      if (currentFramework === 'vue') {
+        if (vueVersion.startsWith('2')) {
+          app.config.framework = 'vue';
+          app.config.versions['vue-onsenui'] = {...app.config.versions['vue-onsenui'], legacy: m[1]};
+        } else {
+          app.config.framework = 'vue3';
+          app.config.versions['vue-onsenui'] = {...app.config.versions['vue-onsenui'], latest: m[1]};
+        }
       } else if (app.config.extLibs.indexOf(currentFramework) >= 0) {
         app.config.framework = currentFramework;
+        app.config.versions[m[0]] = m[1];
       }
     }
 
