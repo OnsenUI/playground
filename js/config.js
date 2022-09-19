@@ -42,7 +42,7 @@ app.config.getCdnUrl = function(lib, path, forceRemote, skipNightly, tag) {
 
   let version;
   if (lib === 'vue-onsenui') {
-    version = app.config.versions[lib][tag] || tag;
+    version = app.config.versions[lib]?.[tag] || tag;
   } else {
     app.config.versions[lib];
   }
