@@ -63,7 +63,7 @@ app.config.defaultVersions = {
   angular1: '1.5.5',
   angular2: '7.1.0',
   vue: {
-    legacy: '2.4.1',
+    legacy: '2.7.1',
     latest: '3.2.37'
   }
 };
