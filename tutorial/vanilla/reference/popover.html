@@ -5,13 +5,13 @@
   <title>Onsen UI App</title>
 
   <script>
-    var showPopover = function(target) {
+    var showOnsPopover = function(target) {
       document
         .getElementById('popover')
         .show(target);
     };
 
-    var hidePopover = function() {
+    var hideOnsPopover = function() {
       document
         .getElementById('popover')
         .hide();
@@ -25,7 +25,7 @@
     </ons-toolbar>
 
     <p style="text-align: center; margin: 50% 0;">
-      <ons-button onclick="showPopover(this)">Click me</ons-button>
+      <ons-button onclick="showOnsPopover(this)">Click me</ons-button>
     </p>
   </ons-page>
 
@@ -35,7 +35,7 @@
         This is a popover
       </p>
       <p>
-        <ons-button onclick="hidePopover()">Close</ons-button>
+        <ons-button onclick="hideOnsPopover()">Close</ons-button>
       </p>
     </div>
   </ons-popover>
